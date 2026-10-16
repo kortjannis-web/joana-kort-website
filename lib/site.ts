@@ -38,6 +38,15 @@ export const ROLE = STUDIUM_ABGESCHLOSSEN
       jobTitle: 'Stressberaterin',
     }
 
+/** Telefonnummer von Joana (Mobil, auch für WhatsApp). Anzeige im deutschen Format, Links international */
+const PHONE = process.env.NEXT_PUBLIC_PHONE || '+49 1578 2327179'
+
+/** "+49 1578 …" oder "01578 …" → "4915782327179" (mit prefix "+" → "+4915782327179") */
+const intl = (n: string, prefix = '') => {
+  const d = n.replace(/\D/g, '').replace(/^00/, '')
+  return d ? prefix + (n.trim().startsWith('+') || n.trim().startsWith('00') ? d : d.replace(/^0/, '49')) : ''
+}
+
 export const site = {
   name: 'Joana Kort Stressberatung',
   owner: 'Joana Kort',
@@ -56,22 +65,17 @@ export const site = {
   radiusKm: 20,
   /** PRÜFEN: E-Mail-Adresse */
   email: process.env.NEXT_PUBLIC_EMAIL || 'kontakt@joana-kort.de',
-  /**
-   * Telefon (Header "Anrufen"). PRÜFEN: Nummer in Coolify eintragen (NEXT_PUBLIC_PHONE, z. B. "0176 12345678").
-   * Solange leer, führt "Anrufen" zum Erstgespräch-Formular (dort kann man einen Rückruf wählen).
-   */
-  phone: process.env.NEXT_PUBLIC_PHONE
-    ? {
-        display: process.env.NEXT_PUBLIC_PHONE,
-        href: `tel:${process.env.NEXT_PUBLIC_PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`,
-      }
-    : null,
+  /** Telefon (Header "Anrufen", Menü, Footer, Impressum, Schema). Überschreibbar per NEXT_PUBLIC_PHONE */
+  phone: {
+    display: PHONE,
+    href: `tel:${intl(PHONE, '+')}`,
+  } as { display: string; href: string } | null,
   /**
    * WhatsApp (Knopf unten rechts, ohne Fremd-Skript: Hinweisfenster, erst der Klick öffnet wa.me).
-   * PRÜFEN: Nummer international ohne + und Leerzeichen (NEXT_PUBLIC_WHATSAPP, z. B. "4917612345678"). Leer = Knopf führt zum Formular.
+   * Standard: dieselbe Mobilnummer wie das Telefon. PRÜFEN: Ist WhatsApp auf dieser Nummer eingerichtet? Abweichend: NEXT_PUBLIC_WHATSAPP.
    */
   whatsapp: {
-    number: (process.env.NEXT_PUBLIC_WHATSAPP || '').replace(/\D/g, ''),
+    number: intl(process.env.NEXT_PUBLIC_WHATSAPP || PHONE),
     greeting: 'Hallo, hier ist Joana. Schreiben Sie mir gern Ihre Frage, ich antworte persönlich, meist noch am selben Tag.',
     prefill: 'Hallo Joana, ich interessiere mich für ein kostenloses Erstgespräch.',
   },

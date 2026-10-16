@@ -17,13 +17,13 @@ const ICONS: Record<string, typeof User> = {
   '/stressmanagement-unternehmen/': Building2,
 }
 
-/** "Anrufen": tel-Link, solange keine Nummer eingetragen ist das Formular (dort Rückruf wählbar) */
+/** "Anrufen": tel-Link (Nummer als Tooltip für Desktop), ohne Nummer das Formular (dort Rückruf wählbar) */
 function CallLink({ className, children, tabIndex, hidden }: { className: string; children: React.ReactNode; tabIndex?: number; hidden?: boolean }) {
   const href = CALL_HREF()
   const label = site.phone ? `Anrufen: ${site.phone.display}` : 'Anrufen: Rückruf vereinbaren'
   if (href.startsWith('tel:'))
     return (
-      <a href={href} aria-label={label} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
+      <a href={href} aria-label={label} title={site.phone?.display} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
         {children}
       </a>
     )

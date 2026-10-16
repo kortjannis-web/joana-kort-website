@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarHeart, Mail, MapPin, MonitorSmartphone } from 'lucide-react'
+import { CalendarHeart, Mail, MapPin, MonitorSmartphone, Phone } from 'lucide-react'
 import { Logo } from './Logo'
 import { FooterCta } from './FooterCta'
 import { InstagramIcon, LinkedInIcon } from '@/components/ui/icons'
@@ -73,7 +73,8 @@ export function Footer() {
             </li>
             {site.phone && (
               <li>
-                <a href={site.phone.href} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-caramel-300">
+                <a href={site.phone.href} className="inline-flex min-h-9 items-center gap-2 whitespace-nowrap text-white transition-colors duration-500 hover:text-caramel-300">
+                  <Phone className="h-4 w-4 shrink-0 text-caramel-300" strokeWidth={1.75} aria-hidden="true" />
                   {site.phone.display}
                 </a>
               </li>

@@ -21,8 +21,8 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 
 ## Wird automatisch besser, sobald vorhanden
 - [ ] **Vorstellungsvideo** (direkt unter dem Hero auf der Startseite): MP4 (H.264, 1 bis 2 Minuten, 1080p), Vorschaubild und am besten Untertitel (VTT) nach `public/video/` legen und in `lib/images.ts` bei `VIDEO` eintragen. Selbst gehostet, also ohne YouTube und ohne Einwilligungsabfrage. Bis dahin steht ein ruhiger Platzhalter ("Video folgt in Kürze").
-- [ ] **Telefonnummer** für den Knopf "Anrufen" oben im Header: `NEXT_PUBLIC_PHONE`. Bis dahin führt "Anrufen" zum Erstgespräch-Fragebogen.
-- [ ] **WhatsApp-Nummer** für den Knopf unten rechts: `NEXT_PUBLIC_WHATSAPP` (international, ohne +, z. B. 491701234567). Bis dahin führt der Knopf im Fenster zum Erstgespräch. Kein Fremd-Skript: der Knopf öffnet nur wa.me.
+- [x] **Telefonnummer** +49 1578 2327179 eingetragen (`lib/site.ts`): "Anrufen" im Header, Menü, Footer, Erstgespräch-Seite, Impressum, Schema.
+- [ ] **WhatsApp**: Der Knopf unten rechts nutzt dieselbe Mobilnummer. Bitte bestätigen, dass WhatsApp (am besten WhatsApp Business) auf dieser Nummer eingerichtet ist, sonst abweichende Nummer in `NEXT_PUBLIC_WHATSAPP`. Kein Fremd-Skript: der Knopf öffnet nur wa.me. Datenschutzerklärung hat einen WhatsApp-Abschnitt.
 - [ ] **Stress verstehen** (`/stress-verstehen/`, Inhalte in `lib/content/wissen.ts`): sechs Themen mit Erklär-Animationen sind angelegt und fachlich zu prüfen. Weitere Themen (Platzhalter "Demnächst": Stress und Schlaf, Mental Load in der Familie, Stress im Beruf) sobald Joana Inhalte liefert. Neue Themen am besten in Dreiergruppen, Animation aus den sechs vorhandenen wählen.
 - [ ] **Fotos von Joana** (Porträt + Arbeitssituation): in `lib/images.ts` bei `PORTRAIT` eintragen, dann erscheinen sie im Bogen auf Startseite und "Über mich". Bis dahin steht dort ein Monogramm (bewusst kein Stockfoto).
 - [ ] **Google-Unternehmensprofil** anlegen (Kategorie z. B. "Lebensberater" oder "Gesundheitsberater", Servicegebiet statt Adresse möglich). Links in Coolify eintragen.

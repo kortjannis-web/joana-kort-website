@@ -65,7 +65,10 @@ export default function DatenschutzContent() {
         meinem Auftrag und nach meinen Weisungen auf Grundlage eines Vertrags zur Auftragsverarbeitung (Art. 28 DSGVO).
       </p>
       <h3>Keine Übermittlung in Drittländer</h3>
-      <p>Eine Übermittlung Ihrer Daten in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums findet nicht statt.</p>
+      <p>
+        Durch diese Website findet keine Übermittlung Ihrer Daten in Länder außerhalb der Europäischen Union oder des Europäischen
+        Wirtschaftsraums statt. Eine Ausnahme kann nur entstehen, wenn Sie mich über WhatsApp kontaktieren (siehe Abschnitt 4).
+      </p>
 
       <h2>3. Hosting und Bereitstellung der Website</h2>
       {/* PRÜFEN: Hoster bestätigen (gleiche Infrastruktur wie bei TOPsichtbar-Kunden: VPS bei Hostinger, Verwaltung über Coolify?), Serverstandort in der EU, AV-Vertrag abgelegt. */}
@@ -84,11 +87,35 @@ export default function DatenschutzContent() {
       <h3>Verschlüsselung</h3>
       <p>Die Übertragung erfolgt verschlüsselt (TLS). Sie erkennen das am Schloss-Symbol und an „https://“ in der Adresszeile.</p>
 
-      <h2>4. Kontakt per E-Mail</h2>
+      <h2>4. Kontakt per E-Mail, Telefon oder WhatsApp</h2>
+      <h3>E-Mail und Telefon</h3>
       <p>
-        Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben, um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bzw.
-        lit. f DSGVO bei allgemeinen Anfragen). Die Daten lösche ich, sobald die Anfrage erledigt ist und keine Aufbewahrungspflichten
-        bestehen.
+        Wenn Sie mir eine E-Mail schreiben oder mich anrufen, verarbeite ich Ihre Angaben (zum Beispiel Name, Telefonnummer, E-Mail-Adresse
+        und Ihr Anliegen), um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bzw. lit. f DSGVO bei allgemeinen Anfragen). Die
+        Daten lösche ich, sobald die Anfrage erledigt ist und keine Aufbewahrungspflichten bestehen.
+      </p>
+      <h3>WhatsApp</h3>
+      {/* PRÜFEN: WhatsApp Business App auf einem eigenen Gerät bzw. ohne Zugriff auf private Kontakte nutzen, Speicherdauer der Chats festlegen. */}
+      <p>
+        Sie können mich über WhatsApp kontaktieren. Der WhatsApp-Knopf auf dieser Website ist ein einfacher Link: Es werden keine Skripte
+        von WhatsApp oder Meta geladen, und beim bloßen Aufruf der Seiten werden keine Daten an WhatsApp übertragen. Erst wenn Sie im
+        Hinweisfenster auf „Chat starten“ klicken, öffnet sich WhatsApp.
+      </p>
+      <p>
+        Anbieter in der Europäischen Union ist die WhatsApp Ireland Limited, ein Unternehmen der Meta-Gruppe. Ab diesem Zeitpunkt verarbeitet
+        WhatsApp Ihre Daten, zum Beispiel Ihre Telefonnummer, Ihren Profilnamen und Metadaten der Kommunikation, in eigener Verantwortung
+        nach den{' '}
+        <a href="https://www.whatsapp.com/legal/privacy-policy-eea" {...ext}>
+          Datenschutzbestimmungen von WhatsApp
+        </a>
+        . Dabei können Daten an Unternehmen der Meta-Gruppe in den USA übermittelt werden, die unter dem EU-US Data Privacy Framework
+        zertifiziert sind (Angemessenheitsbeschluss nach Art. 45 DSGVO). Die Inhalte der Nachrichten sind nach Angaben von WhatsApp
+        Ende-zu-Ende-verschlüsselt.
+      </p>
+      <p>
+        Wenn Sie mir per WhatsApp schreiben, verarbeite ich Ihre Telefonnummer, Ihren Profilnamen und den Inhalt Ihrer Nachricht, um Ihr
+        Anliegen zu beantworten (Art. 6 Abs. 1 lit. b DSGVO bei Anfragen zu meinen Angeboten, im Übrigen lit. f DSGVO). Die Nutzung ist
+        freiwillig. Bitte schicken Sie mir über WhatsApp keine Gesundheitsdaten. Sie erreichen mich jederzeit auch per Telefon oder E-Mail.
       </p>
 
       <h2>5. Formulare auf dieser Website</h2>

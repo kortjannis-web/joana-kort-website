@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, MapPin, MonitorSmartphone } from 'lucide-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { JsonLd } from '@/components/ui/JsonLd'
@@ -28,6 +28,10 @@ const ABLAUF = [
 ]
 
 const FAQS = [FAQ_ABLAUF[0], FAQ_ABLAUF[3], FAQ_FORMAT[4]]
+
+/** Kontaktwege: Handy/Tablet drei Spalten, ab Desktop (schmale Spalte) als Zeilen */
+const ITEM = 'flex flex-col gap-2 xl:flex-row xl:items-center xl:gap-4 xl:border-b xl:border-line xl:py-3.5'
+const LABEL = 'flex items-center gap-2.5 text-caramel-700 xl:w-48 xl:shrink-0'
 
 export default function ErstgespraechPage() {
   return (
@@ -73,9 +77,21 @@ export default function ErstgespraechPage() {
                 </ol>
               </Reveal>
 
-              <Reveal delay={0.08} className="grid gap-5 sm:grid-cols-3">
-                <div className="flex flex-col gap-2">
-                  <p className="flex items-center gap-2.5 text-caramel-700">
+              {/* Drei weitere Wege: anrufen, schreiben, wo (3er-Gruppe) */}
+              <Reveal delay={0.08} className="grid gap-5 sm:grid-cols-3 xl:grid-cols-1 xl:gap-0">
+                {site.phone && (
+                  <div className={ITEM}>
+                    <p className={LABEL}>
+                      <Phone className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
+                      <span className="t-label text-[0.75rem]">Lieber anrufen?</span>
+                    </p>
+                    <a href={site.phone.href} className="link whitespace-nowrap text-[1.0625rem] font-semibold">
+                      {site.phone.display}
+                    </a>
+                  </div>
+                )}
+                <div className={ITEM}>
+                  <p className={LABEL}>
                     <Mail className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
                     <span className="t-label text-[0.75rem]">Lieber schreiben?</span>
                   </p>
@@ -83,25 +99,17 @@ export default function ErstgespraechPage() {
                     {site.email}
                   </a>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <p className="flex items-center gap-2.5 text-caramel-700">
+                <div className={ITEM}>
+                  <p className={LABEL}>
                     <MapPin className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
-                    <span className="t-label text-[0.75rem]">Vor Ort</span>
+                    <span className="t-label text-[0.75rem]">Wo wir sprechen</span>
                   </p>
-                  <p className="text-[1.0625rem] text-ink">
-                    <Link href="/stressberatung-gummersbach/" className="link">
-                      {site.address.city} und Umgebung
+                  <p className="flex flex-col gap-1 text-[1.0625rem] text-ink">
+                    <Link href="/stressberatung-gummersbach/" className="link self-start">
+                      Vor Ort in {site.address.city}
                     </Link>
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="flex items-center gap-2.5 text-caramel-700">
-                    <MonitorSmartphone className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
-                    <span className="t-label text-[0.75rem]">Online</span>
-                  </p>
-                  <p className="text-[1.0625rem] text-ink">
-                    <Link href="/stressberatung-online/" className="link">
-                      Deutschlandweit per Video
+                    <Link href="/stressberatung-online/" className="link self-start">
+                      Online per Video
                     </Link>
                   </p>
                 </div>

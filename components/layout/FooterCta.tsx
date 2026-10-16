@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { ArrowRight, Check, Mail } from 'lucide-react'
+import { ArrowRight, Check, Mail, Phone } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { LogoDraw } from '@/components/ui/LogoDraw'
 import { ERSTGESPRAECH, site } from '@/lib/site'
@@ -61,7 +61,22 @@ export function FooterCta() {
             {cta.label}
             <ArrowRight className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 ease-[var(--ease-lift)] group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
           </ButtonLink>
-          <a href={`mailto:${site.email}`} className="glow-hover group inline-flex items-center gap-3 text-[0.9375rem] text-espresso-200">
+          {site.phone && (
+            <a href={site.phone.href} className="glow-hover group inline-flex items-center gap-3 text-[0.9375rem] text-espresso-200">
+              <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
+                <span className="glow-icon">
+                  <Phone className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 group-hover:-rotate-6" strokeWidth={1.75} aria-hidden="true" />
+                </span>
+              </span>
+              <span>
+                Lieber anrufen?{' '}
+                <span className="whitespace-nowrap font-semibold text-white underline decoration-caramel-300/60 underline-offset-4 transition-colors duration-500 group-hover:text-caramel-300">
+                  {site.phone.display}
+                </span>
+              </span>
+            </a>
+          )}
+          <a href={`mailto:${site.email}`} className="glow-hover group -mt-2 inline-flex items-center gap-3 text-[0.9375rem] text-espresso-200">
             <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
               <span className="glow-icon">
                 <Mail className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 group-hover:-rotate-6" strokeWidth={1.75} aria-hidden="true" />
