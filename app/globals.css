@@ -1,0 +1,984 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Designsystem Joana Kort Stressberatung
+   Farben aus Joanas eigenen Materialien (Stresstagebuch, Tagesplaner):
+   Papier #FBF8F3 · Espresso #2A211B (Marke, dunkle Flächen, Text) · Karamell #8F6A44 (Akzent)
+   Beige #F5EDE3 (Flächen) · Greige #E9E3DA (Kontrastflächen) · Terrakotta #A9572B (nur CTA) · Apricot #E8A877 (Akzent auf Dunkel)
+   Breakpoints: mobil < 768 (Basis) · md 768 bis 1199 (Tablet) · xl ab 1200 (Desktop)
+   ------------------------------------------------------------------ */
+
+/* Niedrige Handys (z. B. iPhone SE mit Safari-Leisten, ca. 375 × 550): Hero etwas kompakter */
+@custom-variant short (@media (width < 48rem) and (height < 37.5rem));
+/* Desktop mit niedrigem Fenster (Laptop) */
+@custom-variant lowdesk (@media (width >= 75rem) and (height < 48rem));
+
+@theme {
+  --breakpoint-xl: 75rem;
+
+  --font-sans: var(--font-dmsans), ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  /* Playfair Display wie in Joanas Materialien: Überschriften, Zitate, Zahlen. Kursiv in Karamell bzw. Apricot als Markenzeichen */
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --color-espresso-950: #17110d;
+  --color-espresso-900: #211812;
+  --color-espresso-800: #2a211b;
+  --color-espresso-700: #3a2e26;
+  --color-espresso-600: #54453a;
+  --color-espresso-400: #8c7c6e;
+  --color-espresso-300: #b7a898;
+  --color-espresso-200: #d8ccbf;
+  --color-espresso-100: #ece4da;
+  --color-espresso-50: #f6f1ea;
+
+  --color-caramel-800: #6b4c2e;
+  --color-caramel-700: #7a5836;
+  --color-caramel-600: #8f6a44;
+  --color-caramel-500: #a57d55;
+  --color-caramel-400: #c09a70;
+  --color-caramel-300: #d6b892;
+  --color-caramel-200: #e6d3b8;
+  --color-caramel-100: #f1e6d6;
+  --color-caramel-50: #f8f1e7;
+
+  /* Terrakotta: nur Haupt-CTA (weiße Schrift, AA 5.1:1) und kleine Akzente. Apricot (300) als Akzent auf Espresso */
+  --color-cta: #a9572b;
+  --color-cta-hover: #b8652f;
+  --color-terra-700: #8e4722;
+  --color-terra-600: #a9572b;
+  --color-terra-500: #b8652f;
+  --color-terra-400: #d98a55;
+  --color-terra-300: #e8a877;
+  --color-terra-200: #f2cbaa;
+  --color-terra-100: #f8e3d2;
+  --color-terra-50: #fcf2ea;
+
+  --color-ink: #2a211b;
+  --color-muted: #6a5d53;
+  --color-line: #e6ddd1;
+  --color-paper: #fbf8f3;
+  --color-stone: #f5ede3;
+  --color-greige: #e9e3da;
+  --color-greige-deep: #ddd5ca;
+  --color-error: #a63d2a;
+  --color-ok: #4d6b48;
+
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-lift: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Radien: md = Kacheln, Felder, Bilder im Rahmen · lg = Karten, Rahmen, Formular · xl = große Karten */
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+}
+
+@layer base {
+  :root {
+    /* Seitenrand Header/Hero ab Desktop */
+    --wrap-wide-x: clamp(2.5rem, 4.6vw, 6.5rem);
+    /* Wie weit das Sheet in den Hero ragt (sichtbarer heller Rand unten im Hero) */
+    --sheet-overlap: 1.5rem;
+    /* Desktop-Hero: Oberkante von Text und Erstgespräch-Karte */
+    --hero-top: max(6.25rem, calc(50svh - 15rem));
+    /* Startseiten-Intro: ab hier kommen Text, Karte, Header (sobald die Linie im Logo gezeichnet ist).
+       Nach der ersten internen Navigation 0 (data-navigated aus RouteScroll) */
+    --intro-base: 1.9s;
+  }
+  html[data-navigated] {
+    --intro-base: 0s;
+  }
+  @media (width >= 48rem) {
+    :root {
+      --sheet-overlap: 2rem;
+    }
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  /* Große Bildschirme: alles wächst proportional mit (16px bei 1440, bis max. 24px) */
+  @media (width >= 90rem) {
+    html {
+      font-size: clamp(100%, 0.625vw + 0.4375rem, 150%);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* Dunkler Grund hinter der Seite (z. B. beim Überscrollen am Seitenende) */
+  body {
+    background: var(--color-espresso-950);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-terra-100);
+    color: var(--color-espresso-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-terra-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+/* Container: Innenabstand und Maximalbreite, Section trägt das vertikale Padding */
+@utility wrap {
+  width: 100%;
+  max-width: 77.5rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 75rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Breiter Container für Header und Hero: Logo und Hero-Text sitzen am Rand */
+@utility wrap-wide {
+  width: 100%;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 75rem) {
+    padding-inline: var(--wrap-wide-x);
+  }
+}
+
+/* Typografische Skala */
+@utility t-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 1.55rem + 4.4vw, 5.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+/* Hero-Titel: wächst mit der Breite, aber nie über das hinaus, was die Höhe hergibt (svh) */
+@utility t-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.3rem, min(1.4rem + 3.6vw, 0.9rem + 8.4svh), 5.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+}
+@utility t-h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.15rem, 1.45rem + 2.5vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  @media (width >= 75rem) {
+    hyphens: manual;
+  }
+}
+@utility t-h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.85rem, 1.35rem + 1.85vw, 2.85rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  hyphens: manual;
+  overflow-wrap: break-word;
+}
+@utility t-h3 {
+  font-family: var(--font-serif);
+  font-weight: 450;
+  font-size: clamp(1.3rem, 1.17rem + 0.55vw, 1.62rem);
+  line-height: 1.22;
+  letter-spacing: -0.008em;
+}
+@utility t-lead {
+  font-size: clamp(1.075rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+}
+/* Wie die kleinen Versal-Labels in Joanas Materialien ("STRESSTAGEBUCH · VIER WOCHEN") */
+@utility t-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Rahmen um Karten und Bilder (Radius per rounded-*-Klasse). Hover: milder Karamell-Schimmer */
+@utility frame {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--color-caramel-500) 55%, transparent);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      0 0 0 1px rgb(214 184 146 / 0.6),
+      0 0 22px 0 rgb(232 168 119 / 0.18);
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-soft);
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+  &:focus-within::after {
+    opacity: 1;
+  }
+}
+@utility frame-soft {
+  position: relative;
+  border: 1px solid #ddd3c6;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow:
+      0 0 0 1px rgb(214 184 146 / 0.65),
+      0 0 22px 0 rgb(232 168 119 / 0.18);
+    opacity: 0;
+    transition: opacity 0.6s var(--ease-soft);
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+  &:focus-within::after {
+    opacity: 1;
+  }
+}
+/* Weicher Schatten nach unten: Karten und Papiere "schweben" leicht über der Fläche */
+@utility floaty {
+  box-shadow:
+    0 1px 2px rgb(30 22 17 / 0.04),
+    0 16px 30px -18px rgb(30 22 17 / 0.28),
+    0 36px 60px -40px rgb(30 22 17 / 0.26);
+}
+@utility floaty-lg {
+  box-shadow:
+    0 2px 4px rgb(30 22 17 / 0.06),
+    0 24px 44px -20px rgb(30 22 17 / 0.4),
+    0 50px 80px -44px rgb(30 22 17 / 0.34);
+}
+
+/* Haupt-CTA (Terrakotta): flach. Hover: etwas heller, hebt sich an, warmer Schatten. Klick: sinkt zurück */
+@utility btn-cta {
+  background-color: var(--color-cta);
+  color: #fff;
+  box-shadow: 0 0 0 0 rgb(20 14 10 / 0);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-3px);
+      background-color: var(--color-cta-hover);
+      box-shadow:
+        0 3px 6px -3px rgb(20 14 10 / 0.3),
+        0 14px 22px -12px rgb(142 71 34 / 0.55);
+    }
+  }
+  &:active {
+    transform: translateY(0);
+    background-color: var(--color-cta);
+    box-shadow: 0 2px 4px -2px rgb(20 14 10 / 0.3);
+  }
+}
+
+/* Fließtext-Links */
+@utility link {
+  color: var(--color-espresso-800);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-caramel-500) 60%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 0.2s var(--ease-soft), color 0.2s var(--ease-soft);
+  &:hover {
+    color: var(--color-terra-700);
+    text-decoration-color: var(--color-terra-500);
+  }
+}
+
+/* Lesetexte (Ratgeber, Rechtliches) */
+@utility prose-jk {
+  color: var(--color-ink);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  @media (width >= 48rem) {
+    font-size: 1.125rem;
+  }
+  & > * + * {
+    margin-top: 1.1em;
+  }
+  & h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 1.3rem + 0.7vw, 1.875rem);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    color: var(--color-espresso-900);
+    margin-top: 2em;
+  }
+  & h3 {
+    font-weight: 650;
+    font-size: 1em;
+    line-height: 1.4;
+    color: var(--color-espresso-900);
+    margin-top: 1.6em;
+  }
+  & h2 + *,
+  & h3 + * {
+    margin-top: 0.6em;
+  }
+  & a {
+    color: var(--color-espresso-800);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-caramel-500) 60%, transparent);
+    text-underline-offset: 0.22em;
+    overflow-wrap: anywhere;
+  }
+  & a:hover {
+    color: var(--color-terra-700);
+  }
+  & ul,
+  & ol {
+    padding-left: 1.3em;
+  }
+  & ul {
+    list-style: disc;
+  }
+  & ol {
+    list-style: decimal;
+  }
+  & li + li {
+    margin-top: 0.45em;
+  }
+  & li::marker {
+    color: var(--color-caramel-500);
+  }
+  & strong {
+    font-weight: 650;
+    color: var(--color-espresso-900);
+  }
+  & address {
+    font-style: normal;
+  }
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375em;
+  }
+  & th,
+  & td {
+    text-align: left;
+    padding: 0.7em 0.9em 0.7em 0;
+    border-bottom: 1px solid var(--color-line);
+    vertical-align: top;
+  }
+  & th {
+    font-weight: 650;
+    color: var(--color-espresso-900);
+  }
+}
+
+/* Dezente Körnung für dunkle Flächen (wie Papier), verhindert "flache" Farbflächen */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+/* Papier-Körnung für helle Flächen (sehr zart, dunkle Punkte) */
+@utility paper-grain {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Hero-Titel der Unterseiten: zwischen t-h1 und t-hero, durch die Höhe begrenzt (svh) */
+@utility t-hero-sub {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(min(2.5rem, 1rem + 4.1svh), min(1.5rem + 2.8vw, 1rem + 5.8svh), 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  @media (width >= 75rem) {
+    hyphens: manual;
+  }
+}
+
+/* Sheet: Fläche mit runden oberen Ecken, schiebt sich über den Hero bzw. als Footer über die Seite */
+@utility sheet {
+  position: relative;
+  z-index: 10;
+  margin-top: calc(var(--sheet-overlap) * -1);
+  border-radius: 1.75rem 1.75rem 0 0;
+  box-shadow: 0 -18px 36px -16px rgb(20 14 10 / 0.55);
+  overflow: clip;
+  @media (width >= 48rem) {
+    border-radius: 2.5rem 2.5rem 0 0;
+    box-shadow: 0 -22px 44px -18px rgb(20 14 10 / 0.55);
+  }
+}
+
+/* Leuchtendes Symbol: warmer Apricot-Hof, das Symbol selbst wird fast weiß-orange.
+   Aktiv über data-active="true" an einem Vorfahren (Loop, Karussell) oder Hover (.glow-hover). */
+.glow-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  isolation: isolate;
+}
+.glow-icon::before {
+  content: '';
+  position: absolute;
+  inset: -35%;
+  z-index: -1;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(232 150 95 / 0.5) 0%, rgb(217 138 85 / 0.26) 40%, rgb(217 138 85 / 0) 70%);
+  filter: blur(6px);
+  opacity: 0;
+  transform: scale(0.55);
+  transition:
+    opacity 0.6s var(--ease-soft) var(--glow-delay, 0s),
+    transform 0.6s var(--ease-soft) var(--glow-delay, 0s);
+}
+.glow-icon > svg {
+  transition:
+    color 0.5s var(--ease-soft) var(--glow-delay, 0s),
+    filter 0.5s var(--ease-soft) var(--glow-delay, 0s);
+}
+[data-active='true'] .glow-icon::before {
+  opacity: 1;
+  transform: scale(1);
+}
+[data-active='true'] .glow-icon > svg {
+  color: #fff3e8;
+  filter: drop-shadow(0 0 3px rgb(240 160 100 / 0.45));
+}
+[data-active='true'] [data-active='false'] .glow-icon::before {
+  opacity: 0;
+  transform: scale(0.55);
+}
+[data-active='true'] [data-active='false'] .glow-icon > svg {
+  color: inherit;
+  filter: none;
+}
+@media (hover: hover) {
+  .glow-hover:hover .glow-icon::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .glow-hover:hover .glow-icon > svg {
+    color: #fff3e8;
+    filter: drop-shadow(0 0 3px rgb(240 160 100 / 0.45));
+  }
+}
+
+/* Anheben (3D): Kachel geht ein paar Pixel hoch und wirft einen Schatten. Loop über data-active, Hover ebenso */
+.lift-tile {
+  transition:
+    transform 0.55s var(--ease-lift),
+    box-shadow 0.55s var(--ease-soft),
+    color 0.55s var(--ease-soft),
+    background-color 0.55s var(--ease-soft);
+  box-shadow: 0 0 0 0 rgb(30 22 17 / 0);
+}
+[data-active='true'] .lift-tile {
+  transform: translateY(-5px);
+  box-shadow:
+    0 2px 3px -1px rgb(30 22 17 / 0.12),
+    0 12px 16px -8px rgb(30 22 17 / 0.35);
+  background-color: #fff;
+  color: var(--color-terra-600);
+}
+@media (hover: hover) {
+  .lift-hover:hover .lift-tile {
+    transform: translateY(-5px);
+    box-shadow:
+      0 2px 3px -1px rgb(30 22 17 / 0.12),
+      0 12px 16px -8px rgb(30 22 17 / 0.35);
+    background-color: #fff;
+    color: var(--color-terra-600);
+  }
+}
+[data-active='true'] .lift-tile .glow-icon::before {
+  opacity: 0.7;
+}
+[data-active='true'] .lift-tile .glow-icon > svg {
+  color: #d98a55;
+  filter: drop-shadow(0 0 2px rgb(240 160 100 / 0.35));
+}
+
+/* Ablauf-Kreise (Process): der aktive Kreis hebt sich weich an und färbt sich hell apricot */
+.step-dot {
+  transition:
+    transform 0.9s cubic-bezier(0.45, 0, 0.2, 1),
+    box-shadow 0.9s cubic-bezier(0.45, 0, 0.2, 1),
+    background-color 0.9s var(--ease-soft),
+    border-color 0.9s var(--ease-soft),
+    color 0.9s var(--ease-soft);
+  box-shadow:
+    0 0 0 0 rgb(30 22 17 / 0),
+    0 0 0 0 rgb(200 120 60 / 0);
+}
+[data-active='true'] .step-dot {
+  transform: translateY(-9px) scale(1.06);
+  background-color: #f8e3d2;
+  border-color: #ebb58c;
+  color: var(--color-terra-700);
+  box-shadow:
+    0 3px 5px -2px rgb(30 22 17 / 0.16),
+    0 18px 24px -10px rgb(150 80 35 / 0.42);
+}
+
+/* Warme Variante (Vertrauensleiste): Kachel wird apricot, hebt sich an, das Symbol wird weiß */
+.lift-warm {
+  transition:
+    transform 0.5s var(--ease-lift),
+    box-shadow 0.5s var(--ease-soft),
+    color 0.4s var(--ease-soft),
+    background-color 0.4s var(--ease-soft);
+  box-shadow: 0 0 0 0 rgb(30 22 17 / 0);
+}
+[data-active='true'] .lift-warm {
+  transform: translateY(-4px);
+  background-color: #e8a877;
+  color: #fff;
+  box-shadow:
+    0 2px 3px -1px rgb(30 22 17 / 0.1),
+    0 12px 18px -8px rgb(200 110 50 / 0.5);
+}
+@media (hover: hover) {
+  .lift-hover:hover .lift-warm {
+    transform: translateY(-4px);
+    background-color: #e8a877;
+    color: #fff;
+    box-shadow:
+      0 2px 3px -1px rgb(30 22 17 / 0.1),
+      0 12px 18px -8px rgb(200 110 50 / 0.5);
+  }
+}
+
+/* Aktive Karte im Loop hebt sich an (Schwerpunkte, Angebote) */
+.loop-card {
+  transition:
+    transform 0.7s var(--ease-lift),
+    box-shadow 0.7s var(--ease-soft),
+    border-color 0.7s var(--ease-soft);
+  box-shadow: 0 1px 2px rgb(30 22 17 / 0.04);
+}
+.loop-dot {
+  transition:
+    transform 0.6s var(--ease-lift),
+    background-color 0.5s var(--ease-soft),
+    color 0.5s var(--ease-soft),
+    box-shadow 0.6s var(--ease-soft);
+}
+[data-active='true'] .loop-card {
+  transform: translateY(-6px);
+  border-color: rgb(232 168 119 / 0.6);
+  box-shadow:
+    0 2px 4px -1px rgb(30 22 17 / 0.08),
+    0 22px 34px -18px rgb(30 22 17 / 0.36);
+}
+[data-active='true'] .loop-dot {
+  background-color: #e8a877;
+  color: #fff;
+  animation: loop-pop 0.7s var(--ease-lift);
+  box-shadow: 0 8px 14px -6px rgb(200 110 50 / 0.55);
+}
+@keyframes loop-pop {
+  40% {
+    transform: scale(1.12);
+  }
+}
+@media (hover: hover) {
+  .lift-hover:hover .loop-card {
+    transform: translateY(-6px);
+    box-shadow:
+      0 2px 4px -1px rgb(30 22 17 / 0.08),
+      0 22px 34px -18px rgb(30 22 17 / 0.36);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-active='true'] .loop-dot {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Linie (Markenzeichen): eine einzige Linie, die sich erst verknotet (Stress) und dann ruhig ausläuft (Umgang damit).
+   Logo, Hero, Footer-CTA, Formular-Bestätigung. pathLength="1" an den Pfaden.
+   ------------------------------------------------------------------ */
+
+/* LogoDraw: zeichnet sich einmal, sobald sichtbar. Ohne data-draw (kein JS, Bewegung reduziert) steht die fertige Linie */
+.logo-draw[data-draw='ready'] .knot-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.logo-draw[data-draw='ready'] .knot-dot {
+  opacity: 0;
+  transform: scale(0);
+}
+.logo-draw[data-draw='on'] .knot-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.45, 0.05, 0.25, 1);
+}
+.logo-draw .knot-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.logo-draw[data-draw='on'] .knot-dot {
+  transition:
+    opacity 0.4s var(--ease-soft) 1.45s,
+    transform 0.6s var(--ease-lift) 1.45s;
+}
+
+/* Hero-Linie: großer Schwung durch den Hero, zeichnet sich beim ersten Laden (reines CSS, auch ohne JS) */
+.hero-line path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Linie zwischen den drei Schwerpunkten (InView: data-view) zeichnet sich beim Hinscrollen */
+.pillar-line[data-view='ready'] path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.pillar-line[data-view='on'] path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.4s cubic-bezier(0.45, 0.05, 0.25, 1) 0.2s;
+}
+.pillar-line[data-view='ready'] .pillar-num {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.pillar-line[data-view='on'] .pillar-num {
+  transition:
+    opacity 0.8s var(--ease-soft) var(--d, 0s),
+    transform 0.9s var(--ease-lift) var(--d, 0s);
+}
+
+/* Intro der Startseite (reines CSS, läuft ohne JS):
+   1. Logo-Linie zeichnet sich, Name wischt herein, 2. Hero-Linie zieht durch das Bild, 3. Text, Karte, Header, Sheet-Kante.
+   fill-mode backwards: nach dem Ende bleibt kein transform stehen. Verzögerung je Element über --d (relativ zu --intro-base) */
+@media (prefers-reduced-motion: no-preference) {
+  .intro-fade {
+    animation: intro-fade 1.6s var(--ease-soft) backwards;
+  }
+  .intro-up {
+    animation: intro-up 0.9s var(--ease-lift) calc(var(--intro-base) + var(--d, 0s)) backwards;
+  }
+  .intro-down {
+    animation: intro-down 0.8s var(--ease-lift) calc(var(--intro-base) + var(--d, 0s)) backwards;
+  }
+  .intro-sheet {
+    animation: intro-sheet 0.9s var(--ease-lift) calc(var(--intro-base) + var(--d, 0s)) backwards;
+  }
+  .hero-line.intro-draw path {
+    animation: line-draw 3.4s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--intro-base) * 0.45) backwards;
+  }
+  .logo-intro .knot-line {
+    stroke-dasharray: 1;
+    animation: line-draw 1.5s cubic-bezier(0.45, 0.05, 0.25, 1) 0.35s backwards;
+  }
+  .logo-intro .knot-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: dot-pop 0.6s var(--ease-lift) 1.7s backwards;
+  }
+  .logo-intro-name {
+    animation: logo-wipe 0.8s var(--ease-soft) 0.15s backwards;
+  }
+  .logo-intro-sub {
+    animation: logo-wipe 0.65s var(--ease-soft) 0.5s backwards;
+  }
+}
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes intro-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+/* Header gleitet von oberhalb herein, OHNE opacity (sonst kein backdrop-blur der Glas-Pillen während der Animation) */
+@keyframes intro-down {
+  from {
+    transform: translateY(calc(-100% - 6rem));
+  }
+}
+@keyframes intro-sheet {
+  from {
+    transform: translateY(calc(var(--sheet-overlap) + 1.5rem));
+  }
+}
+@keyframes line-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dot-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+@keyframes logo-wipe {
+  from {
+    opacity: 0.2;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Notfall: Reveal-Blöcke kommen aus dem Server-HTML unsichtbar (Framer Motion blendet sie ein). Lädt das Skript nicht,
+   nach 3 s ohne Hydrierung trotzdem zeigen. data-hydrated setzt RouteScroll */
+html:not([data-hydrated]) [data-reveal] {
+  animation: reveal-fallback 0.6s ease 3s forwards;
+}
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Materialien (Papier-Stapel): Blätter liegen leicht gedreht übereinander, beim Hover fächern sie sich auf */
+.paper {
+  transition:
+    transform 0.9s var(--ease-lift),
+    box-shadow 0.9s var(--ease-soft);
+  box-shadow:
+    0 1px 2px rgb(30 22 17 / 0.08),
+    0 18px 34px -18px rgb(30 22 17 / 0.42),
+    0 40px 70px -40px rgb(30 22 17 / 0.35);
+}
+@media (hover: hover) {
+  .paper-stack:hover .paper {
+    transform: var(--fan, none);
+  }
+}
+
+/* Formular: Ergebnis gleitet nach dem Absenden weich herein */
+@media (prefers-reduced-motion: no-preference) {
+  .result-in {
+    animation: result-in 0.6s var(--ease-lift) both;
+  }
+}
+@keyframes result-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Schwebender Knopf über dunklen Flächen (Desktop): leichtes helles Leuchten von unten */
+@media (width >= 75rem) {
+  .wa-glow {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.14),
+      0 12px 24px -8px rgb(255 255 255 / 0.4),
+      0 4px 11px -4px rgb(255 255 255 / 0.26);
+  }
+}
+
+/* Details-Akkordeon (Inhalt bleibt im DOM, gut für SEO) */
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-item .faq-body {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .faq-item[open] .faq-body {
+    animation: faq-in 0.32s var(--ease-soft);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sanftes Atmen (Startseite "Lösung": Kreis dehnt sich 4 s aus, 6 s zusammen), nur dekorativ */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.82);
+    opacity: 0.55;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.breathe {
+  animation: breathe 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Startseite "Kennen Sie das?": Brücke zwischen Wissen und Umsetzung zeichnet sich beim Hinscrollen (InView, data-view).
+   Ohne JS/Bewegung reduziert: fertiges Bild */
+.gap-scene[data-view='ready'] .gap-bridge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.gap-scene[data-view='on'] .gap-bridge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.9s cubic-bezier(0.45, 0.05, 0.25, 1) 0.5s;
+}
+.gap-scene[data-view='ready'] :is(.gap-chip, .gap-end-right) {
+  opacity: 0;
+  transform: translateY(8px) scale(0.92);
+}
+.gap-scene[data-view='on'] .gap-chip {
+  transition:
+    opacity 0.6s var(--ease-soft) 2.1s,
+    transform 0.7s var(--ease-lift) 2.1s;
+}
+.gap-scene[data-view='on'] .gap-end-right {
+  transition:
+    opacity 0.6s var(--ease-soft) 2.3s,
+    transform 0.7s var(--ease-lift) 2.3s;
+}
+
+/* Region (Umkreis Gummersbach): Kreis zeichnet sich, Orte ploppen nacheinander auf (--i), Mitte pulsiert einmal */
+.area-map .area-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.area-map[data-view='ready'] .area-ring {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.area-map[data-view='ready'] :is(.area-dot, .area-label) {
+  opacity: 0;
+}
+.area-map[data-view='on'] .area-ring {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.45, 0.05, 0.25, 1) 0.2s;
+}
+.area-map[data-view='on'] .area-dot {
+  animation: dot-pop 0.6s var(--ease-lift) calc(1.2s + var(--i, 0) * 0.12s) backwards;
+}
+.area-map[data-view='on'] .area-label {
+  transition: opacity 0.6s var(--ease-soft) calc(1.35s + var(--i, 0) * 0.12s);
+}
+.area-map[data-view='on'] .area-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: area-pulse 1.8s var(--ease-soft) 0.4s 2 backwards;
+}
+.area-pulse {
+  opacity: 0;
+}
+@keyframes area-pulse {
+  from {
+    opacity: 0.8;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+/* Schwerpunkte: gestrichelte Treppe zwischen den Karten wächst von oben links (InView) */
+.pillar-line[data-view='ready'] .pillar-step {
+  clip-path: inset(0 100% 100% 0);
+}
+.pillar-line[data-view='on'] .pillar-step {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.1s var(--ease-soft) var(--d, 0.6s);
+}

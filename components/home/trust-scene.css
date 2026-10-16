@@ -1,0 +1,39 @@
+/* Motion-Designs der Vertrauensleiste (components/home/TrustScene.tsx), je 3 s (= Takt in TrustBar).
+   Grundzustand ohne Klassenregeln = fertiges Bild (kein JS, "Bewegung reduzieren").
+   Mit JS (data-anim="on" auf der Section): Ruhezustand = leer, data-run startet die Szene, data-leaving blendet sie aus.
+   Verzögerung je Element über --t, Dauer über --dur. */
+
+.tbs .ts-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.tbs :is(.ts-pop, .ts-pin, .ts-hand) { transform-box: fill-box; }
+.tbs .ts-pop { transform-origin: center; }
+.tbs .ts-pin { transform-origin: 50% 100%; }
+.tbs .ts-hand { transform-origin: 50% 100%; transform: rotate(90deg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim='on'] .tbs:not([data-run='true']) .ts-draw { stroke-dashoffset: 1; }
+  [data-anim='on'] .tbs:not([data-run='true']) :is(.ts-pop, .ts-pin, .ts-fill) { opacity: 0; }
+  [data-anim='on'] .tbs:not([data-run='true']) .ts-hand { transform: rotate(0deg); }
+
+  .tbs[data-leaving='true'] { opacity: 0; transition: opacity 0.45s var(--ease-soft); }
+
+  .tbs[data-run='true'] .ts-draw { animation: ts-draw var(--dur, 1s) var(--ease-soft) var(--t, 0s) both; }
+  .tbs[data-run='true'] .ts-pop { animation: ts-pop 0.6s var(--ease-lift) var(--t, 0s) both; }
+  .tbs[data-run='true'] .ts-pin { animation: ts-pin 0.8s var(--ease-lift) var(--t, 0s) both; }
+  .tbs[data-run='true'] .ts-fill { animation: ts-fill 1.2s var(--ease-soft) var(--t, 0s) both; }
+  .tbs[data-run='true'] .ts-hand { animation: ts-hand 1.2s var(--ease-soft) var(--t, 0s) both; }
+}
+
+@keyframes ts-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes ts-pop {
+  0% { opacity: 0; transform: scale(0); }
+  60% { opacity: 1; transform: scale(1.35); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes ts-pin {
+  0% { opacity: 0; transform: translateY(-14px) scale(0.6); }
+  55% { opacity: 1; transform: translateY(0) scale(1.08, 0.92); }
+  80% { transform: translateY(0) scale(0.97, 1.04); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ts-fill { from { opacity: 0; } to { opacity: 0.16; } }
+@keyframes ts-hand { from { transform: rotate(0deg); } to { transform: rotate(90deg); } }

@@ -1,0 +1,44 @@
+import { Plus } from 'lucide-react'
+import { Rich } from '@/components/ui/Rich'
+import { Reveal } from '@/components/ui/Reveal'
+import type { Faq } from '@/lib/types'
+
+/**
+ * FAQ-Akkordeon im Design der Unterseiten (Fragen, Ratgeber): große Zeilen, Plus-Kreis, erste Frage optional offen.
+ * <details>: Antworten stehen immer im HTML (SEO/GEO, FAQPage-Schema), funktioniert ohne JavaScript.
+ * Einträge blenden gestaffelt ein (Reveal).
+ */
+export function FaqAccordion({
+  faqs,
+  headingLevel = 3,
+  openFirst = false,
+}: {
+  faqs: Faq[]
+  headingLevel?: 2 | 3
+  openFirst?: boolean
+}) {
+  const H = headingLevel === 2 ? 'h2' : 'h3'
+  return (
+    <div className="border-t border-line">
+      {faqs.map((f, i) => (
+        <Reveal key={f.q} delay={Math.min(i, 6) * 0.04} y={12}>
+          <details className="faq-item group border-b border-line" open={openFirst && i === 0}>
+            <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-3 md:min-h-[4.75rem] md:py-2">
+              <H className="text-base font-semibold leading-snug text-ink transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-espresso-800 md:text-[1.125rem]">
+                {f.q}
+              </H>
+              <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#ddd3c6] text-espresso-800 transition-[transform,border-color,color] duration-300 ease-[var(--ease-soft)] group-hover:border-terra-400/60 group-hover:text-terra-600">
+                <Plus className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+              </span>
+            </summary>
+            <div className="faq-body">
+              <p className="max-w-[45rem] pb-6 pr-10 text-[0.9375rem] leading-[1.7] text-muted md:pr-12 md:text-base">
+                <Rich text={f.a} />
+              </p>
+            </div>
+          </details>
+        </Reveal>
+      ))}
+    </div>
+  )
+}

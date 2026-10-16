@@ -1,0 +1,41 @@
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { Carousel } from '@/components/ui/Carousel'
+import { Reveal } from '@/components/ui/Reveal'
+import { ANGEBOTE, type AngebotKey } from '@/lib/content/angebote'
+
+/** Querverlinkung: die übrigen Angebote als kompakte Karten (Ende jeder Angebotsseite, Ratgeber). Handy wischbar, ab Tablet Raster */
+export function MoreOffers({ current, title = 'Weitere Angebote' }: { current?: AngebotKey; title?: string }) {
+  const list = ANGEBOTE.filter((a) => a.key !== current)
+  return (
+    <section aria-labelledby="mehr-angebote" className="bg-stone pb-28 pt-14 md:pb-36 md:pt-20 xl:pb-44 xl:pt-24">
+      <div className="wrap">
+        <Reveal className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <h2 id="mehr-angebote" className="t-h2 text-espresso-900">
+            {title}
+          </h2>
+          <Link href="/angebote/" className="link font-semibold">
+            Alle Angebote im Überblick
+          </Link>
+        </Reveal>
+        <Reveal delay={0.08} className="mt-7 md:mt-9">
+          <Carousel label={title} arrowLabel="Angebote" item="74vw" gridFrom="md" gridClass="md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-6">
+            {list.map((a) => (
+              <div key={a.key} className="frame-soft floaty group relative flex h-full flex-col rounded-lg bg-white p-5 xl:p-6">
+                <p className="text-[0.8125rem] font-semibold text-caramel-700">{a.hint}</p>
+                <h3 className="mt-2 font-serif text-[1.3rem] leading-tight text-espresso-900">{a.title}</h3>
+                <Link
+                  href={a.path}
+                  className="mt-auto inline-flex min-h-11 items-center gap-1.5 self-start pt-4 font-semibold text-espresso-800 transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-terra-700"
+                >
+                  Ansehen
+                  <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={1.75} aria-hidden="true" />
+                </Link>
+              </div>
+            ))}
+          </Carousel>
+        </Reveal>
+      </div>
+    </section>
+  )
+}

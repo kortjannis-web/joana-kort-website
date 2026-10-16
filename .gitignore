@@ -1,0 +1,14 @@
+node_modules
+.next/
+out/
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Umgebungsvariablen: niemals committen
+.env
+.env*.local
+
+# Leads mit personenbezogenen Daten: niemals committen
+data/*
+!data/.gitkeep
