@@ -1,4 +1,5 @@
 import { Hero, HeroFunnel } from '@/components/home/Hero'
+import { VideoIntro } from '@/components/home/VideoIntro'
 import { TrustBar } from '@/components/home/TrustBar'
 import { Reviews } from '@/components/home/Reviews'
 import { Situation } from '@/components/home/Situation'
@@ -7,12 +8,13 @@ import { Pillars } from '@/components/home/Pillars'
 import { Offer } from '@/components/home/Offer'
 import { Process } from '@/components/home/Process'
 import { Tools } from '@/components/home/Tools'
+import { WissenTeaser } from '@/components/home/WissenTeaser'
 import { AboutArea } from '@/components/home/AboutArea'
 import { FaqSection } from '@/components/home/FaqSection'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Sheet } from '@/components/ui/Sheet'
 import { StackBack } from '@/components/ui/Stack'
-import { HOME_FAQS } from '@/lib/content/faqs'
+import { FAQS, HOME_FAQS } from '@/lib/content/faqs'
 import { faqSchema, serviceSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 
@@ -24,9 +26,10 @@ export const metadata = pageMeta({
 })
 
 /**
- * Startseite (Aufbau nach Briefing): Hero mit Erstgespräch, Vertrauen (Bewertungen, sobald vorhanden),
- * der Schmerz, die Antwort, die drei Schwerpunkte, das Angebot, der Ablauf, Prinzipien und Werkzeuge, Über mich und Region, FAQ.
- * Der Hero steht, das Sheet schiebt sich darüber. Schluss-CTA ("Jetzt buchen") steckt im Footer.
+ * Startseite (Funnel): Hero mit Erstgespräch → Video (Vertrauen) → Fragebogen (Handy) → Vertrauensleiste → Bewertungen (sobald vorhanden)
+ * → der Schmerz → die Antwort und die drei Schwerpunkte → drei Wege (Angebot) → Stress verstehen (Wissen) → Ablauf in drei Schritten
+ * → Prinzipien und Werkzeuge → Über mich und Region → 8 Fragen (mehr auf /haeufige-fragen/). Etwa alle drei Elemente ein CTA zum Erstgespräch.
+ * Der Hero steht, das Sheet schiebt sich darüber. Schluss-CTA steckt im Footer.
  */
 export default function Home() {
   return (
@@ -44,6 +47,7 @@ export default function Home() {
       />
       <Hero />
       <Sheet className="intro-sheet overflow-visible! [--d:0.765s] xl:[--d:1.215s]">
+        <VideoIntro />
         <HeroFunnel />
         <TrustBar />
         <Reviews />
@@ -57,10 +61,11 @@ export default function Home() {
           <Pillars sheet />
         </div>
         <Offer />
+        <WissenTeaser />
         <Process />
         <Tools />
         <AboutArea />
-        <FaqSection faqs={HOME_FAQS} />
+        <FaqSection faqs={HOME_FAQS} title="Die wichtigsten Fragen zu Stressberatung und Stresscoaching" moreLabel={`Alle ${FAQS.length} Fragen und Antworten`} />
       </Sheet>
     </>
   )

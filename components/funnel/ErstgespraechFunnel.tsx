@@ -228,7 +228,7 @@ export function ErstgespraechFunnel({
         {STEPS.map((st, i) => (
           <span key={st} className={cn('h-1 flex-1 overflow-hidden rounded-full', hero ? 'bg-white/15' : 'bg-line')}>
             <span
-              className={cn('block h-full origin-left rounded-full transition-transform duration-500 ease-[var(--ease-soft)]', hero ? 'bg-terra-300' : 'bg-terra-500')}
+              className={cn('block h-full origin-left rounded-full transition-transform duration-500 ease-[var(--ease-soft)]', hero ? 'bg-caramel-300' : 'bg-caramel-600')}
               style={{ transform: `scaleX(${i < position ? 1 : 0})` }}
             />
           </span>
@@ -256,7 +256,7 @@ export function ErstgespraechFunnel({
       <span
         aria-hidden="true"
         className={cn(
-          'pointer-events-none absolute -inset-px rounded-[inherit] shadow-[0_0_0_2px_var(--color-terra-300),0_0_40px_4px_rgb(232_168_119/0.55)] transition-opacity duration-500',
+          'pointer-events-none absolute -inset-px rounded-[inherit] shadow-[0_0_0_2px_var(--color-caramel-300),0_0_40px_4px_rgb(214_184_146/0.55)] transition-opacity duration-500',
           called ? 'opacity-100' : 'opacity-0'
         )}
       />
@@ -421,7 +421,7 @@ export function ErstgespraechFunnel({
 function Done({ s, headingRef, level }: { s: State; headingRef: React.RefObject<HTMLHeadingElement | null>; level: 2 | 3 }) {
   return (
     <div>
-      <LogoDraw play className="h-12 text-terra-500 sm:h-14" />
+      <LogoDraw play className="h-12 text-caramel-600 sm:h-14" />
       <p className="t-label mt-4 text-caramel-700">Anfrage erhalten</p>
       <Heading headingRef={headingRef} level={level}>
         Danke, {s.vorname.trim() || 'schön'}! Ich freue mich auf unser Gespräch.
@@ -439,7 +439,7 @@ function Done({ s, headingRef, level }: { s: State; headingRef: React.RefObject<
             <>Danach entscheiden Sie in Ruhe, ob und wie wir zusammenarbeiten. Unverbindlich.</>,
           ].map((t, i) => (
             <li key={i} className="flex gap-3">
-              <Check className="mt-1 h-4 w-4 shrink-0 text-terra-500" strokeWidth={2.5} aria-hidden="true" />
+              <Check className="mt-1 h-4 w-4 shrink-0 text-caramel-600" strokeWidth={2.5} aria-hidden="true" />
               <span>{t}</span>
             </li>
           ))}
@@ -513,7 +513,7 @@ function Tile({ selected, onClick, title, text, icon, size = 'md' }: { selected:
         <span
           className={cn(
             'grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors duration-300',
-            selected ? 'bg-espresso-800 text-white' : 'bg-stone text-espresso-700 group-hover:bg-terra-50 group-hover:text-terra-600'
+            selected ? 'bg-espresso-800 text-white' : 'bg-stone text-espresso-700 group-hover:bg-caramel-50 group-hover:text-caramel-700'
           )}
         >
           {icon}
@@ -537,7 +537,7 @@ function Chips({ name, options, value, onToggle, multi }: { name: string; option
           <label
             key={o}
             className={cn(
-              'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 text-[0.9375rem] transition-colors duration-300 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-terra-500',
+              'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 text-[0.9375rem] transition-colors duration-300 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-caramel-600',
               on ? 'border-espresso-800 bg-stone font-semibold text-espresso-900' : 'border-line bg-white text-ink hover:border-espresso-800/50'
             )}
           >

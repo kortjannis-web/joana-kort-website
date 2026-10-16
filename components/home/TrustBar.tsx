@@ -10,10 +10,9 @@ import { TrustScene, type TrustSceneId } from './TrustScene'
 type Item = { title: string; text: string; scene: TrustSceneId }
 
 const items: Item[] = [
-  { title: 'Gesundheitspsychologie', text: 'Fachlich fundiert, verständlich erklärt', scene: 'studium' },
+  { title: 'Fachlich fundiert', text: 'Gesundheitspsychologie, verständlich übersetzt', scene: 'studium' },
   { title: 'Individuell statt Schema F', text: 'Methoden, die zu Ihrem Alltag passen', scene: 'individuell' },
   { title: 'Online und vor Ort', text: `Per Video oder rund um ${site.address.city}`, scene: 'ort' },
-  { title: `${site.erstgespraechMin} Minuten kostenlos`, text: 'Unverbindliches Erstgespräch zum Kennenlernen', scene: 'zeit' },
 ]
 
 function Card({ title, text, scene, run, leaving }: Item & { run?: boolean; leaving?: boolean }) {
@@ -54,8 +53,8 @@ export function TrustBar() {
   const desk = useRun(anim && inView, active)
   const mob = useRun(anim && inView, mActive)
   return (
-    <section ref={section} data-inview={inView} data-anim={anim ? 'on' : undefined} aria-label="Was Sie bei mir erwartet" className="pb-16 pt-[4.5rem] md:pb-16 md:pt-20 xl:pb-20 xl:pt-16">
-      <Reveal className="wrap xl:max-w-[91rem]">
+    <section ref={section} data-inview={inView} data-anim={anim ? 'on' : undefined} aria-label="Was Sie bei mir erwartet" className="pb-14 pt-10 md:pb-16 md:pt-12 xl:pb-20 xl:pt-8">
+      <Reveal className="wrap">
         <div className="xl:hidden">
           <Carousel
             label="Was Sie bei mir erwartet"
@@ -72,7 +71,7 @@ export function TrustBar() {
             ))}
           </Carousel>
         </div>
-        <ul ref={ref} className="hidden grid-cols-4 gap-6 xl:grid">
+        <ul ref={ref} className="hidden grid-cols-3 gap-6 xl:grid">
           {items.map((it, i) => (
             <li key={it.title} {...bind(i)}>
               <Card {...it} {...desk(i)} />

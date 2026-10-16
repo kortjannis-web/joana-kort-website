@@ -53,7 +53,7 @@ export function WartelisteForm({ angebot, label, className }: { angebot: 'webina
 
   return (
     <form onSubmit={submit} noValidate className={cn('floaty relative rounded-lg border border-line bg-white p-6 md:p-8', className)}>
-      <p className="flex items-center gap-2.5 text-terra-600">
+      <p className="flex items-center gap-2.5 text-caramel-700">
         <BellRing className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
         <span className="t-label text-[0.75rem]">Warteliste</span>
       </p>

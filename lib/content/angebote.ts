@@ -155,40 +155,34 @@ export const PROGRAMME = [
   },
 ] as const
 
-/** Bestandteile beider Programme */
+/** Bestandteile beider Programme: drei Gruppen à drei (leicht zu merken) */
 export const BESTANDTEILE = [
-  'Individuelle Stressanalyse',
-  'Ihre persönliche Stresslandkarte',
-  'Ein Begleitungsplan, abgestimmt auf Sie',
-  'Wissenschaftlich fundierte Inhalte, verständlich erklärt',
-  'Materialien und Handouts, z. B. Stresstagebuch',
-  'Konkrete Übungen zwischen den Sitzungen',
-  'Individuell ausgewählte Methoden zur Stressbewältigung',
-  'Pläne für Ihren Alltag (z. B. Wochen-, Haushalts- oder Essensplan)',
-  'Unterstützung bei der Umsetzung',
-  'Strategien für einen langfristig gesunden Umgang mit Stress',
+  {
+    title: 'Analyse',
+    items: ['Individuelle Stressanalyse', 'Ihre persönliche Stresslandkarte', 'Ein Begleitungsplan, abgestimmt auf Sie'],
+  },
+  {
+    title: 'Wissen und Methoden',
+    items: ['Wissenschaftlich fundierte Inhalte, verständlich erklärt', 'Individuell ausgewählte Methoden zur Stressbewältigung', 'Konkrete Übungen zwischen den Sitzungen'],
+  },
+  {
+    title: 'Alltag',
+    items: ['Materialien und Handouts, z. B. Stresstagebuch', 'Pläne für Ihren Alltag (z. B. Wochen-, Haushalts- oder Essensplan)', 'Unterstützung bei der Umsetzung, bis es trägt'],
+  },
 ]
 
-/** Ablauf der Begleitung (Startseite, Stresscoaching) */
+/** Ablauf der Begleitung (Startseite, Stresscoaching): bewusst drei Schritte, leicht zu merken */
 export const ABLAUF = [
   {
     title: 'Kostenloses Erstgespräch',
-    text: '15 Minuten am Telefon oder per Video. Wir lernen uns kennen, Sie stellen Ihre Fragen, und wir schauen, welches Angebot zu Ihnen passt.',
+    text: '15 Minuten am Telefon oder per Video. Vorab ein kurzer Fragebogen (zwei Minuten), damit ich vorbereitet bin. Sie stellen Ihre Fragen, wir schauen, was passt.',
   },
   {
-    title: 'Stressanalyse und Stresslandkarte',
-    text: 'Wo entsteht Ihr Stress, wie reagieren Sie darauf, was hilft schon? Daraus entsteht Ihre persönliche Stresslandkarte.',
+    title: 'Ihr persönlicher Plan',
+    text: 'Stressanalyse und Stresslandkarte: Wo entsteht Ihr Stress, was hilft schon? Daraus entsteht Ihr Begleitungsplan mit Zielen, Methoden und Materialien.',
   },
   {
-    title: 'Ihr Begleitungsplan',
-    text: 'Ziele, Methoden und Materialien, abgestimmt auf Ihr Leben. Kein Schema F, sondern ein Plan, der in Ihren Alltag passt.',
-  },
-  {
-    title: 'Umsetzen, Schritt für Schritt',
-    text: 'In festen Sitzungen gehen wir die drei Schwerpunkte durch. Zwischen den Terminen probieren Sie kleine, machbare Schritte aus.',
-  },
-  {
-    title: 'Dranbleiben und verankern',
-    text: 'Zum Abschluss schauen wir zurück und halten fest, was Sie entlastet. So haben Sie einen Plan, der auch nach der Begleitung trägt.',
+    title: 'Umsetzen und verankern',
+    text: 'In festen Sitzungen gehen wir Schritt für Schritt vor: verstehen, bewältigen, managen. Bis Ihr Alltag Sie spürbar entlastet und es auch danach trägt.',
   },
 ]

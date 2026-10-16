@@ -15,9 +15,9 @@ export function GapScene() {
             <p className="mt-2 font-serif text-[1.125rem] leading-snug text-espresso-900 md:text-[1.375rem]">„Ich weiß, dass ich etwas ändern müsste.“</p>
           </div>
           <div className="gap-end-right max-w-[11rem] text-right md:max-w-[14rem]">
-            <p className="t-label text-[0.6875rem] text-terra-600 md:text-[0.75rem]">Umsetzung</p>
+            <p className="t-label text-[0.6875rem] text-caramel-700 md:text-[0.75rem]">Umsetzung</p>
             <p className="mt-2 font-serif text-[1.125rem] leading-snug text-espresso-900 md:text-[1.375rem]">
-              „Es <em className="italic text-terra-600">klappt</em> in meinem Alltag.“
+              „Es <em className="italic text-caramel-700">klappt</em> in meinem Alltag.“
             </p>
           </div>
         </div>
@@ -28,9 +28,9 @@ export function GapScene() {
             <path d="M24 110 H220" stroke="#c09a70" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round" />
             <path d="M380 110 H576" stroke="#c09a70" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round" />
             <circle cx="24" cy="110" r="7" fill="#2a211b" />
-            <circle cx="576" cy="110" r="7" fill="#a9572b" />
+            <circle cx="576" cy="110" r="7" fill="#8f6a44" />
             {/* Brücke: zieht sich in einem ruhigen Bogen über die Lücke */}
-            <path className="gap-bridge" pathLength={1} d="M24 110 C 150 110 190 28 300 28 C 410 28 450 110 576 110" stroke="#a9572b" strokeWidth="3" strokeLinecap="round" />
+            <path className="gap-bridge" pathLength={1} d="M24 110 C 150 110 190 28 300 28 C 410 28 450 110 576 110" stroke="#8f6a44" strokeWidth="3" strokeLinecap="round" />
           </svg>
           <p className="absolute left-1/2 top-[54%] -translate-x-1/2 text-center text-[0.8125rem] italic text-muted md:text-[0.9375rem]">die Lücke</p>
           <span className="gap-chip absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[85%] whitespace-nowrap rounded-full bg-espresso-800 px-4 py-2 text-[0.8125rem] font-semibold text-white shadow-[0_10px_20px_-10px_rgba(30,22,17,0.6)] md:text-[0.875rem]">

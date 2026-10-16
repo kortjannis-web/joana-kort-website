@@ -1,16 +1,14 @@
 'use client'
 
-import { Compass, Gauge, HeartHandshake, Route, Users } from 'lucide-react'
+import { Compass, HeartHandshake, Route } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 import { useSpotlight } from '@/components/ui/useSpotlight'
 
-/** Joanas fünf Stärken (Briefing), im Loop hebt sich je eine an (lift-tile auf Espresso-Kachel) */
+/** Joanas Stärken (Briefing), als Dreiergruppe zusammengefasst. Im Loop hebt sich je eine an (lift-tile auf Espresso-Kachel) */
 const STAERKEN = [
-  { title: 'Zukunftsorientiert', text: 'Ich schaue mit Ihnen nach vorn: Was soll in drei Monaten anders sein?', Icon: Compass },
-  { title: 'Optimierend', text: 'Ich denke gern darüber nach, wie Dinge einfacher und effizienter werden.', Icon: Gauge },
-  { title: 'Einfühlsam', text: 'Ich kann mich gut in Menschen hineinversetzen und nehme Sie ernst.', Icon: HeartHandshake },
-  { title: 'Strategisch', text: 'Ich entwickle mit Ihnen konkrete Pläne statt allgemeiner Ratschläge.', Icon: Route },
-  { title: 'Verbunden', text: 'Ich begegne Ihnen auf Augenhöhe, persönlich und vertrauensvoll.', Icon: Users },
+  { title: 'Einfühlsam und verbunden', text: 'Ich kann mich gut in Menschen hineinversetzen, begegne Ihnen auf Augenhöhe und nehme Sie ernst.', Icon: HeartHandshake },
+  { title: 'Strategisch und optimierend', text: 'Ich entwickle mit Ihnen konkrete Pläne statt allgemeiner Ratschläge und mache Dinge gern einfacher.', Icon: Route },
+  { title: 'Zukunftsorientiert', text: 'Ich schaue mit Ihnen nach vorn: Was soll in drei Monaten anders sein, und was braucht es dafür?', Icon: Compass },
 ]
 
 export function Staerken() {
@@ -26,11 +24,11 @@ export function Staerken() {
             Menschen verstehen und gemeinsam konkrete Lösungen finden: Das verbinde ich mit Freude.
           </p>
         </Reveal>
-        <ul ref={ref} className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-5 xl:gap-4">
+        <ul ref={ref} className="mt-8 grid gap-3 md:grid-cols-3 md:gap-4 xl:gap-6">
           {STAERKEN.map(({ title, text, Icon }, i) => (
             <Reveal as="li" key={title} delay={i * 0.05}>
-              <div {...bind(i)} className="lift-hover floaty flex h-full flex-col gap-3 rounded-lg border border-line bg-white p-5">
-                <span className="lift-tile grid h-11 w-11 place-items-center rounded-md bg-espresso-800 text-terra-200">
+              <div {...bind(i)} className="lift-hover floaty flex h-full flex-col gap-3 rounded-lg border border-line bg-white p-5 md:p-6">
+                <span className="lift-tile grid h-11 w-11 place-items-center rounded-md bg-espresso-800 text-caramel-200">
                   <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                 </span>
                 <p className="font-serif text-[1.25rem] text-espresso-900">{title}</p>

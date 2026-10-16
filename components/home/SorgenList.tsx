@@ -1,14 +1,12 @@
 'use client'
 
-import { BatteryLow, CircleHelp, ListChecks, Signpost, Waves } from 'lucide-react'
+import { BatteryLow, ListChecks, Waves } from 'lucide-react'
 import { Reveal } from '@/components/ui/Reveal'
 import { useSpotlight } from '@/components/ui/useSpotlight'
 
-/** Fragen aus dem Briefing, in denen sich die Zielgruppe wiedererkennt */
+/** Drei Fragen aus dem Briefing, in denen sich die Zielgruppe wiedererkennt */
 const fragen = [
   { text: 'Haben Sie das Gefühl, dass Ihnen alles über den Kopf wächst?', Icon: Waves },
-  { text: 'Wissen Sie, dass Sie Stress haben, aber nicht, wie Sie etwas daran ändern können?', Icon: CircleHelp },
-  { text: 'Sind Sie überfordert und wissen nicht, wo Sie anfangen sollen?', Icon: Signpost },
   { text: 'Wissen Sie eigentlich, was helfen könnte, und schaffen es trotzdem nicht im Alltag?', Icon: ListChecks },
   { text: 'Fehlen Ihnen Zeit und Energie, sich auch noch um Ihren Stress zu kümmern?', Icon: BatteryLow },
 ]

@@ -92,7 +92,7 @@ export default function AnsatzPage() {
               <Carousel label="Meine Haltung" arrowLabel="Punkte" item="80vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-5 xl:gap-8">
                 {HALTUNG.map((h) => (
                   <div key={h.title} className="floaty flex h-full flex-col rounded-xl border border-line bg-white p-6 md:p-7">
-                    <LogoMark className="h-7 w-auto self-start text-terra-400" strokeWidth={2} />
+                    <LogoMark className="h-7 w-auto self-start text-caramel-500" strokeWidth={2} />
                     <h3 className="mt-4 font-serif text-[1.375rem] leading-tight text-espresso-900">{h.title}</h3>
                     <p className="mt-3 leading-relaxed text-muted">{h.text}</p>
                   </div>
@@ -108,7 +108,7 @@ export default function AnsatzPage() {
           <div className="wrap grid gap-10 xl:grid-cols-12 xl:items-center xl:gap-16">
             <Reveal className="xl:col-span-5">
               <h2 id="managen" className="t-h2 text-white">
-                Stress managen heißt <em className="italic text-terra-300">nicht</em>, noch mehr zu leisten
+                Stress managen heißt <em className="italic text-caramel-300">nicht</em>, noch mehr zu leisten
               </h2>
               <p className="t-lead mt-5 text-espresso-100/90">
                 Bei "Stressmanagement" denken viele sofort an eine weitere To-do-Liste. Mir geht es um das Gegenteil: vorhandene Kräfte sinnvoll
@@ -120,17 +120,17 @@ export default function AnsatzPage() {
                 <div className="rounded-lg border border-white/12 bg-white/[0.04] p-5 md:p-6">
                   <p className="t-label text-espresso-300">Was es nicht ist</p>
                   <ul className="mt-4 space-y-2.5 text-espresso-200">
-                    {['Noch mehr Aufgaben', 'Perfekte Routinen jeden Tag', 'Allgemeine Tipps für alle', 'Durchhalten, bis nichts mehr geht'].map((t) => (
-                      <li key={t} className="line-through decoration-terra-300/60">
+                    {['Noch mehr Aufgaben', 'Allgemeine Tipps für alle', 'Durchhalten, bis nichts mehr geht'].map((t) => (
+                      <li key={t} className="line-through decoration-caramel-300/60">
                         {t}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="rounded-lg border border-terra-300/30 bg-terra-300/[0.08] p-5 md:p-6">
-                  <p className="t-label text-terra-200">Was es ist</p>
+                <div className="rounded-lg border border-caramel-300/30 bg-caramel-300/[0.08] p-5 md:p-6">
+                  <p className="t-label text-caramel-200">Was es ist</p>
                   <ul className="mt-4 space-y-2.5 text-white">
-                    {['Weniger, aber das Richtige', 'Ein Minimum für schwere Tage', 'Pläne, die zu Ihnen passen', 'Früher erkennen, früher handeln'].map((t) => (
+                    {['Weniger, aber das Richtige', 'Pläne, die zu Ihnen passen', 'Früher erkennen, früher handeln'].map((t) => (
                       <li key={t}>{t}</li>
                     ))}
                   </ul>

@@ -1,22 +1,15 @@
 import { cn } from '@/lib/utils'
 
 /**
- * Markenzeichen: eine einzige Linie, die sich erst verknotet (Stress) und dann ruhig ausläuft (Umgang damit), am Ende ein Punkt.
- * Gleiche Linie groß im Hero (HeroLine). pathLength 1, damit die Zeichen-Animation (globals.css) unabhängig von der Länge ist.
+ * Markenlinie: eine einzige Linie, die sich erst verknotet (Stress) und dann ruhig ausläuft (Umgang damit), am Ende ein Punkt.
+ * Nicht im Logo, sondern als Gestaltungselement (Hero-Linie, Footer-CTA, Formular-Bestätigung, Icons).
  */
 export const KNOT_PATH =
   'M3 31 C9 31 12 13 22 12 C31 11 33.5 24 26 25.5 C18.5 27 18.5 9 31 8.5 C43 8 41 27 51 28.5 C57 29.4 63 28.6 70 28.6'
 
 export function LogoMark({ className, title, strokeWidth = 2.2 }: { className?: string; title?: string; strokeWidth?: number }) {
   return (
-    <svg
-      viewBox="0 0 76 40"
-      className={className}
-      role={title ? 'img' : undefined}
-      aria-hidden={title ? undefined : true}
-      aria-label={title}
-      fill="none"
-    >
+    <svg viewBox="0 0 76 40" className={className} role={title ? 'img' : undefined} aria-hidden={title ? undefined : true} aria-label={title} fill="none">
       <path className="knot-line" d={KNOT_PATH} pathLength={1} stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" />
       <circle className="knot-dot" cx="72.6" cy="28.6" r="2.3" fill="currentColor" />
     </svg>
@@ -24,28 +17,27 @@ export function LogoMark({ className, title, strokeWidth = 2.2 }: { className?: 
 }
 
 /**
- * Logo: Linie + "Joana Kort" (Playfair) + "STRESSBERATUNG" (Versalien, gesperrt), angelehnt an Joanas Materialien.
- * `draw`: Intro der Startseite (globals.css): Linie zeichnet sich, Name wischt herein, dann "Stressberatung".
+ * Textlogo: "Joana Kort" in Playfair, darunter eine feine Karamell-Linie und "STRESSBERATUNG" gesperrt (wie die Labels in Joanas Materialien).
+ * `draw`: Intro der Startseite (globals.css): Name wischt herein, die Linie zieht sich, dann "Stressberatung".
+ * `data-logo` markiert das Ende des Logos (Header misst daran, wie weit die Handy-Pille ausfahren darf).
  */
 export function Logo({ tone = 'dark', draw = false, className }: { tone?: 'dark' | 'light'; draw?: boolean; className?: string }) {
   return (
-    <span className={cn('inline-flex items-center gap-2 min-[400px]:gap-2.5', className)}>
-      <span className={cn('shrink-0', draw && 'logo-intro')}>
-        <LogoMark className={cn('block h-7 w-auto min-[400px]:h-8 md:h-9', tone === 'dark' ? 'text-caramel-600' : 'text-terra-300')} />
+    <span data-logo className={cn('inline-flex flex-col leading-none', className)}>
+      <span
+        className={cn(
+          'whitespace-nowrap font-serif text-[1.42rem] font-[450] tracking-[-0.01em] min-[400px]:text-[1.5rem] md:text-[1.65rem]',
+          tone === 'dark' ? 'text-espresso-800' : 'text-white',
+          draw && 'logo-intro-name'
+        )}
+      >
+        Joana Kort
       </span>
-      <span className="flex flex-col leading-none">
+      <span className="mt-[0.4rem] flex items-center gap-2">
+        <span aria-hidden="true" className={cn('logo-rule h-px w-5 origin-left md:w-6', tone === 'dark' ? 'bg-caramel-500' : 'bg-caramel-300', draw && 'logo-intro-rule')} />
         <span
           className={cn(
-            'whitespace-nowrap font-serif text-[1.2rem] font-[450] tracking-[-0.005em] max-[380px]:text-[1.08rem] min-[430px]:text-[1.3rem] md:text-[1.45rem]',
-            tone === 'dark' ? 'text-espresso-800' : 'text-white',
-            draw && 'logo-intro-name'
-          )}
-        >
-          Joana Kort
-        </span>
-        <span
-          className={cn(
-            'mt-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.3em] max-[380px]:tracking-[0.24em] md:text-[0.66rem]',
+            'whitespace-nowrap text-[0.6rem] font-semibold uppercase tracking-[0.34em] md:text-[0.64rem]',
             tone === 'dark' ? 'text-caramel-700' : 'text-caramel-300',
             draw && 'logo-intro-sub'
           )}

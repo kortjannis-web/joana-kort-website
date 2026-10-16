@@ -17,17 +17,17 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
     <div
       className={cn(
         'group relative flex h-full gap-4 rounded-[1rem] border border-white/12 bg-white/[0.06] p-5 transition-[transform,border-color,background-color] duration-700 ease-[var(--ease-soft)]',
-        'group-data-[active=true]/v:scale-[1.03] group-data-[active=true]/v:border-terra-300/45 group-data-[active=true]/v:bg-white/[0.09]',
+        'group-data-[active=true]/v:scale-[1.03] group-data-[active=true]/v:border-caramel-300/45 group-data-[active=true]/v:bg-white/[0.09]',
         row ? 'items-center' : 'flex-col gap-3'
       )}
     >
       <span className="grid h-9 w-9 shrink-0 place-items-center">
         <span className="glow-icon">
-          <Icon className="h-6 w-6 text-terra-300" strokeWidth={1.6} aria-hidden="true" />
+          <Icon className="h-6 w-6 text-caramel-300" strokeWidth={1.6} aria-hidden="true" />
         </span>
       </span>
       <div>
-        <p className="font-semibold text-white transition-colors duration-500 group-data-[active=true]/v:text-terra-200">{title}</p>
+        <p className="font-semibold text-white transition-colors duration-500 group-data-[active=true]/v:text-caramel-200">{title}</p>
         <p className="mt-1 text-[0.875rem] leading-snug text-espresso-200">{text}</p>
       </div>
     </div>

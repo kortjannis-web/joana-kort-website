@@ -13,6 +13,7 @@ export default function OnlineKursPage() {
   return (
     <OfferLayout
       current="kurs"
+      interesse="kurs"
       hero={{
         eyebrow: 'Online-Kurs',
         title: (
@@ -32,10 +33,8 @@ export default function OnlineKursPage() {
       }}
       facts={[
         ['Status', 'In Vorbereitung'],
-        ['Format', 'Online, zum Selbstlernen'],
-        ['Tempo', 'Frei einteilbar'],
+        ['Format', 'Online, im eigenen Tempo'],
         ['Inhalte', 'Wissen, Übungen, Materialien'],
-        ['Start und Preis', 'Folgen'],
       ]}
       themesTitle="Was geplant ist"
       themes={[
@@ -48,16 +47,19 @@ export default function OnlineKursPage() {
       ]}
       stepsTitle="So geht es weiter"
       steps={[
-        { title: 'Warteliste', text: 'Tragen Sie sich ein, gern mit Ihren Wünschen an den Kurs.' },
+        { title: 'Kostenloses Erstgespräch', text: 'Wir klären, ob der Kurs oder eine persönliche Begleitung besser zu Ihnen passt. Ihre Wünsche fließen gern in den Kurs ein.' },
         { title: 'Vorab informiert', text: 'Sie erfahren als Erste, wann der Kurs startet, was er enthält und was er kostet.' },
         { title: 'Loslegen', text: 'Sie entscheiden in Ruhe und starten, wann es für Sie passt.' },
       ]}
       cta={{
-        type: 'warteliste',
+        title: 'Bis der Kurs startet: lassen Sie uns sprechen',
+        text: 'Im kostenlosen Erstgespräch schauen wir, was Ihnen jetzt schon hilft. Vielleicht passt die persönliche Begleitung, vielleicht warten Sie auf den Kurs.',
+      }}
+      warteliste={{
         angebot: 'kurs',
         label: 'Online-Kurs: Bescheid sagen, wenn er startet',
-        title: 'Als Erste vom Kursstart erfahren',
-        text: 'Unverbindlich und jederzeit wieder austragbar. Ihre Wünsche fließen gern in den Kurs mit ein.',
+        title: 'Lieber nur informiert werden? Zur Warteliste',
+        text: 'Unverbindlich und jederzeit wieder austragbar. Ihre Wünsche an den Kurs fließen gern mit ein.',
       }}
       faqs={KURS_FAQS}
     />

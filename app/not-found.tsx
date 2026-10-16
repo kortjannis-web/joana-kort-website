@@ -36,10 +36,10 @@ export default function NotFound() {
                 <li key={w.href}>
                   <Link
                     href={w.href}
-                    className="group flex min-h-14 items-center justify-between gap-3 border-b border-line text-base font-semibold text-ink transition-colors duration-500 ease-[var(--ease-soft)] hover:text-terra-700"
+                    className="group flex min-h-14 items-center justify-between gap-3 border-b border-line text-base font-semibold text-ink transition-colors duration-500 ease-[var(--ease-soft)] hover:text-caramel-800"
                   >
                     {w.label}
-                    <ChevronRight className="h-[1.125rem] w-[1.125rem] shrink-0 text-terra-500 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
+                    <ChevronRight className="h-[1.125rem] w-[1.125rem] shrink-0 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                   </Link>
                 </li>
               ))}

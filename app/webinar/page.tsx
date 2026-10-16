@@ -5,7 +5,7 @@ import { pageMeta } from '@/lib/seo'
 export const metadata = pageMeta({
   title: 'Online-Webinar Stressbewältigung: 4 Wochen live | Joana Kort',
   description:
-    'Vier Wochen Online-Webinar zu Stress: Live-Termine per Video, Übungen und Selbststudium. Stress verstehen, bewältigen, managen. Jetzt auf die Warteliste.',
+    'Vier Wochen Online-Webinar zu Stress: Live-Termine per Video, Übungen und Selbststudium. Stress verstehen, bewältigen, managen. Kostenloses Erstgespräch.',
   path: '/webinar/',
 })
 
@@ -13,8 +13,9 @@ export default function WebinarPage() {
   return (
     <OfferLayout
       current="webinar"
+      interesse="webinar"
       hero={{
-        tone: 'mocha',
+        tone: 'greige',
         eyebrow: 'Online-Webinar',
         title: (
           <>
@@ -32,10 +33,8 @@ export default function WebinarPage() {
         ],
       }}
       facts={[
-        ['Dauer', 'Vier Wochen'],
-        ['Format', 'Live per Video, z. B. Zoom'],
+        ['Dauer', 'Vier Wochen, live per Video'],
         ['Dazwischen', 'Übungen und Selbststudium'],
-        ['Termine', 'Zwei bis drei Durchgänge im Jahr'],
         ['Nächster Start', 'Termine folgen'],
       ]}
       themesTitle="Was Sie in vier Wochen erwartet"
@@ -49,16 +48,19 @@ export default function WebinarPage() {
       ]}
       stepsTitle="So nehmen Sie teil"
       steps={[
-        { title: 'Auf die Warteliste', text: 'Tragen Sie sich ein. Sobald die Termine feststehen, erfahren Sie es als Erste.' },
-        { title: 'Platz sichern', text: 'Sie bekommen alle Details zu Terminen, Ablauf und Kosten und entscheiden in Ruhe.' },
+        { title: 'Kostenloses Erstgespräch', text: 'In 15 Minuten klären wir, ob das Webinar zu Ihnen passt. Danach sind Sie für den nächsten Durchgang vorgemerkt.' },
+        { title: 'Platz sichern', text: 'Sobald die Termine feststehen, bekommen Sie alle Details zu Ablauf und Kosten und entscheiden in Ruhe.' },
         { title: 'Vier Wochen dabei sein', text: 'Live-Termine, Übungen und Materialien. Den Link zur Videositzung erhalten Sie vorab per E-Mail.' },
       ]}
       cta={{
-        type: 'warteliste',
+        title: 'Seien Sie beim nächsten Durchgang dabei',
+        text: 'Die Termine für das nächste Webinar stehen noch nicht fest. Im kostenlosen Erstgespräch klären wir, ob das Webinar zu Ihnen passt, und ich merke Sie vor.',
+      }}
+      warteliste={{
         angebot: 'webinar',
         label: 'Webinar: Bescheid sagen, wenn es losgeht',
-        title: 'Seien Sie beim nächsten Durchgang dabei',
-        text: 'Die Termine für das nächste Webinar stehen noch nicht fest. Tragen Sie sich unverbindlich ein, dann melde ich mich, sobald es losgeht.',
+        title: 'Lieber nur informiert werden? Zur Warteliste',
+        text: 'Tragen Sie sich unverbindlich ein. Ich melde mich, sobald die Termine feststehen. Jederzeit wieder austragbar.',
       }}
       faqs={WEBINAR_FAQS}
     />

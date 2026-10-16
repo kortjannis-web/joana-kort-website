@@ -7,6 +7,7 @@ import { ANGEBOTE } from '@/lib/content/angebote'
 import { ERSTGESPRAECH, ROLE, site } from '@/lib/site'
 
 const wissen = [
+  { label: 'Stress verstehen', href: '/stress-verstehen/' },
   { label: 'Mein Ansatz', href: '/mein-ansatz/' },
   { label: 'Über mich', href: '/joana-kort/' },
   { label: 'Ratgeber', href: '/ratgeber/' },
@@ -51,7 +52,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${site.owner} bei ${label}`}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-espresso-200 transition-colors hover:border-terra-300 hover:text-terra-300"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-espresso-200 transition-colors hover:border-caramel-300 hover:text-caramel-300"
                   >
                     <Icon className="h-4.5 w-4.5" />
                   </a>
@@ -65,28 +66,28 @@ export function Footer() {
           <h2 className="t-label text-caramel-300">Kontakt</h2>
           <ul className="mt-5 text-[0.9375rem]">
             <li>
-              <a href={`mailto:${site.email}`} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-terra-300">
-                <Mail className="h-4 w-4 shrink-0 text-terra-300" strokeWidth={1.75} aria-hidden="true" />
+              <a href={`mailto:${site.email}`} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-caramel-300">
+                <Mail className="h-4 w-4 shrink-0 text-caramel-300" strokeWidth={1.75} aria-hidden="true" />
                 {site.email}
               </a>
             </li>
             {site.phone && (
               <li>
-                <a href={site.phone.href} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-terra-300">
+                <a href={site.phone.href} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-caramel-300">
                   {site.phone.display}
                 </a>
               </li>
             )}
             <li>
-              <Link href={ERSTGESPRAECH} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-terra-300">
-                <CalendarHeart className="h-4 w-4 shrink-0 text-terra-300" strokeWidth={1.75} aria-hidden="true" />
+              <Link href={ERSTGESPRAECH} className="inline-flex min-h-9 items-center gap-2 text-white transition-colors duration-500 hover:text-caramel-300">
+                <CalendarHeart className="h-4 w-4 shrink-0 text-caramel-300" strokeWidth={1.75} aria-hidden="true" />
                 Kostenloses Erstgespräch
               </Link>
             </li>
           </ul>
           <ul className="mt-4 space-y-2 text-[0.9375rem] leading-relaxed">
             <li className="flex gap-2">
-              <MapPin className="mt-1 h-4 w-4 shrink-0 text-terra-300" strokeWidth={1.75} aria-hidden="true" />
+              <MapPin className="mt-1 h-4 w-4 shrink-0 text-caramel-300" strokeWidth={1.75} aria-hidden="true" />
               <span>
                 Vor Ort: {site.address.city} und Umgebung
                 <br />
@@ -94,7 +95,7 @@ export function Footer() {
               </span>
             </li>
             <li className="flex gap-2">
-              <MonitorSmartphone className="mt-1 h-4 w-4 shrink-0 text-terra-300" strokeWidth={1.75} aria-hidden="true" />
+              <MonitorSmartphone className="mt-1 h-4 w-4 shrink-0 text-caramel-300" strokeWidth={1.75} aria-hidden="true" />
               <span>Online: deutschlandweit per Video</span>
             </li>
           </ul>

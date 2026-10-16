@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     u('/'),
     u('/angebote/'),
     ...ANGEBOTE.map((a) => u(a.path)),
+    u('/stress-verstehen/'),
     u('/mein-ansatz/'),
     u('/joana-kort/'),
     u('/erstgespraech/'),

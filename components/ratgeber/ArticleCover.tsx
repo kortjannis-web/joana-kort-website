@@ -12,8 +12,8 @@ const BILDER: Record<string, (typeof MATERIAL)[keyof typeof MATERIAL]> = {
 /** Farbwelt je Kategorie: verstehen = Greige, bewältigen = Apricot, managen = Espresso, Wissen = Karamell */
 const TONE: Record<Artikel['category'], { bg: string; word: string; line: string; label: string }> = {
   'Stress verstehen': { bg: 'bg-greige', word: 'text-espresso-800', line: 'text-caramel-500', label: 'text-caramel-700' },
-  'Stress bewältigen': { bg: 'bg-terra-100', word: 'text-terra-700', line: 'text-terra-500', label: 'text-terra-700' },
-  'Stress managen': { bg: 'bg-espresso-800', word: 'text-terra-300', line: 'text-caramel-300', label: 'text-caramel-300' },
+  'Stress bewältigen': { bg: 'bg-caramel-100', word: 'text-caramel-800', line: 'text-caramel-600', label: 'text-caramel-800' },
+  'Stress managen': { bg: 'bg-espresso-800', word: 'text-caramel-300', line: 'text-caramel-300', label: 'text-caramel-300' },
   Wissen: { bg: 'bg-caramel-100', word: 'text-caramel-800', line: 'text-caramel-500', label: 'text-caramel-700' },
 }
 

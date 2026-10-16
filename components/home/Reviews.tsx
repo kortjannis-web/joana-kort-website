@@ -7,7 +7,7 @@ import { GoogleIcon, Stars } from '@/components/ui/icons'
 import { Reveal } from '@/components/ui/Reveal'
 import { ReviewText } from './ReviewText'
 
-const AVATAR = ['bg-espresso-800 text-white', 'bg-terra-100 text-terra-700', 'bg-caramel-100 text-caramel-800']
+const AVATAR = ['bg-espresso-800 text-white', 'bg-caramel-100 text-caramel-800', 'bg-caramel-100 text-caramel-800']
 
 /**
  * Kundenstimmen / Google-Bewertungen (lib/content/reviews.ts). Solange keine echten Stimmen vorliegen: nichts (Briefing: keine erfundenen Referenzen).
@@ -41,7 +41,7 @@ export function Reviews({ title = 'Wie andere die Zusammenarbeit erlebt haben', 
                 className="floaty flex flex-col rounded-lg border border-line bg-white p-5 transition-transform duration-500 ease-[var(--ease-soft)] hover:-translate-y-1 xl:p-6"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <Stars className="inline-flex gap-0.5 text-terra-400" starClassName="h-4 w-4" />
+                  <Stars className="inline-flex gap-0.5 text-caramel-500" starClassName="h-4 w-4" />
                   {r.source === 'Google' && <GoogleIcon className="h-4.5 w-4.5" />}
                 </div>
                 <ReviewText text={r.text} id={`${idBase}-${i}`} />

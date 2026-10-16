@@ -2,50 +2,54 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState, type ComponentProps } from 'react'
-import { BookOpen, Building2, CalendarHeart, ChevronDown, ChevronRight, Mail, MonitorPlay, User, Users } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Building2, ChevronDown, ChevronRight, Mail, MonitorPlay, Phone, User } from 'lucide-react'
 import { Logo } from './Logo'
 import { MAIN_NAV, type NavGroup } from './nav'
 import { MobileMenu } from './MobileMenu'
-import { ERSTGESPRAECH, site } from '@/lib/site'
+import { CALL_HREF, site } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
-/** Seiten OHNE Bild-Hero: Header von Anfang an hell. Alle anderen Seiten haben einen dunklen Bild-Hero (PageHero). */
-const SOLID = [/^\/(impressum|datenschutz)\/$/]
-
-/** Erstgespräch: Buchungstool (NEXT_PUBLIC_BOOKING_URL), solange keins eingetragen ist das Anfrageformular */
-const TERMIN_HREF = site.bookingUrl || ERSTGESPRAECH
-const TERMIN_EXTERN = TERMIN_HREF.startsWith('http')
-
-/** Symbole im Dropdown (Design: Kachel links neben dem Eintrag) */
+/** Symbole im Dropdown (Kachel links neben dem Eintrag) */
 const ICONS: Record<string, typeof User> = {
   '/stresscoaching/': User,
-  '/zu-zweit-und-in-der-gruppe/': Users,
   '/webinar/': MonitorPlay,
-  '/online-kurs/': BookOpen,
   '/stressmanagement-unternehmen/': Building2,
 }
 
+/** "Anrufen": tel-Link, solange keine Nummer eingetragen ist das Formular (dort Rückruf wählbar) */
+function CallLink({ className, children, tabIndex, hidden }: { className: string; children: React.ReactNode; tabIndex?: number; hidden?: boolean }) {
+  const href = CALL_HREF()
+  const label = site.phone ? `Anrufen: ${site.phone.display}` : 'Anrufen: Rückruf vereinbaren'
+  if (href.startsWith('tel:'))
+    return (
+      <a href={href} aria-label={label} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
+        {children}
+      </a>
+    )
+  return (
+    <Link href={href} aria-label={label} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
+      {children}
+    </Link>
+  )
+}
+
 /**
- * Header (Design): Logo links, Navigation als Glas-Pille in der Mitte (Telefon-Knopf am Ende), CTA rechts.
- * Über dem dunklen Bild-Hero transparent. Sobald sich das Sheet unter den Header schiebt, wird er hell.
- * Mobil/Tablet: Pille mit Telefon + Menü-Knopf.
+ * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Pille in der Mitte (E-Mail am Ende), "Anrufen" rechts in Orange.
+ * Über dem hellen Hero transparent, sobald sich das Sheet darunter schiebt, Papier mit feiner Linie und Schatten.
+ * Handy: Pille mit E-Mail + Menü. Beim Runterscrollen fährt "Anrufen" aus dem Menü-Kreis heraus, die Pille wächst bis kurz hinter das Logo,
+ * beim Hochscrollen fährt sie wieder ein (Toleranz 12 px ab dem Wendepunkt).
  */
 export function Header() {
   const pathname = usePathname()
-  const overlayPage = !SOLID.some((r) => r.test(pathname))
-  const [overHero, setOverHero] = useState(overlayPage)
-  // Handy: beim Runterscrollen fährt "Erstgespräch" zwischen Telefon und Menü-Knopf aus, die Pille deckt das Logo bis aufs Haus ab. Beim Hochscrollen fährt sie wieder ein
+  const [solid, setSolid] = useState(false)
   const [expanded, setExpanded] = useState(false)
-  // Breite der ausgeklappten Pille: vom rechten Rand bis kurz hinter das Logo-Haus (gemessen, damit es bei jeder Handybreite passt)
   const slotRef = useRef<HTMLDivElement>(null)
   const [pillW, setPillW] = useState<number | null>(null)
-  // Intro nur beim ersten Laden direkt auf der Startseite: Header kommt zuletzt, Logo-Haus zeichnet sich (globals.css)
+  // Intro nur beim ersten Laden direkt auf der Startseite (globals.css)
   const [intro] = useState(pathname === '/')
 
   useEffect(() => {
-    // Toleranz: erst wenn seit dem Wendepunkt (tiefster bzw. höchster Punkt) mehr als TOL px in die neue Richtung gescrollt wurde.
-    // Kleine Rückbewegungen (Finger setzt auf, Nachfedern) lassen die Pille stehen
     const TOL = 12
     let turn = window.scrollY
     let down = false
@@ -57,15 +61,21 @@ export function Header() {
         setExpanded(false)
       } else if (down) {
         if (y > turn) turn = y
-        else if (turn - y > TOL) { down = false; turn = y; setExpanded(false) }
+        else if (turn - y > TOL) {
+          down = false
+          turn = y
+          setExpanded(false)
+        }
       } else {
         if (y < turn) turn = y
-        else if (y - turn > TOL) { down = true; turn = y; setExpanded(true) }
+        else if (y - turn > TOL) {
+          down = true
+          turn = y
+          setExpanded(true)
+        }
       }
       const sheet = document.querySelector('[data-sheet]')
-      if (!sheet) return setOverHero(false)
-      // Header ist 4 bis 5rem hoch: hell, sobald die Sheet-Kante darunter angekommen ist
-      setOverHero(sheet.getBoundingClientRect().top > 56)
+      setSolid(sheet ? sheet.getBoundingClientRect().top <= 56 : y > 8)
     }
     setExpanded(false)
     onScroll()
@@ -79,54 +89,48 @@ export function Header() {
 
   useEffect(() => {
     const measure = () => {
-      const house = document.querySelector('header svg')
+      const logo = document.querySelector('header [data-logo]')
       const slot = slotRef.current
-      if (!house || !slot) return
-      setPillW(Math.round(slot.getBoundingClientRect().right - house.getBoundingClientRect().right - 2))
+      if (!logo || !slot) return
+      setPillW(Math.round(slot.getBoundingClientRect().right - logo.getBoundingClientRect().right - 12))
     }
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
   }, [pathname])
 
-  const transparent = overlayPage && overHero
-
   return (
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow] duration-500 ease-[var(--ease-soft)]',
-        // Hell: feine Linie plus weicher, tiefer Schatten nach unten, damit der Kasten über dem Inhalt schwebt
-        transparent ? 'bg-transparent' : 'bg-paper/90 shadow-[0_1px_0_var(--color-line),0_12px_26px_-14px_rgba(30,22,17,0.32)] backdrop-blur-md'
+        solid ? 'bg-paper/90 shadow-[0_1px_0_var(--color-line),0_12px_26px_-14px_rgba(30,22,17,0.28)] backdrop-blur-md' : 'bg-transparent'
       )}
     >
-      <div className={cn('wrap-wide flex h-16 items-center justify-between gap-2 min-[380px]:gap-4 md:h-[4.5rem] xl:grid xl:h-[5.25rem] xl:grid-cols-[1fr_auto_1fr] xl:gap-6')}>
+      <div className="wrap-wide flex h-16 items-center justify-between gap-2 min-[380px]:gap-4 md:h-[4.5rem] xl:grid xl:h-[5.25rem] xl:grid-cols-[1fr_auto_1fr] xl:gap-6">
         <Link href="/" aria-label="Joana Kort Stressberatung, zur Startseite" className="-ml-1 shrink-0 justify-self-start rounded-md p-1">
-          <Logo tone={transparent ? 'light' : 'dark'} draw={intro} />
+          <Logo draw={intro} />
         </Link>
 
         <nav
           aria-label="Hauptnavigation"
           className={cn(
-            intro && 'intro-down [--d:0.54s] xl:[--d:0.99s]',
+            intro && 'intro-down [--d:0.5s]',
             'relative hidden items-center gap-0.5 rounded-full border p-[5px] transition-[background-color,border-color,box-shadow] duration-500 xl:flex',
-            transparent
-              ? 'border-white/18 bg-white/10 shadow-none backdrop-blur-[14px]'
-              : 'border-line bg-white/80 shadow-[0_2px_4px_rgba(30,22,17,0.07),0_9px_18px_-8px_rgba(30,22,17,0.34)]'
+            solid
+              ? 'border-line bg-white/85 shadow-[0_2px_4px_rgba(30,22,17,0.06),0_9px_18px_-8px_rgba(30,22,17,0.3)]'
+              : 'border-espresso-800/10 bg-white/55 shadow-[0_8px_24px_-14px_rgba(30,22,17,0.25)] backdrop-blur-[14px]'
           )}
         >
           <ul className="flex items-center gap-0.5">
             {MAIN_NAV.map((item) => (
               <li key={item.label}>
                 {item.children ? (
-                  <NavDropdown item={item} transparent={transparent} pathname={pathname} />
+                  <NavDropdown item={item} pathname={pathname} />
                 ) : (
                   <Link
                     href={item.href}
                     aria-current={pathname === item.href ? 'page' : undefined}
-                    className={cn(
-                      'inline-flex h-10 items-center rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors duration-300',
-                      pillLink(transparent, pathname === item.href)
-                    )}
+                    className={cn('inline-flex h-10 items-center rounded-full px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(pathname === item.href))}
                   >
                     {item.label}
                   </Link>
@@ -134,87 +138,50 @@ export function Header() {
               </li>
             ))}
           </ul>
-          {/* E-Mail am Ende der Pille, mit Abstand zu "Kontakt" */}
           <a
             href={`mailto:${site.email}`}
             aria-label={`E-Mail schreiben: ${site.email}`}
-            className={cn(
-              'group ml-2.5 grid h-10 w-10 place-items-center rounded-full transition-colors duration-300',
-              transparent ? 'bg-white/14 text-white hover:bg-white/24' : 'bg-espresso-800/[0.06] text-espresso-800 hover:bg-espresso-800/[0.12]'
-            )}
+            className="group ml-2 grid h-10 w-10 place-items-center rounded-full bg-espresso-800/[0.06] text-espresso-800 transition-colors duration-300 hover:bg-espresso-800/[0.12]"
           >
             <Mail className="h-[1.125rem] w-[1.125rem] transition-transform duration-300 group-hover:-rotate-6" strokeWidth={1.8} />
           </a>
         </nav>
 
-        {/* Intro: Logo zuerst (zeichnet sich), Navigation und Aktionen erst nach Text und Rechner */}
-        <div className={cn(intro && 'intro-down [--d:0.54s] xl:[--d:0.99s]', 'flex items-center gap-2 justify-self-end md:gap-3')}>
-          {/* Tablet: Pille wie bisher (immer sichtbar: über dem Hero als Glas, danach weiß mit orangem Rand) */}
-          <TerminLink
-            className={cn(
-              'hidden h-[3.375rem] items-center justify-center whitespace-nowrap rounded-full border px-6 text-[0.9375rem] font-semibold transition-[background-color,border-color,color] duration-500 ease-[var(--ease-soft)] md:inline-flex xl:hidden',
-              transparent
-                ? 'border-white/50 bg-white/45 text-white backdrop-blur-[14px] hover:bg-white/55'
-                : 'border-terra-400 bg-white text-espresso-800 hover:bg-terra-50'
-            )}
-          >
-            Erstgespräch
-          </TerminLink>
-          {/* Desktop: erst sichtbar, wenn der Header hell ist (Hero verlassen). Wächst aus einem Punkt in der Mitte zur Pille auf (clip-path,
-              wie auf dem Handy aus dem Menü-Kreis). Der Schatten liegt als drop-shadow auf der Hülle, weil clip-path ihn am Button abschneiden würde */}
-          <span className="hidden xl:block [filter:drop-shadow(0_8px_9px_rgba(20,14,10,0.3))]">
-            <TerminLink
-              tabIndex={transparent ? -1 : 0}
-              aria-hidden={transparent}
-              className={cn(
-                'inline-flex h-[3.25rem] w-[12.5rem] items-center justify-center gap-2 whitespace-nowrap rounded-full bg-cta text-[0.9375rem] font-semibold text-white hover:bg-cta-hover',
-                'transition-[clip-path,visibility,background-color] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
-                transparent
-                  ? 'pointer-events-none invisible [clip-path:inset(calc(50%_-_0.375rem)_round_9999px)]'
-                  : 'visible [clip-path:inset(0_round_9999px)]'
-              )}
-            >
-              <CalendarHeart className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} aria-hidden="true" />
-              Erstgespräch
-            </TerminLink>
-          </span>
-          {/* Handy/Tablet: Pille mit Telefon + Menü (Design). Handy: fester Platz (Slot), die Pille wächst darin nach links über das Logo
-              (Breite `--pill-w`, gemessen: bis 2 px hinter das Logo-Haus) */}
+        <div className={cn(intro && 'intro-down [--d:0.6s]', 'flex items-center gap-2 justify-self-end md:gap-3')}>
+          {/* Tablet und Desktop: "Anrufen" immer sichtbar (Orange = Handlung) */}
+          <CallLink className="btn-cta hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 text-[0.9375rem] font-semibold shadow-[0_8px_18px_-10px_rgba(142,71,34,0.6)] transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
+            <Phone className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
+            Anrufen
+          </CallLink>
+          {/* Handy/Tablet: Pille mit E-Mail + Menü. Handy: fester Platz, die Pille wächst nach links bis kurz hinter das Logo */}
           <div ref={slotRef} className="relative h-[3.375rem] w-[6.5rem] shrink-0 md:h-auto md:w-auto xl:hidden">
             <div
               style={pillW ? ({ '--pill-w': `${pillW}px` } as React.CSSProperties) : undefined}
               className={cn(
-                'relative flex items-center rounded-full border p-1 max-md:shadow-[0_8px_22px_-10px_rgba(30,22,17,0.5)] max-md:absolute max-md:right-0 max-md:top-0 max-md:z-10 max-md:h-[3.375rem] md:gap-1.5',
+                'relative flex items-center rounded-full border p-1 max-md:absolute max-md:right-0 max-md:top-0 max-md:z-10 max-md:h-[3.375rem] max-md:shadow-[0_8px_22px_-10px_rgba(30,22,17,0.4)] md:gap-1.5',
                 'max-md:transition-[width,background-color,border-color,box-shadow] max-md:duration-[650ms] max-md:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:max-md:duration-150',
-                expanded
-                  ? 'border-line bg-white max-md:w-[var(--pill-w,17rem)] '
-                  : cn('max-md:w-[6.5rem]', transparent ? 'border-white/18 bg-white/12 backdrop-blur-[14px]' : 'border-line bg-white/80')
+                expanded ? 'border-line bg-white max-md:w-[var(--pill-w,15rem)]' : cn('max-md:w-[6.5rem]', solid ? 'border-line bg-white/85' : 'border-espresso-800/10 bg-white/60 backdrop-blur-[14px]')
               )}
             >
-              <a
-                href={`mailto:${site.email}`}
-                aria-label={`E-Mail schreiben: ${site.email}`}
-                className={cn('grid h-11 w-11 shrink-0 place-items-center rounded-full', transparent && !expanded ? 'text-white' : 'text-espresso-800')}
-              >
+              <a href={`mailto:${site.email}`} aria-label={`E-Mail schreiben: ${site.email}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-espresso-800">
                 <Mail className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} />
               </a>
-              {/* Handy: Erstgespräch liegt unter dem Menü-Kreis und fährt aus ihm heraus: rechts am Menü-Knopf verankert, die Breite wächst mit
-                  der Pille (44 px = ganz unter dem Kreis bis Pille minus 60 px = bis kurz hinter das Telefon). Der Inhalt steht fest, die runde
-                  linke Kante des Buttons gibt ihn frei bzw. nimmt ihn beim Einfahren mit in den Kreis */}
-              <TerminLink
+              {/* Handy: "Anrufen" liegt unter dem Menü-Kreis und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
+                  deckt dabei den E-Mail-Knopf ab, Inhalt steht fest, die runde linke Kante gibt ihn frei bzw. nimmt ihn beim Einfahren mit in den Kreis) */}
+              <CallLink
                 tabIndex={expanded ? 0 : -1}
-                aria-hidden={!expanded}
+                hidden={!expanded}
                 className={cn(
                   'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta text-[0.9375rem] font-semibold text-white shadow-[0_6px_14px_-6px_rgba(20,14,10,0.5)] hover:bg-cta-hover md:hidden',
                   'transition-[width,background-color,visibility] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
-                  expanded ? 'visible w-[calc(var(--pill-w,17rem)-60px)]' : 'pointer-events-none invisible w-11'
+                  expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
                 )}
               >
-                <span className="absolute inset-y-0 right-11 flex w-[calc(var(--pill-w,17rem)-104px)] items-center justify-center gap-2 whitespace-nowrap">
-                  <CalendarHeart className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} aria-hidden="true" />
-                  Erstgespräch
+                <span className="absolute inset-y-0 right-11 flex w-[calc(var(--pill-w,15rem)-52px)] items-center justify-center gap-2 whitespace-nowrap">
+                  <Phone className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
+                  Anrufen
                 </span>
-              </TerminLink>
+              </CallLink>
               <span className="relative z-10 ml-auto shrink-0">
                 <MobileMenu />
               </span>
@@ -222,38 +189,19 @@ export function Header() {
           </div>
         </div>
       </div>
-
     </header>
   )
 }
 
-/** Link auf die Terminbuchung: intern per next/link (Kontaktseite), mit Buchungstool in neuem Fenster */
-function TerminLink({ className, children, ...rest }: Omit<ComponentProps<'a'>, 'href'>) {
-  const sr = TERMIN_EXTERN ? <span className="sr-only"> (öffnet in neuem Fenster)</span> : null
-  if (TERMIN_EXTERN)
-    return (
-      <a href={TERMIN_HREF} target="_blank" rel="noopener noreferrer" className={className} {...rest}>
-        {children}
-        {sr}
-      </a>
-    )
-  return (
-    <Link href={TERMIN_HREF} className={className} {...rest}>
-      {children}
-    </Link>
-  )
-}
-
-function pillLink(transparent: boolean, active: boolean) {
-  if (transparent) return active ? 'bg-white text-espresso-900' : 'text-white hover:bg-white/14'
+function pillLink(active: boolean) {
   return active ? 'bg-espresso-800 text-white' : 'text-ink/80 hover:bg-espresso-800/[0.06] hover:text-espresso-800'
 }
 
-function NavDropdown({ item, transparent, pathname }: { item: NavGroup; transparent: boolean; pathname: string }) {
+function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const active = item.children?.some((c) => c.href === pathname) || item.extra?.links.some((l) => l.href === pathname)
+  const active = pathname === item.href || item.children?.some((c) => c.href === pathname) || item.extra?.links.some((l) => l.href === pathname)
 
   useEffect(() => {
     if (!open) return
@@ -285,14 +233,10 @@ function NavDropdown({ item, transparent, pathname }: { item: NavGroup; transpar
         type="button"
         aria-expanded={open}
         onClick={(e) => {
-          // Maus: Hover öffnet bereits, Klick soll nicht wieder schließen. Tastatur/Touch: umschalten.
           const pt = (e.nativeEvent as PointerEvent).pointerType
           setOpen((v) => (pt === 'mouse' ? true : !v))
         }}
-        className={cn(
-          'inline-flex h-10 items-center gap-1 rounded-full px-3.5 text-[0.9375rem] font-medium transition-colors duration-300',
-          pillLink(transparent, !!active)
-        )}
+        className={cn('inline-flex h-10 items-center gap-1 rounded-full px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(!!active))}
       >
         {item.label}
         <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', open && 'rotate-180')} strokeWidth={1.75} />
@@ -305,12 +249,7 @@ function NavDropdown({ item, transparent, pathname }: { item: NavGroup; transpar
         )}
       >
         <span aria-hidden="true" className="absolute left-1/2 top-[0.6rem] h-3.5 w-3.5 -translate-x-1/2 rotate-45 rounded-[2px] bg-white" />
-        <div
-          className={cn(
-            'floaty-lg relative grid gap-2 rounded-[1.5rem] bg-white p-4',
-            item.extra ? 'w-[45rem] grid-cols-2' : 'w-[22rem] grid-cols-1'
-          )}
-        >
+        <div className={cn('floaty-lg relative grid gap-2 rounded-[1.5rem] bg-white p-4', item.extra ? 'w-[40rem] grid-cols-[1.25fr_1fr]' : 'w-[22rem] grid-cols-1')}>
           <ul className="flex flex-col gap-1">
             {item.children!.map((c) => {
               const Icon = ICONS[c.href] ?? User
@@ -318,12 +257,9 @@ function NavDropdown({ item, transparent, pathname }: { item: NavGroup; transpar
                 <li key={c.href + c.label}>
                   <Link
                     href={c.href}
-                    className={cn(
-                      'group flex items-start gap-4 rounded-[0.875rem] px-4 py-3.5 transition-colors duration-300 hover:bg-stone',
-                      pathname === c.href && 'bg-stone'
-                    )}
+                    className={cn('group flex items-start gap-4 rounded-[0.875rem] px-4 py-3.5 transition-colors duration-300 hover:bg-stone', pathname === c.href && 'bg-stone')}
                   >
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-stone text-caramel-700 transition-colors duration-300 group-hover:bg-terra-50 group-hover:text-terra-600">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-stone text-caramel-700 transition-colors duration-300 group-hover:bg-white group-hover:text-caramel-800">
                       <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                     </span>
                     <span>
@@ -338,10 +274,10 @@ function NavDropdown({ item, transparent, pathname }: { item: NavGroup; transpar
           {item.extra && (
             <div className="rounded-lg bg-stone px-5 py-5">
               <p className="t-label text-[0.75rem] text-caramel-700">{item.extra.title}</p>
-              <ul className="mt-2 grid gap-x-4">
+              <ul className="mt-2">
                 {item.extra.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="flex min-h-9 items-center gap-2 text-[0.9375rem] text-ink hover:text-terra-700">
+                    <Link href={l.href} className="flex min-h-9 items-center gap-2 text-[0.9375rem] text-ink hover:text-caramel-800">
                       <ChevronRight className="h-3.5 w-3.5 text-caramel-500" strokeWidth={2} aria-hidden="true" />
                       {l.label}
                     </Link>

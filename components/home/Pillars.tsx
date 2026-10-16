@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { InView } from '@/components/ui/InView'
+import { More } from '@/components/ui/More'
 import { Reveal } from '@/components/ui/Reveal'
 import { useSpotlight } from '@/components/ui/useSpotlight'
 import { SCHWERPUNKTE } from '@/lib/content/angebote'
-import { ERSTGESPRAECH } from '@/lib/site'
+import { CTA_LABEL, ERSTGESPRAECH } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 /** Versatz je Schwerpunkt ab Tablet (Briefing: "leicht nach rechts versetzt"), Verbindung als Treppe dazwischen */
@@ -60,7 +61,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
                   <div className="grid gap-4 md:grid-cols-[3.5rem_minmax(0,1fr)] md:gap-7 xl:grid-cols-[4rem_minmax(0,1fr)] xl:gap-9">
                     <span
                       aria-hidden="true"
-                      className="pillar-num font-serif text-[4rem] italic leading-[0.8] text-terra-500 md:text-[5rem] xl:text-[5.75rem]"
+                      className="pillar-num font-serif text-[4rem] italic leading-[0.8] text-caramel-600 md:text-[5rem] xl:text-[5.75rem]"
                       style={{ '--d': `${0.3 + i * 0.5}s` } as React.CSSProperties}
                     >
                       {p.nr}
@@ -71,15 +72,18 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
                         {p.title}
                       </h3>
                       <p className="mt-2 font-serif text-[1.0625rem] italic leading-snug text-caramel-700 md:text-[1.1875rem]">{p.kurz}</p>
-                      <p className="mt-4 leading-relaxed text-ink/85">{p.text}</p>
-                      <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-line pt-4 text-[0.9375rem] text-muted sm:grid-cols-2">
-                        {p.fragen.map((f) => (
-                          <li key={f} className="flex gap-2.5 leading-snug">
-                            <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-terra-400" />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Langtext und typische Fragen erst nach Klick auf den Pfeil (im HTML vorhanden, für Suche und KI lesbar) */}
+                      <More label={`Mehr zu: ${p.title}`} className="relative z-10 mt-3">
+                        <p className="leading-relaxed text-ink/85">{p.text}</p>
+                        <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-line pt-4 text-[0.9375rem] text-muted sm:grid-cols-2">
+                          {p.fragen.map((f) => (
+                            <li key={f} className="flex gap-2.5 leading-snug">
+                              <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-caramel-500" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </More>
                     </div>
                   </div>
                 </article>
@@ -91,7 +95,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
         {cta && (
           <Reveal className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-7 md:mt-14 md:pl-[24%]">
             <ButtonLink href={ERSTGESPRAECH} variant="primary" size="lg" className="group w-full sm:w-auto">
-              Kostenloses Erstgespräch
+              {CTA_LABEL}
               <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
             </ButtonLink>
             <Link href="/mein-ansatz/" className="link inline-flex min-h-11 items-center justify-center font-semibold sm:justify-start">

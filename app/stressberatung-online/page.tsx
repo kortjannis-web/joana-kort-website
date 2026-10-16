@@ -1,4 +1,4 @@
-import { CalendarClock, FileText, Home, Route } from 'lucide-react'
+import { CalendarClock, Home, Route } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -26,8 +26,7 @@ export const metadata = pageMeta({
 const VORTEILE = [
   { title: 'Kein Anfahrtsweg', text: 'Kein zusätzlicher Termin außer Haus. Gerade wenn der Kalender voll ist, macht das den Unterschied.', Icon: Route },
   { title: 'In vertrauter Umgebung', text: 'Sie sprechen von zu Hause oder einem ruhigen Ort, an dem Sie sich wohlfühlen.', Icon: Home },
-  { title: 'Flexibel planbar', text: 'Termine lassen sich leichter in Ihren Alltag einfügen, auch abends.', Icon: CalendarClock },
-  { title: 'Materialien digital', text: 'Pläne und Vorlagen bekommen Sie per E-Mail, zum Ausdrucken oder Ausfüllen am Bildschirm.', Icon: FileText },
+  { title: 'Flexibel planbar', text: 'Termine passen leichter in Ihren Alltag, auch abends. Pläne und Vorlagen bekommen Sie digital.', Icon: CalendarClock },
 ]
 
 export default function OnlinePage() {
@@ -40,7 +39,7 @@ export default function OnlinePage() {
         ]}
       />
       <PageHero
-        tone="mocha"
+        tone="greige"
         eyebrow="Online per Video"
         title={
           <>
@@ -69,7 +68,7 @@ export default function OnlinePage() {
                 Warum viele die Begleitung online wählen
               </h2>
             </Reveal>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+            <div className="mt-8 grid gap-4 md:grid-cols-3 xl:gap-6">
               {VORTEILE.map(({ title, text, Icon }, i) => (
                 <Reveal key={title} delay={i * 0.05}>
                   <div className="floaty h-full rounded-lg border border-line bg-white p-6">

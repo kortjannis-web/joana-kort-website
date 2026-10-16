@@ -4,12 +4,14 @@ import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
+import { CtaRow } from '@/components/ui/CtaRow'
+import { More } from '@/components/ui/More'
 import { PortraitFrame } from '@/components/home/PortraitFrame'
 import { Reviews } from '@/components/home/Reviews'
 import { Staerken } from '@/components/ueber-mich/Staerken'
 import { PERSON_ID } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
-import { ERSTGESPRAECH, ROLE, SITE_URL, site } from '@/lib/site'
+import { CTA_LABEL, ERSTGESPRAECH, ROLE, SITE_URL, site } from '@/lib/site'
 
 const PATH = '/joana-kort/'
 
@@ -33,7 +35,7 @@ export default function UeberMichPage() {
     <>
       <JsonLd data={{ '@context': 'https://schema.org', '@type': 'ProfilePage', url: `${SITE_URL}${PATH}`, mainEntity: { '@id': PERSON_ID } }} />
       <PageHero
-        tone="mocha"
+        tone="greige"
         eyebrow="Über mich"
         title={
           <>
@@ -43,7 +45,7 @@ export default function UeberMichPage() {
         intro={<p>Sie vertrauen mir einen Einblick in Ihr Leben an. Deshalb sollen Sie wissen, wer ich bin, was mich geprägt hat und wie ich arbeite.</p>}
         actions={
           <ButtonLink href={ERSTGESPRAECH} variant="primary" size="lg" className="w-full sm:w-auto">
-            Lernen wir uns kennen
+            {CTA_LABEL}
           </ButtonLink>
         }
       />
@@ -80,6 +82,7 @@ export default function UeberMichPage() {
                   ich ihn konkret abbauen kann. Genau diese Lücke zwischen Wissen und Umsetzung erlebe ich heute bei vielen Menschen. Und genau dort
                   möchte ich ansetzen.
                 </p>
+                <More label="Meine Geschichte weiterlesen" showLabel className="mt-2" bodyClassName="prose-jk">
                 <p>
                   Ich studiere Gesundheitspsychologie und spezialisiere mich beruflich auf das Thema Stress. Während des Studiums bin ich Mutter
                   geworden. Seitdem jongliere ich selbst mit vielen Verantwortlichkeiten und habe mich intensiv damit beschäftigt, wie ich meinen
@@ -90,6 +93,7 @@ export default function UeberMichPage() {
                   Mein Angebot verbindet beides: fachliche Erkenntnisse aus der Gesundheitspsychologie und praktische Erfahrung aus dem echten
                   Leben. Mehr dazu unter <Link href="/mein-ansatz/">Mein Ansatz</Link>.
                 </p>
+                </More>
               </Reveal>
             </div>
           </div>
@@ -110,7 +114,7 @@ export default function UeberMichPage() {
               <ul className="grid gap-x-12 md:grid-cols-2">
                 {fakten.map(([k, v]) => (
                   <li key={k} className="flex gap-4 border-b border-line py-4 md:py-5">
-                    <span aria-hidden="true" className="mt-[0.5rem] h-2 w-2 shrink-0 rotate-45 rounded-[2px] bg-terra-400" />
+                    <span aria-hidden="true" className="mt-[0.5rem] h-2 w-2 shrink-0 rotate-45 rounded-[2px] bg-caramel-500" />
                     <span className="flex flex-col gap-1">
                       <span className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-caramel-700">{k}</span>
                       <span className="text-[0.9375rem] font-medium leading-relaxed text-espresso-900 md:text-base">{v}</span>
@@ -126,14 +130,18 @@ export default function UeberMichPage() {
 
         <section aria-label="Weiter" className="pb-28 md:pb-36 xl:pb-44">
           <div className="wrap">
+            <Reveal className="mb-10 md:mb-14">
+              <h2 className="t-h2 max-w-[22ch] text-espresso-900">Lernen wir uns in 15 Minuten kennen</h2>
+              <CtaRow className="mt-6" />
+            </Reveal>
             <Reveal className="grid gap-4 rounded-xl border border-line bg-stone p-6 md:grid-cols-3 md:p-8">
               {[
                 { href: '/stresscoaching/', t: 'Persönliche Begleitung', d: 'Mein Hauptangebot über 3 oder 6 Monate' },
                 { href: '/mein-ansatz/', t: 'Mein Ansatz', d: 'Verstehen, bewältigen, managen' },
-                { href: '/ratgeber/', t: 'Ratgeber', d: 'Wissen über Stress, verständlich erklärt' },
+                { href: '/stress-verstehen/', t: 'Stress verstehen', d: 'Wie Stress entsteht, einfach erklärt' },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="group rounded-lg bg-white p-5 transition-transform duration-500 hover:-translate-y-1">
-                  <span className="block font-serif text-[1.3rem] text-espresso-900 group-hover:text-terra-700">{l.t}</span>
+                  <span className="block font-serif text-[1.3rem] text-espresso-900 group-hover:text-caramel-800">{l.t}</span>
                   <span className="mt-1 block text-[0.9375rem] text-muted">{l.d}</span>
                 </Link>
               ))}

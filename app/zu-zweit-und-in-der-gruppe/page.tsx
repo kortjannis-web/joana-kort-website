@@ -14,6 +14,7 @@ export default function ZuZweitPage() {
   return (
     <OfferLayout
       current="zu-zweit"
+      interesse="zu-zweit"
       hero={{
         eyebrow: 'Zu zweit und in der Gruppe',
         title: (
@@ -33,9 +34,7 @@ export default function ZuZweitPage() {
       }}
       facts={[
         ['Für wen', 'Paare, zwei Personen, kleine Gruppen'],
-        ['Format', 'Online oder vor Ort'],
-        ['Vor Ort', `Raum ${site.address.city}, etwa ${site.radiusKm} km`],
-        ['Umfang', 'Nach Absprache, auch als Programm'],
+        ['Format', `Online oder vor Ort im Raum ${site.address.city}`],
         ['Einstieg', 'Kostenloses Erstgespräch'],
       ]}
       themesTitle="Worum es gehen kann"
@@ -54,10 +53,8 @@ export default function ZuZweitPage() {
         { title: 'Umsetzen und anpassen', text: 'In festen Terminen probieren wir Veränderungen aus und passen sie an Ihren Alltag an.' },
       ]}
       cta={{
-        type: 'erstgespraech',
         title: 'Lassen Sie uns zu zweit sprechen',
-        text: 'Im kostenlosen Erstgespräch klären wir, ob eine Begleitung zu zweit oder in der Gruppe zu Ihnen passt.',
-        href: '/erstgespraech/?interesse=zu-zweit#anfrage',
+        text: 'Im kostenlosen Erstgespräch klären wir, ob eine Begleitung zu zweit oder in der Gruppe zu Ihnen passt. Gern schon gemeinsam.',
       }}
       faqs={ZUZWEIT_FAQS}
     />

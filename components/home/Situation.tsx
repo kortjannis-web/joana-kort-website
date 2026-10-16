@@ -1,8 +1,6 @@
-import { ArrowRight } from 'lucide-react'
-import { buttonClass } from '@/components/ui/Button'
+import { CtaRow } from '@/components/ui/CtaRow'
 import { Reveal } from '@/components/ui/Reveal'
 import { SorgenList } from './SorgenList'
-import { FunnelCta } from './HeroMotion'
 import { GapScene } from './GapScene'
 
 /**
@@ -26,15 +24,12 @@ export function Situation() {
             <p className="mt-7 max-w-[34rem] font-serif text-[1.3rem] leading-snug text-espresso-900 md:text-[1.45rem]">
               Das ist kein Versagen. Meist fehlt nicht das Wissen, sondern der Weg vom Wissen ins Tun. Genau dort setze ich an.
             </p>
+            <CtaRow className="mt-7" />
           </Reveal>
         </div>
 
         <Reveal className="xl:col-start-1 xl:row-start-2 xl:self-center">
           <GapScene />
-          <FunnelCta className={buttonClass('primary', 'lg', 'group mt-8 w-full md:hidden')}>
-            Kostenloses Erstgespräch
-            <ArrowRight className="h-[1.125rem] w-[1.125rem] shrink-0 transition-transform duration-500 ease-[var(--ease-lift)] group-hover:translate-x-1.5" strokeWidth={2} aria-hidden="true" />
-          </FunnelCta>
         </Reveal>
       </div>
     </section>

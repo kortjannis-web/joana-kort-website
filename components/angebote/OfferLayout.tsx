@@ -5,22 +5,27 @@ import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
+import { CtaRow } from '@/components/ui/CtaRow'
+import { More } from '@/components/ui/More'
 import { CheckList } from '@/components/lists/CheckList'
 import { NumberedSteps } from '@/components/lists/NumberedSteps'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { WartelisteForm } from '@/components/forms/WartelisteForm'
 import { MoreOffers } from './MoreOffers'
-import { angebot, type AngebotKey } from '@/lib/content/angebote'
+import { angebot, type AngebotKey, type InteresseKey } from '@/lib/content/angebote'
 import { faqSchema, serviceSchema } from '@/lib/schema'
 import type { Faq } from '@/lib/types'
-import { ERSTGESPRAECH } from '@/lib/site'
+import { CTA_LABEL } from '@/lib/site'
 
 /**
  * Gemeinsamer Aufbau der weiteren Angebotsseiten (Zu zweit, Webinar, Online-Kurs, Unternehmen), damit alle gleich klar sind:
- * Hero → Worum es geht + Eckdaten → Themen → Ablauf → Anfrage (Erstgespräch oder Warteliste) → FAQ → weitere Angebote.
+ * Hero → Worum es geht (Kurztext, Rest hinter dem Pfeil) + drei Eckdaten → Themen → Ablauf in drei Schritten → Erstgespräch
+ * (alle CTAs führen zum kostenlosen Erstgespräch mit Fragebogen, Interesse vorausgewählt; Warteliste nur als Zusatz hinter dem Pfeil)
+ * → FAQ → weitere Angebote.
  */
 export function OfferLayout({
   current,
+  interesse,
   hero,
   intro,
   facts,
@@ -29,22 +34,29 @@ export function OfferLayout({
   stepsTitle,
   steps,
   cta,
+  warteliste,
   faqs,
   extra,
 }: {
   current: AngebotKey
-  hero: { eyebrow: string; title: ReactNode; intro: string; tone?: 'espresso' | 'mocha'; aside?: ReactNode }
+  /** Vorauswahl im Fragebogen */
+  interesse: InteresseKey
+  hero: { eyebrow: string; title: ReactNode; intro: string; tone?: 'light' | 'greige'; aside?: ReactNode }
   intro: { title: string; text: string[] }
+  /** Drei Eckdaten */
   facts: [string, string][]
   themesTitle: string
   themes: string[]
   stepsTitle: string
   steps: { title: string; text: string }[]
-  cta: { type: 'erstgespraech'; title: string; text: string; href?: string; label?: string } | { type: 'warteliste'; angebot: 'webinar' | 'kurs' | 'gruppe'; title: string; text: string; label: string }
+  cta: { title: string; text: string }
+  warteliste?: { angebot: 'webinar' | 'kurs' | 'gruppe'; label: string; title: string; text: string }
   faqs: Faq[]
   extra?: ReactNode
 }) {
   const a = angebot(current)
+  const href = `/erstgespraech/?interesse=${interesse}#anfrage`
+  const [lead, ...rest] = intro.text
   return (
     <>
       <JsonLd data={[serviceSchema({ name: a.title, description: a.text, path: a.path }), faqSchema(faqs)]} />
@@ -56,10 +68,10 @@ export function OfferLayout({
         aside={hero.aside}
         actions={
           <>
-            <ButtonLink href={cta.type === 'warteliste' ? '#anfrage' : (cta.href ?? ERSTGESPRAECH)} variant="primary" size="lg" className="w-full sm:w-auto">
-              {cta.type === 'warteliste' ? 'Auf die Warteliste' : (cta.label ?? 'Kostenloses Erstgespräch')}
+            <ButtonLink href={href} variant="primary" size="lg" className="w-full sm:w-auto">
+              {CTA_LABEL}
             </ButtonLink>
-            <ButtonLink href="/stresscoaching/" variant="outline-light" size="lg" className="w-full sm:w-auto">
+            <ButtonLink href="/stresscoaching/" variant="outline" size="lg" className="w-full sm:w-auto">
               Persönliche Begleitung
             </ButtonLink>
           </>
@@ -73,15 +85,18 @@ export function OfferLayout({
               <h2 id="worum" className="t-h2 text-espresso-900">
                 {intro.title}
               </h2>
-              <div className="t-lead mt-5 space-y-4 text-ink/85">
-                {intro.text.map((t) => (
-                  <p key={t}>{t}</p>
-                ))}
-              </div>
+              <p className="t-lead mt-5 text-ink/85">{lead}</p>
+              {rest.length > 0 && (
+                <More label={`Mehr zu: ${intro.title}`} className="mt-4" bodyClassName="space-y-4 pt-3 text-[1.0625rem] leading-relaxed text-ink/80">
+                  {rest.map((t) => (
+                    <p key={t}>{t}</p>
+                  ))}
+                </More>
+              )}
             </Reveal>
             <Reveal delay={0.1} className="xl:col-span-5">
               <dl className="floaty rounded-xl border border-line bg-white px-6 py-2 md:px-8">
-                {facts.map(([k, v]) => (
+                {facts.slice(0, 3).map(([k, v]) => (
                   <div key={k} className="flex flex-col gap-0.5 border-b border-line py-4 last:border-0 sm:flex-row sm:justify-between sm:gap-6">
                     <dt className="t-label text-[0.75rem] text-caramel-700">{k}</dt>
                     <dd className="font-semibold text-espresso-900 sm:text-right">{v}</dd>
@@ -120,33 +135,26 @@ export function OfferLayout({
 
         <section id="anfrage" aria-labelledby="anfrage-title" className="grain scroll-mt-24 overflow-hidden bg-espresso-800 py-16 text-white md:py-24">
           <div className="wrap grid items-center gap-10 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-6">
+            <Reveal className="xl:col-span-7">
               <h2 id="anfrage-title" className="t-h2 text-white">
                 {cta.title}
               </h2>
               <p className="t-lead mt-5 text-espresso-100/90">{cta.text}</p>
-              {cta.type === 'warteliste' && (
-                <p className="mt-5 text-[0.9375rem] text-espresso-200">
-                  Lieber gleich persönlich?{' '}
-                  <Link href="/stresscoaching/" className="font-semibold text-white underline decoration-terra-300/60 underline-offset-4 hover:text-terra-200">
-                    Zur persönlichen Begleitung
-                  </Link>
-                </p>
-              )}
             </Reveal>
-            <Reveal delay={0.1} className="xl:col-span-6">
-              {cta.type === 'warteliste' ? (
-                <WartelisteForm angebot={cta.angebot} label={cta.label} className="text-ink" />
-              ) : (
-                <div className="flex flex-col gap-4 xl:items-end">
-                  <ButtonLink href={cta.href ?? ERSTGESPRAECH} variant="primary" size="lg" className="w-full sm:w-auto">
-                    {cta.label ?? 'Kostenloses Erstgespräch'}
-                  </ButtonLink>
-                  <p className="text-[0.9375rem] text-espresso-200">15 Minuten · kostenlos · unverbindlich</p>
-                </div>
-              )}
+            <Reveal delay={0.1} className="xl:col-span-5">
+              <CtaRow href={href} tone="dark" className="xl:justify-end" />
             </Reveal>
           </div>
+          {warteliste && (
+            <div className="wrap mt-10 md:mt-14">
+              <div className="rounded-xl border border-white/12 bg-white/[0.04] p-5 md:p-7">
+                <More label={warteliste.title} showLabel tone="dark" bodyClassName="grid gap-6 pt-5 xl:grid-cols-12 xl:gap-12">
+                  <p className="leading-relaxed text-espresso-100/85 xl:col-span-5">{warteliste.text}</p>
+                  <WartelisteForm angebot={warteliste.angebot} label={warteliste.label} className="text-ink xl:col-span-7" />
+                </More>
+              </div>
+            </div>
+          )}
         </section>
 
         <section aria-labelledby="fragen" className="py-16 md:py-24">

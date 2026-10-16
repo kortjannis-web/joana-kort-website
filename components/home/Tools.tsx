@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Feather, Fingerprint, FlaskConical, Sprout } from 'lucide-react'
+import { Feather, FlaskConical, Sprout } from 'lucide-react'
 import { PaperStack } from '@/components/ui/PaperStack'
 import { Reveal } from '@/components/ui/Reveal'
 import { useSpotlight } from '@/components/ui/useSpotlight'
@@ -9,11 +9,10 @@ import { useSpotlight } from '@/components/ui/useSpotlight'
 const PRINZIPIEN = [
   { title: 'Klein anfangen', text: 'Eine Veränderung, die bleibt, entlastet mehr als zehn gute Vorsätze.', Icon: Sprout },
   { title: 'Minimum statt perfekt', text: 'Für schwere Tage gibt es ein Minimum. Was ausfällt, wird nicht nachgeholt.', Icon: Feather },
-  { title: 'Für Ihr Leben gemacht', text: 'Methoden und Pläne richten sich nach Ihnen, nicht umgekehrt.', Icon: Fingerprint },
   { title: 'Fundiert und praktisch', text: 'Wissen aus der Gesundheitspsychologie, übersetzt in Ihren Alltag.', Icon: FlaskConical },
 ]
 
-const WERKZEUGE = ['Stresstagebuch', 'Stresslandkarte', 'Begleitungsplan', 'Tagesplaner', 'Wochenfokus', 'Haushalts- und Essenspläne']
+const WERKZEUGE = ['Stresstagebuch', 'Stresslandkarte', 'Begleitungsplan']
 
 /**
  * Prinzipien und Werkzeuge: links Joanas echte Materialien als Papierstapel (fächern sich beim Hover auf),
@@ -40,7 +39,7 @@ export function Tools() {
               nach Ihren Angaben für Sie.
             </p>
           </Reveal>
-          <ul ref={ref} className="mt-7 grid gap-x-6 sm:grid-cols-2">
+          <ul ref={ref} className="mt-7">
             {PRINZIPIEN.map(({ title, text, Icon }, i) => (
               <Reveal as="li" key={title} delay={0.06 * i}>
                 <div {...bind(i)} className="lift-hover flex gap-4 border-t border-line py-4">

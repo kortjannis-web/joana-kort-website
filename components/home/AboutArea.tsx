@@ -67,14 +67,14 @@ export function AboutArea() {
                 ))}
               </ul>
               <div className="mt-6 flex flex-col gap-1 sm:flex-row sm:gap-6">
-                <Link href="/stressberatung-gummersbach/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-terra-700">
+                <Link href="/stressberatung-gummersbach/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
                   Vor Ort in {site.address.city}
-                  <ChevronRight className="h-4 w-4 text-terra-500 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
+                  <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
                 </Link>
-                <Link href="/stressberatung-online/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-terra-700">
-                  <MonitorSmartphone className="h-4 w-4 text-terra-500" strokeWidth={1.75} aria-hidden="true" />
+                <Link href="/stressberatung-online/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
+                  <MonitorSmartphone className="h-4 w-4 text-caramel-600" strokeWidth={1.75} aria-hidden="true" />
                   Online per Video
-                  <ChevronRight className="h-4 w-4 text-terra-500 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
+                  <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
                 </Link>
               </div>
             </div>

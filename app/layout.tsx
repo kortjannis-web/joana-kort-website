@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { RouteScroll } from '@/components/layout/RouteScroll'
-import { QuickContactProvider } from '@/components/layout/QuickContact'
+import { WhatsAppProvider } from '@/components/layout/WhatsAppChat'
 import { ToTop } from '@/components/layout/ToTop'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { StackBack } from '@/components/ui/Stack'
@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Zum Inhalt springen
         </a>
-        <QuickContactProvider>
+        <WhatsAppProvider>
           <Header />
           {/* Seite steht am Ende, der Footer (Sheet) schiebt sich darüber */}
           <StackBack as="main" id="inhalt" className="bg-paper">
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ToTop />
           {/* Nach der Seite im Baum: korrigiert die Scrollposition nach dem Scroll von Next (Hero bzw. Anker) */}
           <RouteScroll />
-        </QuickContactProvider>
+        </WhatsAppProvider>
       </body>
     </html>
   )

@@ -13,10 +13,10 @@ function Quote({ size }: { size: 'lg' | 'sm' }) {
         }
       >
         „Mir hat damals jemand gefehlt, der mit mir Schritt für Schritt schaut, wie mein Stress entsteht und wie ich ihn abbauen kann.{' '}
-        <em className="italic text-terra-300">Diese Person möchte ich heute für andere sein.</em>“
+        <em className="italic text-caramel-300">Diese Person möchte ich heute für andere sein.</em>“
       </blockquote>
       <figcaption className={size === 'lg' ? 'mt-8 flex items-center gap-4 text-[0.9375rem] text-espresso-200' : 'mt-6 flex items-center gap-3 text-[0.9375rem] text-espresso-200'}>
-        <span className="h-px w-10 bg-terra-300" aria-hidden="true" />
+        <span className="h-px w-10 bg-caramel-300" aria-hidden="true" />
         Joana Kort{size === 'lg' ? ', Stressberatung' : ''}
       </figcaption>
     </figure>
@@ -34,7 +34,7 @@ export function Solution() {
         <Reveal className="xl:col-span-5">
           <p className="t-label text-caramel-300">Die Antwort</p>
           <h2 id="loesung-title" className="t-h2 mt-3 text-white">
-            Nicht noch mehr Tipps. Ein Plan, der zu <em className="italic text-terra-300">Ihrem</em> Leben passt.
+            Nicht noch mehr Tipps. Ein Plan, der zu <em className="italic text-caramel-300">Ihrem</em> Leben passt.
           </h2>
           <p className="t-lead mt-5 text-espresso-100/90 md:mt-6">
             Oft heißt es: Sie müssen Ihren Stress reduzieren. Wie das konkret gehen soll, bleibt offen. Ich arbeite mit Ihnen an genau dieser
@@ -51,7 +51,7 @@ export function Solution() {
 
         <Reveal delay={0.1} className="relative hidden md:block xl:col-span-7 xl:pl-10">
           {/* Ruhig atmender Kreis (10 s), rein dekorativ */}
-          <span aria-hidden="true" className="breathe absolute -left-6 -top-16 h-72 w-72 rounded-full border border-terra-300/20 xl:-left-4 xl:-top-24 xl:h-96 xl:w-96" />
+          <span aria-hidden="true" className="breathe absolute -left-6 -top-16 h-72 w-72 rounded-full border border-caramel-300/20 xl:-left-4 xl:-top-24 xl:h-96 xl:w-96" />
           <LogoMark className="absolute -right-6 -top-8 hidden w-56 text-white/[0.06] xl:block" />
           <Quote size="lg" />
         </Reveal>

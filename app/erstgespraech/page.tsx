@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { Clock, Mail, MapPin, MonitorSmartphone } from 'lucide-react'
+import { Mail, MapPin, MonitorSmartphone } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
-import { FAQ_ABLAUF } from '@/lib/content/faqs'
+import { FAQ_ABLAUF, FAQ_FORMAT } from '@/lib/content/faqs'
 import { faqSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { site } from '@/lib/site'
@@ -20,14 +20,14 @@ export const metadata = pageMeta({
   path: PATH,
 })
 
+/** Drei Schritte bis zum Gespräch (3er-Gruppe) */
 const ABLAUF = [
-  { t: 'Anfrage senden', d: 'Vier kurze Schritte, etwa zwei Minuten. Angaben zu Ihrer Gesundheit brauche ich nicht.' },
-  { t: 'Termin finden', d: 'Ich melde mich persönlich und schlage Ihnen einen Termin vor, der zu Ihren Zeiten passt.' },
-  { t: '15 Minuten sprechen', d: 'Am Telefon oder per Video. Sie stellen Ihre Fragen, wir schauen, was zu Ihnen passt.' },
-  { t: 'In Ruhe entscheiden', d: 'Danach entscheiden Sie ohne Druck, ob und wie wir zusammenarbeiten.' },
+  { t: 'Fragebogen ausfüllen', d: 'Vier kurze Schritte, etwa zwei Minuten. Angaben zu Ihrer Gesundheit brauche ich nicht.' },
+  { t: 'Termin vereinbaren', d: 'Ich melde mich persönlich und schlage Ihnen einen Termin vor, der zu Ihren Zeiten passt.' },
+  { t: '15 Minuten sprechen', d: 'Am Telefon oder per Video. Danach entscheiden Sie in Ruhe und ohne Druck, ob wir zusammenarbeiten.' },
 ]
 
-const FAQS = [FAQ_ABLAUF[0], FAQ_ABLAUF[4], FAQ_ABLAUF[5]]
+const FAQS = [FAQ_ABLAUF[0], FAQ_ABLAUF[3], FAQ_FORMAT[4]]
 
 export default function ErstgespraechPage() {
   return (
@@ -61,7 +61,7 @@ export default function ErstgespraechPage() {
                 <ol className="mt-6 border-t border-line">
                   {ABLAUF.map((a, i) => (
                     <li key={a.t} className="flex gap-4 border-b border-line py-4">
-                      <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-terra-50 font-serif text-[1.2rem] italic text-terra-600">
+                      <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-caramel-50 font-serif text-[1.2rem] italic text-caramel-700">
                         {i + 1}
                       </span>
                       <span>
@@ -73,7 +73,7 @@ export default function ErstgespraechPage() {
                 </ol>
               </Reveal>
 
-              <Reveal delay={0.08} className="grid gap-5 sm:grid-cols-2">
+              <Reveal delay={0.08} className="grid gap-5 sm:grid-cols-3">
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center gap-2.5 text-caramel-700">
                     <Mail className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
@@ -82,13 +82,6 @@ export default function ErstgespraechPage() {
                   <a href={`mailto:${site.email}`} className="link break-all text-[1.0625rem] font-semibold">
                     {site.email}
                   </a>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="flex items-center gap-2.5 text-caramel-700">
-                    <Clock className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
-                    <span className="t-label text-[0.75rem]">Dauer</span>
-                  </p>
-                  <p className="text-[1.0625rem] text-ink">Etwa {site.erstgespraechMin} Minuten</p>
                 </div>
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center gap-2.5 text-caramel-700">

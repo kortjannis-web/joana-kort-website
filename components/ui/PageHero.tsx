@@ -14,10 +14,10 @@ export type HeroImage = {
 }
 
 /**
- * Hero der Unterseiten (dunkles Vollbild, Header liegt transparent darüber, steht beim Scrollen,
+ * Hero der Unterseiten (helles Vollbild wie die Startseite, Header liegt transparent darüber, steht beim Scrollen,
  * das folgende <Sheet> schiebt sich darüber). Deshalb direkt danach IMMER <Sheet> mit dem restlichen Inhalt rendern.
- * Ohne Foto (Standard, solange es keine Fotos von Joana gibt): Espresso-Fläche mit Papierkörnung, warmem Licht von rechts oben
- * und der Markenlinie. `aside`: Bild oder Materialien rechts (ab Desktop), `image`: Foto als Hintergrund (später).
+ * Ohne Foto (Standard, solange es keine Fotos von Joana gibt): beige Papierfläche mit Körnung, weichem Licht und der Markenlinie.
+ * `tone="greige"` für Abwechslung zwischen Seiten. `aside`: Materialien rechts (ab Desktop), `image`: Foto als Hintergrund (später).
  * Mobil fast bildschirmhoch, Text unten. Ab Tablet vertikal mittig. Nie höher als der Viewport. Kein Reveal (oberhalb der Falz).
  */
 export function PageHero({
@@ -29,7 +29,7 @@ export function PageHero({
   aside,
   id = 'hero-title',
   size = 'md',
-  tone = 'espresso',
+  tone = 'light',
   className,
 }: {
   image?: HeroImage
@@ -40,14 +40,14 @@ export function PageHero({
   aside?: ReactNode
   id?: string
   size?: 'md' | 'lg'
-  /** Grundfarbe ohne Foto: espresso (Standard) · mocha (etwas wärmer, für Abwechslung zwischen Seiten) */
-  tone?: 'espresso' | 'mocha'
+  /** Grundfarbe ohne Foto: light (Beige, Standard) · greige (etwas kühler, für Abwechslung zwischen Seiten) */
+  tone?: 'light' | 'greige'
   className?: string
 }) {
   return (
-    <StackBack className={cn(tone === 'mocha' ? 'bg-espresso-700' : 'bg-espresso-900', 'text-white', className)}>
-      <section aria-labelledby={id} className="relative">
-        <div className="grain absolute inset-0 overflow-hidden">
+    <StackBack className={cn(image ? 'bg-espresso-900 text-white' : tone === 'greige' ? 'bg-greige text-ink' : 'bg-stone text-ink', className)}>
+      <section aria-labelledby={id} className="page-hero relative">
+        <div className={cn(image ? 'grain' : 'paper-grain', 'absolute inset-0 overflow-hidden')}>
           {image ? (
             <>
               <picture>
@@ -69,9 +69,10 @@ export function PageHero({
             </>
           ) : (
             <>
-              {/* Warmes Licht wie durch ein Fenster, rechts oben */}
-              <div className="absolute -right-[20%] -top-[30%] h-[85%] w-[80%] rounded-full bg-[radial-gradient(closest-side,rgb(232_168_119/0.16),rgb(214_184_146/0.06)_55%,transparent)] blur-2xl" />
-              <HeroLine variant="page" className="text-caramel-300/25" />
+              {/* Weiches Licht links oben, warmer Schimmer rechts unten (wie Startseite) */}
+              <div className="absolute -left-[12%] -top-[22%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(255_255_255/0.8),rgb(255_255_255/0)_70%)] blur-2xl" />
+              <div className="absolute -bottom-[30%] -right-[10%] h-[75%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(214_184_146/0.3),transparent)] blur-2xl" />
+              <HeroLine variant="page" draw className="text-caramel-500/35" />
             </>
           )}
         </div>
@@ -85,17 +86,32 @@ export function PageHero({
         >
           <div className={cn('max-w-[46rem]', aside && 'xl:col-span-7')}>
             <div className="max-md:-translate-y-[24px]">
-              {eyebrow && <p className="t-label text-caramel-300">{eyebrow}</p>}
-              <h1 id={id} className="t-hero-sub mt-4 text-white short:mt-2.5 [&_em]:italic [&_em]:text-terra-300">
+              {eyebrow && <p className={cn('intro-rise t-label [--d:0s]', image ? 'text-caramel-300' : 'text-caramel-700')}>{eyebrow}</p>}
+              <h1
+                id={id}
+                className={cn(
+                  'intro-rise t-hero-sub mt-4 [--d:0.12s] short:mt-2.5 [&_em]:italic',
+                  image ? 'text-white [&_em]:text-caramel-300' : 'text-espresso-900 [&_em]:font-normal [&_em]:text-caramel-600'
+                )}
+              >
                 {title}
               </h1>
               {intro && (
-                <div className="t-lead mt-5 max-w-[39rem] space-y-4 text-white/85 short:mt-3 short:text-base short:leading-normal md:mt-6">{intro}</div>
+                <div
+                  className={cn(
+                    'intro-rise t-lead mt-5 max-w-[39rem] space-y-4 [--d:0.28s] short:mt-3 short:text-base short:leading-normal md:mt-6',
+                    image ? 'text-white/85' : 'text-ink/75'
+                  )}
+                >
+                  {intro}
+                </div>
               )}
             </div>
-            {actions && <div className="mt-8 flex flex-col gap-3 short:mt-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">{actions}</div>}
+            {actions && (
+              <div className="intro-rise mt-8 flex flex-col gap-3 [--d:0.42s] short:mt-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">{actions}</div>
+            )}
           </div>
-          {aside && <div className="mt-10 hidden xl:col-span-5 xl:mt-0 xl:block">{aside}</div>}
+          {aside && <div className="intro-rise mt-10 hidden [--d:0.5s] xl:col-span-5 xl:mt-0 xl:block">{aside}</div>}
         </div>
       </section>
     </StackBack>

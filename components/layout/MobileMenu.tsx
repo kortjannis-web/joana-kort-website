@@ -4,17 +4,20 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { CalendarHeart, ChevronDown, ChevronRight, Mail, Menu, X } from 'lucide-react'
+import { CalendarHeart, ChevronDown, ChevronRight, Menu, Phone, X } from 'lucide-react'
 import { MAIN_NAV } from './nav'
 import { Logo } from './Logo'
 import { buttonClass } from '@/components/ui/Button'
-import { ERSTGESPRAECH, site } from '@/lib/site'
+import { WhatsAppIcon } from '@/components/ui/icons'
+import { CALL_HREF, CTA_LABEL, ERSTGESPRAECH, site } from '@/lib/site'
+import { useWhatsApp } from './WhatsAppChat'
 
-/** Menü für Handy/Tablet: dunkle Espresso-Fläche, Angebote als Akkordeon, Erstgespräch und E-Mail unten */
+/** Menü für Handy/Tablet (wie Vorlage): dunkle Espresso-Fläche, Angebote als Akkordeon, unten Anrufen + WhatsApp und das Erstgespräch */
 export function MobileMenu() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const terminHref = site.bookingUrl || ERSTGESPRAECH
+  const openWhatsApp = useWhatsApp()
 
   useEffect(() => setOpen(false), [pathname])
 
@@ -55,7 +58,7 @@ export function MobileMenu() {
                     <details className="group" open={item.children.some((c) => c.href === pathname) || item.label === 'Angebote'}>
                       <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between font-serif text-[1.75rem] leading-tight">
                         {item.label}
-                        <ChevronDown className="h-5 w-5 text-terra-300 transition-transform duration-300 group-open:rotate-180" strokeWidth={1.8} aria-hidden="true" />
+                        <ChevronDown className="h-5 w-5 text-caramel-300 transition-transform duration-300 group-open:rotate-180" strokeWidth={1.8} aria-hidden="true" />
                       </summary>
                       <ul className="pb-3.5 pl-0.5 pt-1">
                         {item.children.map((c) => (
@@ -104,20 +107,32 @@ export function MobileMenu() {
               )}
             </ul>
 
-            {/* Erstgespräch: Buchungstool in neuem Fenster, sonst Anfrageformular */}
+            <div className="mt-8 grid grid-cols-2 gap-2.5">
+              <a href={CALL_HREF()} className={buttonClass('outline-light', 'md', 'min-h-[3.25rem]')}>
+                <Phone className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> Anrufen
+              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false)
+                  openWhatsApp()
+                }}
+                className={buttonClass('outline-light', 'md', 'min-h-[3.25rem]')}
+              >
+                <WhatsAppIcon className="h-4.5 w-4.5" /> WhatsApp
+              </button>
+            </div>
             {site.bookingUrl ? (
-              <a href={terminHref} target="_blank" rel="noopener noreferrer" className={buttonClass('primary', 'lg', 'mt-8 w-full')}>
-                <CalendarHeart className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> Kostenloses Erstgespräch
+              <a href={terminHref} target="_blank" rel="noopener noreferrer" className={buttonClass('primary', 'lg', 'mt-2.5 w-full')}>
+                <CalendarHeart className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> {CTA_LABEL}
                 <span className="sr-only"> (öffnet in neuem Fenster)</span>
               </a>
             ) : (
-              <Link href={terminHref} className={buttonClass('primary', 'lg', 'mt-8 w-full')}>
-                <CalendarHeart className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> Kostenloses Erstgespräch
+              <Link href={terminHref} className={buttonClass('primary', 'lg', 'mt-2.5 w-full')}>
+                <CalendarHeart className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> {CTA_LABEL}
               </Link>
             )}
-            <a href={`mailto:${site.email}`} className={buttonClass('outline-light', 'lg', 'mt-2.5 w-full')}>
-              <Mail className="h-4.5 w-4.5" strokeWidth={1.75} aria-hidden="true" /> E-Mail schreiben
-            </a>
+            <p className="mt-2.5 text-center text-[0.875rem] text-espresso-300">15 Minuten · kostenlos · unverbindlich</p>
 
             <p className="mt-8 text-center font-serif text-[1.0625rem] italic text-caramel-300">{site.slogan}</p>
           </nav>

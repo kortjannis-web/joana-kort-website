@@ -10,8 +10,8 @@ export function FaqList({ faqs, headingLevel = 3 }: { faqs: Faq[]; headingLevel?
       {faqs.map((f) => (
         <details key={f.q} className="faq-item group border-b border-line">
           <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5">
-            <H className="text-[1.0625rem] font-semibold leading-snug text-espresso-900 transition-colors duration-500 group-hover:text-terra-700 md:text-[1.125rem]">{f.q}</H>
-            <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full border border-espresso-800/20 text-espresso-800 transition-[transform,border-color,color] duration-500 ease-[var(--ease-soft)] group-hover:border-terra-400/60 group-hover:text-terra-600">
+            <H className="text-[1.0625rem] font-semibold leading-snug text-espresso-900 transition-colors duration-500 group-hover:text-caramel-800 md:text-[1.125rem]">{f.q}</H>
+            <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full border border-espresso-800/20 text-espresso-800 transition-[transform,border-color,color] duration-500 ease-[var(--ease-soft)] group-hover:border-caramel-500/60 group-hover:text-caramel-700">
               <Plus className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
             </span>
           </summary>

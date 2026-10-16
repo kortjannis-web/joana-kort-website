@@ -56,13 +56,25 @@ export const site = {
   radiusKm: 20,
   /** PRÜFEN: E-Mail-Adresse */
   email: process.env.NEXT_PUBLIC_EMAIL || 'kontakt@joana-kort.de',
-  /** Optional: Telefon. Leer = kein Telefon auf der Website (Kontakt per E-Mail und Formular) */
+  /**
+   * Telefon (Header "Anrufen"). PRÜFEN: Nummer in Coolify eintragen (NEXT_PUBLIC_PHONE, z. B. "0176 12345678").
+   * Solange leer, führt "Anrufen" zum Erstgespräch-Formular (dort kann man einen Rückruf wählen).
+   */
   phone: process.env.NEXT_PUBLIC_PHONE
     ? {
         display: process.env.NEXT_PUBLIC_PHONE,
         href: `tel:${process.env.NEXT_PUBLIC_PHONE.replace(/[^\d+]/g, '').replace(/^0/, '+49')}`,
       }
     : null,
+  /**
+   * WhatsApp (Knopf unten rechts, ohne Fremd-Skript: Hinweisfenster, erst der Klick öffnet wa.me).
+   * PRÜFEN: Nummer international ohne + und Leerzeichen (NEXT_PUBLIC_WHATSAPP, z. B. "4917612345678"). Leer = Knopf führt zum Formular.
+   */
+  whatsapp: {
+    number: (process.env.NEXT_PUBLIC_WHATSAPP || '').replace(/\D/g, ''),
+    greeting: 'Hallo, hier ist Joana. Schreiben Sie mir gern Ihre Frage, ich antworte persönlich, meist noch am selben Tag.',
+    prefill: 'Hallo Joana, ich interessiere mich für ein kostenloses Erstgespräch.',
+  },
   social: {
     instagram: process.env.NEXT_PUBLIC_INSTAGRAM || '',
     linkedin: process.env.NEXT_PUBLIC_LINKEDIN || '',
@@ -79,8 +91,17 @@ export const site = {
   erstgespraechMin: 15,
 } as const
 
-/** Hauptziel aller CTAs: das kostenlose Erstgespräch (Formular auf der Seite, oben ein schmaler Hero-Streifen) */
+/** Hauptziel ALLER CTAs: das kostenlose 15-Minuten-Gespräch mit kurzem Fragebogen (oben bleibt ein schmaler Hero-Streifen sichtbar) */
 export const ERSTGESPRAECH = '/erstgespraech/#anfrage'
+
+/** Einheitliche CTA-Beschriftung */
+export const CTA_LABEL = 'Kostenloses Erstgespräch'
+
+/** "Anrufen": Telefon, solange keine Nummer eingetragen ist das Formular */
+export const CALL_HREF = () => site.phone?.href ?? ERSTGESPRAECH
+
+export const whatsappHref = (text: string = site.whatsapp.prefill) =>
+  site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(text)}` : ERSTGESPRAECH
 
 /**
  * Orte im Umkreis von etwa 20 km um Gummersbach (Vor-Ort-Termine). Fahrtkosten je nach Entfernung.

@@ -22,8 +22,8 @@ export function AreaMap() {
     <InView className="area-map grain absolute inset-0 flex items-center justify-center p-4" threshold={0.4}>
       <svg viewBox="-26 -24 52 48" className="h-full max-h-[26rem] w-full" role="img" aria-label={`Umkreis von etwa ${site.radiusKm} Kilometern um ${site.address.city} mit den umliegenden Orten`}>
         <circle cx="0" cy="0" r="10" fill="none" stroke="rgb(214 184 146 / 0.18)" strokeWidth="0.15" strokeDasharray="0.6 0.8" />
-        <circle className="area-ring" cx="0" cy="0" r="20" fill="rgb(232 168 119 / 0.05)" stroke="#e8a877" strokeWidth="0.22" pathLength={1} transform="rotate(-90)" />
-        <text x="14.6" y="-14.2" fontSize="1.5" fill="#e8a877" fontFamily="var(--font-dmsans)" letterSpacing="0.1">
+        <circle className="area-ring" cx="0" cy="0" r="20" fill="rgb(214 184 146 / 0.05)" stroke="#d6b892" strokeWidth="0.22" pathLength={1} transform="rotate(-90)" />
+        <text x="14.6" y="-14.2" fontSize="1.5" fill="#d6b892" fontFamily="var(--font-dmsans)" letterSpacing="0.1">
           {site.radiusKm} km
         </text>
         {ORTE.map((o, i) => (
@@ -43,13 +43,13 @@ export function AreaMap() {
             </text>
           </g>
         ))}
-        <circle className="area-pulse" cx="0" cy="0" r="1.2" fill="#e8a877" />
-        <circle cx="0" cy="0" r="1.05" fill="#e8a877" stroke="#2a211b" strokeWidth="0.3" />
+        <circle className="area-pulse" cx="0" cy="0" r="1.2" fill="#d6b892" />
+        <circle cx="0" cy="0" r="1.05" fill="#d6b892" stroke="#2a211b" strokeWidth="0.3" />
         <text x="0" y="3.6" textAnchor="middle" fontSize="2" fill="#fff" fontFamily="var(--font-playfair)" fontStyle="italic">
           {site.address.city}
         </text>
       </svg>
-      <span className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-terra-200">
+      <span className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-caramel-200">
         Online: überall
       </span>
     </InView>

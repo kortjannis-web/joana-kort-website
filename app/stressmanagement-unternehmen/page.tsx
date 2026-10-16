@@ -14,8 +14,9 @@ export default function UnternehmenPage() {
   return (
     <OfferLayout
       current="unternehmen"
+      interesse="unternehmen"
       hero={{
-        tone: 'mocha',
+        tone: 'greige',
         eyebrow: 'Für Unternehmen und Teams',
         title: (
           <>
@@ -36,8 +37,6 @@ export default function UnternehmenPage() {
         ['Für wen', 'Kleine Unternehmen, Teams, Gruppen'],
         ['Format', 'Online oder bei Ihnen vor Ort'],
         ['Umfang', 'Impuls, halber Tag oder Reihe'],
-        ['Inhalte', 'Nach Ihrem Bedarf'],
-        ['Einstieg', 'Kostenloses Vorgespräch'],
       ]}
       themesTitle="Mögliche Inhalte"
       themes={[
@@ -55,11 +54,8 @@ export default function UnternehmenPage() {
         { title: 'Schulung und Nachklang', text: 'Praxisnah, mit Übungen und Materialien. Auf Wunsch mit Folgetermin, damit es im Alltag hält.' },
       ]}
       cta={{
-        type: 'erstgespraech',
         title: 'Erzählen Sie mir von Ihrem Team',
-        text: 'Im kostenlosen Vorgespräch klären wir, welches Format zu Ihnen passt.',
-        href: '/erstgespraech/?interesse=unternehmen#anfrage',
-        label: 'Schulung anfragen',
+        text: 'Im kostenlosen Erstgespräch (15 Minuten) klären wir Anlass, Ziele und welches Format zu Ihnen passt.',
       }}
       faqs={UNTERNEHMEN_FAQS}
     />

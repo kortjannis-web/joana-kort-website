@@ -7,7 +7,7 @@ import { site } from '@/lib/site'
 export function ImpressumAngaben() {
   const { address } = site
   const label = 't-label text-[0.75rem] text-caramel-700'
-  const link = 'font-semibold text-espresso-800 underline decoration-caramel-500/50 underline-offset-4 transition-colors duration-300 hover:text-terra-700'
+  const link = 'font-semibold text-espresso-800 underline decoration-caramel-500/50 underline-offset-4 transition-colors duration-300 hover:text-caramel-800'
 
   return (
     <div className="floaty grid gap-5 rounded-lg border border-line bg-white p-[1.375rem] text-base leading-[1.7] text-ink md:grid-cols-2 md:gap-8 md:p-8">

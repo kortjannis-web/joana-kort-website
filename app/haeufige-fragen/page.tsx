@@ -26,7 +26,7 @@ export default function FaqPage() {
     <>
       <JsonLd data={faqSchema(FAQS)} />
       <PageHero
-        tone="mocha"
+        tone="greige"
         eyebrow="Häufige Fragen"
         title={
           <>
@@ -47,7 +47,7 @@ export default function FaqPage() {
             <div className="flex flex-col gap-12 md:gap-16">
               <nav aria-label="Themen" className="flex flex-wrap gap-2">
                 {FAQ_GRUPPEN.map((g) => (
-                  <a key={g.id} href={`#${g.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-[0.9375rem] font-medium text-espresso-900 transition-colors hover:border-terra-400 hover:text-terra-700">
+                  <a key={g.id} href={`#${g.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-[0.9375rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800">
                     {g.title}
                   </a>
                 ))}
@@ -65,7 +65,7 @@ export default function FaqPage() {
             <aside aria-label="Weitere Fragen" className="flex flex-col gap-5 xl:sticky xl:top-28">
               <Reveal delay={0.1}>
                 <div className="grain glow-hover floaty flex flex-col gap-3.5 overflow-hidden rounded-lg bg-espresso-800 p-6 text-white xl:p-8">
-                  <span className="grid h-11 w-11 place-items-center rounded-md bg-terra-300/15 text-terra-300">
+                  <span className="grid h-11 w-11 place-items-center rounded-md bg-caramel-300/15 text-caramel-300">
                     <span className="glow-icon">
                       <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                     </span>
@@ -75,7 +75,7 @@ export default function FaqPage() {
                   <a href={`mailto:${site.email}`} className={buttonClass('light', 'md', 'min-h-13 w-full break-all xl:w-auto xl:self-start')}>
                     E-Mail schreiben
                   </a>
-                  <Link href={ERSTGESPRAECH} className="text-[0.9375rem] font-semibold text-white underline decoration-terra-300/60 underline-offset-4 hover:text-terra-200">
+                  <Link href={ERSTGESPRAECH} className="text-[0.9375rem] font-semibold text-white underline decoration-caramel-300/60 underline-offset-4 hover:text-caramel-200">
                     Oder im Erstgespräch fragen
                   </Link>
                 </div>

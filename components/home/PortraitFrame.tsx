@@ -26,8 +26,8 @@ export function PortraitFrame({ className, fill = false, priority = false }: { c
             />
           ) : (
             <div className="grain absolute inset-0 flex flex-col items-center justify-center gap-5 text-center">
-              <div className="absolute inset-x-0 top-0 h-2/3 bg-[radial-gradient(closest-side,rgb(232_168_119/0.18),transparent)]" />
-              <span className="relative font-serif text-[clamp(4rem,22cqw,7.5rem)] italic leading-none text-terra-300">JK</span>
+              <div className="absolute inset-x-0 top-0 h-2/3 bg-[radial-gradient(closest-side,rgb(214_184_146/0.18),transparent)]" />
+              <span className="relative font-serif text-[clamp(4rem,22cqw,7.5rem)] italic leading-none text-caramel-300">JK</span>
               <LogoMark className="relative w-[42%] text-caramel-300/80" strokeWidth={1.6} />
               <span className="t-label relative text-[0.6875rem] text-caramel-300/90">Joana Kort</span>
             </div>

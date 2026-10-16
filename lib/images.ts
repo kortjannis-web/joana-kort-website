@@ -41,6 +41,13 @@ export const MATERIAL = {
 /** Foto von Joana (Porträt). null = Platzhalter mit Materialien statt Foto. PRÜFEN: Fotos nachliefern */
 export const PORTRAIT: Img | null = null
 
+/**
+ * Vorstellungsvideo von Joana (Startseite direkt unter dem Hero). null = gestalteter Platzhalter.
+ * PRÜFEN: Video als MP4 (H.264, ca. 1 bis 2 Minuten, 1080p) nach public/video/ legen, Vorschaubild dazu, Untertitel (VTT) empfohlen.
+ * Selbst gehostet: kein YouTube, keine Einwilligung nötig.
+ */
+export const VIDEO: { src: string; poster: string; captions?: string; duration?: string; uploadDate: string } | null = null
+
 /** Open-Graph-Bild (1200 × 630), siehe public/og */
 export const OG_IMAGE = {
   url: '/og/og-joana-kort-stressberatung.jpg',
