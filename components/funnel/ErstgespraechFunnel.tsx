@@ -268,7 +268,7 @@ export function ErstgespraechFunnel({
         <form onSubmit={onSubmit} noValidate>
           {step === 'interesse' && (
             <Step title="Wofür interessieren Sie sich?" sub="Wählen Sie, was am ehesten passt. Wir sprechen im Erstgespräch über alles Weitere." {...h}>
-              <div className="grid gap-2 sm:grid-cols-2">
+              <div className="grid grid-cols-2 gap-2">
                 {INTERESSEN.map((i) => {
                   const Icon = ICONS[i.key]
                   return (

@@ -19,15 +19,17 @@ export function Reveal({
 }) {
   const reduce = useReducedMotion()
   const Comp = as === 'li' ? m.li : as === 'section' ? m.section : m.div
+  // Startwert immer gleich (Server und Browser rendern dasselbe HTML, sonst bleibt der Block bei "Bewegung reduzieren" unsichtbar).
+  // Bei "Bewegung reduzieren" ohne Dauer: der Block steht sofort da
   return (
     <LazyMotion features={domAnimation} strict>
       <Comp
         className={className}
         data-reveal=""
-        initial={reduce ? false : { opacity: 0, y }}
+        initial={{ opacity: 0, y }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={reduce ? { duration: 0 } : { duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
       >
         {children}
       </Comp>

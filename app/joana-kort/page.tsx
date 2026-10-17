@@ -51,27 +51,32 @@ export default function UeberMichPage() {
       />
 
       <Sheet crumbs={[{ name: 'Über mich', path: PATH }]}>
-        <section aria-labelledby="geschichte" className="pb-16 pt-8 md:pb-24 md:pt-12 xl:pb-28">
+        {/* Vorstellung: Porträt (Höhe am Viewport bemessen) und ein Satz, wofür ich da bin */}
+        <section aria-label="Vorstellung" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap">
-            <div className="grid gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center md:gap-12 xl:grid-cols-[26rem_minmax(0,1fr)] xl:gap-[5.5rem]">
-              <Reveal className="mx-auto w-[82%] md:w-full">
+            <div className="grid gap-[var(--sec-gap)] md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:items-center md:gap-12 xl:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] xl:gap-[5.5rem]">
+              <Reveal className="mx-auto w-[min(70%,calc(40svh*0.8))] md:w-full md:max-w-[calc((100svh-2*var(--sec-y)-3rem)*0.8)]">
                 <PortraitFrame />
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="font-serif text-[1.4375rem] leading-[1.35] text-espresso-900 md:text-[1.75rem] xl:text-[2.05rem] xl:leading-[1.3]">
+                <p className="font-serif text-[clamp(1.25rem,0.9rem+1.6svh,1.4375rem)] leading-[1.35] text-espresso-900 md:text-[clamp(1.5rem,1rem+1.8svh,1.75rem)] xl:text-[clamp(1.75rem,1rem+2.6svh,2.05rem)] xl:leading-[1.3]">
                   Ich bin Joana Kort. Ich begleite Menschen dabei, ihren Stress zu verstehen, passende Wege der Bewältigung zu finden und ihren
                   Alltag so zu gestalten, dass sie wieder <em className="italic text-caramel-600">durchatmen</em> können.
                 </p>
               </Reveal>
             </div>
+          </div>
+        </section>
 
-            <div className="mt-14 grid gap-10 md:mt-20 xl:grid-cols-12 xl:gap-16">
+        <section aria-labelledby="geschichte" className="sec bg-stone">
+          <div className="wrap">
+            <div className="grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
               <Reveal className="xl:col-span-4">
                 <h2 id="geschichte" className="t-h2 text-espresso-900">
                   Warum ich mich auf Stress spezialisiere
                 </h2>
               </Reveal>
-              <Reveal delay={0.08} className="prose-jk xl:col-span-8">
+              <Reveal delay={0.08} className="prose-jk max-md:text-[0.9375rem] max-md:leading-relaxed xl:col-span-8">
                 {/* PRÜFEN: Joana entscheidet, wie viel sie zur Migräne öffentlich erzählt (Briefing: selbst bestimmen). Keine Angaben zum Grad der Behinderung. */}
                 <p>
                   Seit meiner Kindheit habe ich Migräne. Über viele Jahre hat sie meinen Alltag geprägt, mit Attacken, die manchmal mehrere Tage
@@ -101,23 +106,23 @@ export default function UeberMichPage() {
 
         <Staerken />
 
-        <section aria-labelledby="fakten-title" className="py-16 md:py-24 xl:py-[7.5rem]">
-          <div className="wrap grid gap-6 md:gap-10 xl:grid-cols-[22rem_minmax(0,1fr)] xl:gap-x-20">
+        <section aria-labelledby="fakten-title" className="sec">
+          <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-[22rem_minmax(0,1fr)] xl:gap-x-20">
             <Reveal>
               <p className="t-label text-caramel-700">Auf einen Blick</p>
               <h2 id="fakten-title" className="t-h2 mt-3 text-espresso-900 xl:mt-4">
                 Fakten
               </h2>
-              <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-muted md:text-[1.0625rem]">Transparent und überprüfbar, auch was meinen Studienstand angeht.</p>
+              <p className="mt-[clamp(0.5rem,2svh,1rem)] max-w-[30rem] text-[0.9375rem] leading-relaxed text-muted md:text-[1.0625rem]">Transparent und überprüfbar, auch was meinen Studienstand angeht.</p>
             </Reveal>
             <Reveal delay={0.08}>
               <ul className="grid gap-x-12 md:grid-cols-2">
                 {fakten.map(([k, v]) => (
-                  <li key={k} className="flex gap-4 border-b border-line py-4 md:py-5">
+                  <li key={k} className="flex gap-4 border-b border-line py-[clamp(0.5rem,1.6svh,1.25rem)]">
                     <span aria-hidden="true" className="mt-[0.5rem] h-2 w-2 shrink-0 rotate-45 rounded-[2px] bg-caramel-500" />
                     <span className="flex flex-col gap-1">
                       <span className="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-caramel-700">{k}</span>
-                      <span className="text-[0.9375rem] font-medium leading-relaxed text-espresso-900 md:text-base">{v}</span>
+                      <span className="text-[0.9375rem] font-medium leading-snug text-espresso-900 md:text-base md:leading-relaxed">{v}</span>
                     </span>
                   </li>
                 ))}
@@ -128,21 +133,21 @@ export default function UeberMichPage() {
 
         <Reviews title="Wie andere die Zusammenarbeit erleben" />
 
-        <section aria-label="Weiter" className="pb-28 md:pb-36 xl:pb-44">
+        <section aria-label="Weiter" className="sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
           <div className="wrap">
-            <Reveal className="mb-10 md:mb-14">
+            <Reveal className="mb-[var(--sec-gap)]">
               <h2 className="t-h2 max-w-[22ch] text-espresso-900">Lernen wir uns in 15 Minuten kennen</h2>
-              <CtaRow className="mt-6" />
+              <CtaRow className="mt-[clamp(0.75rem,2.5svh,1.5rem)]" />
             </Reveal>
-            <Reveal className="grid gap-4 rounded-xl border border-line bg-stone p-6 md:grid-cols-3 md:p-8">
+            <Reveal className="grid gap-2 rounded-xl border border-line bg-stone p-3 md:grid-cols-3 md:gap-4 md:p-[clamp(1.25rem,3svh,2rem)]">
               {[
                 { href: '/stresscoaching/', t: 'Persönliche Begleitung', d: 'Mein Hauptangebot über 3 oder 6 Monate' },
                 { href: '/mein-ansatz/', t: 'Mein Ansatz', d: 'Verstehen, bewältigen, managen' },
                 { href: '/stress-verstehen/', t: 'Stress verstehen', d: 'Wie Stress entsteht, einfach erklärt' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group rounded-lg bg-white p-5 transition-transform duration-500 hover:-translate-y-1">
-                  <span className="block font-serif text-[1.3rem] text-espresso-900 group-hover:text-caramel-800">{l.t}</span>
-                  <span className="mt-1 block text-[0.9375rem] text-muted">{l.d}</span>
+                <Link key={l.href} href={l.href} className="group rounded-lg bg-white px-4 py-3 transition-transform duration-500 hover:-translate-y-1 md:p-5">
+                  <span className="block font-serif text-[1.2rem] text-espresso-900 group-hover:text-caramel-800 md:text-[1.3rem]">{l.t}</span>
+                  <span className="mt-0.5 block text-[0.875rem] text-muted md:mt-1 md:text-[0.9375rem]">{l.d}</span>
                 </Link>
               ))}
             </Reveal>

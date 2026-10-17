@@ -32,19 +32,19 @@ const socials = [
  */
 export function Footer() {
   return (
-    <footer className="sheet grain bg-espresso-950 pb-28 text-espresso-200 md:pb-0">
+    <footer className="sheet grain bg-espresso-950 pb-20 text-espresso-200 md:pb-0">
       <FooterCta />
-      <div className="wrap grid gap-12 py-14 md:grid-cols-2 md:py-16 xl:grid-cols-[1.3fr_1fr_1fr_1fr] xl:gap-14 xl:py-[4.5rem]">
-        <div className="max-w-sm">
+      <div className="wrap grid grid-cols-2 gap-x-6 gap-y-[clamp(1.75rem,4svh,3rem)] py-[var(--sec-y)] md:gap-x-12 xl:grid-cols-[1.3fr_1fr_1fr_1fr] xl:gap-x-14">
+        <div className="col-span-2 max-w-sm md:col-span-1">
           <Link href="/" aria-label="Joana Kort Stressberatung, zur Startseite" className="-ml-1 inline-block rounded-md p-1">
             <Logo tone="light" />
           </Link>
-          <p className="mt-6 font-serif text-[1.125rem] italic leading-snug text-caramel-300">{site.slogan}</p>
-          <p className="mt-4 text-[0.9375rem] leading-relaxed">
+          <p className="mt-[clamp(0.75rem,2.5svh,1.5rem)] font-serif text-[1.0625rem] italic leading-snug text-caramel-300 md:text-[1.125rem]">{site.slogan}</p>
+          <p className="mt-3 text-[0.875rem] leading-relaxed md:mt-4 md:text-[0.9375rem]">
             Individuelle Stressberatung und Stresscoaching in Gummersbach und online. {ROLE.short}.
           </p>
           {socials.length > 0 && (
-            <ul className="mt-6 flex gap-2">
+            <ul className="mt-[clamp(0.75rem,2.5svh,1.5rem)] flex gap-2">
               {socials.map(({ label, href, Icon }) => (
                 <li key={label}>
                   <a
@@ -62,7 +62,8 @@ export function Footer() {
           )}
         </div>
 
-        <div>
+        {/* Handy: Telefon, E-Mail und Erstgespräch stehen direkt darüber im Schluss-CTA */}
+        <div className="max-md:hidden">
           <h2 className="t-label text-caramel-300">Kontakt</h2>
           <ul className="mt-5 text-[0.9375rem]">
             <li>
@@ -104,16 +105,16 @@ export function Footer() {
 
         <nav aria-label="Angebote">
           <h2 className="t-label text-caramel-300">Angebote</h2>
-          <ul className="mt-5 space-y-1">
+          <ul className="mt-3 md:mt-5 md:space-y-1">
             {ANGEBOTE.map((a) => (
               <li key={a.path}>
-                <Link href={a.path} className="inline-flex min-h-9 items-center text-[0.9375rem] hover:text-white">
+                <Link href={a.path} className="inline-flex min-h-9 items-center text-[0.875rem] leading-snug hover:text-white md:text-[0.9375rem]">
                   {a.short}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/angebote/" className="inline-flex min-h-9 items-center text-[0.9375rem] hover:text-white">
+              <Link href="/angebote/" className="inline-flex min-h-9 items-center text-[0.875rem] leading-snug hover:text-white md:text-[0.9375rem]">
                 Alle Angebote im Überblick
               </Link>
             </li>
@@ -122,10 +123,10 @@ export function Footer() {
 
         <nav aria-label="Wissen und Region">
           <h2 className="t-label text-caramel-300">Mehr erfahren</h2>
-          <ul className="mt-5 space-y-1">
+          <ul className="mt-3 md:mt-5 md:space-y-1">
             {wissen.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="inline-flex min-h-9 items-center text-[0.9375rem] hover:text-white">
+                <Link href={l.href} className="inline-flex min-h-9 items-center text-[0.875rem] leading-snug hover:text-white md:text-[0.9375rem]">
                   {l.label}
                 </Link>
               </li>
@@ -135,8 +136,8 @@ export function Footer() {
       </div>
 
       <div className="wrap">
-        <div className="flex flex-col gap-2 border-t border-white/12 py-6 text-[0.8125rem] leading-snug text-espresso-300 xl:flex-row xl:items-start xl:justify-between xl:gap-8">
-          <p className="py-2 xl:py-0">
+        <div className="flex flex-col gap-1 border-t border-white/12 py-4 text-[0.8125rem] md:py-6 leading-snug text-espresso-300 xl:flex-row xl:items-start xl:justify-between xl:gap-8">
+          <p className="py-1 xl:py-0">
             © {new Date().getFullYear()} {site.name} · Keine Psychotherapie und keine Heilbehandlung
           </p>
           <ul className="flex flex-wrap gap-x-5 xl:justify-end xl:gap-y-2">

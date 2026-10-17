@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
+import { Carousel } from '@/components/ui/Carousel'
 import { InView } from '@/components/ui/InView'
 import { More } from '@/components/ui/More'
 import { Reveal } from '@/components/ui/Reveal'
@@ -11,13 +12,49 @@ import { SCHWERPUNKTE } from '@/lib/content/angebote'
 import { CTA_LABEL, ERSTGESPRAECH } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
-/** Versatz je Schwerpunkt ab Tablet (Briefing: "leicht nach rechts versetzt"), Verbindung als Treppe dazwischen */
-const OFFSET = ['0%', '12%', '24%']
+/** Stufe je Schwerpunkt ab Tablet: jede Karte sitzt eine Stufe höher als die vorige (sie bauen aufeinander auf) */
+const STEP = 'clamp(1.25rem, 3.5svh, 2.75rem)'
+
+type Pillar = (typeof SCHWERPUNKTE)[number]
+
+function PillarCard({ p, i }: { p: Pillar; i: number }) {
+  return (
+    <article className="loop-card relative flex h-full flex-col rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,2.25rem)]">
+      <div className="flex items-baseline gap-3 xl:gap-4">
+        <span
+          aria-hidden="true"
+          className="pillar-num font-serif text-[clamp(2.75rem,2rem+3svh,4.5rem)] italic leading-[0.8] text-caramel-600"
+          style={{ '--d': `${0.3 + i * 0.5}s` } as React.CSSProperties}
+        >
+          {p.nr}
+        </span>
+        <h3 className="font-serif text-[clamp(1.375rem,1rem+1.4svh,2rem)] leading-[1.12] tracking-[-0.012em] text-espresso-900">
+          <span className="sr-only">{p.nr}. </span>
+          {p.title}
+        </h3>
+      </div>
+      <p className="mt-3 flex-1 font-serif text-[1.0625rem] italic leading-snug text-caramel-700 md:text-[clamp(1rem,0.8rem+0.8svh,1.1875rem)]">{p.kurz}</p>
+      {/* Langtext und typische Fragen erst nach Klick auf den Pfeil (im HTML vorhanden, für Suche und KI lesbar) */}
+      <More label={`Mehr zu: ${p.title}`} className="relative z-10 mt-2">
+        <p className="leading-relaxed text-ink/85">{p.text}</p>
+        <ul className="mt-4 grid gap-y-2 border-t border-line pt-4 text-[0.9375rem] text-muted">
+          {p.fragen.map((f) => (
+            <li key={f} className="flex gap-2.5 leading-snug">
+              <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-caramel-500" />
+              {f}
+            </li>
+          ))}
+        </ul>
+      </More>
+    </article>
+  )
+}
 
 /**
- * Die drei Schwerpunkte als wiedererkennbares Konzept: drei Karten, jeweils leicht nach rechts versetzt, verbunden durch eine
- * gestrichelte Treppe (zeichnet sich beim Hinscrollen). Große kursive Ziffer, Titel, Erklärung, typische Fragen.
- * Im Loop (4,5 s) hebt sich der aktive Schwerpunkt an (.loop-card), Hover hält fest.
+ * Die drei Schwerpunkte als wiedererkennbares Konzept. Ab Tablet drei Karten nebeneinander als aufsteigende Treppe
+ * (jede eine Stufe höher), verbunden durch gestrichelte Stufen, die sich beim Hinscrollen zeichnen. Große kursive Ziffer, Titel, Kurzsatz,
+ * Langtext und typische Fragen hinter dem Pfeil. Im Loop (4,5 s) hebt sich der aktive Schwerpunkt an (.loop-card), Hover hält fest.
+ * Handy: wischbar (Karussell). Die Section passt immer in einen Bildschirm.
  * `sheet`: als Fläche mit runden Ecken, die sich über die stehende Espresso-Section davor schiebt (Startseite).
  */
 export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: boolean; title?: React.ReactNode; intro?: string; cta?: boolean }) {
@@ -25,7 +62,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
   return (
     <section
       aria-labelledby="schwerpunkte-title"
-      className={cn(sheet && 'sheet', 'paper-grain bg-paper pb-20 pt-14 md:pb-28 md:pt-20 xl:pb-32 xl:pt-24')}
+      className={cn(sheet && 'sheet', 'paper-grain sec bg-paper xl:flex xl:min-h-svh xl:flex-col xl:justify-center')}
     >
       <div className="wrap">
         <Reveal className="max-w-[46rem]">
@@ -37,63 +74,43 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
               </>
             )}
           </h2>
-          <p className="t-lead mt-5 text-muted">
+          <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-muted">
             {intro ??
               'Erst verstehen, dann bewältigen, dann den Alltag neu gestalten. So wird aus Wissen Schritt für Schritt Veränderung, die bleibt.'}
           </p>
         </Reveal>
 
-        <InView className="pillar-line mt-10 md:mt-14" threshold={0.2}>
-          <ol ref={ref}>
+        <InView className="pillar-line mt-[var(--sec-gap)]" threshold={0.2}>
+          <div className="md:hidden">
+            <Carousel label="Drei Schwerpunkte" arrowLabel="Schwerpunkte" item="84vw">
+              {SCHWERPUNKTE.map((p, i) => (
+                <PillarCard key={p.nr} p={p} i={i} />
+              ))}
+            </Carousel>
+          </div>
+          <ol ref={ref} className="hidden grid-cols-3 gap-5 md:grid xl:gap-8">
             {SCHWERPUNKTE.map((p, i) => (
-              <li key={p.nr} {...bind(i)} className="lift-hover">
+              <li
+                key={p.nr}
+                {...bind(i)}
+                className="lift-hover relative h-full"
+                style={{ paddingTop: `calc(${STEP} * ${SCHWERPUNKTE.length - 1 - i})` }}
+              >
                 {i > 0 && (
                   <div
                     aria-hidden="true"
-                    className="pillar-step hidden h-12 rounded-bl-[2rem] border-b-[1.5px] border-l-[1.5px] border-dashed border-caramel-400 md:block"
-                    style={{ marginLeft: `calc(${OFFSET[i - 1]} + 3.6rem)`, width: '12%', '--d': `${0.5 + i * 0.5}s` } as React.CSSProperties}
+                    className="pillar-step absolute right-full w-5 rounded-tl-[1.25rem] border-l-[1.5px] border-t-[1.5px] border-dashed border-caramel-400 xl:w-8"
+                    style={{ top: `calc(${STEP} * ${SCHWERPUNKTE.length - 1 - i} + 2.5rem)`, height: STEP, '--d': `${0.5 + i * 0.5}s` } as React.CSSProperties}
                   />
                 )}
-                <article
-                  className={cn('loop-card relative rounded-xl border border-line bg-white p-6 md:ml-[var(--off)] md:w-[76%] md:p-8 xl:p-10', i > 0 && 'mt-4 md:mt-0')}
-                  style={{ '--off': OFFSET[i] } as React.CSSProperties}
-                >
-                  <div className="grid gap-4 md:grid-cols-[3.5rem_minmax(0,1fr)] md:gap-7 xl:grid-cols-[4rem_minmax(0,1fr)] xl:gap-9">
-                    <span
-                      aria-hidden="true"
-                      className="pillar-num font-serif text-[4rem] italic leading-[0.8] text-caramel-600 md:text-[5rem] xl:text-[5.75rem]"
-                      style={{ '--d': `${0.3 + i * 0.5}s` } as React.CSSProperties}
-                    >
-                      {p.nr}
-                    </span>
-                    <div>
-                      <h3 className="font-serif text-[1.75rem] leading-[1.12] tracking-[-0.012em] text-espresso-900 md:text-[2.125rem]">
-                        <span className="sr-only">{p.nr}. </span>
-                        {p.title}
-                      </h3>
-                      <p className="mt-2 font-serif text-[1.0625rem] italic leading-snug text-caramel-700 md:text-[1.1875rem]">{p.kurz}</p>
-                      {/* Langtext und typische Fragen erst nach Klick auf den Pfeil (im HTML vorhanden, für Suche und KI lesbar) */}
-                      <More label={`Mehr zu: ${p.title}`} className="relative z-10 mt-3">
-                        <p className="leading-relaxed text-ink/85">{p.text}</p>
-                        <ul className="mt-5 grid gap-x-6 gap-y-2 border-t border-line pt-4 text-[0.9375rem] text-muted sm:grid-cols-2">
-                          {p.fragen.map((f) => (
-                            <li key={f} className="flex gap-2.5 leading-snug">
-                              <span aria-hidden="true" className="mt-[0.45em] h-1.5 w-1.5 shrink-0 rounded-full bg-caramel-500" />
-                              {f}
-                            </li>
-                          ))}
-                        </ul>
-                      </More>
-                    </div>
-                  </div>
-                </article>
+                <PillarCard p={p} i={i} />
               </li>
             ))}
           </ol>
         </InView>
 
         {cta && (
-          <Reveal className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-7 md:mt-14 md:pl-[24%]">
+          <Reveal className="mt-[var(--sec-gap)] flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-7">
             <ButtonLink href={ERSTGESPRAECH} variant="primary" size="lg" className="group w-full sm:w-auto">
               {CTA_LABEL}
               <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />

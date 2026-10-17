@@ -4,6 +4,7 @@ import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
+import { Carousel } from '@/components/ui/Carousel'
 import { CheckList } from '@/components/lists/CheckList'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { Process } from '@/components/home/Process'
@@ -61,31 +62,31 @@ export default function OnlinePage() {
       />
 
       <Sheet crumbs={[{ name: 'Stressberatung online', path: PATH }]}>
-        <section aria-labelledby="vorteile" className="pb-16 pt-8 md:pb-24 md:pt-12">
+        <section aria-labelledby="vorteile" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap">
             <Reveal>
               <h2 id="vorteile" className="t-h2 max-w-[24ch] text-espresso-900">
                 Warum viele die Begleitung online wählen
               </h2>
             </Reveal>
-            <div className="mt-8 grid gap-4 md:grid-cols-3 xl:gap-6">
-              {VORTEILE.map(({ title, text, Icon }, i) => (
-                <Reveal key={title} delay={i * 0.05}>
-                  <div className="floaty h-full rounded-lg border border-line bg-white p-6">
+            <Carousel label="Vorteile" arrowLabel="Vorteile" item="80vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-4 xl:gap-6" className="mt-[var(--sec-gap)]">
+              {VORTEILE.map(({ title, text, Icon }) => (
+                <div key={title} className="h-full">
+                  <div className="floaty h-full rounded-lg border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <span className="grid h-11 w-11 place-items-center rounded-md bg-stone text-caramel-700">
                       <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                     </span>
-                    <h3 className="mt-4 font-serif text-[1.3rem] text-espresso-900">{title}</h3>
-                    <p className="mt-2 leading-relaxed text-muted">{text}</p>
+                    <h3 className="mt-[clamp(0.75rem,2svh,1rem)] font-serif text-[1.3rem] text-espresso-900">{title}</h3>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted md:text-base">{text}</p>
                   </div>
-                </Reveal>
+                </div>
               ))}
-            </div>
+            </Carousel>
           </div>
         </section>
 
-        <section aria-labelledby="technik" className="bg-greige py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
+        <section aria-labelledby="technik" className="bg-greige sec">
+          <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-5">
               <h2 id="technik" className="t-h2 text-espresso-900">
                 Was Sie brauchen
@@ -108,15 +109,15 @@ export default function OnlinePage() {
 
         <Process tone="paper" />
 
-        <section aria-labelledby="on-fragen" className="bg-stone py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-4">
+        <section aria-labelledby="on-fragen" className="bg-stone sec">
+          <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+            <Reveal className="lg:col-span-5 xl:col-span-4">
               <h2 id="on-fragen" className="t-h2 text-espresso-900">
                 Fragen zur Online-Begleitung
               </h2>
             </Reveal>
-            <div className="xl:col-span-8">
-              <FaqAccordion faqs={ONLINE_FAQS} openFirst />
+            <div className="lg:col-span-7 xl:col-span-8">
+              <FaqAccordion faqs={ONLINE_FAQS} />
             </div>
           </div>
         </section>

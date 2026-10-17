@@ -57,15 +57,15 @@ export function Process({
     )
 
   return (
-    <section aria-labelledby="ablauf-title" className={cn(tone === 'stone' ? 'bg-stone' : 'bg-paper', 'py-16 md:py-24 xl:flex xl:min-h-[calc(100svh-5rem)] xl:items-center xl:py-16')}>
+    <section aria-labelledby="ablauf-title" className={cn(tone === 'stone' ? 'bg-stone' : 'bg-paper', 'sec xl:flex xl:min-h-svh xl:items-center')}>
       {/* Handy/Tablet */}
-      <div className="wrap flex flex-col gap-5 md:gap-7 xl:hidden">
+      <div className="wrap flex flex-col gap-[var(--sec-gap)] xl:hidden">
         <div>
           <p className="t-label text-caramel-700">Der Ablauf</p>
           <h2 id="ablauf-title" className="t-h2 mt-3 max-w-[18ch] text-espresso-900">
             {title}
           </h2>
-          <p className="mt-3 max-w-[36rem] leading-relaxed text-muted">{intro}</p>
+          <p className="mt-[clamp(0.5rem,1.5svh,0.75rem)] max-w-[36rem] text-[0.9375rem] leading-relaxed text-muted md:text-base">{intro}</p>
         </div>
         <Carousel label="Schritte" arrowLabel="Schritte" autoplay={3200} item="84vw" itemMd="calc((100% - 1.25rem) / 2)">
           {steps.map((s, i) => (
@@ -103,7 +103,7 @@ export function Process({
           )}
         </div>
 
-        <ol ref={ref} className="relative mt-14 grid gap-8" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
+        <ol ref={ref} className="relative mt-[calc(var(--sec-gap)*1.5)] grid gap-8" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
           {/* Verbindungslinie von Kreis 1 bis zum letzten Kreis: zeichnet sich einmal, Terrakotta füllt bis zum aktiven Schritt */}
           <div
             aria-hidden="true"

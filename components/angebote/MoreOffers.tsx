@@ -8,17 +8,17 @@ import { ANGEBOTE, type AngebotKey } from '@/lib/content/angebote'
 export function MoreOffers({ current, title = 'Weitere Angebote' }: { current?: AngebotKey; title?: string }) {
   const list = ANGEBOTE.filter((a) => a.key !== current)
   return (
-    <section aria-labelledby="mehr-angebote" className="bg-stone pb-28 pt-14 md:pb-36 md:pt-20 xl:pb-44 xl:pt-24">
+    <section aria-labelledby="mehr-angebote" className="bg-stone sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
       <div className="wrap">
-        <Reveal className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <Reveal className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between md:gap-3">
           <h2 id="mehr-angebote" className="t-h2 text-espresso-900">
             {title}
           </h2>
-          <Link href="/angebote/" className="link font-semibold">
+          <Link href="/angebote/" className="link inline-flex min-h-11 items-center self-start font-semibold md:self-auto">
             Alle Angebote im Überblick
           </Link>
         </Reveal>
-        <Reveal delay={0.08} className="mt-7 md:mt-9">
+        <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
           <Carousel label={title} arrowLabel="Angebote" item="74vw" gridFrom="md" gridClass="md:grid-cols-2 md:gap-5 xl:grid-cols-4 xl:gap-6">
             {list.map((a) => (
               <div key={a.key} className="frame-soft floaty group relative flex h-full flex-col rounded-lg bg-white p-5 xl:p-6">

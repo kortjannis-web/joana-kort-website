@@ -48,31 +48,34 @@ export default function RatgeberPage() {
       />
 
       <Sheet crumbs={[{ name: 'Ratgeber', path: PATH }]}>
-        <section aria-label="Artikel" className="pb-28 pt-6 md:pb-36 md:pt-10 xl:pb-44 xl:pt-12">
-          <div className="wrap flex flex-col gap-6 md:gap-8 xl:gap-10">
-            {erster && (
+        {/* Neuester Artikel groß, die weiteren als Reihe zum Blättern (je Section ein Bildschirm) */}
+        {erster && (
+          <section aria-label="Neuester Artikel" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
+            <div className="wrap">
               <Reveal>
                 <ArticleCard a={erster} featured />
               </Reveal>
-            )}
-            {weitere.length > 0 && (
-              <Reveal delay={0.08}>
-                <Carousel
-                  label="Weitere Artikel"
-                  arrowLabel="Artikel"
-                  item="86vw"
-                  itemXl="auto"
-                  gridFrom="md"
-                  gridClass="md:grid-cols-2 md:gap-6 xl:gap-8"
-                >
+            </div>
+          </section>
+        )}
+        {weitere.length > 0 && (
+          <section aria-labelledby="weitere-artikel" className="bg-stone sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+            <div className="wrap">
+              <Reveal>
+                <h2 id="weitere-artikel" className="t-h2 text-espresso-900">
+                  Weitere Artikel
+                </h2>
+              </Reveal>
+              <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
+                <Carousel label="Weitere Artikel" arrowLabel="Artikel" item="84vw" itemMd="calc((100% - 1.25rem) / 2)" itemXl="calc((100% - 3rem) / 3)">
                   {weitere.map((a) => (
-                    <ArticleCard key={a.slug} a={a} />
+                    <ArticleCard key={a.slug} a={a} headingLevel={3} />
                   ))}
                 </Carousel>
               </Reveal>
-            )}
-          </div>
-        </section>
+            </div>
+          </section>
+        )}
       </Sheet>
     </>
   )

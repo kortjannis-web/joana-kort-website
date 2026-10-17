@@ -9,6 +9,7 @@ import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { FAQS, FAQ_GRUPPEN } from '@/lib/content/faqs'
 import { faqSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
+import { cn } from '@/lib/utils'
 import { CONTENT_UPDATED, ERSTGESPRAECH, site } from '@/lib/site'
 
 const PATH = '/haeufige-fragen/'
@@ -42,51 +43,70 @@ export default function FaqPage() {
       />
 
       <Sheet crumbs={[{ name: 'Häufige Fragen', path: PATH }]}>
-        <section aria-label="Fragen und Antworten" className="pb-28 pt-6 md:pb-36 md:pt-10 xl:pb-44 xl:pt-12">
-          <div className="wrap grid items-start gap-10 xl:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] xl:gap-[4.5rem]">
-            <div className="flex flex-col gap-12 md:gap-16">
-              <nav aria-label="Themen" className="flex flex-wrap gap-2">
-                {FAQ_GRUPPEN.map((g) => (
-                  <a key={g.id} href={`#${g.id}`} className="rounded-full border border-line bg-white px-4 py-2 text-[0.9375rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800">
-                    {g.title}
-                  </a>
-                ))}
-              </nav>
-              {FAQ_GRUPPEN.map((g, i) => (
-                <div key={g.id} id={g.id} className="scroll-mt-28">
-                  <Reveal>
-                    <h2 className="mb-4 font-serif text-[clamp(1.5rem,1.3rem+0.8vw,2rem)] leading-tight text-espresso-900">{g.title}</h2>
-                  </Reveal>
-                  <FaqAccordion faqs={g.faqs} openFirst={i === 0} />
-                </div>
-              ))}
+        {/* Je Themengruppe eine Section (5 Fragen), passt in einen Bildschirm. Danach Kontakt für weitere Fragen */}
+        {FAQ_GRUPPEN.map((g, i) => (
+          <section
+            key={g.id}
+            id={g.id}
+            aria-labelledby={`${g.id}-title`}
+            className={cn('sec scroll-mt-24', i === 0 && 'pt-[clamp(1.5rem,3svh,2.5rem)]', i % 2 === 1 && 'bg-stone')}
+          >
+            <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+              <Reveal className="lg:col-span-5 xl:col-span-4">
+                <p className="t-label text-caramel-700">
+                  Thema {i + 1} von {FAQ_GRUPPEN.length}
+                </p>
+                <h2 id={`${g.id}-title`} className="t-h2 mt-3 text-espresso-900">
+                  {g.title}
+                </h2>
+                {i === 0 && (
+                  <nav aria-label="Themen" className="mt-[clamp(0.75rem,2.5svh,1.5rem)] flex flex-wrap gap-1.5 md:gap-2">
+                    {FAQ_GRUPPEN.map((x) => (
+                      <a
+                        key={x.id}
+                        href={`#${x.id}`}
+                        className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800 md:px-4 md:py-2 md:text-[0.9375rem]"
+                      >
+                        {x.title}
+                      </a>
+                    ))}
+                  </nav>
+                )}
+              </Reveal>
+              <div className="lg:col-span-7 xl:col-span-8">
+                <FaqAccordion faqs={g.faqs} />
+              </div>
             </div>
+          </section>
+        ))}
 
-            <aside aria-label="Weitere Fragen" className="flex flex-col gap-5 xl:sticky xl:top-28">
-              <Reveal delay={0.1}>
-                <div className="grain glow-hover floaty flex flex-col gap-3.5 overflow-hidden rounded-lg bg-espresso-800 p-6 text-white xl:p-8">
-                  <span className="grid h-11 w-11 place-items-center rounded-md bg-caramel-300/15 text-caramel-300">
-                    <span className="glow-icon">
-                      <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-                    </span>
+        <section aria-label="Weitere Fragen" className="sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+          <div className="wrap grid items-center gap-[var(--sec-gap)] md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+            <Reveal delay={0.1}>
+              <div className="grain glow-hover floaty flex flex-col gap-3.5 overflow-hidden rounded-lg bg-espresso-800 p-6 text-white xl:p-8">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-caramel-300/15 text-caramel-300">
+                  <span className="glow-icon">
+                    <Mail className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                   </span>
-                  <p className="font-serif text-[1.5rem] leading-[1.2] xl:text-[1.625rem]">Ihre Frage ist nicht dabei?</p>
-                  <p className="text-[0.9375rem] leading-relaxed text-espresso-200 md:text-base">Schreiben Sie mir, ich antworte persönlich.</p>
-                  <a href={`mailto:${site.email}`} className={buttonClass('light', 'md', 'min-h-13 w-full break-all xl:w-auto xl:self-start')}>
+                </span>
+                <p className="font-serif text-[1.5rem] leading-[1.2] xl:text-[1.625rem]">Ihre Frage ist nicht dabei?</p>
+                <p className="text-[0.9375rem] leading-relaxed text-espresso-200 md:text-base">Schreiben Sie mir, ich antworte persönlich.</p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+                  <a href={`mailto:${site.email}`} className={buttonClass('light', 'md', 'w-full sm:w-auto')}>
                     E-Mail schreiben
                   </a>
                   <Link href={ERSTGESPRAECH} className="text-[0.9375rem] font-semibold text-white underline decoration-caramel-300/60 underline-offset-4 hover:text-caramel-200">
                     Oder im Erstgespräch fragen
                   </Link>
                 </div>
-              </Reveal>
-              <p className="flex items-center gap-2.5 text-[0.8125rem] text-muted md:text-[0.875rem]">
-                <CalendarCheck className="h-4 w-4 shrink-0 text-caramel-700" strokeWidth={1.75} aria-hidden="true" />
-                <span>
-                  Zuletzt aktualisiert: <time dateTime={CONTENT_UPDATED}>{updated}</time>
-                </span>
-              </p>
-            </aside>
+              </div>
+            </Reveal>
+            <p className="flex items-center gap-2.5 text-[0.8125rem] text-muted md:text-[0.875rem]">
+              <CalendarCheck className="h-4 w-4 shrink-0 text-caramel-700" strokeWidth={1.75} aria-hidden="true" />
+              <span>
+                Zuletzt aktualisiert: <time dateTime={CONTENT_UPDATED}>{updated}</time>
+              </span>
+            </p>
           </div>
         </section>
       </Sheet>

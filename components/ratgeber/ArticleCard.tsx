@@ -50,7 +50,9 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
       <div
         className={cn(
           'relative min-w-0 shrink-0 overflow-hidden rounded-[0.875rem]',
-          featured ? 'h-[13.125rem] md:h-[22rem] xl:h-[27.5rem] xl:rounded-lg' : 'h-[13.125rem] md:h-[15rem] xl:h-[17rem]'
+          featured
+            ? 'h-[clamp(8.5rem,22svh,13rem)] md:h-[clamp(11rem,30svh,22rem)] xl:h-[clamp(14rem,calc(100svh-2*var(--sec-y)-3rem),27.5rem)] xl:rounded-lg'
+            : 'h-[clamp(7.5rem,19svh,13rem)] md:h-[clamp(7rem,16svh,17rem)]'
         )}
       >
         <ArticleCover a={a} featured={featured} />
@@ -58,8 +60,8 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
 
       <div
         className={cn(
-          'flex flex-1 flex-col gap-3 px-3.5 pb-4 pt-5 md:gap-3.5',
-          featured ? 'md:px-6 md:pb-6 md:pt-7 xl:justify-center xl:gap-[1.125rem] xl:px-11 xl:py-10' : 'md:px-[1.375rem] md:pb-[1.375rem] md:pt-[1.625rem]'
+          'flex flex-1 flex-col gap-2.5 px-3.5 pb-3 pt-4 md:gap-3',
+          featured ? 'md:px-6 md:pb-5 md:pt-6 xl:justify-center xl:gap-[clamp(0.75rem,2svh,1.125rem)] xl:px-11 xl:py-8' : 'md:px-[1.25rem] md:pb-[clamp(0.75rem,2svh,1.375rem)] md:pt-[clamp(1rem,2.5svh,1.625rem)]'
         )}
       >
         <Meta a={a} />
@@ -67,22 +69,22 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
           className={cn(
             'font-serif font-medium text-espresso-900 transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-caramel-800',
             featured
-              ? 'text-[1.4375rem] leading-[1.22] md:text-[1.875rem] xl:text-[2.25rem] xl:leading-[1.15] xl:tracking-[-0.015em]'
-              : 'text-[1.4375rem] leading-[1.22] xl:text-[1.6875rem] xl:leading-[1.2]'
+              ? 'text-[1.3125rem] leading-[1.22] md:text-[clamp(1.5rem,1rem+2svh,1.875rem)] xl:text-[clamp(1.75rem,1rem+2.6svh,2.25rem)] xl:leading-[1.15] xl:tracking-[-0.015em]'
+              : 'text-[1.25rem] leading-[1.22] xl:text-[clamp(1.375rem,1rem+1.4svh,1.6875rem)] xl:leading-[1.2]'
           )}
         >
           <Link href={href} className="after:absolute after:inset-0 after:rounded-[inherit]">
             {a.title}
           </Link>
         </H>
-        <p className={cn('leading-relaxed text-muted', featured ? 'text-[0.9375rem] md:text-[1.0625rem]' : 'text-[0.9375rem] md:text-base')}>
+        <p className={cn('line-clamp-3 leading-relaxed text-muted lowdesk:line-clamp-2', featured ? 'text-[0.9375rem] md:text-[1.0625rem]' : 'text-[0.9375rem] md:text-base')}>
           {a.excerpt}
         </p>
         {/* Deko-Button: der Link liegt auf der Überschrift (ganze Karte klickbar) */}
         {featured ? (
           <span
             aria-hidden="true"
-            className="mt-1 inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 xl:mt-2 xl:self-start xl:border-0 xl:bg-espresso-900 xl:text-white xl:group-hover:bg-espresso-800"
+            className="mt-1 inline-flex min-h-11 items-center justify-center gap-2.5 rounded-full border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 xl:mt-2 xl:self-start xl:border-0 xl:bg-espresso-900 xl:text-white xl:group-hover:bg-espresso-800"
           >
             Artikel lesen <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} />
           </span>
@@ -90,13 +92,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
           <>
             <span
               aria-hidden="true"
-              className="mt-1 inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 md:hidden"
-            >
-              Artikel lesen <ArrowRight className="h-4 w-4" strokeWidth={2} />
-            </span>
-            <span
-              aria-hidden="true"
-              className="mt-auto hidden self-start pt-1.5 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-300 decoration-[1.5px] underline-offset-[5px] transition-colors duration-500 group-hover:text-caramel-800 md:inline"
+              className="mt-auto self-start pt-1 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-300 decoration-[1.5px] underline-offset-[5px] transition-colors duration-500 group-hover:text-caramel-800"
             >
               Artikel lesen
             </span>

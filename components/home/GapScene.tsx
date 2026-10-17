@@ -8,21 +8,21 @@ import { InView } from '@/components/ui/InView'
 export function GapScene() {
   return (
     <InView className="gap-scene relative" threshold={0.45}>
-      <div className="paper-grain overflow-hidden rounded-xl border border-line bg-stone px-5 pb-6 pt-7 md:px-9 md:pb-9 md:pt-10">
+      <div className="paper-grain overflow-hidden rounded-xl border border-line bg-stone px-5 pb-4 pt-5 md:px-8 md:pb-[clamp(1.25rem,3svh,2.25rem)] md:pt-[clamp(1.5rem,3.5svh,2.5rem)]">
         <div className="flex items-start justify-between gap-6">
           <div className="max-w-[11rem] md:max-w-[14rem]">
             <p className="t-label text-[0.6875rem] text-caramel-700 md:text-[0.75rem]">Wissen</p>
-            <p className="mt-2 font-serif text-[1.125rem] leading-snug text-espresso-900 md:text-[1.375rem]">„Ich weiß, dass ich etwas ändern müsste.“</p>
+            <p className="mt-2 font-serif text-[1.0625rem] leading-snug text-espresso-900 md:text-[clamp(1.125rem,0.8rem+1.1svh,1.375rem)]">„Ich weiß, dass ich etwas ändern müsste.“</p>
           </div>
           <div className="gap-end-right max-w-[11rem] text-right md:max-w-[14rem]">
             <p className="t-label text-[0.6875rem] text-caramel-700 md:text-[0.75rem]">Umsetzung</p>
-            <p className="mt-2 font-serif text-[1.125rem] leading-snug text-espresso-900 md:text-[1.375rem]">
+            <p className="mt-2 font-serif text-[1.0625rem] leading-snug text-espresso-900 md:text-[clamp(1.125rem,0.8rem+1.1svh,1.375rem)]">
               „Es <em className="italic text-caramel-700">klappt</em> in meinem Alltag.“
             </p>
           </div>
         </div>
 
-        <div className="relative mt-4 md:mt-6">
+        <div className="relative mt-3 md:mt-[clamp(0.75rem,2svh,1.5rem)]">
           <svg viewBox="0 0 600 150" className="block w-full overflow-visible" aria-hidden="true" fill="none">
             {/* Ohne Begleitung: zwei Enden, dazwischen die Lücke */}
             <path d="M24 110 H220" stroke="#c09a70" strokeWidth="2" strokeDasharray="2 9" strokeLinecap="round" />

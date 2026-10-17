@@ -89,20 +89,20 @@ export default function StressVerstehenPage() {
 
       <Sheet crumbs={[{ name: 'Stress verstehen', path: PATH }]}>
         {/* Kurzantwort: direkt zitierbar für Suchmaschinen und KI */}
-        <section id="was-ist-stress" aria-labelledby="definition-title" className="scroll-mt-24 pb-16 pt-8 md:pb-24 md:pt-12">
-          <div className="wrap grid gap-10 xl:grid-cols-12 xl:gap-16">
+        <section id="was-ist-stress" aria-labelledby="definition-title" className="scroll-mt-24 sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
+          <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-6">
               <p className="t-label text-caramel-700">Kurz erklärt</p>
               <h2 id="definition-title" className="t-h2 mt-3 text-espresso-900">
                 {STRESS_DEFINITION.frage}
               </h2>
-              <p className="t-lead mt-5 text-ink/85">{STRESS_DEFINITION.antwort}</p>
-              <nav aria-label="Themen auf dieser Seite" className="mt-7 flex flex-wrap gap-2">
+              <p className="t-lead mt-[clamp(0.5rem,2svh,1.25rem)] text-ink/85 max-md:text-[0.9375rem] max-md:leading-relaxed">{STRESS_DEFINITION.antwort}</p>
+              <nav aria-label="Themen auf dieser Seite" className="mt-[clamp(0.75rem,3svh,1.75rem)] flex flex-wrap gap-1.5 compact:hidden md:gap-2">
                 {WISSEN_THEMEN.map((t) => (
                   <a
                     key={t.id}
                     href={`#${t.id}`}
-                    className="rounded-full border border-line bg-white px-3.5 py-1.5 text-[0.875rem] font-medium text-espresso-800 transition-colors hover:border-caramel-500 hover:text-caramel-800"
+                    className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-800 md:px-3.5 md:py-1.5 md:text-[0.875rem] transition-colors hover:border-caramel-500 hover:text-caramel-800"
                   >
                     {t.frage.split('?')[0]}
                   </a>
@@ -110,11 +110,11 @@ export default function StressVerstehenPage() {
               </nav>
             </Reveal>
             <Reveal delay={0.08} className="xl:col-span-6">
-              <ul className="grid gap-3 md:grid-cols-3 xl:grid-cols-1">
+              <Carousel label="Drei Fakten zu Stress" arrowLabel="Fakten" item="78vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-3 xl:grid-cols-1">
                 {STRESS_DEFINITION.fakten.map((f, i) => {
                   const Icon = FAKT_ICONS[i]
                   return (
-                    <li key={f.title} className="glow-hover flex gap-4 rounded-lg border border-line bg-white p-5 md:flex-col xl:flex-row xl:items-center">
+                    <div key={f.title} className="glow-hover flex h-full gap-4 rounded-lg border border-line bg-white p-4 md:flex-col md:p-[clamp(1rem,2.5svh,1.25rem)] xl:flex-row xl:items-center">
                       <span className="glow-icon grid h-12 w-12 shrink-0 place-items-center rounded-full bg-stone text-caramel-700">
                         <Icon className="h-[1.375rem] w-[1.375rem]" strokeWidth={1.5} aria-hidden="true" />
                       </span>
@@ -122,32 +122,40 @@ export default function StressVerstehenPage() {
                         <span className="block font-serif text-[1.25rem] leading-tight text-espresso-900">{f.title}</span>
                         <span className="mt-1 block text-[0.9375rem] leading-relaxed text-muted">{f.text}</span>
                       </span>
-                    </li>
+                    </div>
                   )
                 })}
-              </ul>
+              </Carousel>
             </Reveal>
           </div>
         </section>
 
         {WISSEN_GRUPPEN.map((g, gi) => (
           <div key={g.id}>
-            <section id={g.id} aria-labelledby={`${g.id}-title`} className="scroll-mt-24 py-16 md:py-24 xl:py-28">
+            <section id={g.id} aria-labelledby={`${g.id}-title`} className="sec scroll-mt-24 xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
               <div className="wrap">
                 <Reveal className="max-w-[44rem]">
                   <p className="t-label text-caramel-700">{g.label}</p>
                   <h2 id={`${g.id}-title`} className="t-h2 mt-3 text-espresso-900">
                     {g.title}
                   </h2>
-                  <p className="t-lead mt-5 text-muted">{g.intro}</p>
+                  <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-md:hidden">{g.intro}</p>
                 </Reveal>
-                <div className="mt-12 flex flex-col gap-16 md:mt-16 md:gap-20 xl:gap-24">
-                  {g.themen.map((t, i) => (
-                    <ThemaRow key={t.id} t={t} index={++n} flip={i % 2 === 1} />
+                {/* Drei Themen zum Blättern: immer ein Thema samt Animation auf dem Bildschirm */}
+                <Carousel
+                  label={g.title}
+                  arrowLabel="Themen"
+                  item="88vw"
+                  itemMd="100%"
+                  itemXl="100%"
+                  className="mt-[var(--sec-gap)] md:px-10"
+                >
+                  {g.themen.map((t) => (
+                    <ThemaRow key={t.id} t={t} index={++n} />
                   ))}
-                </div>
+                </Carousel>
                 {gi === WISSEN_GRUPPEN.length - 1 && (
-                  <Reveal className="mt-14 md:mt-20">
+                  <Reveal className="mt-[var(--sec-gap)] max-md:hidden">
                     <CtaRow note="Welche Wege zu Ihnen passen, klären wir in 15 Minuten." />
                   </Reveal>
                 )}
@@ -156,13 +164,13 @@ export default function StressVerstehenPage() {
 
             {/* Nach der ersten Gruppe: die Brücke vom Wissen zur Umsetzung (Kernproblem) mit CTA */}
             {gi === 0 && (
-              <section aria-labelledby="bruecke-title" className="grain overflow-hidden bg-espresso-800 py-16 text-white md:py-24">
-                <div className="wrap grid gap-8 xl:grid-cols-12 xl:items-center xl:gap-16">
+              <section aria-labelledby="bruecke-title" className="grain sec overflow-hidden bg-espresso-800 text-white">
+                <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:items-center xl:gap-16">
                   <Reveal className="xl:col-span-7">
                     <h2 id="bruecke-title" className="t-h2 text-white">
                       Wissen allein <em className="italic text-caramel-300">entlastet nicht</em>
                     </h2>
-                    <p className="t-lead mt-5 text-espresso-100/90">
+                    <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-espresso-100/90">
                       Die meisten wissen längst, was ihnen guttun würde. Entscheidend ist, es im eigenen Alltag umzusetzen. Genau dabei begleite
                       ich Sie: persönlich, Schritt für Schritt und mit Plänen, die zu Ihnen passen.
                     </p>
@@ -180,7 +188,7 @@ export default function StressVerstehenPage() {
         ))}
 
         {/* Platzhalter: weitere Themen in Vorbereitung */}
-        <section aria-labelledby="demnaechst-title" className="bg-greige py-16 md:py-24">
+        <section aria-labelledby="demnaechst-title" className="bg-greige sec">
           <div className="wrap">
             <Reveal className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
@@ -193,15 +201,15 @@ export default function StressVerstehenPage() {
                 Zum Ratgeber
               </Link>
             </Reveal>
-            <Reveal delay={0.08} className="mt-8">
+            <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
               <ul className="grid gap-3 md:grid-cols-3 md:gap-5">
                 {WISSEN_DEMNAECHST.map((d) => (
-                  <li key={d.title} className="rounded-lg border border-dashed border-caramel-400/70 bg-paper/60 p-5 md:p-6">
+                  <li key={d.title} className="rounded-lg border border-dashed border-caramel-400/70 bg-paper/60 p-4 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <span className="inline-flex h-6 items-center rounded-full bg-white px-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-caramel-700">
                       Bald hier
                     </span>
-                    <p className="mt-3 font-serif text-[1.3rem] leading-tight text-espresso-900">{d.title}</p>
-                    <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-muted">{d.text}</p>
+                    <p className="mt-2 font-serif text-[1.25rem] leading-tight text-espresso-900 md:mt-3 md:text-[1.3rem]">{d.title}</p>
+                    <p className="mt-1 text-[0.875rem] leading-snug text-muted md:mt-1.5 md:text-[0.9375rem] md:leading-relaxed">{d.text}</p>
                   </li>
                 ))}
               </ul>
@@ -209,7 +217,7 @@ export default function StressVerstehenPage() {
           </div>
         </section>
 
-        <section aria-labelledby="lesen-title" className="pt-16 md:pt-24">
+        <section aria-labelledby="lesen-title" className="sec-t">
           <div className="wrap">
             <Reveal className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <h2 id="lesen-title" className="t-h2 text-espresso-900">
@@ -219,14 +227,19 @@ export default function StressVerstehenPage() {
                 Alle Artikel im Ratgeber
               </Link>
             </Reveal>
-            <Reveal delay={0.08} className="mt-7">
+            <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
               <Carousel label="Artikel" arrowLabel="Artikel" item="84vw" itemXl="auto" gridFrom="md" gridClass="md:grid-cols-3 md:gap-6">
                 {artikel.map((a) => (
                   <ArticleCard key={a.slug} a={a} headingLevel={3} />
                 ))}
               </Carousel>
             </Reveal>
-            <Reveal className="mt-10 rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5">
+          </div>
+        </section>
+
+        <section aria-label="Hinweis und Quellen" className="sec-t">
+          <div className="wrap">
+            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5">
               <p className="font-semibold text-espresso-900">Wichtig</p>
               <p className="mt-1.5 leading-relaxed text-ink/85">
                 Diese Seite erklärt Grundlagen und ersetzt keine Diagnose. Bei anhaltenden Beschwerden ist ärztlicher oder psychotherapeutischer

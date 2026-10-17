@@ -44,27 +44,28 @@ const WEGE = [
 
 export function Offer() {
   return (
-    <section aria-labelledby="angebot-title" className="bg-greige pb-20 pt-16 md:pb-28 md:pt-24 xl:pb-32 xl:pt-28">
+    <section aria-labelledby="angebot-title" className="sec bg-greige xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
       <div className="wrap">
-        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
+        <Reveal className="flex items-end justify-between gap-6 md:gap-10">
           <div>
             <p className="t-label text-caramel-700">Angebote</p>
             <h2 id="angebot-title" className="t-h2 mt-3 max-w-[22ch] text-espresso-900">
               Drei Wege, Ihren Stress <em className="italic text-caramel-600">anzugehen</em>
             </h2>
           </div>
-          <Link href="/angebote/" className="link hidden shrink-0 font-semibold md:inline-flex">
-            Alle Angebote im Überblick
+          <Link href="/angebote/" aria-label="Alle Angebote im Überblick" className="link inline-flex min-h-11 shrink-0 items-center text-[0.9375rem] font-semibold">
+            <span className="md:hidden">Alle</span>
+            <span className="hidden md:inline">Alle Angebote im Überblick</span>
           </Link>
         </Reveal>
 
-        <Reveal delay={0.08} className="mt-8 md:mt-10">
+        <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
           <Carousel label="Angebote" arrowLabel="Angebote" item="82vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-5 xl:gap-6">
             {WEGE.map(({ key, Icon, label, title, hint, punkte, path, main }) => (
               <article
                 key={key}
                 className={cn(
-                  'glow-hover group relative flex h-full flex-col rounded-xl p-6 md:p-7 xl:p-8',
+                  'glow-hover group relative flex h-full flex-col rounded-xl p-5 md:p-[clamp(1.25rem,3svh,2rem)]',
                   main ? 'grain floaty-lg bg-espresso-800 text-white' : 'frame-soft floaty bg-white'
                 )}
               >
@@ -86,9 +87,9 @@ export function Offer() {
                     {label}
                   </span>
                 </div>
-                <h3 className={cn('mt-6 font-serif text-[1.6rem] leading-[1.12] tracking-[-0.01em]', main ? 'text-white' : 'text-espresso-900')}>{title}</h3>
+                <h3 className={cn('mt-[clamp(0.875rem,2.5svh,1.5rem)] font-serif text-[clamp(1.375rem,1rem+1.2svh,1.6rem)] leading-[1.12] tracking-[-0.01em]', main ? 'text-white' : 'text-espresso-900')}>{title}</h3>
                 <p className={cn('mt-1.5 text-[0.9375rem] font-semibold', main ? 'text-caramel-200' : 'text-caramel-700')}>{hint}</p>
-                <ul className={cn('mt-5 flex-1 space-y-2.5 border-t pt-5 text-[0.9375rem]', main ? 'border-white/12 text-espresso-100/90' : 'border-line text-ink/80')}>
+                <ul className={cn('mt-[clamp(0.75rem,2svh,1.25rem)] flex-1 space-y-2 border-t pt-[clamp(0.75rem,2svh,1.25rem)] text-[0.9375rem]', main ? 'border-white/12 text-espresso-100/90' : 'border-line text-ink/80')}>
                   {punkte.map((p) => (
                     <li key={p} className="flex gap-2.5 leading-snug">
                       <Check className={cn('mt-[0.2em] h-4 w-4 shrink-0', main ? 'text-caramel-300' : 'text-caramel-600')} strokeWidth={2.25} aria-hidden="true" />
@@ -99,7 +100,7 @@ export function Offer() {
                 <Link
                   href={path}
                   className={cn(
-                    'mt-6 inline-flex min-h-11 items-center gap-1.5 self-start font-semibold underline underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit]',
+                    'mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold underline underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit]',
                     main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200' : 'text-espresso-800 decoration-caramel-400/70 hover:text-caramel-800'
                   )}
                 >
@@ -111,12 +112,9 @@ export function Offer() {
           </Carousel>
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 md:mt-12">
+        <Reveal delay={0.1} className="mt-[var(--sec-gap)]">
           <CtaRow align="center" note="Welcher Weg passt? Das klären wir in 15 Minuten." />
         </Reveal>
-        <Link href="/angebote/" className="link mt-6 flex justify-center font-semibold md:hidden">
-          Alle Angebote im Überblick
-        </Link>
       </div>
     </section>
   )

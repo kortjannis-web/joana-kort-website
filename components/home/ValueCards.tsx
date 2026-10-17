@@ -16,9 +16,9 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
   return (
     <div
       className={cn(
-        'group relative flex h-full gap-4 rounded-[1rem] border border-white/12 bg-white/[0.06] p-5 transition-[transform,border-color,background-color] duration-700 ease-[var(--ease-soft)]',
+        'group relative flex h-full gap-4 rounded-[1rem] border border-white/12 bg-white/[0.06] px-4 py-[clamp(0.625rem,1.6svh,1.25rem)] transition-[transform,border-color,background-color] duration-700 ease-[var(--ease-soft)]',
         'group-data-[active=true]/v:scale-[1.03] group-data-[active=true]/v:border-caramel-300/45 group-data-[active=true]/v:bg-white/[0.09]',
-        row ? 'items-center' : 'flex-col gap-3'
+        row ? 'items-center' : 'flex-col gap-3 md:max-xl:flex-row md:max-xl:items-center md:max-xl:gap-4'
       )}
     >
       <span className="grid h-9 w-9 shrink-0 place-items-center">
@@ -28,7 +28,7 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
       </span>
       <div>
         <p className="font-semibold text-white transition-colors duration-500 group-data-[active=true]/v:text-caramel-200">{title}</p>
-        <p className="mt-1 text-[0.875rem] leading-snug text-espresso-200">{text}</p>
+        <p className="mt-1 text-[0.875rem] leading-snug text-espresso-200 compact:hidden lowtab:hidden">{text}</p>
       </div>
     </div>
   )
@@ -38,7 +38,7 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
 export function ValueCards() {
   const { ref, bind } = useSpotlight<HTMLDivElement>(WERTE.length, 1800)
   return (
-    <div ref={ref} className="mt-10 grid gap-3 sm:grid-cols-3">
+    <div ref={ref} className="mt-[clamp(1.25rem,4svh,2.5rem)] grid gap-3 xl:grid-cols-3">
       {WERTE.map((w, i) => (
         <div key={w.title} {...bind(i)} className="group/v">
           <ValueCard {...w} />
@@ -51,7 +51,7 @@ export function ValueCards() {
 /** Handy: die drei Werte untereinander, gesteuert von ValueCarousel (nur der aktive leuchtet). Tippen wählt aus */
 function ValueStack({ active, onPick }: { active: number; onPick: (i: number) => void }) {
   return (
-    <div className="flex h-full flex-col gap-2.5">
+    <div className="flex h-full flex-col gap-2">
       {WERTE.map((w, i) => (
         <div key={w.title} data-active={active === i} onClick={() => onPick(i)} className="group/v">
           <ValueCard {...w} row />
@@ -115,7 +115,7 @@ export function ValueCarousel({ quote }: { quote: React.ReactNode }) {
               setRestart((r) => r + 1)
             }}
           />,
-          <div key="zitat" className="flex h-full min-h-[17rem] flex-col justify-center px-1">
+          <div key="zitat" className="flex h-full min-h-[14rem] flex-col justify-center px-1">
             {quote}
           </div>,
         ]}

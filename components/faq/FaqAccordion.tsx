@@ -23,8 +23,8 @@ export function FaqAccordion({
       {faqs.map((f, i) => (
         <Reveal key={f.q} delay={Math.min(i, 6) * 0.04} y={12}>
           <details className="faq-item group border-b border-line" open={openFirst && i === 0}>
-            <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-3 md:min-h-[4.75rem] md:py-2">
-              <H className="text-base font-semibold leading-snug text-ink transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-espresso-800 md:text-[1.125rem]">
+            <summary className="flex min-h-[clamp(3.25rem,7svh,4.75rem)] cursor-pointer list-none items-center justify-between gap-4 py-[clamp(0.5rem,1.4svh,0.75rem)]">
+              <H className="text-[0.9375rem] font-semibold leading-snug text-ink transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-espresso-800 md:text-[clamp(1rem,0.8rem+0.7svh,1.125rem)]">
                 {f.q}
               </H>
               <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#ddd3c6] text-espresso-800 transition-[transform,border-color,color] duration-300 ease-[var(--ease-soft)] group-hover:border-caramel-500/60 group-hover:text-caramel-700">

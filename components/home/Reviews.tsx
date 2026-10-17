@@ -19,7 +19,7 @@ export function Reviews({ title = 'Wie andere die Zusammenarbeit erlebt haben', 
   const idBase = `stimme-${start}`
   const allUrl = site.google.reviewsUrl || site.google.profileUrl
   return (
-    <section aria-labelledby="stimmen-title" className="bg-stone py-16 md:py-20 xl:py-24">
+    <section aria-labelledby="stimmen-title" className="bg-stone sec">
       <div className="wrap">
         <Reveal className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-10">
           <h2 id="stimmen-title" className="t-h2 max-w-[22ch] text-espresso-900">

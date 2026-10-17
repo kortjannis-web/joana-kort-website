@@ -173,7 +173,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
         </article>
 
         {weitere.length > 0 && (
-          <section aria-labelledby="weitere" className="bg-greige pb-20 pt-14 md:pb-28 md:pt-20 xl:pb-32 xl:pt-24">
+          <section aria-labelledby="weitere" className="bg-greige sec">
             <div className="wrap">
               <Reveal>
                 <h2 id="weitere" className="t-h2 text-espresso-900">

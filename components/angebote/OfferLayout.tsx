@@ -79,13 +79,13 @@ export function OfferLayout({
       />
 
       <Sheet crumbs={[{ name: 'Angebote', path: '/angebote/' }, { name: a.short, path: a.path }]}>
-        <section aria-labelledby="worum" className="pb-16 pt-8 md:pb-24 md:pt-12">
-          <div className="wrap grid gap-10 xl:grid-cols-12 xl:gap-16">
+        <section aria-labelledby="worum" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
+          <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-7">
               <h2 id="worum" className="t-h2 text-espresso-900">
                 {intro.title}
               </h2>
-              <p className="t-lead mt-5 text-ink/85">{lead}</p>
+              <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-ink/85">{lead}</p>
               {rest.length > 0 && (
                 <More label={`Mehr zu: ${intro.title}`} className="mt-4" bodyClassName="space-y-4 pt-3 text-[1.0625rem] leading-relaxed text-ink/80">
                   {rest.map((t) => (
@@ -95,9 +95,9 @@ export function OfferLayout({
               )}
             </Reveal>
             <Reveal delay={0.1} className="xl:col-span-5">
-              <dl className="floaty rounded-xl border border-line bg-white px-6 py-2 md:px-8">
+              <dl className="floaty rounded-xl border border-line bg-white px-5 py-1 md:px-8 md:py-2">
                 {facts.slice(0, 3).map(([k, v]) => (
-                  <div key={k} className="flex flex-col gap-0.5 border-b border-line py-4 last:border-0 sm:flex-row sm:justify-between sm:gap-6">
+                  <div key={k} className="flex flex-col gap-0.5 border-b border-line py-[clamp(0.5rem,1.8svh,1rem)] last:border-0 sm:flex-row sm:justify-between sm:gap-6">
                     <dt className="t-label text-[0.75rem] text-caramel-700">{k}</dt>
                     <dd className="font-semibold text-espresso-900 sm:text-right">{v}</dd>
                   </div>
@@ -107,8 +107,8 @@ export function OfferLayout({
           </div>
         </section>
 
-        <section aria-labelledby="themen" className="bg-greige py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
+        <section aria-labelledby="themen" className="bg-greige sec">
+          <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-4">
               <h2 id="themen" className="t-h2 text-espresso-900">
                 {themesTitle}
@@ -120,33 +120,33 @@ export function OfferLayout({
           </div>
         </section>
 
-        <section aria-labelledby="ablauf" className="py-16 md:py-24">
+        <section aria-labelledby="ablauf" className="sec">
           <div className="wrap">
             <Reveal>
               <h2 id="ablauf" className="t-h2 max-w-[22ch] text-espresso-900">
                 {stepsTitle}
               </h2>
             </Reveal>
-            <NumberedSteps items={steps} variant="cards" className="mt-8" />
+            <NumberedSteps items={steps} variant="cards" className="mt-[var(--sec-gap)]" />
           </div>
         </section>
 
         {extra}
 
-        <section id="anfrage" aria-labelledby="anfrage-title" className="grain scroll-mt-24 overflow-hidden bg-espresso-800 py-16 text-white md:py-24">
-          <div className="wrap grid items-center gap-10 xl:grid-cols-12 xl:gap-16">
+        <section id="anfrage" aria-labelledby="anfrage-title" className="grain sec scroll-mt-24 overflow-hidden bg-espresso-800 text-white">
+          <div className="wrap grid items-center gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-7">
               <h2 id="anfrage-title" className="t-h2 text-white">
                 {cta.title}
               </h2>
-              <p className="t-lead mt-5 text-espresso-100/90">{cta.text}</p>
+              <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-espresso-100/90">{cta.text}</p>
             </Reveal>
             <Reveal delay={0.1} className="xl:col-span-5">
               <CtaRow href={href} tone="dark" className="xl:justify-end" />
             </Reveal>
           </div>
           {warteliste && (
-            <div className="wrap mt-10 md:mt-14">
+            <div className="wrap mt-[var(--sec-gap)]">
               <div className="rounded-xl border border-white/12 bg-white/[0.04] p-5 md:p-7">
                 <More label={warteliste.title} showLabel tone="dark" bodyClassName="grid gap-6 pt-5 xl:grid-cols-12 xl:gap-12">
                   <p className="leading-relaxed text-espresso-100/85 xl:col-span-5">{warteliste.text}</p>
@@ -157,18 +157,18 @@ export function OfferLayout({
           )}
         </section>
 
-        <section aria-labelledby="fragen" className="py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-4">
+        <section aria-labelledby="fragen" className="sec">
+          <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+            <Reveal className="lg:col-span-5 xl:col-span-4">
               <h2 id="fragen" className="t-h2 text-espresso-900">
                 Häufige Fragen
               </h2>
-              <Link href="/haeufige-fragen/" className="link mt-5 inline-block font-semibold">
+              <Link href="/haeufige-fragen/" className="link mt-[clamp(0.5rem,2svh,1.25rem)] inline-block font-semibold">
                 Alle Fragen und Antworten
               </Link>
             </Reveal>
-            <div className="xl:col-span-8">
-              <FaqAccordion faqs={faqs} openFirst />
+            <div className="lg:col-span-7 xl:col-span-8">
+              <FaqAccordion faqs={faqs} />
             </div>
           </div>
         </section>

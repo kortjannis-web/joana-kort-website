@@ -5,7 +5,9 @@ import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
+import { More } from '@/components/ui/More'
 import { PaperStack } from '@/components/ui/PaperStack'
+import { Carousel } from '@/components/ui/Carousel'
 import { CheckList } from '@/components/lists/CheckList'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { Pillars } from '@/components/home/Pillars'
@@ -83,17 +85,17 @@ export default function StresscoachingPage() {
 
       <Sheet crumbs={[{ name: 'Angebote', path: '/angebote/' }, { name: 'Stresscoaching', path: PATH }]}>
         {/* Für wen + Ergebnis */}
-        <section aria-labelledby="fuer-wen" className="pb-16 pt-8 md:pb-24 md:pt-12 xl:pb-28">
-          <div className="wrap grid gap-10 md:gap-14 xl:grid-cols-2 xl:gap-20">
+        <section aria-labelledby="fuer-wen" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
+          <div className="wrap grid gap-[var(--sec-gap)] md:grid-cols-2 md:gap-x-10 xl:gap-x-20">
             <Reveal>
               <h2 id="fuer-wen" className="t-h2 text-espresso-900">
                 Das Richtige für Sie, wenn …
               </h2>
-              <CheckList items={FUER_SIE} className="mt-6 text-[1.0625rem]" />
+              <CheckList items={FUER_SIE} className="mt-[clamp(1rem,2.5svh,1.5rem)] space-y-[clamp(0.5rem,1.5svh,0.75rem)] text-[0.9375rem] md:text-[1.0625rem]" />
             </Reveal>
-            <Reveal delay={0.1} className="rounded-xl bg-stone p-6 md:p-9">
+            <Reveal delay={0.1} className="rounded-xl bg-stone p-5 md:p-[clamp(1.5rem,4svh,2.25rem)]">
               <h2 className="t-h3 text-espresso-900">Was Sie nach der Begleitung mitnehmen</h2>
-              <ul className="mt-5 space-y-3.5">
+              <ul className="mt-[clamp(0.75rem,2svh,1.25rem)] space-y-[clamp(0.5rem,1.5svh,0.875rem)] max-md:text-[0.9375rem]">
                 {ERGEBNIS.map((e, i) => (
                   <li key={e} className="flex gap-4">
                     <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
@@ -103,7 +105,7 @@ export default function StresscoachingPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-6 border-t border-line pt-4 text-[0.875rem] leading-relaxed text-muted">
+              <p className="mt-[clamp(0.75rem,2svh,1.5rem)] border-t border-line pt-3 text-[0.8125rem] leading-relaxed text-muted md:text-[0.875rem]">
                 Ein Ziel, keine Garantie: Wie schnell sich Entlastung einstellt, ist individuell. Viele Veränderungen werden aber schon in den
                 ersten Wochen spürbar, wenn wir gezielt ansetzen.
               </p>
@@ -112,92 +114,109 @@ export default function StresscoachingPage() {
         </section>
 
         {/* Programme */}
-        <section id="programme" aria-labelledby="programme-title" className="scroll-mt-24 bg-greige py-16 md:py-24 xl:py-28">
-          <div className="wrap">
-            <Reveal className="max-w-[44rem]">
-              <p className="t-label text-caramel-700">Zwei Programme</p>
-              <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
-                Drei oder sechs Monate: gleicher Weg, anderes Tempo
-              </h2>
-              <p className="t-lead mt-4 text-muted">
-                Beide Programme folgen den drei Schwerpunkten. Der Unterschied liegt im Rhythmus und darin, wie viel Zeit jedes Thema bekommt.
-              </p>
-            </Reveal>
-            <div className="mt-9 grid gap-5 md:grid-cols-2 xl:gap-8">
-              {PROGRAMME.map((p, idx) => (
-                <Reveal key={p.key} delay={idx * 0.08}>
-                  <article className={idx === 0 ? 'floaty-lg flex h-full flex-col rounded-xl bg-white p-6 md:p-8' : 'grain floaty-lg flex h-full flex-col overflow-hidden rounded-xl bg-espresso-800 p-6 text-white md:p-8'}>
+        <section id="programme" aria-labelledby="programme-title" className="sec scroll-mt-24 bg-greige xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
+          <div className="wrap grid gap-x-10 lg:grid-cols-12 lg:items-center xl:gap-x-12">
+            <div className="lg:col-span-4">
+              <Reveal>
+                <p className="t-label text-caramel-700">Zwei Programme</p>
+                <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
+                  Drei oder sechs Monate: gleicher Weg, anderes Tempo
+                </h2>
+                <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-lg:hidden">
+                  Beide Programme folgen den drei Schwerpunkten. Der Unterschied liegt im Rhythmus und darin, wie viel Zeit jedes Thema bekommt.
+                </p>
+              </Reveal>
+              <Reveal className="mt-[clamp(0.75rem,2.5svh,1.5rem)] max-lg:hidden">
+                <p className="flex items-start gap-3 text-[0.9375rem] leading-relaxed text-muted">
+                  <Info className="mt-1 h-4.5 w-4.5 shrink-0 text-caramel-600" strokeWidth={1.75} aria-hidden="true" />
+                  <span>
+                    Beide Programme online oder vor Ort. Den Preis nenne ich Ihnen im kostenlosen Erstgespräch, transparent und bevor Sie sich
+                    entscheiden. Vor-Ort-Termine im Umkreis von etwa {site.radiusKm} km um {site.address.city}, zzgl. Fahrtkosten. Auch zu zweit
+                    möglich:{' '}
+                    <Link href="/zu-zweit-und-in-der-gruppe/" className="link">
+                      Begleitung zu zweit
+                    </Link>
+                    .
+                  </span>
+                </p>
+              </Reveal>
+            </div>
+            <Reveal delay={0.08} className="mt-[var(--sec-gap)] lg:col-span-8 lg:mt-0">
+              <Carousel label="Programme" arrowLabel="Programme" item="86vw" gridFrom="md" gridClass="md:grid-cols-2 md:gap-5 xl:gap-8">
+                {PROGRAMME.map((p, idx) => (
+                  <article
+                    key={p.key}
+                    className={idx === 0 ? 'floaty-lg flex h-full flex-col rounded-xl bg-white p-4 md:p-[clamp(1.25rem,3.5svh,2rem)]' : 'grain floaty-lg flex h-full flex-col overflow-hidden rounded-xl bg-espresso-800 p-4 text-white md:p-[clamp(1.25rem,3.5svh,2rem)]'}
+                  >
                     <p className={idx === 0 ? 't-label text-caramel-700' : 't-label text-caramel-300'}>{p.untertitel}</p>
-                    <h3 className="mt-3 font-serif text-[2.6rem] leading-none md:text-[3.2rem]">
+                    <h3 className="mt-2 font-serif text-[clamp(2rem,1.2rem+3svh,3.2rem)] leading-none">
                       <em className={idx === 0 ? 'italic text-caramel-700' : 'italic text-caramel-300'}>{p.monate}</em> Monate
                     </h3>
-                    <ul className={idx === 0 ? 'mt-6 divide-y divide-line border-y border-line' : 'mt-6 divide-y divide-white/12 border-y border-white/12'}>
+                    <ul className={idx === 0 ? 'mt-[clamp(0.75rem,2.5svh,1.5rem)] divide-y divide-line border-y border-line' : 'mt-[clamp(0.75rem,2.5svh,1.5rem)] divide-y divide-white/12 border-y border-white/12'}>
                       {[
                         ['Rhythmus', p.rhythmus],
                         ['Dauer', p.dauer],
                         ['Umfang', p.sitzungen],
                       ].map(([k, v]) => (
-                        <li key={k} className="flex justify-between gap-4 py-3 text-[0.9375rem]">
+                        <li key={k} className="flex justify-between gap-4 py-[clamp(0.4rem,1.2svh,0.75rem)] text-[0.9375rem]">
                           <span className={idx === 0 ? 'text-muted' : 'text-espresso-200'}>{k}</span>
                           <span className="text-right font-semibold">{v}</span>
                         </li>
                       ))}
                     </ul>
-                    <ol className="mt-6 grid grid-cols-3 gap-2" aria-label="Aufbau">
+                    <ol className="mt-[clamp(0.75rem,2.5svh,1.5rem)] grid grid-cols-3 gap-2 max-md:hidden" aria-label="Aufbau">
                       {p.phasen.map((ph, i) => (
                         <li key={ph.title}>
                           <span className="block h-1.5 rounded-full" style={{ background: ['#e6d3b8', '#c09a70', '#8f6a44'][i] }} />
                           <span className={idx === 0 ? 'mt-2 block text-[0.75rem] text-muted' : 'mt-2 block text-[0.75rem] text-espresso-200'}>{ph.zeit}</span>
-                          <span className="block text-[0.875rem] font-semibold leading-tight">{ph.title}</span>
+                          <span className="block text-[0.8125rem] font-semibold leading-tight md:text-[0.875rem]">{ph.title}</span>
                         </li>
                       ))}
                     </ol>
-                    <p className={idx === 0 ? 'mt-6 flex-1 leading-relaxed text-ink/85' : 'mt-6 flex-1 leading-relaxed text-espresso-100/90'}>{p.fuer}</p>
-                    <ButtonLink href={HREF} variant="primary" size="lg" className="group mt-7 w-full">
+                    <p className={idx === 0 ? 'mt-[clamp(0.75rem,2.5svh,1.5rem)] flex-1 text-[0.9375rem] compact:hidden leading-relaxed text-ink/85 md:text-base' : 'mt-[clamp(0.75rem,2.5svh,1.5rem)] flex-1 text-[0.9375rem] leading-relaxed text-espresso-100/90 compact:hidden md:text-base'}>{p.fuer}</p>
+                    <ButtonLink href={HREF} variant="primary" className="group mt-[clamp(0.75rem,2.5svh,1.75rem)] w-full">
                       {CTA_LABEL}
                       <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                     </ButtonLink>
                   </article>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal className="mt-6 flex items-start gap-3 text-[0.9375rem] text-muted">
-              <Info className="mt-0.5 h-4.5 w-4.5 shrink-0 text-caramel-600" strokeWidth={1.75} aria-hidden="true" />
-              <p>
-                Beide Programme online oder vor Ort. Den Preis nenne ich Ihnen im kostenlosen Erstgespräch, transparent und bevor Sie sich entscheiden. Vor-Ort-Termine im Umkreis von
-                etwa {site.radiusKm} km um {site.address.city}, zzgl. Fahrtkosten. Auch zu zweit möglich:{' '}
-                <Link href="/zu-zweit-und-in-der-gruppe/" className="link">
-                  Begleitung zu zweit
-                </Link>
-                .
-              </p>
+                ))}
+              </Carousel>
             </Reveal>
+            {/* Handy/Tablet: Preis und Ort hinter dem Pfeil, damit Kopf und Karte in einen Bildschirm passen */}
+            <More label="Preis, Ort und Begleitung zu zweit" showLabel className="mt-1 lg:hidden" bodyClassName="text-[0.875rem] leading-relaxed text-muted">
+              Beide Programme online oder vor Ort. Den Preis nenne ich Ihnen im kostenlosen Erstgespräch, transparent und bevor Sie sich
+              entscheiden. Vor-Ort-Termine im Umkreis von etwa {site.radiusKm} km um {site.address.city}, zzgl. Fahrtkosten. Auch zu zweit möglich:{' '}
+              <Link href="/zu-zweit-und-in-der-gruppe/" className="link">
+                Begleitung zu zweit
+              </Link>
+              .
+            </More>
           </div>
         </section>
 
         {/* Bestandteile */}
-        <section aria-labelledby="inklusive" className="py-16 md:py-24 xl:py-28">
+        <section aria-labelledby="inklusive" className="sec xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
           <div className="wrap">
             <Reveal className="max-w-[44rem]">
               <h2 id="inklusive" className="t-h2 text-espresso-900">
                 In beiden Programmen enthalten
               </h2>
-              <p className="t-lead mt-4 text-muted">
+              <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-md:text-[0.9375rem] max-md:leading-relaxed">
                 Keine reine Wissensvermittlung: Ich übernehme innerhalb der Begleitung auch konkrete Aufgaben. Sie nennen mir zum Beispiel Ihre
                 Lieblingsgerichte und Bedürfnisse, und ich erstelle daraus einen passenden Essensplan.
               </p>
             </Reveal>
-            <Reveal delay={0.08} className="mt-8 md:mt-10">
-              <div className="grid gap-4 md:grid-cols-3 md:gap-5 xl:gap-6">
+            <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
+              <Carousel label="Bestandteile" arrowLabel="Bestandteile" item="82vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-5 xl:gap-6">
                 {BESTANDTEILE.map((g, gi) => (
-                  <div key={g.title} className="glow-hover rounded-xl border border-line bg-white p-5 md:p-6">
+                  <div key={g.title} className="glow-hover h-full rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <p className="flex items-baseline gap-2.5">
                       <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
                         {gi + 1}
                       </span>
                       <span className="font-serif text-[1.25rem] leading-tight text-espresso-900">{g.title}</span>
                     </p>
-                    <ul className="mt-4 space-y-2.5 border-t border-line pt-4">
+                    <ul className="mt-[clamp(0.75rem,2svh,1rem)] space-y-2 border-t border-line pt-[clamp(0.75rem,2svh,1rem)]">
                       {g.items.map((b) => (
                         <li key={b} className="flex gap-2.5 text-[0.9375rem] leading-snug text-ink/85">
                           <Check className="mt-0.5 h-4 w-4 shrink-0 text-caramel-600" strokeWidth={2.25} aria-hidden="true" />
@@ -207,7 +226,7 @@ export default function StresscoachingPage() {
                     </ul>
                   </div>
                 ))}
-              </div>
+              </Carousel>
             </Reveal>
           </div>
         </section>
@@ -215,33 +234,33 @@ export default function StresscoachingPage() {
         <Pillars title="So ist jede Begleitung aufgebaut" cta={false} />
 
         {/* Materialien */}
-        <section id="materialien" aria-labelledby="materialien-title" className="grain scroll-mt-24 overflow-hidden bg-espresso-800 py-16 text-white md:py-24 xl:py-28">
-          <div className="wrap grid items-center gap-12 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-6">
+        <section id="materialien" aria-labelledby="materialien-title" className="grain sec scroll-mt-24 overflow-hidden bg-espresso-800 text-white xl:flex xl:min-h-svh xl:items-center">
+          <div className="wrap grid items-center gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
+            <Reveal className="lg:col-span-6">
               <p className="t-label text-caramel-300">Ein Beispiel aus der Praxis</p>
               <h2 id="materialien-title" className="t-h2 mt-3 text-white">
                 So sehen die <em className="italic text-caramel-300">Materialien</em> aus
               </h2>
-              <p className="t-lead mt-5 text-espresso-100/90">
+              <p className="t-lead mt-[clamp(0.5rem,2svh,1.25rem)] text-espresso-100/90 max-md:hidden">
                 Alles, was Sie von mir bekommen, ist schlicht, schön und sofort nutzbar, zum Ausdrucken oder am Bildschirm. Ein paar Beispiele:
               </p>
-              <dl className="mt-7 divide-y divide-white/12 border-y border-white/12">
+              <dl className="mt-[clamp(0.75rem,3svh,1.75rem)] divide-y divide-white/12 border-y border-white/12">
                 {[
                   ['Stresstagebuch', 'Vier Wochen lang Situation, Auslöser, Stresslevel von 0 bis 10, Reaktion und Lösung festhalten. Mit Wochen- und Gesamtrückblick.'],
                   ['Tagesplaner', 'Stundenplan, Stresslevel, Gewohnheiten, To-dos und ein Moment der Dankbarkeit auf einer Seite.'],
                   ['Wochenfokus', 'Ein Wochenziel statt zehn Baustellen, dazu ein einfacher Gewohnheits-Tracker.'],
                 ].map(([t, d]) => (
-                  <div key={t} className="grid gap-1 py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
+                  <div key={t} className="grid gap-0.5 py-[clamp(0.5rem,1.6svh,1rem)] sm:grid-cols-[10rem_1fr] sm:gap-6">
                     <dt className="font-serif text-[1.125rem] italic text-caramel-200">{t}</dt>
-                    <dd className="text-[0.9375rem] leading-relaxed text-espresso-100/85">{d}</dd>
+                    <dd className="text-[0.875rem] leading-snug text-espresso-100/85 compact:hidden md:text-[0.9375rem] md:leading-relaxed">{d}</dd>
                   </div>
                 ))}
               </dl>
-              <Link href="/ratgeber/stresstagebuch-anleitung/" className="mt-6 inline-flex min-h-11 items-center gap-2 font-semibold text-white underline decoration-caramel-300/60 underline-offset-[6px] hover:text-caramel-200">
+              <Link href="/ratgeber/stresstagebuch-anleitung/" className="mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-2 font-semibold text-white underline decoration-caramel-300/60 underline-offset-[6px] hover:text-caramel-200">
                 Anleitung: Stresstagebuch führen
               </Link>
             </Reveal>
-            <Reveal delay={0.1} className="mx-auto w-full max-w-[36rem] xl:col-span-6 xl:max-w-none">
+            <Reveal delay={0.1} className="mx-auto w-full max-w-[min(36rem,calc(19svh*1.11))] max-lg:order-first md:max-w-[min(36rem,calc(30svh*1.11))] lg:col-span-6 lg:max-w-[min(100%,calc((100svh-2*var(--sec-y))*1.05))]">
               <PaperStack layout="planer" />
             </Reveal>
           </div>
@@ -265,18 +284,18 @@ export default function StresscoachingPage() {
           </div>
         </section>
 
-        <section aria-labelledby="coaching-fragen" className="py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-4">
+        <section aria-labelledby="coaching-fragen" className="sec">
+          <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+            <Reveal className="lg:col-span-5 xl:col-span-4">
               <h2 id="coaching-fragen" className="t-h2 text-espresso-900">
                 Häufige Fragen zum Stresscoaching
               </h2>
-              <Link href="/haeufige-fragen/" className="link mt-5 inline-block font-semibold">
+              <Link href="/haeufige-fragen/" className="link mt-[clamp(0.5rem,2svh,1.25rem)] inline-block font-semibold">
                 Alle Fragen und Antworten
               </Link>
             </Reveal>
-            <div className="xl:col-span-8">
-              <FaqAccordion faqs={COACHING_FAQS} openFirst />
+            <div className="lg:col-span-7 xl:col-span-8">
+              <FaqAccordion faqs={COACHING_FAQS} />
             </div>
           </div>
         </section>

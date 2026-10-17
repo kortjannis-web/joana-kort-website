@@ -12,6 +12,10 @@
 @custom-variant short (@media (width < 48rem) and (height < 37.5rem));
 /* Desktop mit niedrigem Fenster (Laptop) */
 @custom-variant lowdesk (@media (width >= 75rem) and (height < 48rem));
+/* Kleine Handys (z. B. 360 × 740, iPhone SE): Nebensächliches ausblenden, damit jede Section in einen Bildschirm passt */
+@custom-variant compact (@media (width < 48rem) and (height < 50rem));
+/* Tablet quer und kleine Laptops mit niedrigem Fenster (z. B. 1024 × 768) */
+@custom-variant lowtab (@media (width >= 48rem) and (width < 75rem) and (height < 50rem));
 
 @theme {
   --breakpoint-xl: 75rem;
@@ -80,23 +84,44 @@
     /* Startseiten-Intro: ab hier kommen Text, Karte, Header (sobald die Linie im Logo gezeichnet ist).
        Nach der ersten internen Navigation 0 (data-navigated aus RouteScroll) */
     --intro-base: 0.95s;
+    /* Vertikaler Abstand einer Section (oben und unten), am Viewport bemessen. Jede Section passt in einen Bildschirm */
+    --sec-y: clamp(2.5rem, 6svh, 3.75rem);
+    /* Abstand zwischen Kopf (Label, Titel) und Inhalt einer Section */
+    --sec-gap: clamp(1.25rem, 3svh, 2rem);
   }
   html[data-navigated] {
     --intro-base: 0s;
   }
+  /* Kleine Handys (z. B. 360 × 740, iPhone SE): etwas engere Abstände */
+  @media (width < 48rem) and (height < 50rem) {
+    :root {
+      --sec-y: clamp(1.75rem, 4.75svh, 2.5rem);
+      --sec-gap: clamp(0.875rem, 2.2svh, 1.25rem);
+    }
+  }
   @media (width >= 48rem) {
     :root {
       --sheet-overlap: 2rem;
+      --sec-y: clamp(2.5rem, 7svh, 5.5rem);
+      --sec-gap: clamp(1.5rem, 3.5svh, 2.5rem);
+    }
+  }
+  @media (width >= 75rem) {
+    :root {
+      --sec-y: clamp(2.25rem, 8.5svh, 6.5rem);
+      --sec-gap: clamp(1.5rem, 4svh, 3rem);
     }
   }
   html {
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: 6rem;
   }
-  /* Große Bildschirme: alles wächst proportional mit (16px bei 1440, bis max. 24px) */
-  @media (width >= 90rem) {
+  /* Ab 1024 (Tablet quer, Laptop, Desktop): Grundgröße folgt Breite UND Höhe des Fensters (16px bei 1440 × 900).
+     Niedrige Fenster (1024 × 768, 1366 × 768) etwas kleiner, Full HD 19px, 1440p 23px, 4K bis 32px.
+     So bleibt jede Section auf jedem Bildschirm im Verhältnis gleich hoch */
+  @media (width >= 64rem) {
     html {
-      font-size: clamp(100%, 0.625vw + 0.4375rem, 150%);
+      font-size: clamp(93.75%, min(max(1rem, 0.625vw + 0.4375rem), 1.78svh), 200%);
     }
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -168,7 +193,21 @@
   }
 }
 
-/* Typografische Skala */
+/* Section-Abstände (am Viewport bemessen, siehe --sec-y). sec-fit: ab Desktop höchstens bildschirmhoch, Inhalt mittig */
+@utility sec {
+  padding-block: var(--sec-y);
+}
+@utility sec-t {
+  padding-top: var(--sec-y);
+}
+@utility sec-b {
+  padding-bottom: var(--sec-y);
+}
+@utility sec-head {
+  margin-bottom: var(--sec-gap);
+}
+
+/* Typografische Skala (Überschriften wachsen mit der Breite, aber nie über das hinaus, was die Höhe hergibt) */
 @utility t-display {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -187,7 +226,7 @@
 @utility t-h1 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(2.15rem, 1.45rem + 2.5vw, 3.5rem);
+  font-size: clamp(2rem, min(1.45rem + 2.5vw, 1rem + 4.4svh), 3.5rem);
   line-height: 1.08;
   letter-spacing: -0.018em;
   hyphens: auto;
@@ -199,7 +238,7 @@
 @utility t-h2 {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(1.85rem, 1.35rem + 1.85vw, 2.85rem);
+  font-size: clamp(1.75rem, min(1.35rem + 1.85vw, 0.9rem + 3.6svh), 2.85rem);
   line-height: 1.12;
   letter-spacing: -0.015em;
   hyphens: manual;
@@ -208,12 +247,12 @@
 @utility t-h3 {
   font-family: var(--font-serif);
   font-weight: 450;
-  font-size: clamp(1.3rem, 1.17rem + 0.55vw, 1.62rem);
+  font-size: clamp(1.25rem, min(1.17rem + 0.55vw, 0.85rem + 1.6svh), 1.62rem);
   line-height: 1.22;
   letter-spacing: -0.008em;
 }
 @utility t-lead {
-  font-size: clamp(1.075rem, 1rem + 0.35vw, 1.25rem);
+  font-size: clamp(1rem, min(1rem + 0.35vw, 0.8rem + 1.1svh), 1.25rem);
   line-height: 1.6;
 }
 /* Wie die kleinen Versal-Labels in Joanas Materialien ("STRESSTAGEBUCH · VIER WOCHEN") */

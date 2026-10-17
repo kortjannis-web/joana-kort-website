@@ -5,6 +5,7 @@ import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
+import { Carousel } from '@/components/ui/Carousel'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { AreaMap } from '@/components/home/AreaMap'
 import { Process } from '@/components/home/Process'
@@ -63,13 +64,13 @@ export default function GummersbachPage() {
       />
 
       <Sheet crumbs={[{ name: 'Stressberatung Gummersbach', path: PATH }]}>
-        <section aria-labelledby="region" className="pb-16 pt-8 md:pb-24 md:pt-12">
-          <div className="wrap grid gap-10 xl:grid-cols-12 xl:items-center xl:gap-16">
-            <Reveal className="xl:col-span-6">
+        <section aria-labelledby="region" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
+          <div className="wrap grid gap-[var(--sec-gap)] md:grid-cols-12 md:items-center md:gap-x-10 xl:gap-x-16">
+            <Reveal className="md:col-span-7 xl:col-span-6">
               <h2 id="region" className="t-h2 text-espresso-900">
                 Stress im Alltag, hier im Oberbergischen
               </h2>
-              <div className="t-lead mt-5 space-y-4 text-ink/85">
+              <div className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] space-y-3 text-ink/85 max-md:text-[0.9375rem] max-md:leading-relaxed md:space-y-4">
                 <p>
                   Pendeln über die A4, Schichtdienst, ein volles Familienleben, Studium oder Selbstständigkeit: Stress hat viele Gesichter. Als
                   Stressberaterin mit gesundheitspsychologischem Hintergrund begleite ich Sie dabei, Ihren Stress zu verstehen, passende Wege der
@@ -80,41 +81,41 @@ export default function GummersbachPage() {
                 </p>
               </div>
             </Reveal>
-            <Reveal delay={0.1} className="xl:col-span-6">
-              <div className="floaty relative aspect-[13/12] overflow-hidden rounded-xl bg-espresso-800">
+            <Reveal delay={0.1} className="md:col-span-5 xl:col-span-6">
+              <div className="floaty relative mx-auto aspect-[13/12] max-h-[28svh] overflow-hidden rounded-xl bg-espresso-800 md:max-h-[calc(100svh-2*var(--sec-y))] max-md:aspect-auto max-md:h-[28svh]">
                 <AreaMap />
               </div>
             </Reveal>
           </div>
         </section>
 
-        <section aria-labelledby="vor-ort" className="bg-greige py-16 md:py-24">
+        <section aria-labelledby="vor-ort" className="bg-greige sec">
           <div className="wrap">
             <Reveal>
               <h2 id="vor-ort" className="t-h2 max-w-[24ch] text-espresso-900">
                 So funktionieren Termine vor Ort
               </h2>
             </Reveal>
-            <div className="mt-8 grid gap-4 md:grid-cols-3 md:gap-6">
-              {VOR_ORT.map(({ title, text, Icon }, i) => (
-                <Reveal key={title} delay={i * 0.06}>
-                  <div className="floaty h-full rounded-lg border border-line bg-white p-6">
+            <Carousel label="Termine vor Ort" arrowLabel="Punkte" item="80vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-6" className="mt-[var(--sec-gap)]">
+              {VOR_ORT.map(({ title, text, Icon }) => (
+                <div key={title} className="h-full">
+                  <div className="floaty h-full rounded-lg border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <span className="grid h-11 w-11 place-items-center rounded-md bg-stone text-caramel-700">
                       <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                     </span>
-                    <h3 className="mt-4 font-serif text-[1.3rem] text-espresso-900">{title}</h3>
-                    <p className="mt-2 leading-relaxed text-muted">{text}</p>
+                    <h3 className="mt-[clamp(0.75rem,2svh,1rem)] font-serif text-[1.3rem] text-espresso-900">{title}</h3>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted md:text-base">{text}</p>
                   </div>
-                </Reveal>
+                </div>
               ))}
-            </div>
-            <Reveal className="mt-10 grid gap-3 md:grid-cols-3">
+            </Carousel>
+            <Reveal className="mt-[var(--sec-gap)] grid gap-2 md:grid-cols-3 md:gap-3">
               {[
                 { href: '/stresscoaching/', t: 'Persönliche Begleitung vor Ort' },
                 { href: '/zu-zweit-und-in-der-gruppe/', t: 'Zu zweit oder in der Gruppe' },
                 { href: '/stressmanagement-unternehmen/', t: 'Schulungen für Unternehmen im Oberbergischen' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group flex min-h-14 items-center justify-between gap-3 rounded-md bg-white px-5 font-semibold text-espresso-900 transition-colors hover:text-caramel-800">
+                <Link key={l.href} href={l.href} className="group flex min-h-12 items-center justify-between gap-3 rounded-md bg-white px-4 text-[0.9375rem] font-semibold md:min-h-14 md:px-5 md:text-base text-espresso-900 transition-colors hover:text-caramel-800">
                   {l.t}
                   <ArrowRight className="h-4 w-4 shrink-0 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                 </Link>
@@ -125,15 +126,15 @@ export default function GummersbachPage() {
 
         <Process tone="paper" />
 
-        <section aria-labelledby="gm-fragen" className="bg-stone py-16 md:py-24">
-          <div className="wrap grid gap-8 xl:grid-cols-12 xl:gap-16">
-            <Reveal className="xl:col-span-4">
+        <section aria-labelledby="gm-fragen" className="bg-stone sec">
+          <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+            <Reveal className="lg:col-span-5 xl:col-span-4">
               <h2 id="gm-fragen" className="t-h2 text-espresso-900">
                 Fragen zur Stressberatung in {site.address.city}
               </h2>
             </Reveal>
-            <div className="xl:col-span-8">
-              <FaqAccordion faqs={GUMMERSBACH_FAQS} openFirst />
+            <div className="lg:col-span-7 xl:col-span-8">
+              <FaqAccordion faqs={GUMMERSBACH_FAQS} />
             </div>
           </div>
         </section>

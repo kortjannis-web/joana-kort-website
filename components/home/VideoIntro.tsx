@@ -18,7 +18,7 @@ const PUNKTE = [
  */
 export function VideoIntro() {
   return (
-    <section aria-labelledby="video-title" className="pb-12 pt-10 md:pb-16 md:pt-14 xl:pb-20 xl:pt-20">
+    <section aria-labelledby="video-title" className="sec">
       {VIDEO && (
         <JsonLd
           data={{
@@ -33,9 +33,9 @@ export function VideoIntro() {
           }}
         />
       )}
-      <div className="wrap grid items-center gap-8 md:gap-10 xl:grid-cols-12 xl:gap-16">
-        <Reveal className="xl:col-span-7">
-          <div className="floaty-lg relative overflow-hidden rounded-xl bg-espresso-800">
+      <div className="wrap grid items-center gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+        <Reveal className="lg:col-span-7">
+          <div className="floaty-lg relative mx-auto max-w-[calc((100svh-12rem)*16/9)] overflow-hidden rounded-xl bg-espresso-800 lg:max-w-none">
             {VIDEO ? (
               <video controls playsInline preload="none" poster={VIDEO.poster} className="block aspect-video w-full bg-espresso-900 object-cover">
                 <source src={VIDEO.src} type="video/mp4" />
@@ -62,14 +62,14 @@ export function VideoIntro() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="xl:col-span-5">
+        <Reveal delay={0.1} className="lg:col-span-5">
           <p className="t-label text-caramel-700">Persönlich vorgestellt</p>
           <h2 id="video-title" className="t-h2 mt-3 text-espresso-900">
             Lernen Sie mich <em className="italic text-caramel-600">kennen</em>
           </h2>
-          <ul className="mt-6 border-t border-line">
+          <ul className="mt-[clamp(1rem,2.5svh,1.5rem)] border-t border-line">
             {PUNKTE.map(({ title, text, Icon }) => (
-              <li key={title} className="flex gap-4 border-b border-line py-4">
+              <li key={title} className="flex gap-4 border-b border-line py-[clamp(0.625rem,1.8svh,1rem)]">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[0.625rem] bg-stone text-caramel-700">
                   <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                 </span>
@@ -80,7 +80,7 @@ export function VideoIntro() {
               </li>
             ))}
           </ul>
-          <ButtonLink href={ERSTGESPRAECH} className="group mt-7 w-full sm:w-auto max-xl:hidden">
+          <ButtonLink href={ERSTGESPRAECH} className="group mt-[clamp(1rem,3svh,1.75rem)] w-full sm:w-auto max-xl:hidden">
             {CTA_LABEL}
             <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
           </ButtonLink>
