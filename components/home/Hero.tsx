@@ -101,14 +101,10 @@ export function Hero() {
         <div
           id="erstgespraech-desktop"
           data-funnel-anchor
-          className="intro-rise absolute right-[var(--wrap-wide-x)] top-[var(--hero-top)] z-20 hidden w-[min(31rem,37vw)] [--d:0.5s] xl:block"
+          className="intro-rise absolute right-[var(--wrap-wide-x)] top-[var(--hero-top)] z-20 hidden w-[min(27rem,33vw)] [--d:0.5s] xl:block"
         >
-          <ErstgespraechFunnel
-            variant="hero"
-            idPrefix="jkh"
-            className="max-h-[calc(max(36rem,100svh)-var(--hero-top)-var(--sheet-overlap)-3.25rem)]"
-            bodyClassName="overflow-y-auto overscroll-contain [scrollbar-width:thin]"
-          />
+          {/* Kompakt genug, dass jeder Schritt ohne inneres Scrollen in den Hero passt */}
+          <ErstgespraechFunnel variant="hero" idPrefix="jkh" />
         </div>
       </section>
     </StackBack>

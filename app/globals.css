@@ -1324,6 +1324,120 @@ html:not([data-hydrated]) [data-reveal] {
   }
 }
 
+/* Hero-Karte (Entwürfe 1 bis 5): Schrittpunkte offen Braun, erreicht Amber. Beim Weitergehen füllt sich die Linie,
+   danach "tippt" der nächste Punkt (hüpft kurz, leuchtet auf, ein Ring läuft aus) */
+.fk-dark {
+  --fk-off-bg: var(--color-espresso-700);
+  --fk-off-bd: var(--color-espresso-600);
+  --fk-off-fg: var(--color-espresso-300);
+}
+.fk-light {
+  --fk-off-bg: #6b5443;
+  --fk-off-bd: #6b5443;
+  --fk-off-fg: #e7dccf;
+}
+.fk-dot {
+  background-color: var(--fk-off-bg);
+  border-color: var(--fk-off-bd);
+  color: var(--fk-off-fg);
+  transition:
+    background-color 0.35s var(--ease-soft) 0.4s,
+    border-color 0.35s var(--ease-soft) 0.4s,
+    color 0.35s var(--ease-soft) 0.4s;
+}
+.fk-dot[data-state='done'],
+.fk-dot[data-state='active'] {
+  background-color: var(--color-amber);
+  border-color: var(--color-amber);
+  color: var(--color-espresso-950);
+}
+.fk-dot[data-state='done'] {
+  transition-delay: 0s;
+}
+.fk-dot[data-state='active'] {
+  animation: fk-tap 0.6s var(--ease-lift) 0.4s both;
+}
+.fk-dot[data-state='active']::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-amber);
+  opacity: 0;
+  animation: fstep-ring 2.2s var(--ease-soft) 1s infinite;
+}
+.fk-fill,
+.fk-seg {
+  transition: transform 0.45s var(--ease-soft);
+}
+.fk-seg[data-state='active'] {
+  transition-delay: 0.1s;
+  animation: fk-seg-tap 0.6s var(--ease-lift) 0.45s both;
+}
+.fk-knob {
+  transition: width 0.55s var(--ease-lift);
+  box-shadow: 0 0 14px 0 rgb(200 137 58 / 0.4);
+}
+.fk-knob-tap {
+  animation: fk-knob-tap 0.7s var(--ease-lift) 0.3s both;
+}
+@keyframes fk-tap {
+  0% {
+    transform: translateY(0) scale(0.86);
+    box-shadow: 0 0 0 0 rgb(200 137 58 / 0);
+  }
+  40% {
+    transform: translateY(-5px) scale(1.14);
+    box-shadow: 0 0 18px 2px rgb(200 137 58 / 0.55);
+  }
+  70% {
+    transform: translateY(1px) scale(0.96);
+  }
+  100% {
+    transform: none;
+    box-shadow: 0 0 12px 0 rgb(200 137 58 / 0.35);
+  }
+}
+@keyframes fk-seg-tap {
+  0% {
+    transform: scaleY(1);
+  }
+  40% {
+    transform: scaleY(2);
+    box-shadow: 0 0 12px 1px rgb(200 137 58 / 0.6);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes fk-knob-tap {
+  0% {
+    box-shadow: 0 0 0 0 rgb(227 184 120 / 0.8);
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.04, 1.18);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgb(227 184 120 / 0);
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fk-dot,
+  .fk-fill,
+  .fk-seg,
+  .fk-knob {
+    transition: none;
+  }
+  .fk-dot[data-state='active'],
+  .fk-dot[data-state='active']::after,
+  .fk-seg[data-state='active'],
+  .fk-knob-tap {
+    animation: none;
+  }
+}
+
 /* Drei Schritte (Pillars): Icons zeichnen sich nacheinander, Verbindungslinien wachsen, Zeilen gleiten von links herein */
 .step-icons[data-view='ready'] .step-icon path {
   stroke-dasharray: 1;

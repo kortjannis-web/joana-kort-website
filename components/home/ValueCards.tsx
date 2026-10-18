@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 export const WERTE = [
   { title: 'Individuell', text: 'Ihr Leben bestimmt den Plan, nicht umgekehrt.', Icon: Fingerprint },
   { title: 'Praktisch', text: 'Kleine Schritte, die im Alltag halten.', Icon: Footprints },
-  { title: 'Fundiert', text: 'Wissen aus der Gesundheitspsychologie.', Icon: FlaskConical },
+  { title: 'Fundiert', text: 'Wissen aus der Gesundheits\u00ADpsychologie.', Icon: FlaskConical },
 ]
 
 function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & { row?: boolean }) {
@@ -26,9 +26,9 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
           <Icon className="h-6 w-6 text-caramel-300" strokeWidth={1.6} aria-hidden="true" />
         </span>
       </span>
-      <div>
+      <div className="min-w-0">
         <p className="font-semibold text-white transition-colors duration-500 group-data-[active=true]/v:text-caramel-200">{title}</p>
-        <p className="mt-1 text-[0.875rem] leading-snug text-espresso-200 compact:hidden lowtab:hidden">{text}</p>
+        <p className="mt-1 hyphens-auto text-[0.875rem] leading-snug text-espresso-200 compact:hidden lowtab:hidden">{text}</p>
       </div>
     </div>
   )

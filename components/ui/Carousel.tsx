@@ -218,6 +218,8 @@ export function Carousel({
           onMouseLeave={() => ((hover.current = false), hold())}
           className={cn(
             'flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+            // Aufgeklappter Langtext (More) verlängert nur die eigene Karte, die Nachbarn behalten ihre Höhe
+            'has-[details[open]]:items-start',
             // Handy: mittig einrasten, Rand so breit, dass auch erste und letzte Karte mittig stehen können
             '-mx-5 px-[calc((100vw-var(--item))/2)] pb-10 pt-3 -mb-6 -mt-3',
             // ab Tablet: am Anfang einrasten
