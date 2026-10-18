@@ -13,6 +13,7 @@ import { PROGRAMME, RABATT_LANG } from '@/lib/content/angebote'
 import { serviceSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { CTA_LABEL, ERSTGESPRAECH, site } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 const PATH = '/ablauf/'
 
@@ -300,15 +301,16 @@ export default function AblaufPage() {
         <section aria-label="Ergebnis im Beispiel" className="pb-[var(--sec-y)]">
           <div className="wrap">
             <Reveal className="grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-10">
-              <div className="rounded-lg border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-4 lg:col-span-7">
-                <p className="font-semibold text-espresso-900">Nach zwölf Wochen</p>
-                <p className="mt-1 text-[0.9375rem] leading-relaxed text-ink/85">
-                  Nicht jeder Tag ist leicht, aber vieles ist planbarer geworden. Sie erkennt ihre Warnsignale früher und hat Werkzeuge, die sie
-                  wirklich nutzt.
-                </p>
-                <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted">
-                  Erfundenes Beispiel zur Veranschaulichung. Jede Begleitung verläuft anders, weil jeder Mensch und jeder Alltag anders ist.
-                </p>
+              <div className="lg:col-span-7">
+                <InfoNote kicker="Beispiel" title="Nach zwölf Wochen">
+                  <p>
+                    Nicht jeder Tag ist leicht, aber vieles ist planbarer geworden. Sie erkennt ihre Warnsignale früher und hat Werkzeuge, die sie
+                    wirklich nutzt.
+                  </p>
+                  <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted">
+                    Erfundenes Beispiel zur Veranschaulichung. Jede Begleitung verläuft anders, weil jeder Mensch und jeder Alltag anders ist.
+                  </p>
+                </InfoNote>
               </div>
               <div className="lg:col-span-5 lg:justify-self-end">
                 <CtaRow note="Wie es bei Ihnen aussehen könnte, besprechen wir in 15 Minuten" className="lg:flex-col lg:items-start lg:gap-3" />
@@ -356,14 +358,15 @@ export default function AblaufPage() {
         {/* Abgrenzung + weiter */}
         <section aria-labelledby="weiter" className="sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
           <div className="wrap">
-            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5 md:px-7">
-              <p className="font-semibold text-espresso-900">Praktische Begleitung, keine Therapie</p>
-              <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/85 md:text-base">
-                Meine Arbeit ist keine Psychotherapie und keine Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen.{' '}
-                <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                  Unterschied zur Therapie
-                </Link>
-              </p>
+            <Reveal>
+              <InfoNote kicker="Abgrenzung" title="Praktische Begleitung, keine Therapie">
+                <p>
+                  Meine Arbeit ist keine Psychotherapie und keine Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen.{' '}
+                  <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                    Unterschied zur Therapie
+                  </Link>
+                </p>
+              </InfoNote>
             </Reveal>
             <Reveal delay={0.06} className="mt-[var(--sec-y)]">
               <h2 id="weiter" className="t-h2 text-espresso-900">

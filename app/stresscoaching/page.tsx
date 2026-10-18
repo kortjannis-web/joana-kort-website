@@ -19,6 +19,7 @@ import { COACHING_FAQS } from '@/lib/content/faqs'
 import { faqSchema, serviceSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { CTA_LABEL, site } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 const PATH = '/stresscoaching/'
 
@@ -238,15 +239,16 @@ export default function StresscoachingPage() {
         {/* Abgrenzung */}
         <section aria-label="Hinweis zur Abgrenzung" className="pb-6">
           <div className="wrap">
-            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5 md:px-7">
-              <p className="font-semibold text-espresso-900">Keine Therapie, sondern praktische Begleitung</p>
-              <p className="mt-2 leading-relaxed text-ink/85">
-                Das Stresscoaching unterstützt Sie im Umgang mit Stress im Alltag. Es ist keine Psychotherapie und keine Heilbehandlung. Bei
-                Verdacht auf eine Erkrankung ist Ihre Hausarztpraxis die richtige erste Adresse.{' '}
-                <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                  Mehr zur Abgrenzung
-                </Link>
-              </p>
+            <Reveal>
+              <InfoNote kicker="Abgrenzung" title="Keine Therapie, sondern praktische Begleitung">
+                <p>
+                  Das Stresscoaching unterstützt Sie im Umgang mit Stress im Alltag. Es ist keine Psychotherapie und keine Heilbehandlung. Bei
+                  Verdacht auf eine Erkrankung ist Ihre Hausarztpraxis die richtige erste Adresse.{' '}
+                  <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                    Mehr zur Abgrenzung
+                  </Link>
+                </p>
+              </InfoNote>
             </Reveal>
           </div>
         </section>

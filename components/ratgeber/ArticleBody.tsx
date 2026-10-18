@@ -1,5 +1,6 @@
 import { Rich } from '@/components/ui/Rich'
 import type { Block } from '@/lib/types'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 /** Rendert die Inhaltsblöcke eines Ratgeber-Artikels (alles serverseitig, vollständig im HTML) */
 export function ArticleBody({ blocks }: { blocks: Block[] }) {
@@ -85,11 +86,12 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
             )
           case 'callout':
             return (
-              <aside key={i} className="!mt-8 rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5 md:px-6">
-                <p className="font-semibold text-espresso-900">{b.title}</p>
-                <p className="!mt-2">
-                  <Rich text={b.text} />
-                </p>
+              <aside key={i} className="!mt-8">
+                <InfoNote kicker="Gut zu wissen" title={b.title}>
+                  <p>
+                    <Rich text={b.text} />
+                  </p>
+                </InfoNote>
               </aside>
             )
         }

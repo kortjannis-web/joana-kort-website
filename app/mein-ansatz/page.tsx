@@ -15,6 +15,7 @@ import { ARTIKEL } from '@/lib/content/ratgeber'
 import { serviceSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { ERSTGESPRAECH } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 const PATH = '/mein-ansatz/'
 
@@ -170,14 +171,15 @@ export default function AnsatzPage() {
         <section aria-label="Abgrenzung zur Therapie" className="pb-[var(--sec-y)]">
           <div className="wrap">
             <Reveal>
-                <div className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-4 py-4 md:px-5 md:py-5">
-                  <p className="font-semibold text-espresso-900">Klar abgegrenzt</p>
-                  <p className="mt-1.5 text-[0.9375rem] leading-relaxed text-ink/85 md:text-base">
-                    Meine Arbeit ist keine Psychotherapie und keine Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen.{' '}
-                    <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                      Unterschied zur Therapie
-                    </Link>
-                  </p>
+                <div>
+                  <InfoNote kicker="Abgrenzung" title="Klar abgegrenzt">
+                    <p>
+                      Meine Arbeit ist keine Psychotherapie und keine Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen.{' '}
+                      <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                        Unterschied zur Therapie
+                      </Link>
+                    </p>
+                  </InfoNote>
                 </div>
             </Reveal>
           </div>

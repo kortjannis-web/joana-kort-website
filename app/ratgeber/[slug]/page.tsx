@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, UserRound } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -9,6 +9,7 @@ import { Carousel } from '@/components/ui/Carousel'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { Rich } from '@/components/ui/Rich'
+import { OpenBlock } from '@/components/ui/OpenBlock'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { ArticleBody } from '@/components/ratgeber/ArticleBody'
 import { ArticleCard, fmtDatum } from '@/components/ratgeber/ArticleCard'
@@ -152,21 +153,25 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
 
               {/* Autorenbox */}
               <Reveal className="mt-14">
-                <div className="floaty flex gap-4 rounded-lg border border-line bg-white p-5 md:gap-5 md:p-7">
-                  <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-espresso-800 font-serif text-[1.15rem] italic text-caramel-200 ring-1 ring-caramel-400/80 ring-offset-2 ring-offset-white">
-                    JK
-                  </span>
-                  <div>
-                    <p className="font-semibold text-espresso-900">Über die Autorin</p>
-                    <p className="mt-1 leading-relaxed text-muted">
-                      Joana Kort begleitet Menschen dabei, ihren Stress zu verstehen, zu bewältigen und ihren Alltag zu entlasten, in Gummersbach
-                      und online. {ROLE.background}.{' '}
-                      <Link href="/joana-kort/" className="link">
-                        Mehr über Joana Kort
-                      </Link>
-                    </p>
-                  </div>
-                </div>
+                <OpenBlock
+                  icon={<UserRound strokeWidth={1.75} aria-hidden="true" />}
+                  kicker="Über die Autorin"
+                  title={
+                    <>
+                      Joana Kort, <em>Stressberatung</em>
+                    </>
+                  }
+                  className="max-w-[46rem]"
+                  bodyClassName="pl-2"
+                >
+                  <p className="leading-relaxed text-muted">
+                    Joana Kort begleitet Menschen dabei, ihren Stress zu verstehen, zu bewältigen und ihren Alltag zu entlasten, in Gummersbach
+                    und online. {ROLE.background}.{' '}
+                    <Link href="/joana-kort/" className="link">
+                      Mehr über Joana Kort
+                    </Link>
+                  </p>
+                </OpenBlock>
               </Reveal>
             </div>
           </div>

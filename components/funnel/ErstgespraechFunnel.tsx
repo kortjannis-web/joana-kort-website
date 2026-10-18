@@ -14,20 +14,14 @@ import { cn } from '@/lib/utils'
    1 Für wen → 2 Situation / Wer / Team → 3 Begleitung / Ort → 4 Name + Telefon ODER E-Mail (Schalter) → Bestätigung.
    Nach dem Absenden freiwillig: Beruf oder Branche, Altersgruppe, Ort, Nachricht (eigene Anfrage "ergaenzung" mit Bezug auf die id).
    Datensparsam: keine Gesundheitsfragen, kein Geburtsdatum. Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO (Hinweis statt Häkchen).
-   Schrittlinie: inaktive Schritte Dunkelbraun (etwas heller als das Kopfband), aktive und erledigte in Bordeaux.
+   Offener Block (Regel für Fragebögen und Infoblöcke): nur der Kopf ist ein dunkler, abgerundeter Block mit Versprechen und
+   Schrittpunkten (offen Braun, erreicht Bordeaux). Frage, Text und Antworten stehen frei darunter, jede Antwort als eigenes rundes Feld.
    ===================================================================== */
 
 type Kanal = 'Telefon' | 'E-Mail'
 type Key = 'wer' | 'lage' | 'umfang'
 const KEYS: Key[] = ['wer', 'lage', 'umfang']
 const TOTAL = 4
-
-/**
- * Offene Karte im Hero (Startseite, Erstgespräch-Seite): dunkler Kopf, darunter alles frei. Vier Entwürfe, Vorschau über ?look=1 bis ?look=4.
- * 1 Weiße Felder, Punkte · 2 Milchglas, Segmente · 3 Kapsel, Pillen mit Kontur · 4 Große Punkte, kursive Buchstaben
- */
-type Look = 1 | 2 | 3 | 4
-const DEFAULT_LOOK: Look = 1
 
 const ALTER = ['unter 25', '25 bis 34', '35 bis 44', '45 bis 54', '55 bis 64', '65 und älter']
 const ORT = ['Online', 'Vor Ort', 'Noch offen']
@@ -63,13 +57,13 @@ function fromPreset(key: InteresseKey | null | undefined) {
 }
 
 export function ErstgespraechFunnel({
-  variant = 'embed',
+  variant = 'hero',
   idPrefix = 'jk',
   preset,
   className,
   bodyClassName,
 }: {
-  /** hero: kräftiger Schatten (Startseite, Erstgespräch-Seite) · embed: Rahmen, für Sections */
+  /** hero: Frage als h2 (Startseite, Erstgespräch-Seite) · embed: als h3, innerhalb einer Section mit eigener h2 */
   variant?: 'hero' | 'embed'
   /** Präfix der Feld-IDs, falls das Formular zweimal im DOM steht (Startseite: mobil im Sheet, Desktop im Hero) */
   idPrefix?: string
@@ -102,9 +96,6 @@ export function ErstgespraechFunnel({
   const shownStep = useRef<number | null>(null)
   const advance = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const [look, setLook] = useState<Look>(DEFAULT_LOOK)
-  const hero = variant === 'hero'
-  const lk = hero ? look : null
   const done = step >= TOTAL
   const set = <K extends keyof State>(k: K, v: State[K]) => setS((p) => ({ ...p, [k]: v }))
 
@@ -117,12 +108,6 @@ export function ErstgespraechFunnel({
     setStep(r.step)
     setFirst(r.step)
   }, [preset])
-
-  // Entwurfsvorschau: ?look=1 bis ?look=4
-  useEffect(() => {
-    const n = Number(new URLSearchParams(window.location.search).get('look'))
-    if (n >= 1 && n <= 4) setLook(n as Look)
-  }, [])
 
   // Hero-CTA: Karte leuchtet kurz auf, Fokus auf die aktuelle Frage
   useEffect(() => {
@@ -230,9 +215,8 @@ export function ErstgespraechFunnel({
   }
 
   const level: 2 | 3 = variant === 'embed' ? 3 : 2
-  const h = { headingRef, level, compact: !!lk }
+  const h = { headingRef, level }
   const labels = [...KEYS.map((k) => question(k, s.wer).label), 'Kontakt']
-  const inp = cn(inputCls, lk && OPEN_INPUT)
 
   /* Aufleuchten nach Klick auf einen CTA (nur opacity) */
   const glow = (
@@ -255,24 +239,18 @@ export function ErstgespraechFunnel({
             <Step
               key={k + (s.wer ?? '')}
               title={q.title}
-              sub={
-                step === 0
-                  ? lk
-                    ? 'Drei kurze Fragen, dann melde ich mich persönlich.'
-                    : 'Drei kurze Fragen, dann melde ich mich persönlich und empfehle Ihnen den passenden Weg.'
-                  : undefined
-              }
+              sub={step === 0 ? 'Drei kurze Fragen, dann melde ich mich persönlich.' : undefined}
               {...h}
             >
-              <div className={cn('grid', lk ? 'gap-1.5' : 'gap-2')}>
+              <div className="grid gap-1.5">
                 {q.options.map((o, i) => (
-                  <Tile key={o.key} o={o} i={i} look={lk} selected={s[k] === o.key} onClick={() => choose(k, o.key)} />
+                  <Tile key={o.key} o={o} i={i} selected={s[k] === o.key} onClick={() => choose(k, o.key)} />
                 ))}
               </div>
               {step > first ? (
-                <Back compact={!!lk} onClick={() => go(step - 1)} />
+                <Back onClick={() => go(step - 1)} />
               ) : (
-                <p className={cn('text-center text-[0.8125rem] text-muted', lk ? 'mt-2.5' : 'mt-3.5')}>Unverbindlich · ohne Vorbereitung</p>
+                <p className="mt-2.5 text-center text-[0.8125rem] text-muted">Unverbindlich · ohne Vorbereitung</p>
               )}
             </Step>
           )
@@ -281,14 +259,14 @@ export function ErstgespraechFunnel({
       {step === 3 && (
         <Step
           title="Wie erreiche ich Sie?"
-          sub={lk ? 'Nur zwei Angaben, ich melde mich persönlich.' : 'Nur zwei Angaben. Ich melde mich persönlich, in der Regel am nächsten Werktag.'}
+          sub="Nur zwei Angaben, ich melde mich persönlich."
           {...h}
         >
-          <Field label="Ihr Name" htmlFor={`${P}-name`} className={lk ? 'mt-0' : undefined}>
-            <input id={`${P}-name`} autoComplete="name" value={s.name} onChange={(e) => set('name', e.target.value)} className={inp} />
+          <Field label="Ihr Name" htmlFor={`${P}-name`} className="mt-0">
+            <input id={`${P}-name`} autoComplete="name" value={s.name} onChange={(e) => set('name', e.target.value)} className={inputCls} />
           </Field>
 
-          <div className={lk ? 'mt-2.5' : 'mt-3.5'}>
+          <div className="mt-2.5">
             <div className="mb-1.5 flex items-center justify-between gap-3">
               <label htmlFor={`${P}-${s.kanal === 'Telefon' ? 'tel' : 'mail'}`} className="text-[0.875rem] font-semibold text-espresso-900">
                 {s.kanal === 'Telefon' ? 'Ihre Telefonnummer' : 'Ihre E-Mail-Adresse'}
@@ -305,7 +283,7 @@ export function ErstgespraechFunnel({
                 placeholder="z. B. 0151 23456789"
                 value={s.telefon}
                 onChange={(e) => set('telefon', e.target.value)}
-                className={cn(inp, 'field-in')}
+                className={cn(inputCls, 'field-in')}
               />
             ) : (
               <input
@@ -316,7 +294,7 @@ export function ErstgespraechFunnel({
                 placeholder="name@beispiel.de"
                 value={s.email}
                 onChange={(e) => set('email', e.target.value)}
-                className={cn(inp, 'field-in')}
+                className={cn(inputCls, 'field-in')}
               />
             )}
             <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted">
@@ -331,18 +309,18 @@ export function ErstgespraechFunnel({
             </label>
           </div>
           <ErrorMsg msg={error} />
-          <button type="submit" disabled={sending} className={buttonClass('primary', lk ? 'md' : 'lg', cn('group w-full', lk ? 'mt-3' : 'mt-4'))}>
+          <button type="submit" disabled={sending} className={buttonClass('primary', 'md', 'group mt-3 w-full')}>
             {sending ? 'Wird gesendet …' : 'Kostenloses Erstgespräch anfragen'}
             {!sending && <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />}
           </button>
-          <p className={cn('text-[0.75rem] text-muted', lk ? 'mt-2 leading-snug' : 'mt-3 leading-relaxed')}>
+          <p className="mt-2 text-[0.75rem] leading-snug text-muted">
             Ihre Angaben nutze ich nur, um das Erstgespräch mit Ihnen zu vereinbaren. Mehr in der{' '}
             <Link href="/datenschutz/" target="_blank" className="link">
               Datenschutzerklärung
             </Link>
             .
           </p>
-          {step > first && <Back compact={!!lk} onClick={() => go(2)} />}
+          {step > first && <Back onClick={() => go(2)} />}
         </Step>
       )}
     </form>
@@ -350,49 +328,13 @@ export function ErstgespraechFunnel({
 
   const result = done && <Done s={s} refId={ref} idPrefix={P} {...h} />
 
-  if (lk) {
-    const L = LOOKS[lk]
-    return (
-      <div ref={cardRef} data-hero="" data-look={lk} className={cn('fk-open group/funnel relative flex flex-col text-ink', className)}>
-        <div className={cn('grain relative shrink-0 bg-espresso-800 text-white shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_40px_-22px_rgba(20,14,10,0.55)]', L.head)}>
-          {glow}
-          <LookHead look={lk} labels={labels} current={step} done={done} />
-        </div>
-        <div ref={bodyRef} className={cn('min-h-0', L.body, bodyClassName)}>
-          {form}
-          {result}
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div
-      ref={cardRef}
-      data-hero={hero ? '' : undefined}
-      className={cn(
-        'group/funnel relative flex flex-col rounded-lg bg-white text-ink',
-        hero
-          ? 'shadow-[0_1px_2px_rgba(30,22,17,0.05),0_12px_26px_-16px_rgba(30,22,17,0.24),0_30px_50px_-36px_rgba(30,22,17,0.3)] xl:shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_38px_-18px_rgba(20,14,10,0.45),0_44px_70px_-42px_rgba(20,14,10,0.55)]'
-          : 'border border-line shadow-[0_1px_2px_rgba(30,22,17,0.05),0_14px_30px_-16px_rgba(30,22,17,0.22),0_44px_80px_-48px_rgba(30,22,17,0.4)]',
-        className
-      )}
-    >
-      {glow}
-
-      {/* Kopfband: Versprechen + Schrittlinie */}
-      <div className="grain shrink-0 rounded-t-lg bg-espresso-800 px-5 pb-4 pt-4 text-white sm:px-7 sm:pb-5 sm:pt-5 lowdesk:pb-3.5 lowdesk:pt-3.5">
-        <div className="flex items-center justify-between gap-4">
-          <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">Kostenlos · {site.erstgespraechMin} Minuten</span>
-          <StepCount current={step} done={done} className="text-white/70" />
-        </div>
-        <p className="mt-1.5 font-serif text-[1.125rem] leading-snug text-white sm:text-[1.25rem] lowdesk:text-[1.0625rem]">
-          In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
-        </p>
-        <StepLine labels={labels} current={step} />
+    <div ref={cardRef} className={cn('fk-open group/funnel relative flex flex-col text-ink', className)}>
+      <div className="grain relative shrink-0 rounded-[1.5rem] bg-espresso-800 text-white shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_40px_-22px_rgba(20,14,10,0.55)]">
+        {glow}
+        <Head labels={labels} current={step} done={done} />
       </div>
-
-      <div ref={bodyRef} className={cn('min-h-0 rounded-b-lg p-5 pt-5 sm:p-7 sm:pt-6 xl:pt-5', bodyClassName)}>
+      <div ref={bodyRef} className={cn('min-h-0 px-1 pt-5', bodyClassName)}>
         {form}
         {result}
       </div>
@@ -400,23 +342,12 @@ export function ErstgespraechFunnel({
   )
 }
 
-/* ---------- Offene Hero-Karte (Entwürfe 1 bis 4) ---------- */
-
-/**
- * Offen: nur der Kopf ist ein dunkler, abgerundeter Block. Frage, Text und Antworten stehen frei darunter,
- * jede Antwort als eigenes abgerundetes Feld. Ein weicher Papierschein dahinter beruhigt die Hero-Linie.
- */
-const LOOKS: Record<Look, { head: string; body: string }> = {
-  1: { head: 'rounded-[1.5rem]', body: 'px-1 pt-5' },
-  2: { head: 'rounded-[1.75rem]', body: 'px-1 pt-5' },
-  3: { head: 'rounded-[2rem]', body: 'px-1 pt-5' },
-  4: { head: 'rounded-[1.5rem]', body: 'px-1 pt-5' },
-}
+/* ---------- Kopf ---------- */
 
 /** "2 von 4" bzw. "Geschafft", für Screenreader als Schritt angesagt */
-function StepCount({ current, done, className }: { current: number; done: boolean; className?: string }) {
+function StepCount({ current, done }: { current: number; done: boolean }) {
   return (
-    <span aria-live="polite" className={cn('whitespace-nowrap text-[0.8125rem] tabular-nums', className)}>
+    <span aria-live="polite" className="whitespace-nowrap text-[0.8125rem] tabular-nums text-white/60">
       {done ? (
         'Geschafft'
       ) : (
@@ -429,52 +360,18 @@ function StepCount({ current, done, className }: { current: number; done: boolea
   )
 }
 
-const KICKER = `Kostenlos · ${site.erstgespraechMin} Minuten`
-
-/** Dunkler Kopf je Entwurf: Versprechen und Schrittanzeige */
-function LookHead({ look, labels, current, done }: { look: Look; labels: string[]; current: number; done: boolean }) {
-  const top = (
-    <div className="flex items-center justify-between gap-4">
-      <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">{KICKER}</span>
-      <StepCount current={current} done={done} className="text-white/60" />
-    </div>
-  )
-  const promise = (size: string) => (
-    <p className={cn('mt-1 font-serif leading-snug text-white', size)}>
-      In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
-    </p>
-  )
-  if (look === 1)
-    return (
-      <div className="px-5 pb-3.5 pt-4">
-        {top}
-        {promise('text-[1.0625rem]')}
-        <Dots labels={labels} current={current} />
-      </div>
-    )
-  if (look === 2)
-    return (
-      <div className="px-5 pb-4 pt-4">
-        {top}
-        {promise('text-[1.0625rem]')}
-        <Segments labels={labels} current={current} />
-      </div>
-    )
-  if (look === 3)
-    return (
-      <div className="p-2">
-        <Capsule labels={labels} current={current} />
-        <div className="px-3.5 pb-2 pt-3">
-          {top}
-          {promise('text-[1.0625rem]')}
-        </div>
-      </div>
-    )
+/** Dunkler Kopf: Versprechen und große Schrittpunkte */
+function Head({ labels, current, done }: { labels: string[]; current: number; done: boolean }) {
   return (
     <div className="px-5 pb-4 pt-4">
-      {top}
-      {promise('text-[1.1875rem]')}
-      <Dots labels={labels} current={current} big />
+      <div className="flex items-center justify-between gap-4">
+        <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">Kostenlos · {site.erstgespraechMin} Minuten</span>
+        <StepCount current={current} done={done} />
+      </div>
+      <p className="mt-1 font-serif text-[1.1875rem] leading-snug text-white">
+        In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
+      </p>
+      <Dots labels={labels} current={current} />
     </div>
   )
 }
@@ -483,9 +380,9 @@ function LookHead({ look, labels, current, done }: { look: Look; labels: string[
  * Schrittpunkte mit Linie: offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
  * (hüpft kurz und leuchtet auf, .fk-dot in globals.css).
  */
-function Dots({ labels, current, big }: { labels: string[]; current: number; big?: boolean }) {
+function Dots({ labels, current }: { labels: string[]; current: number }) {
   return (
-    <ol className={cn('fk-dark flex items-start', big ? 'mt-3.5' : 'mt-3')} aria-label="Fortschritt">
+    <ol className="fk-dark mt-3.5 flex items-start" aria-label="Fortschritt">
       {labels.map((l, i) => {
         const state = i < current ? 'done' : i === current ? 'active' : 'todo'
         return (
@@ -493,10 +390,10 @@ function Dots({ labels, current, big }: { labels: string[]; current: number; big
             <span className="flex w-[3.25rem] shrink-0 flex-col items-center">
               <span
                 data-state={state}
-                className={cn('fk-dot relative grid place-items-center rounded-full border font-bold tabular-nums', big ? 'h-8 w-8 text-[0.8125rem]' : 'h-6 w-6 text-[0.6875rem]')}
+                className="fk-dot relative grid h-8 w-8 place-items-center rounded-full border text-[0.8125rem] font-bold tabular-nums"
               >
                 <span className="sr-only">{`Schritt ${i + 1}: ${l}${state === 'done' ? ', erledigt' : state === 'active' ? ', aktuell' : ''}`}</span>
-                {state === 'done' ? <Check className={big ? 'h-4 w-4' : 'h-3 w-3'} strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
+                {state === 'done' ? <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
               </span>
               <span
                 aria-hidden="true"
@@ -506,96 +403,8 @@ function Dots({ labels, current, big }: { labels: string[]; current: number; big
               </span>
             </span>
             {i < labels.length - 1 && (
-              <span aria-hidden="true" className={cn('relative -mx-3 h-0.5 flex-1 overflow-hidden rounded-full bg-espresso-600', big ? 'mt-[0.9375rem]' : 'mt-[0.6875rem]')}>
+              <span aria-hidden="true" className="relative -mx-3 mt-[0.9375rem] h-0.5 flex-1 overflow-hidden rounded-full bg-espresso-600">
                 <span className={cn('fk-fill absolute inset-0 origin-left bg-bordeaux-bright', i < current ? 'scale-x-100' : 'scale-x-0')} />
-              </span>
-            )}
-          </li>
-        )
-      })}
-    </ol>
-  )
-}
-
-/** Vier Segmente: offen Braun, erreicht Bordeaux (füllt sich von links), das aktuelle tippt kurz an */
-function Segments({ labels, current }: { labels: string[]; current: number }) {
-  return (
-    <ol className="mt-3.5 grid grid-cols-4 gap-1.5" aria-label="Fortschritt">
-      {labels.map((l, i) => {
-        const state = i < current ? 'done' : i === current ? 'active' : 'todo'
-        return (
-          <li key={i} className="min-w-0" aria-current={state === 'active' ? 'step' : undefined}>
-            <span className="relative block h-1.5 overflow-hidden rounded-full bg-espresso-600">
-              <span data-state={state} className={cn('fk-seg absolute inset-0 origin-left rounded-full bg-bordeaux-bright', state === 'todo' ? 'scale-x-0' : 'scale-x-100')} />
-            </span>
-            <span className={cn('mt-1.5 block truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-300/70' : 'text-white/90')}>
-              <span className="sr-only">{`Schritt ${i + 1}: `}</span>
-              {l}
-              {state !== 'todo' && <span className="sr-only">{state === 'done' ? ', erledigt' : ', aktuell'}</span>}
-            </span>
-          </li>
-        )
-      })}
-    </ol>
-  )
-}
-
-/** Kapsel: die Bordeaux-Füllung gleitet beim Weitergehen ein Feld weiter und tippt kurz an */
-function Capsule({ labels, current }: { labels: string[]; current: number }) {
-  const n = Math.min(current + 1, labels.length)
-  return (
-    <div className="relative rounded-full bg-espresso-950/60 p-1">
-      <span aria-hidden="true" className="fk-knob absolute inset-y-1 left-1 rounded-full bg-bordeaux-bright" style={{ width: `calc((100% - 0.5rem) * ${n / labels.length})` }}>
-        <span key={current} className="fk-knob-tap absolute inset-0 rounded-full" />
-      </span>
-      <ol className="relative grid grid-cols-4" aria-label="Fortschritt">
-        {labels.map((l, i) => {
-          const state = i < current ? 'done' : i === current ? 'active' : 'todo'
-          return (
-            <li
-              key={i}
-              aria-current={state === 'active' ? 'step' : undefined}
-              className={cn(
-                'flex h-8 min-w-0 items-center justify-center gap-1 px-1 text-[0.6875rem] font-semibold transition-colors duration-300 delay-200',
-                state === 'todo' ? 'text-espresso-300' : 'text-white'
-              )}
-            >
-              {state === 'done' ? <Check className="h-3 w-3 shrink-0" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
-              <span className="truncate">{l}</span>
-              {state !== 'todo' && <span className="sr-only">{state === 'done' ? ', erledigt' : ', aktuell'}</span>}
-            </li>
-          )
-        })}
-      </ol>
-    </div>
-  )
-}
-
-/* ---------- Schrittlinie ---------- */
-
-/**
- * Alle Schritte stehen von Anfang an da. Inaktiv: Dunkelbraun, etwas heller als das Kopfband. Beim Weitergehen füllt sich die Linie
- * in Bordeaux, danach leuchtet der nächste Schritt auf (Verzögerung über .fstep). Erledigte Schritte zeigen einen Haken.
- */
-function StepLine({ labels, current }: { labels: string[]; current: number }) {
-  return (
-    <ol className="mt-3.5 flex items-start lowdesk:mt-3" aria-label="Fortschritt">
-      {labels.map((l, i) => {
-        const state = i < current ? 'done' : i === current ? 'active' : 'todo'
-        return (
-          <li key={i} className={cn('flex min-w-0 items-start', i < labels.length - 1 && 'flex-1')} aria-current={state === 'active' ? 'step' : undefined}>
-            <span className="flex w-[3.25rem] shrink-0 flex-col items-center sm:w-[3.75rem]">
-              <span data-state={state} className="fstep relative grid h-7 w-7 place-items-center rounded-full border text-[0.75rem] font-bold tabular-nums">
-                <span className="sr-only">{`Schritt ${i + 1}: ${l}${state === 'done' ? ', erledigt' : state === 'active' ? ', aktuell' : ''}`}</span>
-                {state === 'done' ? <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
-              </span>
-              <span aria-hidden="true" className={cn('mt-1.5 truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-300/70' : 'text-white/90')}>
-                {l}
-              </span>
-            </span>
-            {i < labels.length - 1 && (
-              <span aria-hidden="true" className="relative -mx-3 mt-[0.8125rem] h-0.5 flex-1 overflow-hidden bg-espresso-600 sm:-mx-4">
-                <span className={cn('fline absolute inset-0 origin-left bg-bordeaux-bright', i < current ? 'scale-x-100' : 'scale-x-0')} />
               </span>
             )}
           </li>
@@ -613,7 +422,6 @@ function Done({
   idPrefix: P,
   headingRef,
   level,
-  compact,
 }: {
   s: State
   refId: string | null
@@ -623,8 +431,8 @@ function Done({
   const [x, setX] = useState({ beruf: '', alter: '', ort: '', nachricht: '' })
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const vorname = s.name.trim().split(/\s+/)[0]
-  const inp = cn(inputCls, compact && cn(OPEN_INPUT, 'h-10'))
-  const fieldCls = compact ? 'mt-2.5' : undefined
+  const inp = cn(inputCls, 'h-10')
+  const fieldCls = 'mt-2.5'
 
   const send = async (e: FormEvent) => {
     e.preventDefault()
@@ -657,37 +465,30 @@ function Done({
 
   return (
     <div>
-      {compact ? (
-        <div className="flex items-center gap-3">
-          <LogoDraw play className="h-7 text-caramel-600" />
-          <p className="t-label text-caramel-700">Anfrage erhalten</p>
-        </div>
-      ) : (
-        <>
-          <LogoDraw play className="h-11 text-caramel-600 sm:h-12" />
-          <p className="t-label mt-3 text-caramel-700">Anfrage erhalten</p>
-        </>
-      )}
-      <Heading headingRef={headingRef} level={level} compact={compact} srOnly={compact && open}>
+      <div className="flex items-center gap-3">
+        <LogoDraw play className="h-7 text-caramel-600" />
+        <p className="t-label text-caramel-700">Anfrage erhalten</p>
+      </div>
+      <Heading headingRef={headingRef} level={level} srOnly={open}>
         Danke{vorname ? `, ${vorname}` : ''}! Ich melde mich persönlich bei Ihnen.
       </Heading>
-      {/* Kompakte Karte: die optionale Ergänzung ersetzt die Liste, damit die Karte nicht wächst */}
-      {!(compact && open) && (
-        <ul className={cn('result-in', compact ? 'mt-2.5 space-y-1.5 text-[0.875rem] leading-snug' : 'mt-3 space-y-2 text-[0.9375rem] leading-relaxed')}>
+      {/* Die optionale Ergänzung ersetzt die Liste, damit der Block nicht wächst (passt in den Hero) */}
+      {!open && (
+        <ul className="result-in mt-2.5 space-y-1.5 text-[0.875rem] leading-snug">
           {[
             s.kanal === 'Telefon' ? <>Ich rufe Sie unter <strong>{s.telefon.trim()}</strong> zurück, in der Regel am nächsten Werktag.</> : <>Sie erhalten von mir Terminvorschläge an <strong className="break-all">{s.email.trim()}</strong>.</>,
             <>In {site.erstgespraechMin} Minuten klären wir Ihr Anliegen, und ich empfehle Ihnen den Weg, der zu Ihnen passt.</>,
             <>Kostenlos und unverbindlich. Danach entscheiden Sie in Ruhe.</>,
           ].map((t, i) => (
             <li key={i} className="flex gap-3">
-              <Check className={cn('h-4 w-4 shrink-0 text-caramel-600', compact ? 'mt-0.5' : 'mt-1')} strokeWidth={2.5} aria-hidden="true" />
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-caramel-600" strokeWidth={2.5} aria-hidden="true" />
               <span>{t}</span>
             </li>
           ))}
         </ul>
       )}
 
-      <div className={cn('result-in border-t border-line', compact ? 'mt-3.5 pt-3' : 'mt-5 pt-4')}>
+      <div className="result-in mt-3.5 border-t border-line pt-3">
         {state === 'sent' ? (
           <p className="flex items-center gap-2 text-[0.9375rem] font-semibold text-espresso-900">
             <Check className="h-4 w-4 text-caramel-600" strokeWidth={2.5} aria-hidden="true" /> Danke, das hilft mir bei der Vorbereitung.
@@ -698,14 +499,12 @@ function Done({
           </button>
         ) : (
           <form onSubmit={send} noValidate className="field-in">
-            <p className="text-[0.875rem] leading-snug text-muted">
-              {compact ? 'Alles freiwillig, Angaben zur Gesundheit brauche ich nicht.' : 'Freiwillig. So kann ich mich gut vorbereiten. Angaben zu Ihrer Gesundheit brauche ich nicht.'}
-            </p>
+            <p className="text-[0.875rem] leading-snug text-muted">Alles freiwillig, Angaben zur Gesundheit brauche ich nicht.</p>
             <Field label="Beruf oder Branche" hint="optional" htmlFor={`${P}-beruf`} className={fieldCls}>
               <input id={`${P}-beruf`} autoComplete="organization-title" placeholder="z. B. Lehrerin, Pflege, selbstständig" value={x.beruf} onChange={(e) => setX({ ...x, beruf: e.target.value })} className={inp} />
             </Field>
             <div className="grid gap-x-3 sm:grid-cols-2">
-              <Field label="Altersgruppe" hint={compact ? undefined : 'optional'} htmlFor={`${P}-alter`} className={fieldCls}>
+              <Field label="Altersgruppe" htmlFor={`${P}-alter`} className={fieldCls}>
                 <select id={`${P}-alter`} value={x.alter} onChange={(e) => setX({ ...x, alter: e.target.value })} className={inp}>
                   <option value="">Keine Angabe</option>
                   {ALTER.map((a) => (
@@ -713,7 +512,7 @@ function Done({
                   ))}
                 </select>
               </Field>
-              <Field label={compact ? 'Online oder vor Ort?' : 'Lieber online oder vor Ort?'} hint={compact ? undefined : 'optional'} htmlFor={`${P}-ort`} className={fieldCls}>
+              <Field label="Online oder vor Ort?" htmlFor={`${P}-ort`} className={fieldCls}>
                 <select id={`${P}-ort`} value={x.ort} onChange={(e) => setX({ ...x, ort: e.target.value })} className={inp}>
                   <option value="">Keine Angabe</option>
                   {ORT.map((a) => (
@@ -722,17 +521,17 @@ function Done({
                 </select>
               </Field>
             </div>
-            <Field label="Möchten Sie mir vorab etwas sagen?" hint={compact ? undefined : 'optional'} htmlFor={`${P}-msg`} className={fieldCls}>
+            <Field label="Möchten Sie mir vorab etwas sagen?" htmlFor={`${P}-msg`} className={fieldCls}>
               <textarea
                 id={`${P}-msg`}
                 rows={2}
                 value={x.nachricht}
                 onChange={(e) => setX({ ...x, nachricht: e.target.value })}
-                className={cn(inp, 'h-auto resize-y', compact ? 'min-h-16 py-2.5' : 'min-h-20 py-3')}
+                className={cn(inp, 'h-auto min-h-16 resize-y rounded-[1.25rem] py-2.5')}
               />
             </Field>
             {state === 'error' && <ErrorMsg msg={`Das hat leider nicht geklappt. Sie können mir auch an ${site.email} schreiben.`} />}
-            <button type="submit" disabled={state === 'sending'} className={buttonClass('primary', 'md', cn('w-full', compact ? 'mt-3' : 'mt-4'))}>
+            <button type="submit" disabled={state === 'sending'} className={buttonClass('primary', 'md', 'mt-3 w-full')}>
               {state === 'sending' ? 'Wird gesendet …' : 'Angaben senden'}
             </button>
           </form>
@@ -743,8 +542,8 @@ function Done({
             <span className="sr-only"> (öffnet in neuem Fenster)</span>
           </a>
         )}
-        {!(compact && open && state !== 'sent') && (
-          <a href={`mailto:${site.email}`} className={cn('flex items-center', compact ? 'mt-1 min-h-10' : 'mt-2 min-h-11', 'justify-center gap-2 text-[0.875rem] text-muted transition-colors hover:text-espresso-800')}>
+        {!(open && state !== 'sent') && (
+          <a href={`mailto:${site.email}`} className="mt-1 flex min-h-10 items-center justify-center gap-2 text-[0.875rem] text-muted transition-colors hover:text-espresso-800">
             <Mail className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" /> {site.email}
           </a>
         )}
@@ -755,79 +554,36 @@ function Done({
 
 /* ---------- Bausteine ---------- */
 
-/** Offene Karte: Eingabefelder als freistehende, ganz runde Felder */
-const OPEN_INPUT = 'h-11 rounded-full border-white bg-white/90 px-4 shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] focus:bg-white'
-
+/** Eingabefelder als freistehende, ganz runde Felder (offener Block) */
 const inputCls =
-  'block h-12 w-full rounded-md border border-[#d5cabc] bg-white px-3.5 text-base text-ink transition-[border-color,box-shadow] placeholder:text-muted/70 focus:border-espresso-700 focus:outline-none focus:ring-3 focus:ring-espresso-700/15'
+  'block h-11 w-full rounded-full border border-white bg-white/90 px-4 text-base text-ink shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] transition-[border-color,box-shadow,background-color] placeholder:text-muted/70 focus:border-espresso-700 focus:bg-white focus:outline-none focus:ring-3 focus:ring-espresso-700/15'
 
-type HeadingProps = { headingRef: React.RefObject<HTMLHeadingElement | null>; level: 2 | 3; compact?: boolean }
+type HeadingProps = { headingRef: React.RefObject<HTMLHeadingElement | null>; level: 2 | 3 }
 
-function Step({ title, sub, children, headingRef, level, compact }: { title: string; sub?: string; children: ReactNode } & HeadingProps) {
+function Step({ title, sub, children, headingRef, level }: { title: string; sub?: string; children: ReactNode } & HeadingProps) {
   return (
     <div className="step-in">
-      <Heading headingRef={headingRef} level={level} compact={compact}>
+      <Heading headingRef={headingRef} level={level}>
         {title}
       </Heading>
-      {sub && <p className={cn('leading-snug text-muted', compact ? 'mt-1 text-[0.875rem]' : 'mt-1.5 text-[0.9375rem]')}>{sub}</p>}
-      <div className={compact ? 'mt-3' : 'mt-4 xl:mt-3.5'}>{children}</div>
+      {sub && <p className="mt-1 text-[0.875rem] leading-snug text-muted">{sub}</p>}
+      <div className="mt-3">{children}</div>
     </div>
   )
 }
 
 /** Echte Überschrift (h2/h3), fokussierbar: Screenreader kündigen den neuen Schritt an */
-function Heading({ children, headingRef, level, compact, srOnly }: { children: ReactNode; srOnly?: boolean } & HeadingProps) {
+function Heading({ children, headingRef, level, srOnly }: { children: ReactNode; srOnly?: boolean } & HeadingProps) {
   const Tag = level === 2 ? 'h2' : 'h3'
   return (
-    <Tag ref={headingRef} tabIndex={-1} className={cn('text-espresso-900 outline-none', compact ? 'font-serif text-[1.25rem] leading-snug' : 't-h3', srOnly && 'sr-only')}>
+    <Tag ref={headingRef} tabIndex={-1} className={cn('font-serif text-[1.25rem] leading-snug text-espresso-900 outline-none', srOnly && 'sr-only')}>
       {children}
     </Tag>
   )
 }
 
-/** Freistehende Antwortfelder je Entwurf: Form, Fläche, gewählter Zustand, Buchstabe */
-const TILE: Record<Look, { base: string; on: string; off: string; badge: string; badgeOn: string; badgeOff: string }> = {
-  // 1 Weiße, weich schwebende Felder
-  1: {
-    base: 'min-h-[3.375rem] rounded-[1.25rem] border px-3 py-2',
-    on: 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_10px_24px_-14px_rgba(30,22,17,0.45)]',
-    off: 'border-white bg-white/90 shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_2px_4px_rgba(30,22,17,0.06),0_16px_28px_-16px_rgba(30,22,17,0.45)]',
-    badge: 'h-8 w-8 text-[0.75rem]',
-    badgeOn: 'bg-espresso-800 text-white',
-    badgeOff: 'bg-stone text-espresso-700',
-  },
-  // 2 Milchglas: durchscheinend, unscharfer Hintergrund
-  2: {
-    base: 'min-h-[3.375rem] rounded-[1.375rem] border px-3 py-2 backdrop-blur-md',
-    on: 'border-espresso-800 bg-white/85 shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
-    off: 'border-white/80 bg-white/45 shadow-[0_8px_22px_-16px_rgba(30,22,17,0.4)] hover:-translate-y-0.5 hover:bg-white/75',
-    badge: 'h-8 w-8 border text-[0.75rem]',
-    badgeOn: 'border-espresso-800 bg-espresso-800 text-white',
-    badgeOff: 'border-white bg-white/70 text-espresso-700',
-  },
-  // 3 Pillen mit feiner Kontur, gewählt dunkel gefüllt
-  3: {
-    base: 'min-h-[3.375rem] rounded-[1.75rem] border py-1.5 pl-1.5 pr-4',
-    on: 'border-espresso-800 bg-espresso-800 [&_.t-title]:text-white [&_.t-text]:text-espresso-200 [&_svg]:text-white',
-    off: 'border-espresso-800/20 bg-white/50 hover:-translate-y-0.5 hover:border-espresso-800/45 hover:bg-white/80',
-    badge: 'h-10 w-10 text-[0.8125rem]',
-    badgeOn: 'bg-white text-espresso-900',
-    badgeOff: 'bg-espresso-800 text-caramel-200',
-  },
-  // 4 Weiße Felder mit großem kursivem Buchstaben, leicht versetzt
-  4: {
-    base: 'min-h-[3.375rem] rounded-[1.5rem] border px-3.5 py-2',
-    on: 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
-    off: 'border-line/70 bg-white shadow-[0_6px_18px_-14px_rgba(30,22,17,0.4)] hover:translate-x-1 hover:border-espresso-800/30',
-    badge: 'h-8 w-6 font-serif text-[1.375rem] font-normal italic',
-    badgeOn: 'text-espresso-900',
-    badgeOff: 'text-caramel-600',
-  },
-}
-
-/** Antwort-Kachel: Buchstabe links (A, B, C), Titel, optional eine Zeile. Gewählt: Espresso, Haken */
-function Tile({ o, i, look, selected, onClick }: { o: FunnelOption; i: number; look: Look | null; selected: boolean; onClick: () => void }) {
-  const t = look ? TILE[look] : null
+/** Antwort als freistehendes weißes Feld: großer kursiver Buchstabe links, Titel, optional eine Zeile. Gewählt: Espresso-Rahmen, Haken */
+function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selected: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -835,31 +591,24 @@ function Tile({ o, i, look, selected, onClick }: { o: FunnelOption; i: number; l
       onClick={onClick}
       style={{ '--d': `${0.05 + i * 0.06}s` } as React.CSSProperties}
       className={cn(
-        'tile-in group flex w-full items-center gap-3 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
-        t
-          ? cn(t.base, selected ? t.on : t.off)
-          : cn(
-              'min-h-14 rounded-md border bg-white px-3.5 py-2.5 lowdesk:min-h-12 lowdesk:py-2',
-              selected
-                ? 'border-espresso-800 bg-stone shadow-[inset_0_0_0_1px_var(--color-espresso-800)]'
-                : 'border-line hover:-translate-y-px hover:border-espresso-800/50 hover:shadow-[0_6px_16px_-8px_rgba(30,22,17,0.25)]'
-            )
+        'tile-in group flex min-h-[3.375rem] w-full items-center gap-3 rounded-[1.5rem] border px-3.5 py-2 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
+        selected
+          ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800)]'
+          : 'border-line/70 bg-white shadow-[0_6px_18px_-14px_rgba(30,22,17,0.4)] hover:translate-x-1 hover:border-espresso-800/30'
       )}
     >
       <span
         aria-hidden="true"
         className={cn(
-          'grid shrink-0 place-items-center rounded-full font-bold transition-colors duration-300',
-          t
-            ? cn(t.badge, selected ? t.badgeOn : t.badgeOff)
-            : cn('h-8 w-8 border text-[0.8125rem]', selected ? 'border-espresso-800 bg-espresso-800 text-white' : 'border-line bg-stone text-espresso-700 group-hover:border-espresso-800/30')
+          'grid h-8 w-6 shrink-0 place-items-center font-serif text-[1.375rem] italic transition-colors duration-300',
+          selected ? 'text-espresso-900' : 'text-caramel-600'
         )}
       >
         {selected ? <Check className="h-4 w-4" strokeWidth={2.5} /> : String.fromCharCode(65 + i)}
       </span>
       <span className="min-w-0 flex-1">
-        <span className={cn('t-title block font-semibold leading-snug text-espresso-900 transition-colors', t ? 'text-[0.90625rem]' : 'text-[0.9375rem]')}>{o.title}</span>
-        {o.text && <span className={cn('t-text mt-0.5 block leading-snug text-muted transition-colors', t ? 'text-[0.78125rem]' : 'text-[0.8125rem]')}>{o.text}</span>}
+        <span className="block text-[0.90625rem] font-semibold leading-snug text-espresso-900">{o.title}</span>
+        {o.text && <span className="mt-0.5 block text-[0.78125rem] leading-snug text-muted">{o.text}</span>}
       </span>
       <ArrowRight className="h-4 w-4 shrink-0 text-espresso-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-espresso-800" strokeWidth={1.75} aria-hidden="true" />
     </button>
@@ -909,9 +658,9 @@ function Field({ label, hint, htmlFor, className, children }: { label: string; h
   )
 }
 
-function Back({ onClick, compact }: { onClick: () => void; compact?: boolean }) {
+function Back({ onClick }: { onClick: () => void }) {
   return (
-    <button type="button" onClick={onClick} className={cn('flex items-center gap-1.5', compact ? 'mt-1 min-h-10' : 'mt-2 min-h-11', ' text-[0.875rem] text-muted transition-colors hover:text-espresso-800')}>
+    <button type="button" onClick={onClick} className="mt-1 flex min-h-10 items-center gap-1.5 text-[0.875rem] text-muted transition-colors hover:text-espresso-800">
       <ArrowLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" /> Zurück
     </button>
   )

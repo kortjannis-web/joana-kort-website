@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import { ListChecks } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -7,6 +8,7 @@ import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { CtaRow } from '@/components/ui/CtaRow'
 import { More } from '@/components/ui/More'
+import { OpenBlock, OpenItem } from '@/components/ui/OpenBlock'
 import { CheckList } from '@/components/lists/CheckList'
 import { NumberedSteps } from '@/components/lists/NumberedSteps'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
@@ -95,14 +97,24 @@ export function OfferLayout({
               )}
             </Reveal>
             <Reveal delay={0.1} className="xl:col-span-5">
-              <dl className="floaty rounded-xl border border-line bg-white px-5 py-1 md:px-8 md:py-2">
-                {facts.slice(0, 3).map(([k, v]) => (
-                  <div key={k} className="flex flex-col gap-0.5 border-b border-line py-[clamp(0.5rem,1.8svh,1rem)] last:border-0 sm:flex-row sm:justify-between sm:gap-6">
-                    <dt className="t-label text-[0.75rem] text-caramel-700">{k}</dt>
-                    <dd className="font-semibold text-espresso-900 sm:text-right">{v}</dd>
-                  </div>
-                ))}
-              </dl>
+              <OpenBlock
+                icon={<ListChecks strokeWidth={1.75} aria-hidden="true" />}
+                kicker="Auf einen Blick"
+                title={
+                  <>
+                    Das Wichtigste <em>in Kürze</em>
+                  </>
+                }
+              >
+                <dl className="grid gap-1.5">
+                  {facts.slice(0, 3).map(([k, v]) => (
+                    <OpenItem key={k} className="flex flex-col gap-0.5 py-[clamp(0.5rem,1.4svh,0.875rem)] sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                      <dt className="t-label text-[0.6875rem] text-caramel-700">{k}</dt>
+                      <dd className="font-semibold text-espresso-900 sm:text-right">{v}</dd>
+                    </OpenItem>
+                  ))}
+                </dl>
+              </OpenBlock>
             </Reveal>
           </div>
         </section>
@@ -147,10 +159,11 @@ export function OfferLayout({
           </div>
           {warteliste && (
             <div className="wrap mt-[var(--sec-gap)]">
-              <div className="rounded-xl border border-white/12 bg-white/[0.04] p-5 md:p-7">
+              {/* Offen: kein Kasten, nur die aufklappbare Zeile, darin die Warteliste als offener Block */}
+              <div className="border-t border-white/12 pt-5">
                 <More label={warteliste.title} showLabel tone="dark" bodyClassName="grid gap-6 pt-5 xl:grid-cols-12 xl:gap-12">
                   <p className="leading-relaxed text-espresso-100/85 xl:col-span-5">{warteliste.text}</p>
-                  <WartelisteForm angebot={warteliste.angebot} label={warteliste.label} className="text-ink xl:col-span-7" />
+                  <WartelisteForm angebot={warteliste.angebot} label={warteliste.label} tone="dark" className="xl:col-span-7" />
                 </More>
               </div>
             </div>

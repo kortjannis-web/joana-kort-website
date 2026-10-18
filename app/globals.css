@@ -1233,55 +1233,8 @@ html:not([data-hydrated]) [data-reveal] {
 }
 
 /* ------------------------------------------------------------------
-   Erstgespräch-Funnel: Schrittlinie (inaktiv Dunkelbraun, aktiv/erledigt Bordeaux), Schritte und Kacheln gleiten herein
+   Erstgespräch-Funnel: Schritte, Antworten und Felder gleiten herein (Schrittpunkte: .fk-dot weiter unten)
    ------------------------------------------------------------------ */
-.fstep {
-  background-color: var(--color-espresso-700);
-  border-color: var(--color-espresso-600);
-  color: var(--color-espresso-300);
-  transition:
-    background-color 0.35s var(--ease-soft) 0.42s,
-    border-color 0.35s var(--ease-soft) 0.42s,
-    color 0.35s var(--ease-soft) 0.42s;
-}
-.fstep[data-state='done'],
-.fstep[data-state='active'] {
-  background-color: var(--color-bordeaux-bright);
-  border-color: var(--color-bordeaux-bright);
-  color: #fff;
-}
-.fstep[data-state='done'] {
-  transition-delay: 0s;
-}
-.fstep[data-state='active'] {
-  animation: fstep-pop 0.55s var(--ease-lift) 0.42s both;
-}
-.fstep[data-state='active']::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 9999px;
-  border: 1.5px solid var(--color-bordeaux-bright);
-  opacity: 0;
-  animation: fstep-ring 2.2s var(--ease-soft) 1s infinite;
-}
-.fline {
-  transition: transform 0.45s var(--ease-soft);
-}
-@keyframes fstep-pop {
-  0% {
-    transform: scale(0.82);
-    box-shadow: 0 0 0 0 rgb(161 52 63 / 0);
-  }
-  55% {
-    transform: scale(1.14);
-    box-shadow: 0 0 18px 2px rgb(161 52 63 / 0.55);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 12px 0 rgb(161 52 63 / 0.35);
-  }
-}
 @keyframes fstep-ring {
   0% {
     opacity: 0.7;
@@ -1309,12 +1262,6 @@ html:not([data-hydrated]) [data-reveal] {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fstep,
-  .fline {
-    transition: none;
-  }
-  .fstep[data-state='active'],
-  .fstep[data-state='active']::after,
   .step-in,
   .tile-in,
   .field-in {
@@ -1322,7 +1269,8 @@ html:not([data-hydrated]) [data-reveal] {
   }
 }
 
-/* Offene Hero-Karte: weicher Papierschein hinter Frage und Antworten, damit die Hero-Linie nicht stört */
+/* Offener Block (Funnel, Formulare, Infoblöcke): weicher Papierschein hinter den freistehenden Inhalten, damit Linien und Muster
+   im Hintergrund nicht stören. Auf dunklen Flächen ohne Schein (.fk-open-dark) */
 .fk-open {
   isolation: isolate;
 }
@@ -1334,8 +1282,11 @@ html:not([data-hydrated]) [data-reveal] {
   pointer-events: none;
   background: radial-gradient(closest-side, rgb(251 248 243 / 0.92), rgb(251 248 243 / 0.7) 55%, rgb(251 248 243 / 0));
 }
+.fk-open-dark::before {
+  display: none;
+}
 
-/* Hero-Karte (Entwürfe 1 bis 4): Schrittpunkte offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie,
+/* Funnel: Schrittpunkte offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie,
    danach "tippt" der nächste Punkt (hüpft kurz, leuchtet auf, ein Ring läuft aus) */
 .fk-dark {
   --fk-off-bg: var(--color-espresso-700);
@@ -1372,20 +1323,8 @@ html:not([data-hydrated]) [data-reveal] {
   opacity: 0;
   animation: fstep-ring 2.2s var(--ease-soft) 1s infinite;
 }
-.fk-fill,
-.fk-seg {
+.fk-fill {
   transition: transform 0.45s var(--ease-soft);
-}
-.fk-seg[data-state='active'] {
-  transition-delay: 0.1s;
-  animation: fk-seg-tap 0.6s var(--ease-lift) 0.45s both;
-}
-.fk-knob {
-  transition: width 0.55s var(--ease-lift);
-  box-shadow: 0 0 14px 0 rgb(161 52 63 / 0.4);
-}
-.fk-knob-tap {
-  animation: fk-knob-tap 0.7s var(--ease-lift) 0.3s both;
 }
 @keyframes fk-tap {
   0% {
@@ -1404,42 +1343,13 @@ html:not([data-hydrated]) [data-reveal] {
     box-shadow: 0 0 12px 0 rgb(161 52 63 / 0.35);
   }
 }
-@keyframes fk-seg-tap {
-  0% {
-    transform: scaleY(1);
-  }
-  40% {
-    transform: scaleY(2);
-    box-shadow: 0 0 12px 1px rgb(161 52 63 / 0.6);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-@keyframes fk-knob-tap {
-  0% {
-    box-shadow: 0 0 0 0 rgb(196 94 102 / 0.8);
-    transform: scale(1);
-  }
-  35% {
-    transform: scale(1.04, 1.18);
-  }
-  100% {
-    box-shadow: 0 0 0 10px rgb(196 94 102 / 0);
-    transform: scale(1);
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .fk-dot,
-  .fk-fill,
-  .fk-seg,
-  .fk-knob {
+  .fk-fill {
     transition: none;
   }
   .fk-dot[data-state='active'],
-  .fk-dot[data-state='active']::after,
-  .fk-seg[data-state='active'],
-  .fk-knob-tap {
+  .fk-dot[data-state='active']::after {
     animation: none;
   }
 }

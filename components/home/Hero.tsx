@@ -5,8 +5,7 @@ import { buttonClass } from '@/components/ui/Button'
 import { HeroLine } from '@/components/ui/HeroLine'
 import { StackBack } from '@/components/ui/Stack'
 import { FunnelCta } from './HeroMotion'
-import { CTA_LABEL, ROLE, site } from '@/lib/site'
-import { PORTRAIT } from '@/lib/images'
+import { CTA_LABEL, site } from '@/lib/site'
 
 /** Drei Vertrauenspunkte direkt unter dem CTA (3er-Gruppe) */
 const PUNKTE = [
@@ -35,31 +34,13 @@ export function Hero() {
         <div className="wrap-wide relative flex min-h-[max(34rem,100svh)] flex-col justify-end pb-[calc(var(--sheet-overlap)+2.75rem)] pt-28 md:min-h-[max(36rem,100svh)] lowtab:pt-24 md:justify-center md:pb-[calc(var(--sheet-overlap)+5rem)] xl:h-[max(36rem,100svh)] xl:min-h-0 xl:pb-12 xl:pt-[5.25rem]">
           <div className="max-w-[40rem] xl:max-w-[min(50%,46rem)]">
             <h1 id="hero-title">
-              {/* Marke gut sichtbar (Briefing Ä6): Name groß, darunter Ort. Mit Foto (PORTRAIT) steht es links daneben */}
-              <span className="intro-rise flex items-center gap-3.5 [--d:0s]">
-                {PORTRAIT && (
-                  <img
-                    src={PORTRAIT.src}
-                    alt=""
-                    width={PORTRAIT.w}
-                    height={PORTRAIT.h}
-                    className="h-14 w-14 shrink-0 rounded-md object-cover shadow-[0_6px_16px_-8px_rgba(30,22,17,0.5)] md:h-16 md:w-16"
-                  />
-                )}
-                <span className="block">
-                  <span className="block font-serif text-[clamp(1.375rem,1rem+1.6vw,2rem)] font-[450] leading-none tracking-[-0.01em] text-espresso-900">
-                    Joana Kort <span className="font-medium text-caramel-700">Stressberatung</span>
-                  </span>
-                  <span className="t-label mt-2 block text-[0.6875rem] text-espresso-600 md:text-[0.75rem] lowtab:mt-1.5">
-                    <span className="max-md:hidden">{ROLE.short} · </span>
-                    {site.address.city} und online
-                  </span>
-                </span>
+              {/* Marke und Ort nur für Suchmaschinen und Screenreader: Joana stellt sich direkt darunter im Video vor */}
+              <span className="sr-only">
+                {site.name} in {site.address.city} und online:{' '}
               </span>
-              <span className="sr-only">: </span>
-              <span className="t-hero mt-6 block whitespace-nowrap text-espresso-900 max-md:text-[min(2.6rem,9.6vw)] short:mt-3 md:mt-7 lowtab:mt-4">
-                <span className="intro-rise block [--d:0.12s]">Stress verstehen.</span>
-                <span className="intro-rise block [--d:0.26s]">Stress bewältigen.</span>
+              <span className="t-hero block whitespace-nowrap text-espresso-900 max-md:text-[min(2.6rem,9.6vw)]">
+                <span className="intro-rise block [--d:0.12s]">Stress verstehen.</span>{' '}
+                <span className="intro-rise block [--d:0.26s]">Stress bewältigen.</span>{' '}
                 <em className="intro-rise block font-normal italic text-caramel-600 [--d:0.4s]">Stress managen.</em>
               </span>
             </h1>

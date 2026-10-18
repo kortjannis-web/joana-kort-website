@@ -15,6 +15,7 @@ import { FORTBILDUNGEN, FOTOS, QUALIFIKATIONEN, TRAININGS, type Fortbildung } fr
 import { PERSON_ID } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { CTA_LABEL, ERSTGESPRAECH, ROLE, SITE_URL, site } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 /**
  * Qualifikationen und Referenzen. Inhalte ausschließlich aus lib/content/referenzen.ts (Anleitung zum Ergänzen dort oben)
@@ -246,18 +247,17 @@ export default function QualifikationenPage() {
         {/* Abgrenzung */}
         <section aria-labelledby="abgrenzung" className="sec-t">
           <div className="wrap">
-            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5 md:px-7">
-              <h2 id="abgrenzung" className="font-semibold text-espresso-900">
-                Klar abgegrenzt: keine Psychotherapie
-              </h2>
-              <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/85 md:text-base">
-                Ich begleite Sie im Umgang mit alltäglichem Stress, praktisch und lösungsorientiert. Meine Arbeit ist keine Psychotherapie und keine
-                Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen. Bei Verdacht auf eine Erkrankung ist Ihre Hausarztpraxis
-                die richtige erste Adresse.{' '}
-                <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                  Unterschied zur Therapie
-                </Link>
-              </p>
+            <Reveal>
+              <InfoNote kicker="Abgrenzung" title="Klar abgegrenzt: keine Psychotherapie" titleAs="h2" titleId="abgrenzung">
+                <p>
+                  Ich begleite Sie im Umgang mit alltäglichem Stress, praktisch und lösungsorientiert. Meine Arbeit ist keine Psychotherapie und keine
+                  Heilbehandlung. Ich stelle keine Diagnosen und mache keine Heilversprechen. Bei Verdacht auf eine Erkrankung ist Ihre Hausarztpraxis
+                  die richtige erste Adresse.{' '}
+                  <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                    Unterschied zur Therapie
+                  </Link>
+                </p>
+              </InfoNote>
             </Reveal>
           </div>
         </section>

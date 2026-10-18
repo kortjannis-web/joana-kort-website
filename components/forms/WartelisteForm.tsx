@@ -3,14 +3,25 @@
 import { useState, type FormEvent } from 'react'
 import { BellRing, CheckCircle2 } from 'lucide-react'
 import { buttonClass } from '@/components/ui/Button'
+import { OpenBlock } from '@/components/ui/OpenBlock'
 import { Consent, ErrorMsg, Field, Honeypot, TextArea, TextInput, isEmail, postJson } from './fields'
-import { cn } from '@/lib/utils'
 
 /**
  * Warteliste für Angebote ohne feste Termine (Webinar, Online-Kurs, Gruppen): Vorname, E-Mail, optional Nachricht.
  * Geht an /api/anfrage (typ warteliste), Bestätigung per E-Mail. Austragen jederzeit per Antwort.
+ * Offener Block: dunkler Kopf mit dem Angebot, Felder frei darunter. Auf dunklen Sections tone="dark".
  */
-export function WartelisteForm({ angebot, label, className }: { angebot: 'webinar' | 'kurs' | 'gruppe'; label: string; className?: string }) {
+export function WartelisteForm({
+  angebot,
+  label,
+  tone = 'light',
+  className,
+}: {
+  angebot: 'webinar' | 'kurs' | 'gruppe'
+  label: string
+  tone?: 'light' | 'dark'
+  className?: string
+}) {
   const [p, setP] = useState({ vorname: '', nachname: '', email: '' })
   const [nachricht, setNachricht] = useState('')
   const [dsgvo, setDsgvo] = useState(false)
@@ -40,46 +51,45 @@ export function WartelisteForm({ angebot, label, className }: { angebot: 'webina
     else setError(res.error!)
   }
 
+  const head = { icon: <BellRing strokeWidth={1.75} aria-hidden="true" />, kicker: 'Warteliste', title: label, tone, className }
+
   if (done)
     return (
-      <div className={cn('floaty rounded-lg border border-line bg-white p-6 md:p-8', className)}>
-        <CheckCircle2 className="h-10 w-10 text-ok" strokeWidth={1.5} aria-hidden="true" />
-        <p role="heading" aria-level={3} className="t-h3 mt-4 text-espresso-900">
+      <OpenBlock {...head}>
+        <CheckCircle2 className="h-9 w-9 text-ok group-data-[tone=dark]/ob:text-caramel-300" strokeWidth={1.5} aria-hidden="true" />
+        <p role="heading" aria-level={3} className="mt-3 font-serif text-[1.25rem] leading-snug text-espresso-900 group-data-[tone=dark]/ob:text-white">
           Danke, Sie stehen auf der Warteliste.
         </p>
-        <p className="mt-3 leading-relaxed text-muted">Sobald es Neuigkeiten gibt, erfahren Sie es als Erste. Eine Bestätigung ist unterwegs in Ihr Postfach.</p>
-      </div>
+        <p className="mt-2 leading-relaxed text-muted group-data-[tone=dark]/ob:text-espresso-200">
+          Sobald es Neuigkeiten gibt, erfahren Sie es als Erste. Eine Bestätigung ist unterwegs in Ihr Postfach.
+        </p>
+      </OpenBlock>
     )
 
   return (
-    <form onSubmit={submit} noValidate className={cn('floaty relative rounded-lg border border-line bg-white p-6 md:p-8', className)}>
-      <p className="flex items-center gap-2.5 text-caramel-700">
-        <BellRing className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-        <span className="t-label text-[0.75rem]">Warteliste</span>
-      </p>
-      <p role="heading" aria-level={3} className="t-h3 mt-3 text-espresso-900">
-        {label}
-      </p>
-      <div className="grid gap-x-3 sm:grid-cols-2">
-        <Field label="Vorname" id={`${id}-vn`} required>
-          <TextInput id={`${id}-vn`} autoComplete="given-name" value={p.vorname} onChange={(e) => setP({ ...p, vorname: e.target.value })} />
+    <OpenBlock {...head}>
+      <form onSubmit={submit} noValidate className="relative">
+        <div className="grid gap-x-3 sm:grid-cols-2">
+          <Field label="Vorname" id={`${id}-vn`} required className="mt-0">
+            <TextInput id={`${id}-vn`} autoComplete="given-name" value={p.vorname} onChange={(e) => setP({ ...p, vorname: e.target.value })} />
+          </Field>
+          <Field label="Nachname" hint="optional" id={`${id}-nn`} className="max-sm:mt-3.5 sm:mt-0">
+            <TextInput id={`${id}-nn`} autoComplete="family-name" value={p.nachname} onChange={(e) => setP({ ...p, nachname: e.target.value })} />
+          </Field>
+        </div>
+        <Field label="E-Mail" id={`${id}-mail`} required>
+          <TextInput id={`${id}-mail`} type="email" autoComplete="email" value={p.email} onChange={(e) => setP({ ...p, email: e.target.value })} />
         </Field>
-        <Field label="Nachname" hint="optional" id={`${id}-nn`}>
-          <TextInput id={`${id}-nn`} autoComplete="family-name" value={p.nachname} onChange={(e) => setP({ ...p, nachname: e.target.value })} />
+        <Field label="Ihre Wünsche oder Fragen" hint="optional" id={`${id}-msg`}>
+          <TextArea id={`${id}-msg`} rows={3} className="min-h-24" value={nachricht} onChange={(e) => setNachricht(e.target.value)} />
         </Field>
-      </div>
-      <Field label="E-Mail" id={`${id}-mail`} required>
-        <TextInput id={`${id}-mail`} type="email" autoComplete="email" value={p.email} onChange={(e) => setP({ ...p, email: e.target.value })} />
-      </Field>
-      <Field label="Ihre Wünsche oder Fragen" hint="optional" id={`${id}-msg`}>
-        <TextArea id={`${id}-msg`} rows={3} className="min-h-24" value={nachricht} onChange={(e) => setNachricht(e.target.value)} />
-      </Field>
-      <Honeypot value={hp} onChange={setHp} />
-      <Consent checked={dsgvo} onChange={setDsgvo} />
-      <ErrorMsg msg={error} />
-      <button type="submit" disabled={sending} className={buttonClass('primary', 'lg', 'mt-2 w-full sm:w-auto')}>
-        {sending ? 'Wird gesendet …' : 'Auf die Warteliste'}
-      </button>
-    </form>
+        <Honeypot value={hp} onChange={setHp} />
+        <Consent checked={dsgvo} onChange={setDsgvo} />
+        <ErrorMsg msg={error} />
+        <button type="submit" disabled={sending} className={buttonClass('primary', 'lg', 'mt-4 w-full sm:w-auto')}>
+          {sending ? 'Wird gesendet …' : 'Auf die Warteliste'}
+        </button>
+      </form>
+    </OpenBlock>
   )
 }

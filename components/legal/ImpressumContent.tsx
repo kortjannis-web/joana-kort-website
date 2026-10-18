@@ -1,7 +1,9 @@
+import { Scale } from 'lucide-react'
+import { OpenBlock, OpenItem } from '@/components/ui/OpenBlock'
 import { site } from '@/lib/site'
 
 /**
- * Angaben nach § 5 DDG und Kontakt als Karte über dem Text. Wird in app/impressum/page.tsx als `lead` gerendert.
+ * Angaben nach § 5 DDG und Kontakt als offener Block über dem Text (Kopf dunkel, Angaben als einzelne Felder). Wird in app/impressum/page.tsx als `lead` gerendert.
  * PRÜFEN: Anschrift (ladungsfähig, kein Postfach) fehlt noch → NEXT_PUBLIC_STREET bzw. lib/site.ts. Ohne Anschrift nicht live gehen.
  */
 export function ImpressumAngaben() {
@@ -10,8 +12,17 @@ export function ImpressumAngaben() {
   const link = 'font-semibold text-espresso-800 underline decoration-caramel-500/50 underline-offset-4 transition-colors duration-300 hover:text-caramel-800'
 
   return (
-    <div className="floaty grid gap-5 rounded-lg border border-line bg-white p-[1.375rem] text-base leading-[1.7] text-ink md:grid-cols-2 md:gap-8 md:p-8">
-      <div className="flex flex-col gap-2">
+    <OpenBlock
+      icon={<Scale strokeWidth={1.75} aria-hidden="true" />}
+      kicker="Impressum"
+      title={
+        <>
+          Anbieterin und <em>Kontakt</em>
+        </>
+      }
+      bodyClassName="grid gap-1.5 text-base leading-[1.7] text-ink md:grid-cols-2 md:gap-3"
+    >
+      <OpenItem className="flex flex-col gap-2 px-6 py-5">
         <h2 className={label}>Angaben gemäß § 5 DDG</h2>
         <address className="not-italic">
           <strong className="font-semibold text-espresso-900">{site.owner}</strong>
@@ -22,9 +33,9 @@ export function ImpressumAngaben() {
           <br />
           {address.zip} {address.city}
         </address>
-      </div>
+      </OpenItem>
 
-      <div className="flex flex-col gap-2">
+      <OpenItem className="flex flex-col gap-2 px-6 py-5">
         <h2 className={label}>Kontakt</h2>
         <p>
           E-Mail:{' '}
@@ -41,8 +52,8 @@ export function ImpressumAngaben() {
             </>
           )}
         </p>
-      </div>
-    </div>
+      </OpenItem>
+    </OpenBlock>
   )
 }
 

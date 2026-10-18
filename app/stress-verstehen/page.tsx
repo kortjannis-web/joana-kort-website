@@ -16,6 +16,7 @@ import { STRESS_DEFINITION, WISSEN_DEMNAECHST, WISSEN_FAQS, WISSEN_GRUPPEN, WISS
 import { ORG_ID, PERSON_ID, faqSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { CONTENT_UPDATED, CTA_LABEL, ERSTGESPRAECH, SITE_URL } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 const PATH = '/stress-verstehen/'
 
@@ -239,30 +240,38 @@ export default function StressVerstehenPage() {
 
         <section aria-label="Hinweis und Quellen" className="sec-t">
           <div className="wrap">
-            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5">
-              <p className="font-semibold text-espresso-900">Wichtig</p>
-              <p className="mt-1.5 leading-relaxed text-ink/85">
-                Diese Seite erklärt Grundlagen und ersetzt keine Diagnose. Bei anhaltenden Beschwerden ist ärztlicher oder psychotherapeutischer
-                Rat der richtige erste Schritt.{' '}
-                <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                  Beratung, Coaching oder Therapie?
-                </Link>
-              </p>
-              <More label="Quellen und Literatur" showLabel className="mt-3" bodyClassName="pt-2">
-                <ul className="space-y-1.5 text-[0.9375rem] text-muted">
-                  {WISSEN_QUELLEN.map((q) => (
-                    <li key={q.label}>
-                      {q.url ? (
-                        <a href={q.url} target="_blank" rel="noopener noreferrer" className="link">
-                          {q.label}
-                        </a>
-                      ) : (
-                        q.label
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </More>
+            <Reveal>
+              <InfoNote
+                kicker="Wichtig"
+                title={
+                  <>
+                    Grundlagen, <em>keine Diagnose</em>
+                  </>
+                }
+              >
+                <p>
+                  Diese Seite erklärt Grundlagen und ersetzt keine Diagnose. Bei anhaltenden Beschwerden ist ärztlicher oder psychotherapeutischer
+                  Rat der richtige erste Schritt.{' '}
+                  <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                    Beratung, Coaching oder Therapie?
+                  </Link>
+                </p>
+                <More label="Quellen und Literatur" showLabel className="mt-3" bodyClassName="pt-2">
+                  <ul className="space-y-1.5 text-[0.9375rem] text-muted">
+                    {WISSEN_QUELLEN.map((q) => (
+                      <li key={q.label}>
+                        {q.url ? (
+                          <a href={q.url} target="_blank" rel="noopener noreferrer" className="link">
+                            {q.label}
+                          </a>
+                        ) : (
+                          q.label
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </More>
+              </InfoNote>
             </Reveal>
           </div>
         </section>

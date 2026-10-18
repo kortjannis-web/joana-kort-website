@@ -24,6 +24,7 @@ import { MethodGroup, type Methode } from '@/components/methoden/MethodGroup'
 import { serviceSchema } from '@/lib/schema'
 import { pageMeta } from '@/lib/seo'
 import { CTA_LABEL, ERSTGESPRAECH } from '@/lib/site'
+import { InfoNote } from '@/components/ui/OpenBlock'
 
 const PATH = '/methoden/'
 
@@ -248,15 +249,16 @@ export default function MethodenPage() {
         {/* Abgrenzung */}
         <section aria-label="Hinweis zu den Methoden" className="sec-t">
           <div className="wrap">
-            <Reveal className="rounded-lg border border-line border-l-[3px] border-l-caramel-500 bg-caramel-50 px-5 py-5 md:px-7">
-              <p className="font-semibold text-espresso-900">Praktische Werkzeuge, keine Therapie</p>
-              <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink/85 md:text-base">
-                Die Methoden unterstützen Sie im Umgang mit alltäglichem Stress. Sie sind keine Psychotherapie und keine Heilbehandlung. Bei
-                anhaltenden Beschwerden ist Ihre Hausarztpraxis die richtige erste Adresse.{' '}
-                <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
-                  Mehr zur Abgrenzung
-                </Link>
-              </p>
+            <Reveal>
+              <InfoNote kicker="Abgrenzung" title="Praktische Werkzeuge, keine Therapie">
+                <p>
+                  Die Methoden unterstützen Sie im Umgang mit alltäglichem Stress. Sie sind keine Psychotherapie und keine Heilbehandlung. Bei
+                  anhaltenden Beschwerden ist Ihre Hausarztpraxis die richtige erste Adresse.{' '}
+                  <Link href="/ratgeber/stressberatung-coaching-oder-therapie/" className="link">
+                    Mehr zur Abgrenzung
+                  </Link>
+                </p>
+              </InfoNote>
             </Reveal>
           </div>
         </section>
