@@ -19,7 +19,7 @@ export default function NotFound() {
         <div className="max-w-[47.5rem]">
           <p className="t-label text-caramel-700">Seite nicht gefunden</p>
           <h1 id="nf-title" className="t-h1 mt-5 text-espresso-900 md:mt-7">
-            Diese Seite gibt es leider nicht. <em className="text-caramel-600">Kein Stress.</em>
+            Diese Seite gibt es leider nicht. <em className="italic text-caramel-600">Kein Stress.</em>
           </h1>
           <p className="t-lead mt-5 text-muted md:mt-6">Hier geht es weiter:</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">

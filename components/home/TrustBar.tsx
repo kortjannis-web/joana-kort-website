@@ -19,7 +19,7 @@ function Card({ title, text, scene, run, leaving }: Item & { run?: boolean; leav
   return (
     <div className="lift-hover floaty flex h-full flex-col rounded-lg border border-line bg-white p-5 pb-7 max-md:py-6 max-md:pb-8 xl:p-6 xl:pb-8">
       {/* Kachel mit Motion-Design (3 s, wenn die Karte im Loop aktiv ist), hebt sich dabei hell-orange an */}
-      <span className="lift-warm grid h-20 w-20 place-items-center overflow-hidden rounded-lg bg-stone text-caramel-700 [transition-delay:var(--lift-delay,0s)]">
+      <span className="lift-warm grid h-20 w-20 place-items-center overflow-hidden rounded-[1.125rem] bg-stone text-caramel-700 [transition-delay:var(--lift-delay,0s)]">
         <TrustScene id={scene} run={run} leaving={leaving} />
       </span>
       <p className="mt-4 font-serif max-md:mt-5 text-[1.15rem] font-medium leading-snug text-espresso-900 md:text-[1.25rem]">{title}</p>

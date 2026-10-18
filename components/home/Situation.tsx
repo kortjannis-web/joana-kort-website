@@ -15,7 +15,7 @@ export function Situation() {
         <Reveal className="md:col-span-2">
           <p className="t-label text-caramel-700">Kennen Sie das?</p>
           <h2 id="situation-title" className="t-h2 mt-3 max-w-[24ch] text-espresso-900 xl:max-w-[30ch]">
-            Sie wissen, dass Sie Stress haben. Nur nicht, wie Sie <em className="text-caramel-600">etwas verändern</em> können.
+            Sie wissen, dass Sie Stress haben. Nur nicht, wie Sie <em className="italic text-caramel-600">etwas verändern</em> können.
           </h2>
         </Reveal>
 

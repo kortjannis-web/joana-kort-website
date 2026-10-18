@@ -18,7 +18,7 @@ const WERKZEUGE = ['Stresstagebuch', 'Stresslandkarte', 'Unterstützungsplan']
 function Prinzip({ title, text, Icon }: (typeof PRINZIPIEN)[number]) {
   return (
     <>
-      <span className="lift-tile grid h-10 w-10 shrink-0 place-items-center rounded-md bg-stone text-espresso-800">
+      <span className="lift-tile grid h-10 w-10 shrink-0 place-items-center rounded-[0.625rem] bg-stone text-espresso-800">
         <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
       </span>
       <span>
@@ -42,7 +42,7 @@ export function Tools() {
         <Reveal className="lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:self-end">
           <p className="t-label text-caramel-700">Prinzipien und Werkzeuge</p>
           <h2 id="werkzeuge-title" className="t-h2 mt-3 text-espresso-900">
-            Werkzeuge, die in Ihren <em className="text-caramel-600">Alltag</em> passen
+            Werkzeuge, die in Ihren <em className="italic text-caramel-600">Alltag</em> passen
           </h2>
           <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-md:text-[0.9375rem] max-md:leading-relaxed">
             Sie bekommen keine weitere To-do-Liste, sondern Materialien und Pläne, die Ihnen Arbeit abnehmen. Auf Wunsch erstelle ich sie
@@ -52,7 +52,7 @@ export function Tools() {
 
         <Reveal className="mx-auto w-full max-w-[min(36rem,calc(23svh*1.25))] md:max-w-[min(36rem,calc(32svh*1.25))] lg:col-span-6 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:max-w-[min(100%,calc((100svh-2*var(--sec-y)-5rem)*1.25))] lg:self-center">
           <PaperStack layout="tagebuch" />
-          <p className="mt-[clamp(0.5rem,2svh,1.5rem)] text-center text-[0.875rem] text-muted max-md:hidden">
+          <p className="mt-[clamp(0.5rem,2svh,1.5rem)] text-center text-[0.875rem] italic text-muted max-md:hidden">
             Aus der Praxis: mein Stresstagebuch für vier Wochen
           </p>
         </Reveal>
@@ -79,7 +79,7 @@ export function Tools() {
           <Reveal delay={0.2} className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 lg:mt-[clamp(0.5rem,1.5svh,1rem)] lg:block">
             <ul className="hidden flex-wrap gap-2 xl:flex lowdesk:hidden" aria-label="Werkzeuge in der Begleitung">
               {WERKZEUGE.map((w) => (
-                <li key={w} className="rounded-md border border-line bg-white px-3.5 py-1.5 text-[0.875rem] text-espresso-800">
+                <li key={w} className="rounded-full border border-line bg-white px-3.5 py-1.5 text-[0.875rem] text-espresso-800">
                   {w}
                 </li>
               ))}

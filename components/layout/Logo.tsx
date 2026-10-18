@@ -17,7 +17,7 @@ export function LogoMark({ className, title, strokeWidth = 2.2 }: { className?: 
 }
 
 /**
- * Textlogo: "Joana Kort" in Manrope, darunter eine feine Karamell-Linie und "STRESSBERATUNG" gesperrt (wie die Labels in Joanas Materialien).
+ * Textlogo: "Joana Kort" in Playfair, darunter eine feine Karamell-Linie und "STRESSBERATUNG" gesperrt (wie die Labels in Joanas Materialien).
  * `draw`: Intro der Startseite (globals.css): Name wischt herein, die Linie zieht sich, dann "Stressberatung".
  * `data-logo` markiert das Ende des Logos (Header misst daran, wie weit die Handy-Pille ausfahren darf).
  */
@@ -26,7 +26,7 @@ export function Logo({ tone = 'dark', draw = false, className }: { tone?: 'dark'
     <span data-logo className={cn('inline-flex flex-col leading-none', className)}>
       <span
         className={cn(
-          'whitespace-nowrap font-serif text-[1.45rem] font-bold tracking-[-0.03em] min-[400px]:text-[1.55rem] md:text-[1.75rem]',
+          'whitespace-nowrap font-serif text-[1.42rem] font-[450] tracking-[-0.01em] min-[400px]:text-[1.5rem] md:text-[1.65rem]',
           tone === 'dark' ? 'text-espresso-800' : 'text-white',
           draw && 'logo-intro-name'
         )}

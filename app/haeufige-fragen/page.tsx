@@ -65,7 +65,7 @@ export default function FaqPage() {
                       <a
                         key={x.id}
                         href={`#${x.id}`}
-                        className="rounded-md border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800 md:px-4 md:py-2 md:text-[0.9375rem]"
+                        className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800 md:px-4 md:py-2 md:text-[0.9375rem]"
                       >
                         {x.title}
                       </a>

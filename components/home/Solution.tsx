@@ -13,7 +13,7 @@ function Quote({ size }: { size: 'lg' | 'sm' }) {
         }
       >
         „Mir hat damals jemand gefehlt, der mit mir Schritt für Schritt schaut, wie mein Stress entsteht und wie ich ihn abbauen kann.{' '}
-        <em className="text-caramel-300">Diese Person möchte ich heute für andere sein.</em>“
+        <em className="italic text-caramel-300">Diese Person möchte ich heute für andere sein.</em>“
       </blockquote>
       <figcaption className={size === 'lg' ? 'mt-[clamp(1rem,3svh,2rem)] flex items-center gap-4 text-[0.9375rem] text-espresso-200' : 'mt-6 flex items-center gap-3 text-[0.9375rem] text-espresso-200'}>
         <span className="h-px w-10 bg-caramel-300" aria-hidden="true" />
@@ -34,7 +34,7 @@ export function Solution() {
         <Reveal className="md:col-span-6 xl:col-span-5">
           <p className="t-label text-caramel-300">Die Antwort</p>
           <h2 id="loesung-title" className="t-h2 mt-3 text-white">
-            Nicht noch mehr Tipps. Ein Plan, der zu <em className="text-caramel-300">Ihrem</em> Leben passt.
+            Nicht noch mehr Tipps. Ein Plan, der zu <em className="italic text-caramel-300">Ihrem</em> Leben passt.
           </h2>
           <p className="t-lead mt-[clamp(0.75rem,2svh,1.5rem)] text-espresso-100/90 compact:hidden max-md:text-[0.9375rem] max-md:leading-relaxed">
             Oft heißt es: Sie müssen Ihren Stress reduzieren. Wie das konkret gehen soll, bleibt offen.{' '}

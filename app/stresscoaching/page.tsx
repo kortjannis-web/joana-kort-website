@@ -99,7 +99,7 @@ export default function StresscoachingPage() {
               <ul className="mt-[clamp(0.75rem,2svh,1.25rem)] space-y-[clamp(0.5rem,1.5svh,0.875rem)] max-md:text-[0.9375rem]">
                 {ERGEBNIS.map((e, i) => (
                   <li key={e} className="flex gap-4">
-                    <span aria-hidden="true" className="font-serif text-[1.375rem] leading-none text-caramel-600">
+                    <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
                       {i + 1}
                     </span>
                     <span className="leading-snug text-ink/85">{e}</span>
@@ -178,7 +178,7 @@ export default function StresscoachingPage() {
                 {BESTANDTEILE.map((g, gi) => (
                   <div key={g.title} className="glow-hover h-full rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <p className="flex items-baseline gap-2.5">
-                      <span aria-hidden="true" className="font-serif text-[1.375rem] leading-none text-caramel-600">
+                      <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
                         {gi + 1}
                       </span>
                       <span className="font-serif text-[1.25rem] leading-tight text-espresso-900">{g.title}</span>
@@ -206,7 +206,7 @@ export default function StresscoachingPage() {
             <Reveal className="lg:col-span-6">
               <p className="t-label text-caramel-300">Ein Beispiel aus der Praxis</p>
               <h2 id="materialien-title" className="t-h2 mt-3 text-white">
-                So sehen die <em className="text-caramel-300">Materialien</em> aus
+                So sehen die <em className="italic text-caramel-300">Materialien</em> aus
               </h2>
               <p className="t-lead mt-[clamp(0.5rem,2svh,1.25rem)] text-espresso-100/90 max-md:hidden">
                 Alles, was Sie von mir bekommen, ist schlicht, schön und sofort nutzbar, zum Ausdrucken oder am Bildschirm. Ein paar Beispiele:
@@ -218,7 +218,7 @@ export default function StresscoachingPage() {
                   ['Wochenfokus', 'Ein Wochenziel statt zehn Baustellen, dazu ein einfacher Gewohnheits-Tracker.'],
                 ].map(([t, d]) => (
                   <div key={t} className="grid gap-0.5 py-[clamp(0.5rem,1.6svh,1rem)] sm:grid-cols-[10rem_1fr] sm:gap-6">
-                    <dt className="font-serif text-[1.125rem] text-caramel-200">{t}</dt>
+                    <dt className="font-serif text-[1.125rem] italic text-caramel-200">{t}</dt>
                     <dd className="text-[0.875rem] leading-snug text-espresso-100/85 compact:hidden md:text-[0.9375rem] md:leading-relaxed">{d}</dd>
                   </div>
                 ))}

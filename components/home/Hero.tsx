@@ -47,7 +47,7 @@ export function Hero() {
                   />
                 )}
                 <span className="block">
-                  <span className="block font-serif text-[clamp(1.375rem,1rem+1.6vw,2rem)] font-bold leading-none tracking-[-0.025em] text-espresso-900">
+                  <span className="block font-serif text-[clamp(1.375rem,1rem+1.6vw,2rem)] font-[450] leading-none tracking-[-0.01em] text-espresso-900">
                     Joana Kort <span className="font-medium text-caramel-700">Stressberatung</span>
                   </span>
                   <span className="t-label mt-2 block text-[0.6875rem] text-espresso-600 md:text-[0.75rem] lowtab:mt-1.5">
@@ -60,7 +60,7 @@ export function Hero() {
               <span className="t-hero mt-6 block whitespace-nowrap text-espresso-900 max-md:text-[min(2.6rem,9.6vw)] short:mt-3 md:mt-7 lowtab:mt-4">
                 <span className="intro-rise block [--d:0.12s]">Stress verstehen.</span>
                 <span className="intro-rise block [--d:0.26s]">Stress bewältigen.</span>
-                <span className="intro-rise block font-normal text-caramel-600 [--d:0.4s]">Stress managen.</span>
+                <em className="intro-rise block font-normal italic text-caramel-600 [--d:0.4s]">Stress managen.</em>
               </span>
             </h1>
             <p className="intro-rise t-lead mt-6 max-w-[34rem] text-ink/75 [--d:0.56s] short:mt-3 short:text-base short:leading-normal xl:mt-7">
@@ -87,7 +87,7 @@ export function Hero() {
                   className="intro-pop flex items-center gap-2 whitespace-nowrap text-[0.875rem] font-medium text-espresso-700 xl:text-[0.8125rem] 2xl:text-[0.875rem]"
                   style={{ '--d': `${0.86 + i * 0.1}s` } as React.CSSProperties}
                 >
-                  <span className="grid h-8 w-8 place-items-center rounded-md bg-white/70 text-caramel-700 shadow-[0_4px_10px_-6px_rgba(30,22,17,0.35)]">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white/70 text-caramel-700 shadow-[0_4px_10px_-6px_rgba(30,22,17,0.35)]">
                     <Icon className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
                   </span>
                   {text}

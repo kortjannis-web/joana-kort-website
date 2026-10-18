@@ -34,7 +34,7 @@ export function NumberedSteps({
           >
             <span
               aria-hidden="true"
-              className="lift-tile grid h-11 w-11 shrink-0 place-items-center rounded-md bg-caramel-50 font-serif text-[1.25rem] text-caramel-700 xl:h-12 xl:w-12 xl:text-[1.375rem]"
+              className="lift-tile grid h-11 w-11 shrink-0 place-items-center rounded-full bg-caramel-50 font-serif text-[1.25rem] italic text-caramel-700 xl:h-12 xl:w-12 xl:text-[1.375rem]"
             >
               {i + 1}
             </span>

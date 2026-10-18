@@ -53,7 +53,7 @@ export function PaperStack({ layout = 'tagebuch', className, priority = false }:
           height={img.h}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
-          className="paper absolute h-auto rounded-md bg-paper"
+          className="paper absolute h-auto rounded-[3px] bg-paper"
           style={
             {
               left: s.left,

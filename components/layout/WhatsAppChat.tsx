@@ -106,7 +106,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
         )}
       >
         <div className="flex items-center gap-3 rounded-t-lg bg-espresso-800 px-5 py-4 text-white">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white/10 font-serif text-lg text-caramel-200">JK</span>
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 font-serif text-lg italic text-caramel-200">JK</span>
           <div className="min-w-0 flex-1">
             <p id="wa-title" className="font-semibold leading-tight">
               {site.owner}
@@ -117,7 +117,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Chat-Fenster schließen"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-white/10"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10"
           >
             <X className="h-5 w-5" strokeWidth={1.75} />
           </button>

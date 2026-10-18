@@ -25,7 +25,7 @@ export function MobileMenu() {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger
         aria-label="Menü öffnen"
-        className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-white text-espresso-900 shadow-[0_2px_8px_-2px_rgba(30,22,17,0.25)] transition-transform duration-300 active:scale-95"
+        className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-white text-espresso-900 shadow-[0_2px_8px_-2px_rgba(30,22,17,0.25)] transition-transform duration-300 active:scale-95"
       >
         <Menu className="h-5 w-5" strokeWidth={1.8} />
       </Dialog.Trigger>
@@ -43,7 +43,7 @@ export function MobileMenu() {
             </Link>
             <Dialog.Close
               aria-label="Menü schließen"
-              className="grid h-12 w-12 place-items-center rounded-md border border-white/18 bg-white/10 text-white transition-colors hover:bg-white/15"
+              className="grid h-12 w-12 place-items-center rounded-full border border-white/18 bg-white/10 text-white transition-colors hover:bg-white/15"
             >
               <X className="h-5 w-5" strokeWidth={1.8} />
             </Dialog.Close>
@@ -134,7 +134,7 @@ export function MobileMenu() {
             )}
             <p className="mt-2.5 text-center text-[0.875rem] text-espresso-300">15 Minuten · kostenlos · unverbindlich</p>
 
-            <p className="mt-8 text-center font-serif text-[1.0625rem] text-caramel-300">{site.slogan}</p>
+            <p className="mt-8 text-center font-serif text-[1.0625rem] italic text-caramel-300">{site.slogan}</p>
           </nav>
         </Dialog.Content>
       </Dialog.Portal>

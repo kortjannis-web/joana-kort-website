@@ -45,11 +45,11 @@ export function AreaMap() {
         ))}
         <circle className="area-pulse" cx="0" cy="0" r="1.2" fill="#d6b892" />
         <circle cx="0" cy="0" r="1.05" fill="#d6b892" stroke="#2a211b" strokeWidth="0.3" />
-        <text x="0" y="3.6" textAnchor="middle" fontSize="2" fill="#fff" fontFamily="var(--font-manrope)" fontWeight="600">
+        <text x="0" y="3.6" textAnchor="middle" fontSize="2" fill="#fff" fontFamily="var(--font-playfair)" fontStyle="italic">
           {site.address.city}
         </text>
       </svg>
-      <span className="absolute bottom-4 left-4 rounded-md border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-caramel-200">
+      <span className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.1em] text-caramel-200">
         Online: überall
       </span>
     </InView>

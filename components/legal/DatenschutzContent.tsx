@@ -160,7 +160,7 @@ export default function DatenschutzContent() {
 
       <h2>7. Schriftarten</h2>
       <p>
-        Die Schriften dieser Website (Manrope und DM Sans) werden lokal von diesem Server geladen. Es besteht keine Verbindung zu
+        Die Schriften dieser Website (Playfair Display und DM Sans) werden lokal von diesem Server geladen. Es besteht keine Verbindung zu
         Servern von Google oder anderen Anbietern.
       </p>
 

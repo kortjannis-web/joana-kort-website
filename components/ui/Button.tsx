@@ -6,7 +6,7 @@ type Variant = 'primary' | 'dark' | 'outline' | 'light' | 'outline-light' | 'tex
 type Size = 'md' | 'lg' | 'sm'
 
 const base =
-  'inline-flex items-center justify-center gap-2.5 rounded-md font-semibold tracking-[0.005em] transition-[background-color,border-color,color,transform,box-shadow] duration-300 ease-[var(--ease-soft)] active:scale-[0.985] active:duration-150 disabled:pointer-events-none disabled:opacity-50 select-none'
+  'inline-flex items-center justify-center gap-2.5 rounded-full font-semibold tracking-[0.005em] transition-[background-color,border-color,color,transform,box-shadow] duration-300 ease-[var(--ease-soft)] active:scale-[0.985] active:duration-150 disabled:pointer-events-none disabled:opacity-50 select-none'
 
 const variants: Record<Variant, string> = {
   primary: 'btn-cta active:scale-100',

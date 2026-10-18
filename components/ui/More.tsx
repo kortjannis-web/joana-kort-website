@@ -27,10 +27,10 @@ export function More({
   const dark = tone === 'dark'
   return (
     <details className={cn('more group', className)}>
-      <summary className={cn('inline-flex min-h-11 items-center gap-2.5 rounded-md outline-none', align === 'center' && 'mx-auto flex w-fit')}>
+      <summary className={cn('inline-flex min-h-11 items-center gap-2.5 rounded-full outline-none', align === 'center' && 'mx-auto flex w-fit')}>
         <span
           className={cn(
-            'more-arrow grid h-10 w-10 place-items-center rounded-md border',
+            'more-arrow grid h-10 w-10 place-items-center rounded-full border',
             dark ? 'border-white/25 text-caramel-200 group-hover:border-caramel-300 group-hover:bg-white/[0.06]' : 'border-[#ddd3c6] bg-white text-espresso-800 group-hover:border-caramel-500'
           )}
         >

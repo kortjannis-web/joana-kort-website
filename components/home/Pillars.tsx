@@ -30,7 +30,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
           <h2 id="schwerpunkte-title" className="t-h2 mt-3 text-espresso-900">
             {title ?? (
               <>
-                Drei Schritte, die <span className="font-normal text-caramel-600">aufeinander aufbauen</span>
+                Drei Schritte, die <em className="italic text-caramel-600">aufeinander aufbauen</em>
               </>
             )}
           </h2>

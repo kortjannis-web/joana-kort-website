@@ -44,12 +44,12 @@ export function FooterCta() {
         <div className="xl:col-span-8">
           <LogoDraw className="mb-[clamp(0.75rem,3svh,1.75rem)] h-[clamp(2rem,5svh,3rem)] text-caramel-300" />
           <h2 id="footer-cta-title" className="t-h1 max-w-[16ch] text-white">
-            {cta.title} <em className="text-caramel-300">{cta.em}</em>
+            {cta.title} <em className="italic text-caramel-300">{cta.em}</em>
           </h2>
           <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] max-w-[40rem] text-espresso-200 max-md:text-[0.9375rem] max-md:leading-relaxed">{cta.text}</p>
           <ul className="mt-[clamp(0.75rem,2.5svh,1.5rem)] flex flex-wrap gap-2">
             {FAKTEN.map((f) => (
-              <li key={f} className="inline-flex h-8 items-center gap-2 rounded-md border border-white/14 bg-white/[0.05] px-3 text-[0.8125rem] text-espresso-100 md:h-9 md:px-3.5 md:text-[0.875rem]">
+              <li key={f} className="inline-flex h-8 items-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-3 text-[0.8125rem] text-espresso-100 md:h-9 md:px-3.5 md:text-[0.875rem]">
                 <Check className="h-3.5 w-3.5 text-caramel-300" strokeWidth={2.5} aria-hidden="true" />
                 {f}
               </li>
@@ -63,7 +63,7 @@ export function FooterCta() {
           </ButtonLink>
           {site.phone && (
             <a href={site.phone.href} className="glow-hover group inline-flex items-center gap-3 text-[0.9375rem] text-espresso-200">
-              <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
+              <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
                 <span className="glow-icon">
                   <Phone className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 group-hover:-rotate-6" strokeWidth={1.75} aria-hidden="true" />
                 </span>
@@ -77,7 +77,7 @@ export function FooterCta() {
             </a>
           )}
           <a href={`mailto:${site.email}`} className="glow-hover group inline-flex items-center gap-3 text-[0.9375rem] text-espresso-200">
-            <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-md border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
+            <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">
               <span className="glow-icon">
                 <Mail className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 group-hover:-rotate-6" strokeWidth={1.75} aria-hidden="true" />
               </span>

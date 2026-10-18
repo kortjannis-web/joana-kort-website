@@ -66,7 +66,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
             {/* Autor + Kurzantwort (GEO) */}
             <div className="xl:col-span-8 xl:col-start-4 xl:row-start-1">
               <div className="flex items-center gap-4">
-                <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-espresso-800 font-serif text-[1.05rem] text-caramel-200 ring-1 ring-caramel-400/80 ring-offset-2 ring-offset-paper">
+                <span aria-hidden="true" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-espresso-800 font-serif text-[1.05rem] italic text-caramel-200 ring-1 ring-caramel-400/80 ring-offset-2 ring-offset-paper">
                   JK
                 </span>
                 <p className="text-[0.875rem] leading-snug text-muted">
@@ -153,7 +153,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
               {/* Autorenbox */}
               <Reveal className="mt-14">
                 <div className="floaty flex gap-4 rounded-lg border border-line bg-white p-5 md:gap-5 md:p-7">
-                  <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-md bg-espresso-800 font-serif text-[1.15rem] text-caramel-200 ring-1 ring-caramel-400/80 ring-offset-2 ring-offset-white">
+                  <span aria-hidden="true" className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-espresso-800 font-serif text-[1.15rem] italic text-caramel-200 ring-1 ring-caramel-400/80 ring-offset-2 ring-offset-white">
                     JK
                   </span>
                   <div>

@@ -19,7 +19,7 @@ export function AboutArea() {
             <Reveal className="md:col-start-2 md:row-start-1">
               <p className="t-label text-caramel-700">Über mich</p>
               <h2 id="ueber-title" className="t-h2 mt-3 text-espresso-900">
-                Ich bin Joana Kort und kenne Stress nicht nur aus dem <em className="text-caramel-600">Lehrbuch</em>
+                Ich bin Joana Kort und kenne Stress nicht nur aus dem <em className="italic text-caramel-600">Lehrbuch</em>
               </h2>
             </Reveal>
             <PortraitFrame

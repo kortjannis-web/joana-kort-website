@@ -19,7 +19,7 @@ const TONE: Record<Artikel['category'], { bg: string; word: string; line: string
 
 /**
  * Titelbild einer Artikel-Karte: entweder ein Material (Papier schwebt auf Beige) oder typografisch:
- * Schwerpunkt-Wort groß in Manrope, darunter die Markenlinie. Füllt den Rahmen (absolute inset-0).
+ * Schwerpunkt-Wort groß in Playfair Display, darunter die Markenlinie. Füllt den Rahmen (absolute inset-0).
  */
 export function ArticleCover({ a, featured = false }: { a: Artikel; featured?: boolean }) {
   const bild = BILDER[a.slug]
@@ -37,7 +37,7 @@ export function ArticleCover({ a, featured = false }: { a: Artikel; featured?: b
           loading="lazy"
           decoding="async"
           className={cn(
-            'paper h-auto max-h-full w-auto max-w-[86%] rounded-md object-contain transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:-rotate-1 group-hover:scale-[1.03]',
+            'paper h-auto max-h-full w-auto max-w-[86%] rounded-[3px] object-contain transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:-rotate-1 group-hover:scale-[1.03]',
             bild.h > bild.w ? 'max-h-[92%] -rotate-3' : 'rotate-[-2deg]'
           )}
         />
@@ -50,7 +50,7 @@ export function ArticleCover({ a, featured = false }: { a: Artikel; featured?: b
       <div>
         <span
           className={cn(
-            'block font-serif leading-[0.95] tracking-[-0.02em] transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:translate-x-1',
+            'block font-serif italic leading-[0.95] tracking-[-0.02em] transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:translate-x-1',
             t.word,
             featured ? 'text-[3.4rem] md:text-[5.25rem] xl:text-[6rem]' : 'text-[3.2rem] md:text-[3.6rem]'
           )}

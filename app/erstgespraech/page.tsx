@@ -42,7 +42,7 @@ function Ablauf() {
       <ol className="mt-[clamp(0.75rem,2.5svh,1.5rem)] border-t border-line">
         {ABLAUF.map((a, i) => (
           <li key={a.t} className="flex gap-4 border-b border-line py-[clamp(0.625rem,1.8svh,1rem)]">
-            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-caramel-50 font-serif text-[1.2rem] text-caramel-700">
+            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-caramel-50 font-serif text-[1.2rem] italic text-caramel-700">
               {i + 1}
             </span>
             <span>

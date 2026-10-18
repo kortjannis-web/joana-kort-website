@@ -29,7 +29,7 @@ export function GoogleRating({
       rel="noopener noreferrer"
       aria-label={`${fmt(rating)} von 5 Sternen aus ${count} Google-Bewertungen, Google-Profil öffnen`}
       className={cn(
-        'group inline-flex min-h-11 items-center gap-2.5 rounded-md transition-[transform,background-color] duration-200 ease-[var(--ease-lift)]',
+        'group inline-flex min-h-11 items-center gap-2.5 rounded-full transition-[transform,background-color] duration-200 ease-[var(--ease-lift)]',
         tone === 'float' &&
           'h-14 border border-line bg-white/95 pl-4 pr-5 text-ink shadow-[0_10px_30px_-10px_rgba(30,22,17,0.4)] backdrop-blur-md hover:-translate-y-0.5',
         // bare: hauchzarte, weich auslaufende Abdunklung dahinter, damit Sterne und Note auf hellem Bild lesbar bleiben

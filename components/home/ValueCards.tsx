@@ -16,7 +16,7 @@ function ValueCard({ title, text, Icon, row = false }: (typeof WERTE)[number] & 
   return (
     <div
       className={cn(
-        'group relative flex h-full gap-4 rounded-lg border border-white/12 bg-white/[0.06] px-4 py-[clamp(0.625rem,1.6svh,1.25rem)] transition-[transform,border-color,background-color] duration-700 ease-[var(--ease-soft)]',
+        'group relative flex h-full gap-4 rounded-[1rem] border border-white/12 bg-white/[0.06] px-4 py-[clamp(0.625rem,1.6svh,1.25rem)] transition-[transform,border-color,background-color] duration-700 ease-[var(--ease-soft)]',
         'group-data-[active=true]/v:scale-[1.03] group-data-[active=true]/v:border-caramel-300/45 group-data-[active=true]/v:bg-white/[0.09]',
         row ? 'items-center' : 'flex-col gap-3 md:max-xl:flex-row md:max-xl:items-center md:max-xl:gap-4'
       )}
