@@ -4,7 +4,7 @@
    Designsystem Joana Kort Stressberatung
    Farben aus Joanas eigenen Materialien (Stresstagebuch, Tagesplaner):
    Papier #FBF8F3 · Espresso #2A211B (Marke, dunkle Flächen, Text) · Karamell #8F6A44 (Akzent)
-   Beige #F5EDE3 (Flächen) · Greige #E9E3DA (Kontrastflächen) · Terrakotta #A9572B (nur CTA) · Apricot #E8A877 (Akzent auf Dunkel)
+   Beige #F5EDE3 (Flächen) · Greige #E9E3DA (Kontrastflächen) · Bordeaux #7F2537 (nur Funnel-Schritte)
    Breakpoints: mobil < 768 (Basis) · md 768 bis 1199 (Tablet) · xl ab 1200 (Desktop)
    ------------------------------------------------------------------ */
 
@@ -21,7 +21,7 @@
   --breakpoint-xl: 75rem;
 
   --font-sans: var(--font-dmsans), ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
-  /* Playfair Display wie in Joanas Materialien: Überschriften, Zitate, Zahlen. Kursiv in Karamell bzw. Apricot als Markenzeichen */
+  /* Playfair Display wie in Joanas Materialien: Überschriften, Zitate, Zahlen. Kursiv in Karamell als Markenzeichen */
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
   --font-display: var(--font-playfair), ui-serif, Georgia, serif;
 
@@ -49,12 +49,10 @@
   /* CTA-Buttons: neutrales dunkles Braun ohne Rot- oder Orangeanteil (Briefing Ä6), Hover etwas heller */
   --color-cta: #2a211b;
   --color-cta-hover: #3f332a;
-  /* Amber: AUSSCHLIESSLICH aktive Schritte im Erstgespräch-Funnel (Fortschritt), warm, ohne Rotstich */
-  --color-amber: #c8893a;
-  --color-amber-soft: #e3b878;
-  --color-terra-600: #a9572b;
-  --color-terra-300: #e8a877;
-  --color-terra-50: #fcf2ea;
+  /* Bordeaux statt Orange (Entscheidung 18.10.2026): AUSSCHLIESSLICH erreichte Schritte im Erstgespräch-Funnel.
+     bright = auf dunklen Flächen (Kopf des Funnels), weiße Schrift darauf */
+  --color-bordeaux: #7f2537;
+  --color-bordeaux-bright: #a3354b;
 
   --color-ink: #2a211b;
   --color-muted: #6a5d53;
@@ -1235,7 +1233,7 @@ html:not([data-hydrated]) [data-reveal] {
 }
 
 /* ------------------------------------------------------------------
-   Erstgespräch-Funnel: Schrittlinie (inaktiv Dunkelbraun, aktiv/erledigt Amber), Schritte und Kacheln gleiten herein
+   Erstgespräch-Funnel: Schrittlinie (inaktiv Dunkelbraun, aktiv/erledigt Bordeaux), Schritte und Kacheln gleiten herein
    ------------------------------------------------------------------ */
 .fstep {
   background-color: var(--color-espresso-700);
@@ -1248,9 +1246,9 @@ html:not([data-hydrated]) [data-reveal] {
 }
 .fstep[data-state='done'],
 .fstep[data-state='active'] {
-  background-color: var(--color-amber);
-  border-color: var(--color-amber);
-  color: var(--color-espresso-950);
+  background-color: var(--color-bordeaux-bright);
+  border-color: var(--color-bordeaux-bright);
+  color: #fff;
 }
 .fstep[data-state='done'] {
   transition-delay: 0s;
@@ -1263,7 +1261,7 @@ html:not([data-hydrated]) [data-reveal] {
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  border: 1.5px solid var(--color-amber);
+  border: 1.5px solid var(--color-bordeaux-bright);
   opacity: 0;
   animation: fstep-ring 2.2s var(--ease-soft) 1s infinite;
 }
@@ -1273,15 +1271,15 @@ html:not([data-hydrated]) [data-reveal] {
 @keyframes fstep-pop {
   0% {
     transform: scale(0.82);
-    box-shadow: 0 0 0 0 rgb(200 137 58 / 0);
+    box-shadow: 0 0 0 0 rgb(163 53 75 / 0);
   }
   55% {
     transform: scale(1.14);
-    box-shadow: 0 0 18px 2px rgb(200 137 58 / 0.55);
+    box-shadow: 0 0 18px 2px rgb(163 53 75 / 0.55);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 0 12px 0 rgb(200 137 58 / 0.35);
+    box-shadow: 0 0 12px 0 rgb(163 53 75 / 0.35);
   }
 }
 @keyframes fstep-ring {
@@ -1324,17 +1322,25 @@ html:not([data-hydrated]) [data-reveal] {
   }
 }
 
-/* Hero-Karte (Entwürfe 1 bis 5): Schrittpunkte offen Braun, erreicht Amber. Beim Weitergehen füllt sich die Linie,
+/* Offene Hero-Karte: weicher Papierschein hinter Frage und Antworten, damit die Hero-Linie nicht stört */
+.fk-open {
+  isolation: isolate;
+}
+.fk-open::before {
+  content: '';
+  position: absolute;
+  inset: -2.5rem -2.5rem -3rem;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(251 248 243 / 0.92), rgb(251 248 243 / 0.7) 55%, rgb(251 248 243 / 0));
+}
+
+/* Hero-Karte (Entwürfe 1 bis 4): Schrittpunkte offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie,
    danach "tippt" der nächste Punkt (hüpft kurz, leuchtet auf, ein Ring läuft aus) */
 .fk-dark {
   --fk-off-bg: var(--color-espresso-700);
   --fk-off-bd: var(--color-espresso-600);
   --fk-off-fg: var(--color-espresso-300);
-}
-.fk-light {
-  --fk-off-bg: #6b5443;
-  --fk-off-bd: #6b5443;
-  --fk-off-fg: #e7dccf;
 }
 .fk-dot {
   background-color: var(--fk-off-bg);
@@ -1347,9 +1353,9 @@ html:not([data-hydrated]) [data-reveal] {
 }
 .fk-dot[data-state='done'],
 .fk-dot[data-state='active'] {
-  background-color: var(--color-amber);
-  border-color: var(--color-amber);
-  color: var(--color-espresso-950);
+  background-color: var(--color-bordeaux-bright);
+  border-color: var(--color-bordeaux-bright);
+  color: #fff;
 }
 .fk-dot[data-state='done'] {
   transition-delay: 0s;
@@ -1362,7 +1368,7 @@ html:not([data-hydrated]) [data-reveal] {
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  border: 1.5px solid var(--color-amber);
+  border: 1.5px solid var(--color-bordeaux-bright);
   opacity: 0;
   animation: fstep-ring 2.2s var(--ease-soft) 1s infinite;
 }
@@ -1376,7 +1382,7 @@ html:not([data-hydrated]) [data-reveal] {
 }
 .fk-knob {
   transition: width 0.55s var(--ease-lift);
-  box-shadow: 0 0 14px 0 rgb(200 137 58 / 0.4);
+  box-shadow: 0 0 14px 0 rgb(163 53 75 / 0.4);
 }
 .fk-knob-tap {
   animation: fk-knob-tap 0.7s var(--ease-lift) 0.3s both;
@@ -1384,18 +1390,18 @@ html:not([data-hydrated]) [data-reveal] {
 @keyframes fk-tap {
   0% {
     transform: translateY(0) scale(0.86);
-    box-shadow: 0 0 0 0 rgb(200 137 58 / 0);
+    box-shadow: 0 0 0 0 rgb(163 53 75 / 0);
   }
   40% {
     transform: translateY(-5px) scale(1.14);
-    box-shadow: 0 0 18px 2px rgb(200 137 58 / 0.55);
+    box-shadow: 0 0 18px 2px rgb(163 53 75 / 0.55);
   }
   70% {
     transform: translateY(1px) scale(0.96);
   }
   100% {
     transform: none;
-    box-shadow: 0 0 12px 0 rgb(200 137 58 / 0.35);
+    box-shadow: 0 0 12px 0 rgb(163 53 75 / 0.35);
   }
 }
 @keyframes fk-seg-tap {
@@ -1404,7 +1410,7 @@ html:not([data-hydrated]) [data-reveal] {
   }
   40% {
     transform: scaleY(2);
-    box-shadow: 0 0 12px 1px rgb(200 137 58 / 0.6);
+    box-shadow: 0 0 12px 1px rgb(163 53 75 / 0.6);
   }
   100% {
     transform: scaleY(1);
@@ -1412,14 +1418,14 @@ html:not([data-hydrated]) [data-reveal] {
 }
 @keyframes fk-knob-tap {
   0% {
-    box-shadow: 0 0 0 0 rgb(227 184 120 / 0.8);
+    box-shadow: 0 0 0 0 rgb(200 96 118 / 0.8);
     transform: scale(1);
   }
   35% {
     transform: scale(1.04, 1.18);
   }
   100% {
-    box-shadow: 0 0 0 10px rgb(227 184 120 / 0);
+    box-shadow: 0 0 0 10px rgb(200 96 118 / 0);
     transform: scale(1);
   }
 }

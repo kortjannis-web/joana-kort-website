@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils'
    1 Für wen → 2 Situation / Wer / Team → 3 Begleitung / Ort → 4 Name + Telefon ODER E-Mail (Schalter) → Bestätigung.
    Nach dem Absenden freiwillig: Beruf oder Branche, Altersgruppe, Ort, Nachricht (eigene Anfrage "ergaenzung" mit Bezug auf die id).
    Datensparsam: keine Gesundheitsfragen, kein Geburtsdatum. Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO (Hinweis statt Häkchen).
-   Schrittlinie: inaktive Schritte Dunkelbraun (etwas heller als das Kopfband), aktive und erledigte in Amber.
+   Schrittlinie: inaktive Schritte Dunkelbraun (etwas heller als das Kopfband), aktive und erledigte in Bordeaux.
    ===================================================================== */
 
 type Kanal = 'Telefon' | 'E-Mail'
@@ -23,11 +23,11 @@ const KEYS: Key[] = ['wer', 'lage', 'umfang']
 const TOTAL = 4
 
 /**
- * Gestaltung der Karte im Hero (Startseite, Erstgespräch-Seite). Fünf Entwürfe zur Auswahl, Vorschau über ?look=1 bis ?look=5.
- * 1 Kompakt dunkel · 2 Hell mit Segmenten · 3 Stepper auf Beige · 4 Kapsel · 5 Dunkler Rahmen mit hellem Innenblatt
+ * Offene Karte im Hero (Startseite, Erstgespräch-Seite): dunkler Kopf, darunter alles frei. Vier Entwürfe, Vorschau über ?look=1 bis ?look=4.
+ * 1 Weiße Felder, Punkte · 2 Milchglas, Segmente · 3 Kapsel, Pillen mit Kontur · 4 Große Punkte, kursive Buchstaben
  */
-type Look = 1 | 2 | 3 | 4 | 5
-const DEFAULT_LOOK: Look = 2
+type Look = 1 | 2 | 3 | 4
+const DEFAULT_LOOK: Look = 1
 
 const ALTER = ['unter 25', '25 bis 34', '35 bis 44', '45 bis 54', '55 bis 64', '65 und älter']
 const ORT = ['Online', 'Vor Ort', 'Noch offen']
@@ -118,10 +118,10 @@ export function ErstgespraechFunnel({
     setFirst(r.step)
   }, [preset])
 
-  // Entwurfsvorschau: ?look=1 bis ?look=5
+  // Entwurfsvorschau: ?look=1 bis ?look=4
   useEffect(() => {
     const n = Number(new URLSearchParams(window.location.search).get('look'))
-    if (n >= 1 && n <= 5) setLook(n as Look)
+    if (n >= 1 && n <= 4) setLook(n as Look)
   }, [])
 
   // Hero-CTA: Karte leuchtet kurz auf, Fokus auf die aktuelle Frage
@@ -232,7 +232,7 @@ export function ErstgespraechFunnel({
   const level: 2 | 3 = variant === 'embed' ? 3 : 2
   const h = { headingRef, level, compact: !!lk }
   const labels = [...KEYS.map((k) => question(k, s.wer).label), 'Kontakt']
-  const inp = cn(inputCls, lk && 'h-11 rounded-[0.875rem] border-[#dcd1c3] bg-paper focus:bg-white')
+  const inp = cn(inputCls, lk && OPEN_INPUT)
 
   /* Aufleuchten nach Klick auf einen CTA (nur opacity) */
   const glow = (
@@ -353,9 +353,11 @@ export function ErstgespraechFunnel({
   if (lk) {
     const L = LOOKS[lk]
     return (
-      <div ref={cardRef} data-hero="" data-look={lk} className={cn('group/funnel relative flex flex-col text-ink', L.card, className)}>
-        {glow}
-        <LookHead look={lk} labels={labels} current={step} done={done} />
+      <div ref={cardRef} data-hero="" data-look={lk} className={cn('fk-open group/funnel relative flex flex-col text-ink', className)}>
+        <div className={cn('grain relative shrink-0 bg-espresso-800 text-white shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_40px_-22px_rgba(20,14,10,0.55)]', L.head)}>
+          {glow}
+          <LookHead look={lk} labels={labels} current={step} done={done} />
+        </div>
         <div ref={bodyRef} className={cn('min-h-0', L.body, bodyClassName)}>
           {form}
           {result}
@@ -385,7 +387,7 @@ export function ErstgespraechFunnel({
           <StepCount current={step} done={done} className="text-white/70" />
         </div>
         <p className="mt-1.5 font-serif text-[1.125rem] leading-snug text-white sm:text-[1.25rem] lowdesk:text-[1.0625rem]">
-          In 1 Minute zu Ihrem <span className="text-amber-soft">kostenlosen Erstgespräch</span>
+          In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
         </p>
         <StepLine labels={labels} current={step} />
       </div>
@@ -398,30 +400,17 @@ export function ErstgespraechFunnel({
   )
 }
 
-/* ---------- Entwürfe der Hero-Karte ---------- */
+/* ---------- Offene Hero-Karte (Entwürfe 1 bis 4) ---------- */
 
-/** Karte und Innenbereich je Entwurf */
-const LOOKS: Record<Look, { card: string; body: string }> = {
-  1: {
-    card: 'rounded-[1.5rem] bg-white shadow-[0_2px_4px_rgba(20,14,10,0.08),0_22px_44px_-22px_rgba(20,14,10,0.45)]',
-    body: 'rounded-b-[1.5rem] px-5 pb-4 pt-4',
-  },
-  2: {
-    card: 'rounded-[1.75rem] border border-white/70 bg-white shadow-[0_1px_2px_rgba(30,22,17,0.05),0_18px_40px_-20px_rgba(30,22,17,0.32),0_40px_70px_-50px_rgba(30,22,17,0.4)]',
-    body: 'rounded-b-[1.75rem] px-5 pb-4 pt-3',
-  },
-  3: {
-    card: 'rounded-[1.5rem] bg-white shadow-[0_2px_4px_rgba(20,14,10,0.06),0_24px_48px_-26px_rgba(20,14,10,0.4)]',
-    body: 'rounded-b-[1.5rem] px-5 pb-4 pt-4',
-  },
-  4: {
-    card: 'rounded-[2rem] bg-white shadow-[0_2px_4px_rgba(20,14,10,0.06),0_24px_48px_-24px_rgba(20,14,10,0.42)]',
-    body: 'rounded-b-[2rem] px-5 pb-4 pt-3.5',
-  },
-  5: {
-    card: 'grain rounded-[1.75rem] bg-espresso-900 p-1.5 shadow-[0_2px_4px_rgba(20,14,10,0.12),0_26px_52px_-24px_rgba(20,14,10,0.6)]',
-    body: 'rounded-[1.375rem] bg-white px-4 pb-3.5 pt-4',
-  },
+/**
+ * Offen: nur der Kopf ist ein dunkler, abgerundeter Block. Frage, Text und Antworten stehen frei darunter,
+ * jede Antwort als eigenes abgerundetes Feld. Ein weicher Papierschein dahinter beruhigt die Hero-Linie.
+ */
+const LOOKS: Record<Look, { head: string; body: string }> = {
+  1: { head: 'rounded-[1.5rem]', body: 'px-1 pt-5' },
+  2: { head: 'rounded-[1.75rem]', body: 'px-1 pt-5' },
+  3: { head: 'rounded-[2rem]', body: 'px-1 pt-5' },
+  4: { head: 'rounded-[1.5rem]', body: 'px-1 pt-5' },
 }
 
 /** "2 von 4" bzw. "Geschafft", für Screenreader als Schritt angesagt */
@@ -442,74 +431,61 @@ function StepCount({ current, done, className }: { current: number; done: boolea
 
 const KICKER = `Kostenlos · ${site.erstgespraechMin} Minuten`
 
+/** Dunkler Kopf je Entwurf: Versprechen und Schrittanzeige */
 function LookHead({ look, labels, current, done }: { look: Look; labels: string[]; current: number; done: boolean }) {
+  const top = (
+    <div className="flex items-center justify-between gap-4">
+      <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">{KICKER}</span>
+      <StepCount current={current} done={done} className="text-white/60" />
+    </div>
+  )
+  const promise = (size: string) => (
+    <p className={cn('mt-1 font-serif leading-snug text-white', size)}>
+      In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
+    </p>
+  )
   if (look === 1)
     return (
-      <div className="grain shrink-0 rounded-t-[1.5rem] bg-espresso-800 px-5 pb-3.5 pt-4 text-white">
-        <div className="flex items-center justify-between gap-4">
-          <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">{KICKER}</span>
-          <StepCount current={current} done={done} className="text-white/70" />
-        </div>
-        <p className="mt-1 font-serif text-[1.0625rem] leading-snug text-white">
-          In 1 Minute zu Ihrem <em className="italic text-amber-soft">kostenlosen Erstgespräch</em>
-        </p>
-        <Dots labels={labels} current={current} tone="dark" />
+      <div className="px-5 pb-3.5 pt-4">
+        {top}
+        {promise('text-[1.0625rem]')}
+        <Dots labels={labels} current={current} />
       </div>
     )
   if (look === 2)
     return (
-      <div className="shrink-0 px-5 pt-5">
-        <div className="flex items-center justify-between gap-3">
-          <span className="t-label rounded-full bg-stone px-3 py-1.5 text-[0.625rem] text-caramel-700">{KICKER}</span>
-          <StepCount current={current} done={done} className="text-muted" />
-        </div>
+      <div className="px-5 pb-4 pt-4">
+        {top}
+        {promise('text-[1.0625rem]')}
         <Segments labels={labels} current={current} />
       </div>
     )
   if (look === 3)
     return (
-      <div className="shrink-0 rounded-t-[1.5rem] bg-stone px-5 pb-3.5 pt-4">
-        <div className="flex items-center justify-between gap-4">
-          <span className="font-serif text-[1rem] leading-snug text-espresso-900">
-            Ihr <em className="italic text-caramel-700">kostenloses</em> Erstgespräch
-          </span>
-          <StepCount current={current} done={done} className="text-muted" />
-        </div>
-        <Dots labels={labels} current={current} tone="light" />
-      </div>
-    )
-  if (look === 4)
-    return (
-      <div className="shrink-0 px-2.5 pt-2.5">
+      <div className="p-2">
         <Capsule labels={labels} current={current} />
-        <div className="mt-2.5 flex items-center justify-between gap-3 px-2.5">
-          <span className="t-label text-[0.625rem] text-caramel-700">{KICKER}</span>
-          <StepCount current={current} done={done} className="text-muted" />
+        <div className="px-3.5 pb-2 pt-3">
+          {top}
+          {promise('text-[1.0625rem]')}
         </div>
       </div>
     )
   return (
-    <div className="shrink-0 px-3.5 pb-3.5 pt-3 text-white">
-      <div className="flex items-center justify-between gap-4">
-        <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">{KICKER}</span>
-        <StepCount current={current} done={done} className="text-white/60" />
-      </div>
-      <p className="mt-1 font-serif text-[1.125rem] leading-snug">
-        In 1 Minute zu Ihrem <em className="italic text-amber-soft">kostenlosen Erstgespräch</em>
-      </p>
-      <Dots labels={labels} current={current} tone="dark" big />
+    <div className="px-5 pb-4 pt-4">
+      {top}
+      {promise('text-[1.1875rem]')}
+      <Dots labels={labels} current={current} big />
     </div>
   )
 }
 
 /**
- * Schrittpunkte mit Linie: offen Braun, erreicht Amber. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
+ * Schrittpunkte mit Linie: offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
  * (hüpft kurz und leuchtet auf, .fk-dot in globals.css).
  */
-function Dots({ labels, current, tone, big }: { labels: string[]; current: number; tone: 'dark' | 'light'; big?: boolean }) {
-  const dark = tone === 'dark'
+function Dots({ labels, current, big }: { labels: string[]; current: number; big?: boolean }) {
   return (
-    <ol className={cn('fk-steps flex items-start', big ? 'mt-3.5' : 'mt-3', dark ? 'fk-dark' : 'fk-light')} aria-label="Fortschritt">
+    <ol className={cn('fk-dark flex items-start', big ? 'mt-3.5' : 'mt-3')} aria-label="Fortschritt">
       {labels.map((l, i) => {
         const state = i < current ? 'done' : i === current ? 'active' : 'todo'
         return (
@@ -524,20 +500,14 @@ function Dots({ labels, current, tone, big }: { labels: string[]; current: numbe
               </span>
               <span
                 aria-hidden="true"
-                className={cn(
-                  'mt-1.5 truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500',
-                  dark ? (state === 'todo' ? 'text-espresso-300/70' : 'text-white/90') : state === 'todo' ? 'text-espresso-400' : 'text-espresso-900'
-                )}
+                className={cn('mt-1.5 truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-300/70' : 'text-white/90')}
               >
                 {l}
               </span>
             </span>
             {i < labels.length - 1 && (
-              <span
-                aria-hidden="true"
-                className={cn('relative -mx-3 h-0.5 flex-1 overflow-hidden rounded-full', big ? 'mt-[0.9375rem]' : 'mt-[0.6875rem]', dark ? 'bg-espresso-600' : 'bg-[#cbb8a2]')}
-              >
-                <span className={cn('fk-fill absolute inset-0 origin-left bg-amber', i < current ? 'scale-x-100' : 'scale-x-0')} />
+              <span aria-hidden="true" className={cn('relative -mx-3 h-0.5 flex-1 overflow-hidden rounded-full bg-espresso-600', big ? 'mt-[0.9375rem]' : 'mt-[0.6875rem]')}>
+                <span className={cn('fk-fill absolute inset-0 origin-left bg-bordeaux-bright', i < current ? 'scale-x-100' : 'scale-x-0')} />
               </span>
             )}
           </li>
@@ -547,7 +517,7 @@ function Dots({ labels, current, tone, big }: { labels: string[]; current: numbe
   )
 }
 
-/** Vier Segmente: offen Hellbraun, erreicht Amber (füllt sich von links), das aktuelle tippt kurz an */
+/** Vier Segmente: offen Braun, erreicht Bordeaux (füllt sich von links), das aktuelle tippt kurz an */
 function Segments({ labels, current }: { labels: string[]; current: number }) {
   return (
     <ol className="mt-3.5 grid grid-cols-4 gap-1.5" aria-label="Fortschritt">
@@ -555,10 +525,10 @@ function Segments({ labels, current }: { labels: string[]; current: number }) {
         const state = i < current ? 'done' : i === current ? 'active' : 'todo'
         return (
           <li key={i} className="min-w-0" aria-current={state === 'active' ? 'step' : undefined}>
-            <span className="relative block h-1.5 overflow-hidden rounded-full bg-[#cbb8a2]">
-              <span data-state={state} className={cn('fk-seg absolute inset-0 origin-left rounded-full bg-amber', state === 'todo' ? 'scale-x-0' : 'scale-x-100')} />
+            <span className="relative block h-1.5 overflow-hidden rounded-full bg-espresso-600">
+              <span data-state={state} className={cn('fk-seg absolute inset-0 origin-left rounded-full bg-bordeaux-bright', state === 'todo' ? 'scale-x-0' : 'scale-x-100')} />
             </span>
-            <span className={cn('mt-1.5 block truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-400' : 'text-espresso-900')}>
+            <span className={cn('mt-1.5 block truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-300/70' : 'text-white/90')}>
               <span className="sr-only">{`Schritt ${i + 1}: `}</span>
               {l}
               {state !== 'todo' && <span className="sr-only">{state === 'done' ? ', erledigt' : ', aktuell'}</span>}
@@ -570,12 +540,12 @@ function Segments({ labels, current }: { labels: string[]; current: number }) {
   )
 }
 
-/** Kapsel in Espresso: die Amber-Füllung gleitet beim Weitergehen ein Feld weiter und tippt kurz an */
+/** Kapsel: die Bordeaux-Füllung gleitet beim Weitergehen ein Feld weiter und tippt kurz an */
 function Capsule({ labels, current }: { labels: string[]; current: number }) {
   const n = Math.min(current + 1, labels.length)
   return (
-    <div className="grain relative rounded-full bg-espresso-800 p-1">
-      <span aria-hidden="true" className="fk-knob absolute inset-y-1 left-1 rounded-full bg-amber" style={{ width: `calc((100% - 0.5rem) * ${n / labels.length})` }}>
+    <div className="relative rounded-full bg-espresso-950/60 p-1">
+      <span aria-hidden="true" className="fk-knob absolute inset-y-1 left-1 rounded-full bg-bordeaux-bright" style={{ width: `calc((100% - 0.5rem) * ${n / labels.length})` }}>
         <span key={current} className="fk-knob-tap absolute inset-0 rounded-full" />
       </span>
       <ol className="relative grid grid-cols-4" aria-label="Fortschritt">
@@ -587,7 +557,7 @@ function Capsule({ labels, current }: { labels: string[]; current: number }) {
               aria-current={state === 'active' ? 'step' : undefined}
               className={cn(
                 'flex h-8 min-w-0 items-center justify-center gap-1 px-1 text-[0.6875rem] font-semibold transition-colors duration-300 delay-200',
-                state === 'todo' ? 'text-espresso-300' : 'text-espresso-950'
+                state === 'todo' ? 'text-espresso-300' : 'text-white'
               )}
             >
               {state === 'done' ? <Check className="h-3 w-3 shrink-0" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
@@ -605,7 +575,7 @@ function Capsule({ labels, current }: { labels: string[]; current: number }) {
 
 /**
  * Alle Schritte stehen von Anfang an da. Inaktiv: Dunkelbraun, etwas heller als das Kopfband. Beim Weitergehen füllt sich die Linie
- * in Amber, danach leuchtet der nächste Schritt auf (Verzögerung über .fstep). Erledigte Schritte zeigen einen Haken.
+ * in Bordeaux, danach leuchtet der nächste Schritt auf (Verzögerung über .fstep). Erledigte Schritte zeigen einen Haken.
  */
 function StepLine({ labels, current }: { labels: string[]; current: number }) {
   return (
@@ -625,7 +595,7 @@ function StepLine({ labels, current }: { labels: string[]; current: number }) {
             </span>
             {i < labels.length - 1 && (
               <span aria-hidden="true" className="relative -mx-3 mt-[0.8125rem] h-0.5 flex-1 overflow-hidden bg-espresso-600 sm:-mx-4">
-                <span className={cn('fline absolute inset-0 origin-left bg-amber', i < current ? 'scale-x-100' : 'scale-x-0')} />
+                <span className={cn('fline absolute inset-0 origin-left bg-bordeaux-bright', i < current ? 'scale-x-100' : 'scale-x-0')} />
               </span>
             )}
           </li>
@@ -653,7 +623,7 @@ function Done({
   const [x, setX] = useState({ beruf: '', alter: '', ort: '', nachricht: '' })
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const vorname = s.name.trim().split(/\s+/)[0]
-  const inp = cn(inputCls, compact && 'h-10 rounded-[0.875rem] border-[#dcd1c3] bg-paper focus:bg-white')
+  const inp = cn(inputCls, compact && cn(OPEN_INPUT, 'h-10'))
   const fieldCls = compact ? 'mt-2.5' : undefined
 
   const send = async (e: FormEvent) => {
@@ -785,6 +755,9 @@ function Done({
 
 /* ---------- Bausteine ---------- */
 
+/** Offene Karte: Eingabefelder als freistehende, ganz runde Felder */
+const OPEN_INPUT = 'h-11 rounded-full border-white bg-white/90 px-4 shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] focus:bg-white'
+
 const inputCls =
   'block h-12 w-full rounded-md border border-[#d5cabc] bg-white px-3.5 text-base text-ink transition-[border-color,box-shadow] placeholder:text-muted/70 focus:border-espresso-700 focus:outline-none focus:ring-3 focus:ring-espresso-700/15'
 
@@ -812,47 +785,43 @@ function Heading({ children, headingRef, level, compact, srOnly }: { children: R
   )
 }
 
-/** Kachel je Entwurf: Form, Fläche, gewählter Zustand, Buchstabe */
+/** Freistehende Antwortfelder je Entwurf: Form, Fläche, gewählter Zustand, Buchstabe */
 const TILE: Record<Look, { base: string; on: string; off: string; badge: string; badgeOn: string; badgeOff: string }> = {
+  // 1 Weiße, weich schwebende Felder
   1: {
-    base: 'min-h-[3.25rem] rounded-[1rem] border px-3 py-2',
-    on: 'border-espresso-800 bg-stone shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
-    off: 'border-line bg-white hover:-translate-y-px hover:border-espresso-800/40 hover:shadow-[0_6px_16px_-8px_rgba(30,22,17,0.25)]',
-    badge: 'h-7 w-7 border text-[0.75rem]',
-    badgeOn: 'border-espresso-800 bg-espresso-800 text-white',
-    badgeOff: 'border-line bg-stone text-espresso-700',
-  },
-  2: {
-    base: 'min-h-[3.25rem] rounded-[1.25rem] border px-3 py-2',
-    on: 'border-espresso-800 bg-white shadow-[0_8px_20px_-12px_rgba(30,22,17,0.4)]',
-    off: 'border-transparent bg-stone/80 hover:-translate-y-px hover:bg-stone hover:shadow-[0_8px_18px_-12px_rgba(30,22,17,0.35)]',
-    badge: 'h-7 w-7 text-[0.75rem] shadow-[0_2px_6px_-3px_rgba(30,22,17,0.3)]',
-    badgeOn: 'bg-espresso-800 text-white',
-    badgeOff: 'bg-white text-espresso-700',
-  },
-  3: {
-    base: 'relative min-h-[3.25rem] overflow-hidden rounded-[1rem] border px-3 py-2 before:absolute before:inset-y-2.5 before:left-0 before:w-[3px] before:rounded-full before:bg-caramel-500 before:transition-transform before:duration-300',
-    on: 'border-espresso-800/70 bg-caramel-50 before:scale-y-100',
-    off: 'border-line bg-white before:scale-y-0 hover:border-caramel-300 hover:before:scale-y-100',
-    badge: 'h-7 w-7 font-serif text-[0.9375rem] font-normal italic',
-    badgeOn: 'bg-espresso-800 text-caramel-200',
-    badgeOff: 'bg-caramel-50 text-caramel-700',
-  },
-  4: {
-    base: 'min-h-[3.25rem] rounded-[1.625rem] border py-1.5 pl-1.5 pr-4',
-    on: 'border-espresso-800 bg-stone shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
-    off: 'border-line bg-white hover:-translate-y-px hover:border-espresso-800/40 hover:shadow-[0_6px_16px_-8px_rgba(30,22,17,0.25)]',
-    badge: 'h-10 w-10 text-[0.8125rem]',
+    base: 'min-h-[3.375rem] rounded-[1.25rem] border px-3 py-2',
+    on: 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_10px_24px_-14px_rgba(30,22,17,0.45)]',
+    off: 'border-white bg-white/90 shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_2px_4px_rgba(30,22,17,0.06),0_16px_28px_-16px_rgba(30,22,17,0.45)]',
+    badge: 'h-8 w-8 text-[0.75rem]',
     badgeOn: 'bg-espresso-800 text-white',
     badgeOff: 'bg-stone text-espresso-700',
   },
-  5: {
-    base: 'min-h-[3.25rem] rounded-[1rem] border px-3 py-2',
-    on: 'border-espresso-800 bg-espresso-800 [&_.t-title]:text-white [&_.t-text]:text-espresso-200',
-    off: 'border-line bg-paper hover:-translate-y-px hover:border-espresso-800/40 hover:bg-white hover:shadow-[0_6px_16px_-8px_rgba(30,22,17,0.25)]',
-    badge: 'h-7 w-7 text-[0.75rem]',
+  // 2 Milchglas: durchscheinend, unscharfer Hintergrund
+  2: {
+    base: 'min-h-[3.375rem] rounded-[1.375rem] border px-3 py-2 backdrop-blur-md',
+    on: 'border-espresso-800 bg-white/85 shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
+    off: 'border-white/80 bg-white/45 shadow-[0_8px_22px_-16px_rgba(30,22,17,0.4)] hover:-translate-y-0.5 hover:bg-white/75',
+    badge: 'h-8 w-8 border text-[0.75rem]',
+    badgeOn: 'border-espresso-800 bg-espresso-800 text-white',
+    badgeOff: 'border-white bg-white/70 text-espresso-700',
+  },
+  // 3 Pillen mit feiner Kontur, gewählt dunkel gefüllt
+  3: {
+    base: 'min-h-[3.375rem] rounded-[1.75rem] border py-1.5 pl-1.5 pr-4',
+    on: 'border-espresso-800 bg-espresso-800 [&_.t-title]:text-white [&_.t-text]:text-espresso-200 [&_svg]:text-white',
+    off: 'border-espresso-800/20 bg-white/50 hover:-translate-y-0.5 hover:border-espresso-800/45 hover:bg-white/80',
+    badge: 'h-10 w-10 text-[0.8125rem]',
     badgeOn: 'bg-white text-espresso-900',
     badgeOff: 'bg-espresso-800 text-caramel-200',
+  },
+  // 4 Weiße Felder mit großem kursivem Buchstaben, leicht versetzt
+  4: {
+    base: 'min-h-[3.375rem] rounded-[1.5rem] border px-3.5 py-2',
+    on: 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800)]',
+    off: 'border-line/70 bg-white shadow-[0_6px_18px_-14px_rgba(30,22,17,0.4)] hover:translate-x-1 hover:border-espresso-800/30',
+    badge: 'h-8 w-6 font-serif text-[1.375rem] font-normal italic',
+    badgeOn: 'text-espresso-900',
+    badgeOff: 'text-caramel-600',
   },
 }
 
