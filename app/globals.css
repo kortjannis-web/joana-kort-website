@@ -4,7 +4,7 @@
    Designsystem Joana Kort Stressberatung
    Farben aus Joanas eigenen Materialien (Stresstagebuch, Tagesplaner):
    Papier #FBF8F3 · Espresso #2A211B (Marke, dunkle Flächen, Text) · Karamell #8F6A44 (Akzent)
-   Beige #F5EDE3 (Flächen) · Greige #E9E3DA (Kontrastflächen) · Bordeaux #7F2537 (nur Funnel-Schritte)
+   Beige #F5EDE3 (Flächen) · Greige #E9E3DA (Kontrastflächen) · Bordeaux #7C2430 (nur Funnel-Schritte)
    Breakpoints: mobil < 768 (Basis) · md 768 bis 1199 (Tablet) · xl ab 1200 (Desktop)
    ------------------------------------------------------------------ */
 
@@ -51,8 +51,8 @@
   --color-cta-hover: #3f332a;
   /* Bordeaux statt Orange (Entscheidung 18.10.2026): AUSSCHLIESSLICH erreichte Schritte im Erstgespräch-Funnel.
      bright = auf dunklen Flächen (Kopf des Funnels), weiße Schrift darauf */
-  --color-bordeaux: #7f2537;
-  --color-bordeaux-bright: #a3354b;
+  --color-bordeaux: #7c2430;
+  --color-bordeaux-bright: #a1343f;
 
   --color-ink: #2a211b;
   --color-muted: #6a5d53;
@@ -1271,15 +1271,15 @@ html:not([data-hydrated]) [data-reveal] {
 @keyframes fstep-pop {
   0% {
     transform: scale(0.82);
-    box-shadow: 0 0 0 0 rgb(163 53 75 / 0);
+    box-shadow: 0 0 0 0 rgb(161 52 63 / 0);
   }
   55% {
     transform: scale(1.14);
-    box-shadow: 0 0 18px 2px rgb(163 53 75 / 0.55);
+    box-shadow: 0 0 18px 2px rgb(161 52 63 / 0.55);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 0 12px 0 rgb(163 53 75 / 0.35);
+    box-shadow: 0 0 12px 0 rgb(161 52 63 / 0.35);
   }
 }
 @keyframes fstep-ring {
@@ -1382,7 +1382,7 @@ html:not([data-hydrated]) [data-reveal] {
 }
 .fk-knob {
   transition: width 0.55s var(--ease-lift);
-  box-shadow: 0 0 14px 0 rgb(163 53 75 / 0.4);
+  box-shadow: 0 0 14px 0 rgb(161 52 63 / 0.4);
 }
 .fk-knob-tap {
   animation: fk-knob-tap 0.7s var(--ease-lift) 0.3s both;
@@ -1390,18 +1390,18 @@ html:not([data-hydrated]) [data-reveal] {
 @keyframes fk-tap {
   0% {
     transform: translateY(0) scale(0.86);
-    box-shadow: 0 0 0 0 rgb(163 53 75 / 0);
+    box-shadow: 0 0 0 0 rgb(161 52 63 / 0);
   }
   40% {
     transform: translateY(-5px) scale(1.14);
-    box-shadow: 0 0 18px 2px rgb(163 53 75 / 0.55);
+    box-shadow: 0 0 18px 2px rgb(161 52 63 / 0.55);
   }
   70% {
     transform: translateY(1px) scale(0.96);
   }
   100% {
     transform: none;
-    box-shadow: 0 0 12px 0 rgb(163 53 75 / 0.35);
+    box-shadow: 0 0 12px 0 rgb(161 52 63 / 0.35);
   }
 }
 @keyframes fk-seg-tap {
@@ -1410,7 +1410,7 @@ html:not([data-hydrated]) [data-reveal] {
   }
   40% {
     transform: scaleY(2);
-    box-shadow: 0 0 12px 1px rgb(163 53 75 / 0.6);
+    box-shadow: 0 0 12px 1px rgb(161 52 63 / 0.6);
   }
   100% {
     transform: scaleY(1);
@@ -1418,14 +1418,14 @@ html:not([data-hydrated]) [data-reveal] {
 }
 @keyframes fk-knob-tap {
   0% {
-    box-shadow: 0 0 0 0 rgb(200 96 118 / 0.8);
+    box-shadow: 0 0 0 0 rgb(196 94 102 / 0.8);
     transform: scale(1);
   }
   35% {
     transform: scale(1.04, 1.18);
   }
   100% {
-    box-shadow: 0 0 0 10px rgb(200 96 118 / 0);
+    box-shadow: 0 0 0 10px rgb(196 94 102 / 0);
     transform: scale(1);
   }
 }
