@@ -53,7 +53,7 @@ export default function FaqPage() {
           >
             <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
               <Reveal className="lg:col-span-5 xl:col-span-4">
-                <p className="t-label text-bordeaux">
+                <p className="t-label text-caramel-700">
                   Thema {i + 1} von {FAQ_GRUPPEN.length}
                 </p>
                 <h2 id={`${g.id}-title`} className="t-h2 mt-3 text-espresso-900">
@@ -65,7 +65,7 @@ export default function FaqPage() {
                       <a
                         key={x.id}
                         href={`#${x.id}`}
-                        className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-bordeaux md:px-4 md:py-2 md:text-[0.9375rem]"
+                        className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-900 transition-colors hover:border-caramel-500 hover:text-caramel-800 md:px-4 md:py-2 md:text-[0.9375rem]"
                       >
                         {x.title}
                       </a>

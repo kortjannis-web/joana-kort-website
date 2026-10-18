@@ -147,7 +147,7 @@ export default function MethodenPage() {
         <section aria-labelledby="individuell" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-12 xl:gap-x-16">
             <Reveal className="lg:col-span-5">
-              <p className="t-label text-bordeaux">Individuell statt Einheitslösung</p>
+              <p className="t-label text-caramel-700">Individuell statt Einheitslösung</p>
               <h2 id="individuell" className="t-h2 mt-3 text-espresso-900">
                 Nicht jede Person bekommt <span className="text-caramel-600">dieselben</span> Methoden
               </h2>

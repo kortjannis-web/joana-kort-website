@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { StackBack } from './Stack'
-import { Swoosh } from './Swoosh'
+import { HeroLine } from './HeroLine'
 import { cn } from '@/lib/utils'
 
 export type HeroImage = {
@@ -72,7 +72,7 @@ export function PageHero({
               {/* Weiches Licht links oben, warmer Schimmer rechts unten (wie Startseite) */}
               <div className="absolute -left-[12%] -top-[22%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(255_255_255/0.8),rgb(255_255_255/0)_70%)] blur-2xl" />
               <div className="absolute -bottom-[30%] -right-[10%] h-[75%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(214_184_146/0.3),transparent)] blur-2xl" />
-              <Swoosh variant="page" draw className="text-caramel-500/45" />
+              <HeroLine variant="page" draw className="text-caramel-500/35" />
             </>
           )}
         </div>
@@ -86,7 +86,7 @@ export function PageHero({
         >
           <div className={cn('max-w-[46rem]', aside && 'xl:col-span-7')}>
             <div className="max-md:-translate-y-[24px]">
-              {eyebrow && <p className={cn('intro-rise t-label [--d:0s]', image ? 'text-caramel-300' : 'text-bordeaux')}>{eyebrow}</p>}
+              {eyebrow && <p className={cn('intro-rise t-label [--d:0s]', image ? 'text-caramel-300' : 'text-caramel-700')}>{eyebrow}</p>}
               <h1
                 id={id}
                 className={cn(

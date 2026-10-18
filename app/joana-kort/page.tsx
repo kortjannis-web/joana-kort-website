@@ -109,7 +109,7 @@ export default function UeberMichPage() {
         <section aria-labelledby="fakten-title" className="sec">
           <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-[22rem_minmax(0,1fr)] xl:gap-x-20">
             <Reveal>
-              <p className="t-label text-bordeaux">Auf einen Blick</p>
+              <p className="t-label text-caramel-700">Auf einen Blick</p>
               <h2 id="fakten-title" className="t-h2 mt-3 text-espresso-900 xl:mt-4">
                 Fakten
               </h2>
@@ -146,7 +146,7 @@ export default function UeberMichPage() {
                 { href: '/stress-verstehen/', t: 'Stress verstehen', d: 'Wie Stress entsteht, einfach erklärt' },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="group rounded-lg bg-white px-4 py-3 transition-transform duration-500 hover:-translate-y-1 md:p-5">
-                  <span className="block font-serif text-[1.2rem] text-espresso-900 group-hover:text-bordeaux md:text-[1.3rem]">{l.t}</span>
+                  <span className="block font-serif text-[1.2rem] text-espresso-900 group-hover:text-caramel-800 md:text-[1.3rem]">{l.t}</span>
                   <span className="mt-0.5 block text-[0.875rem] text-muted md:mt-1 md:text-[0.9375rem]">{l.d}</span>
                 </Link>
               ))}

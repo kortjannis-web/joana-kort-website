@@ -50,7 +50,7 @@ export function Offer() {
       <div className="wrap">
         <Reveal className="flex items-end justify-between gap-6 md:gap-10">
           <div>
-            <p className="t-label text-bordeaux">Angebote</p>
+            <p className="t-label text-caramel-700">Angebote</p>
             <h2 id="angebot-title" className="t-h2 mt-3 max-w-[22ch] text-espresso-900">
               Drei Wege, Ihren Stress <em className="italic text-caramel-600">anzugehen</em>
             </h2>
@@ -103,7 +103,7 @@ export function Offer() {
                   href={path}
                   className={cn(
                     'mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold underline underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit]',
-                    main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200' : 'text-espresso-800 decoration-bordeaux/45 hover:text-bordeaux'
+                    main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200' : 'text-espresso-800 decoration-caramel-500/60 hover:text-caramel-800'
                   )}
                 >
                   Mehr erfahren

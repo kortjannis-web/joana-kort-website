@@ -33,7 +33,7 @@ const FAQS = [FAQ_ABLAUF[0], FAQ_ABLAUF[3], FAQ_FORMAT[4]]
 
 /** Kontaktwege: Handy/Tablet untereinander neben dem Ablauf, ab Desktop drei Spalten */
 const ITEM = 'flex flex-col gap-1 border-b border-line pb-[clamp(0.5rem,2svh,1.25rem)] xl:border-b-0 xl:pb-0'
-const LABEL = 'flex items-center gap-2.5 text-bordeaux'
+const LABEL = 'flex items-center gap-2.5 text-caramel-700'
 
 /** So läuft es ab (drei Schritte): ab Desktop neben dem Fragebogen, auf Handy/Tablet in der folgenden Section */
 function Ablauf() {
@@ -133,7 +133,7 @@ export default function ErstgespraechPage() {
         <section id="kontaktformular" aria-labelledby="kf-title" className="sec scroll-mt-24">
           <div className="wrap grid items-start gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
             <Reveal className="lg:col-span-5">
-              <p className="t-label text-bordeaux">Kontaktformular</p>
+              <p className="t-label text-caramel-700">Kontaktformular</p>
               <h2 id="kf-title" className="t-h2 mt-3 text-espresso-900">
                 Eine Frage vorab?
               </h2>

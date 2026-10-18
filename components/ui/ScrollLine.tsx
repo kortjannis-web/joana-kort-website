@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 /**
  * Begleit-Linie (Thema der Startseite, viermal verteilt): das Motiv der Hero-Schwunglinie kehrt im Hintergrund einer Section wieder.
  * Beim Runterscrollen zeichnet sich die Linie mit (Fortschritt --p), wandert leicht mit nach unten (begleitet den Blick) und ein
- * kleiner Bordeaux-Punkt reitet auf ihrer Spitze. Eine feine Bordeaux-Linie folgt etwas versetzt.
+ * kleiner oranger Punkt (Amber) reitet auf ihrer Spitze. Eine feine Amber-Linie folgt etwas versetzt.
  * Ohne JS und bei reduzierter Bewegung: fertig gezeichnete, ruhige Linie ohne Punkt. Liegt hinter dem Inhalt (Section braucht relative + isolate).
  * Pfade: Desktop 1440 × 900, Handy 400 × 900 (gleichmäßig skaliert, slice), Linien laufen am Rand und kreuzen den Text höchstens unten einmal.
  */
@@ -89,7 +89,7 @@ export function ScrollLine({ variant = 'a', className }: { variant?: keyof typeo
   const svg = (d: string, box: string, cls: string) => (
     <svg viewBox={box} preserveAspectRatio="xMidYMid slice" className={cn('absolute inset-0 h-full w-full', cls)} fill="none">
       <path className="sl-main" d={d} pathLength={1} stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path className="sl-accent stroke-bordeaux" d={d} pathLength={1} strokeOpacity="0.5" strokeWidth="1.1" strokeLinecap="round" transform="translate(14 22)" />
+      <path className="sl-accent stroke-amber" d={d} pathLength={1} strokeOpacity="0.5" strokeWidth="1.1" strokeLinecap="round" transform="translate(14 22)" />
     </svg>
   )
   return (
@@ -97,7 +97,7 @@ export function ScrollLine({ variant = 'a', className }: { variant?: keyof typeo
       <div className="sl-drift absolute inset-0">
         {svg(l.desk, '0 0 1440 900', 'hidden md:block')}
         {svg(l.mob, '0 0 400 900', 'md:hidden')}
-        <span ref={dot} className="sl-dot absolute left-0 top-0 -ml-[5px] -mt-[5px] h-2.5 w-2.5 rounded-full bg-bordeaux-bright opacity-0" />
+        <span ref={dot} className="sl-dot absolute left-0 top-0 -ml-[5px] -mt-[5px] h-2.5 w-2.5 rounded-full bg-amber opacity-0" />
       </div>
     </div>
   )

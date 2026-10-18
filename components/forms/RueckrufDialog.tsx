@@ -80,7 +80,7 @@ export function RueckrufDialog() {
           >
             {done ? (
               <div className="pl-1">
-                <CheckCircle2 className="h-9 w-9 text-bordeaux" strokeWidth={1.5} aria-hidden="true" />
+                <CheckCircle2 className="h-9 w-9 text-ok" strokeWidth={1.5} aria-hidden="true" />
                 <p role="heading" aria-level={3} className="mt-3 font-serif text-[1.25rem] leading-snug text-espresso-900">
                   Danke{vorname ? `, ${vorname}` : ''}! Ich rufe Sie persönlich zurück.
                 </p>

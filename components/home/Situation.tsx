@@ -15,7 +15,7 @@ export function Situation() {
       <ScrollLine variant="a" />
       <div className="wrap grid gap-[var(--sec-gap)] md:grid-cols-2 md:gap-x-10 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] xl:gap-x-16">
         <Reveal className="md:col-span-2">
-          <p className="t-label text-bordeaux">Kennen Sie das?</p>
+          <p className="t-label text-caramel-700">Kennen Sie das?</p>
           <h2 id="situation-title" className="t-h2 mt-3 max-w-[24ch] text-espresso-900 xl:max-w-[30ch]">
             Sie wissen, dass Sie Stress haben. Nur nicht, wie Sie <em className="italic text-caramel-600">etwas verändern</em> können.
           </h2>

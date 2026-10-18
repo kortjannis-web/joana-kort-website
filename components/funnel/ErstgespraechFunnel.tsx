@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
    Nach dem Absenden freiwillig: Beruf oder Branche, Altersgruppe, Ort, Nachricht (eigene Anfrage "ergaenzung" mit Bezug auf die id).
    Datensparsam: keine Gesundheitsfragen, kein Geburtsdatum. Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO (Hinweis statt Häkchen).
    Offener Block (Regel für Fragebögen und Infoblöcke): nur der Kopf ist ein dunkler, abgerundeter Block mit Versprechen und
-   Schrittpunkten (offen Braun, erreicht Bordeaux). Frage, Text und Antworten stehen frei darunter, jede Antwort als eigenes rundes Feld.
+   Schrittpunkten (offen Braun, erreicht Amber). Frage, Text und Antworten stehen frei darunter, jede Antwort als eigenes rundes Feld.
    ===================================================================== */
 
 type Kanal = 'Telefon' | 'E-Mail'
@@ -297,7 +297,7 @@ export function ErstgespraechFunnel({
                 className={cn(inputCls, 'field-in')}
               />
             )}
-            <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted">
+            <p className="mt-1.5 text-[0.8125rem] leading-snug text-muted lowlg:hidden">
               {s.kanal === 'Telefon' ? 'Ich rufe Sie zurück und wir sprechen 15 Minuten.' : 'Sie erhalten von mir Terminvorschläge per E-Mail.'}
             </p>
           </div>
@@ -334,7 +334,7 @@ export function ErstgespraechFunnel({
         {glow}
         <Head labels={labels} current={step} done={done} />
       </div>
-      <div ref={bodyRef} className={cn('min-h-0 px-2 pt-6', bodyClassName)}>
+      <div ref={bodyRef} className={cn('min-h-0 px-2 pt-6 lowlg:pt-4', bodyClassName)}>
         {form}
         {result}
       </div>
@@ -363,7 +363,7 @@ function StepCount({ current, done }: { current: number; done: boolean }) {
 /** Dunkler Kopf: Versprechen und große Schrittpunkte */
 function Head({ labels, current, done }: { labels: string[]; current: number; done: boolean }) {
   return (
-    <div className="px-6 pb-[1.125rem] pt-[1.125rem]">
+    <div className="px-6 pb-[1.125rem] pt-[1.125rem] lowlg:pb-3.5 lowlg:pt-3.5">
       <div className="flex items-center justify-between gap-4">
         <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">Kostenlos · {site.erstgespraechMin} Minuten</span>
         <StepCount current={current} done={done} />
@@ -377,12 +377,12 @@ function Head({ labels, current, done }: { labels: string[]; current: number; do
 }
 
 /**
- * Schrittpunkte mit Linie: offen Braun, erreicht Bordeaux. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
+ * Schrittpunkte mit Linie: offen Braun, erreicht Amber. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
  * (hüpft kurz und leuchtet auf, .fk-dot in globals.css).
  */
 function Dots({ labels, current }: { labels: string[]; current: number }) {
   return (
-    <ol className="fk-dark mt-3.5 flex items-start" aria-label="Fortschritt">
+    <ol className="fk-dark mt-3.5 flex items-start lowlg:mt-2.5" aria-label="Fortschritt">
       {labels.map((l, i) => {
         const state = i < current ? 'done' : i === current ? 'active' : 'todo'
         return (
@@ -404,7 +404,7 @@ function Dots({ labels, current }: { labels: string[]; current: number }) {
             </span>
             {i < labels.length - 1 && (
               <span aria-hidden="true" className="relative -mx-3 mt-[0.9375rem] h-0.5 flex-1 overflow-hidden rounded-full bg-espresso-600">
-                <span className={cn('fk-fill absolute inset-0 origin-left bg-bordeaux-bright', i < current ? 'scale-x-100' : 'scale-x-0')} />
+                <span className={cn('fk-fill absolute inset-0 origin-left bg-amber', i < current ? 'scale-x-100' : 'scale-x-0')} />
               </span>
             )}
           </li>
@@ -432,7 +432,7 @@ function Done({
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const vorname = s.name.trim().split(/\s+/)[0]
   const inp = cn(inputCls, 'h-10')
-  const fieldCls = 'mt-2.5'
+  const fieldCls = 'mt-2.5 lowlg:mt-1.5'
 
   const send = async (e: FormEvent) => {
     e.preventDefault()
@@ -467,7 +467,7 @@ function Done({
     <div>
       <div className="flex items-center gap-3">
         <LogoDraw play className="h-7 text-caramel-600" />
-        <p className="t-label text-bordeaux">Anfrage erhalten</p>
+        <p className="t-label text-caramel-700">Anfrage erhalten</p>
       </div>
       <Heading headingRef={headingRef} level={level} srOnly={open}>
         Danke{vorname ? `, ${vorname}` : ''}! Ich melde mich persönlich bei Ihnen.
@@ -499,7 +499,7 @@ function Done({
           </button>
         ) : (
           <form onSubmit={send} noValidate className="field-in">
-            <p className="text-[0.875rem] leading-snug text-muted">Alles freiwillig, Angaben zur Gesundheit brauche ich nicht.</p>
+            <p className="text-[0.875rem] leading-snug text-muted lowlg:hidden">Alles freiwillig, Angaben zur Gesundheit brauche ich nicht.</p>
             <Field label="Beruf oder Branche" hint="optional" htmlFor={`${P}-beruf`} className={fieldCls}>
               <input id={`${P}-beruf`} autoComplete="organization-title" placeholder="z. B. Lehrerin, Pflege, selbstständig" value={x.beruf} onChange={(e) => setX({ ...x, beruf: e.target.value })} className={inp} />
             </Field>
@@ -566,7 +566,7 @@ function Step({ title, sub, children, headingRef, level }: { title: string; sub?
       <Heading headingRef={headingRef} level={level}>
         {title}
       </Heading>
-      {sub && <p className="mt-1 text-[0.875rem] leading-snug text-muted">{sub}</p>}
+      {sub && <p className="mt-1 text-[0.875rem] leading-snug text-muted lowlg:hidden">{sub}</p>}
       <div className="mt-3">{children}</div>
     </div>
   )
@@ -594,14 +594,14 @@ function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selecte
         'tile-in group flex min-h-[3.375rem] w-full items-center gap-3 rounded-[1.5rem] border px-4 py-2 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
         selected
           ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_10px_24px_-14px_rgba(30,22,17,0.5)]'
-          : 'border-line/70 bg-white shadow-[0_2px_4px_rgba(30,22,17,0.05),0_10px_24px_-14px_rgba(30,22,17,0.5)] hover:translate-x-1 hover:border-bordeaux/30'
+          : 'border-line/70 bg-white shadow-[0_2px_4px_rgba(30,22,17,0.05),0_10px_24px_-14px_rgba(30,22,17,0.5)] hover:translate-x-1 hover:border-espresso-800/30'
       )}
     >
       <span
         aria-hidden="true"
         className={cn(
           'grid h-8 w-6 shrink-0 place-items-center font-serif text-[1.375rem] italic transition-colors duration-300',
-          selected ? 'text-espresso-900' : 'text-bordeaux'
+          selected ? 'text-espresso-900' : 'text-caramel-600'
         )}
       >
         {selected ? <Check className="h-4 w-4" strokeWidth={2.5} /> : String.fromCharCode(65 + i)}

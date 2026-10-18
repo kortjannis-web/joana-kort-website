@@ -89,7 +89,7 @@ export default function QualifikationenPage() {
         }
         aside={
           <dl className="frame-soft rounded-lg bg-white/90 p-6 shadow-[0_24px_48px_-28px_rgba(30,22,17,0.45)]">
-            <p className="t-label text-bordeaux">Auf einen Blick</p>
+            <p className="t-label text-caramel-700">Auf einen Blick</p>
             {[
               ['Name', site.owner],
               ['Bezeichnung', ROLE.short],
@@ -110,7 +110,7 @@ export default function QualifikationenPage() {
           <section aria-labelledby="qualifikationen" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
             <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
               <Reveal className="lg:col-span-5">
-                <p className="t-label text-bordeaux">Ausbildung</p>
+                <p className="t-label text-caramel-700">Ausbildung</p>
                 <h2 id="qualifikationen" className="t-h2 mt-3 text-espresso-900">
                   Meine <span className="text-caramel-600">Qualifikationen</span>
                 </h2>
@@ -182,7 +182,7 @@ export default function QualifikationenPage() {
           <section aria-labelledby="trainings" className="sec">
             <div className="wrap">
               <Reveal className="max-w-[44rem]">
-                <p className="t-label text-bordeaux">Referenzen</p>
+                <p className="t-label text-caramel-700">Referenzen</p>
                 <h2 id="trainings" className="t-h2 mt-3 text-espresso-900">
                   Schulungen und Trainings
                 </h2>

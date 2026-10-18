@@ -18,7 +18,7 @@ export function AboutArea() {
         <div className="wrap w-full">
           <div className="grid gap-[clamp(1rem,2.5svh,1.5rem)] md:grid-cols-2 md:grid-rows-[auto_1fr] md:gap-x-12 md:gap-y-0 xl:mx-auto xl:max-w-[70rem] xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] xl:gap-x-20">
             <Reveal className="md:col-start-2 md:row-start-1">
-              <p className="t-label text-bordeaux">Über mich</p>
+              <p className="t-label text-caramel-700">Über mich</p>
               <h2 id="ueber-title" className="t-h2 mt-3 text-espresso-900">
                 Ich bin Joana Kort und kenne Stress nicht nur aus dem <em className="italic text-caramel-600">Lehrbuch</em>
               </h2>
@@ -69,11 +69,11 @@ export function AboutArea() {
                 ))}
               </ul>
               <div className="mt-[clamp(0.5rem,2svh,1.5rem)] flex flex-wrap gap-x-6">
-                <Link href="/stressberatung-gummersbach/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-bordeaux">
+                <Link href="/stressberatung-gummersbach/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
                   Vor Ort in {site.address.city}
                   <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
                 </Link>
-                <Link href="/stressberatung-online/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-bordeaux">
+                <Link href="/stressberatung-online/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
                   <MonitorSmartphone className="h-4 w-4 text-caramel-600" strokeWidth={1.75} aria-hidden="true" />
                   Online per Video
                   <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />

@@ -26,7 +26,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
     >
       <div className="wrap">
         <Reveal className="max-w-[46rem]">
-          <p className="t-label text-bordeaux">Mein Konzept</p>
+          <p className="t-label text-caramel-700">Mein Konzept</p>
           <h2 id="schwerpunkte-title" className="t-h2 mt-3 text-espresso-900">
             {title ?? (
               <>

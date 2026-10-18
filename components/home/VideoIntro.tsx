@@ -63,7 +63,7 @@ export function VideoIntro() {
         </Reveal>
 
         <Reveal delay={0.1} className="lg:col-span-5">
-          <p className="t-label text-bordeaux">Persönlich vorgestellt</p>
+          <p className="t-label text-caramel-700">Persönlich vorgestellt</p>
           <h2 id="video-title" className="t-h2 mt-3 text-espresso-900">
             Lernen Sie mich <em className="italic text-caramel-600">kennen</em>
           </h2>

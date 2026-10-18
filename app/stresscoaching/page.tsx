@@ -120,7 +120,7 @@ export default function StresscoachingPage() {
           <div className="wrap grid gap-x-10 lg:grid-cols-12 lg:items-center xl:gap-x-12">
             <div className="lg:col-span-4">
               <Reveal>
-                <p className="t-label text-bordeaux">Zwei Programme</p>
+                <p className="t-label text-caramel-700">Zwei Programme</p>
                 <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
                   Wöchentlich oder alle zwei Wochen
                 </h2>

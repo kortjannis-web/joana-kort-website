@@ -73,7 +73,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
                 <p className="text-[0.875rem] leading-snug text-muted">
                   <Link
                     href="/joana-kort/"
-                    className="font-semibold text-espresso-900 underline-offset-[0.2em] transition-colors duration-500 hover:text-bordeaux hover:underline"
+                    className="font-semibold text-espresso-900 underline-offset-[0.2em] transition-colors duration-500 hover:text-caramel-800 hover:underline"
                   >
                     Joana Kort
                   </Link>
@@ -99,7 +99,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
             {/* Inhaltsverzeichnis als Kapitel-Knöpfe: Handy/Tablet als umbrechende Reihe, ab Desktop links mitlaufend (TocNav hebt das aktuelle Kapitel hervor) */}
             <nav aria-labelledby="toc-title" className="xl:col-span-3 xl:col-start-1 xl:row-span-2 xl:row-start-1">
               <div className="xl:sticky xl:top-28">
-                <p id="toc-title" className="t-label text-bordeaux">
+                <p id="toc-title" className="t-label text-caramel-700">
                   Inhalt
                 </p>
                 <TocNav items={toc.map((h) => ({ id: h.id, text: h.text }))} />

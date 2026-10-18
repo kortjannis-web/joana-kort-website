@@ -109,7 +109,7 @@ export function OfferLayout({
                 <dl className="grid gap-1.5">
                   {facts.slice(0, 3).map(([k, v]) => (
                     <OpenItem key={k} className="flex flex-col gap-0.5 py-[clamp(0.5rem,1.4svh,0.875rem)] sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-                      <dt className="t-label text-[0.6875rem] text-bordeaux">{k}</dt>
+                      <dt className="t-label text-[0.6875rem] text-caramel-700">{k}</dt>
                       <dd className="font-semibold text-espresso-900 sm:text-right">{v}</dd>
                     </OpenItem>
                   ))}

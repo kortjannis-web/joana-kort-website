@@ -81,7 +81,7 @@ function OfferCard({ a, main = false }: { a: Angebot; main?: boolean }) {
         href={a.path}
         className={cn(
           'mt-[clamp(0.75rem,2.5svh,1.5rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold underline underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit]',
-          main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200 lg:mt-0 lg:self-auto' : 'text-espresso-800 decoration-bordeaux/45 hover:text-bordeaux'
+          main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200 lg:mt-0 lg:self-auto' : 'text-espresso-800 decoration-caramel-500/60 hover:text-caramel-800'
         )}
       >
         Mehr erfahren
@@ -136,7 +136,7 @@ export default function AngebotePage() {
         <section aria-labelledby="formate" className="sec bg-greige">
           <div className="wrap">
             <Reveal>
-              <p className="t-label text-bordeaux">Weitere Formate</p>
+              <p className="t-label text-caramel-700">Weitere Formate</p>
               <h2 id="formate" className="t-h2 mt-3 text-espresso-900">
                 Zu zweit, in der Gruppe, <em className="italic text-caramel-600">online</em> oder im Team
               </h2>
@@ -168,7 +168,7 @@ export default function AngebotePage() {
                   <li key={w.href}>
                     <Link href={w.href} className="group flex min-h-[clamp(3.5rem,8svh,4.5rem)] items-center justify-between gap-4 border-b border-line py-2.5 max-sm:flex-col max-sm:items-start max-sm:gap-1">
                       <span className="text-[0.9375rem] leading-snug text-ink/85 md:text-base">{w.frage}</span>
-                      <span className="flex shrink-0 items-center gap-2 font-semibold text-espresso-900 transition-colors duration-500 group-hover:text-bordeaux">
+                      <span className="flex shrink-0 items-center gap-2 font-semibold text-espresso-900 transition-colors duration-500 group-hover:text-caramel-800">
                         {w.ziel}
                         <ArrowRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                       </span>
