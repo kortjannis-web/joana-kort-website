@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, BookOpen, Building2, ChevronDown, ChevronRight, GraduationCap, Layers, Mail, MonitorPlay, User, Wrench } from 'lucide-react'
+import { BookOpen, CalendarDays, Building2, ChevronDown, ChevronRight, GraduationCap, Layers, Mail, MonitorPlay, User, Wrench } from 'lucide-react'
 import { Logo } from './Logo'
 import { MAIN_NAV, type NavGroup } from './nav'
 import { MobileMenu } from './MobileMenu'
@@ -23,7 +23,7 @@ const ICONS: Record<string, typeof User> = {
 }
 
 /**
- * Header-CTA "Kostenloses Erstgespräch" (Briefing Ä6: keine Anruf-Funktion). Steht auf der Seite ein Funnel (Startseite), scrollt der Klick
+ * Header-CTA "Kostenloses Erstgespräch" bzw. "Termin buchen" mit Kalender-Symbol (Anrufen nur über den Telefon-Knopf unten rechts). Steht auf der Seite ein Funnel (Startseite), scrollt der Klick
  * dorthin und lässt ihn aufleuchten, sonst führt er zur Erstgespräch-Seite.
  */
 function CtaLink({ className, children, tabIndex, hidden }: { className: string; children: React.ReactNode; tabIndex?: number; hidden?: boolean }) {
@@ -50,7 +50,7 @@ function CtaLink({ className, children, tabIndex, hidden }: { className: string;
 /**
  * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Leiste in der Mitte (E-Mail am Ende), "Kostenloses Erstgespräch" rechts.
  * Über dem hellen Hero transparent, sobald sich das Sheet darunter schiebt, Papier mit feiner Linie und Schatten.
- * Handy: Leiste mit E-Mail + Menü. Beim Runterscrollen fährt "Erstgespräch" aus dem Menü-Knopf heraus, die Pille wächst bis kurz hinter das Logo,
+ * Handy: Leiste mit E-Mail + Menü. Beim Runterscrollen fährt "Termin buchen" (Kalender-Symbol) aus dem Menü-Knopf heraus, die Pille wächst bis kurz hinter das Logo,
  * beim Hochscrollen fährt sie wieder ein (Toleranz 12 px ab dem Wendepunkt).
  */
 export function Header() {
@@ -163,9 +163,9 @@ export function Header() {
         <div className={cn(intro && 'intro-down [--d:0.6s]', 'flex items-center gap-2 justify-self-end md:gap-3')}>
           {/* Tablet und Desktop: Erstgespräch immer sichtbar */}
           <CtaLink className="btn-cta group hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-md px-6 text-[0.9375rem] font-semibold shadow-[0_8px_18px_-10px_rgba(20,14,10,0.55)] transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
-            <span className="xl:hidden">Erstgespräch</span>
+            <CalendarDays className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
+            <span className="xl:hidden">Termin buchen</span>
             <span className="hidden xl:inline">{CTA_LABEL}</span>
-            <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
           </CtaLink>
           {/* Handy/Tablet: Pille mit E-Mail + Menü. Handy: fester Platz, die Pille wächst nach links bis kurz hinter das Logo */}
           <div ref={slotRef} className="relative h-[3.375rem] w-[6.5rem] shrink-0 md:h-auto md:w-auto xl:hidden">
@@ -180,7 +180,7 @@ export function Header() {
               <a href={`mailto:${site.email}`} aria-label={`E-Mail schreiben: ${site.email}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-md text-espresso-800">
                 <Mail className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} />
               </a>
-              {/* Handy: "Erstgespräch" liegt unter dem Menü-Knopf und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
+              {/* Handy: "Termin buchen" liegt unter dem Menü-Knopf und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
                   deckt dabei den E-Mail-Knopf ab, Inhalt steht fest, die runde linke Kante gibt ihn frei bzw. nimmt ihn beim Einfahren mit in den Kreis) */}
               <CtaLink
                 tabIndex={expanded ? 0 : -1}
@@ -191,9 +191,9 @@ export function Header() {
                   expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
                 )}
               >
-                <span className="absolute inset-y-0 right-11 flex w-[calc(var(--pill-w,15rem)-52px)] items-center justify-center gap-2 whitespace-nowrap">
-                  Erstgespräch
-                  <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+                <span className="absolute inset-y-0 right-12 flex w-[calc(var(--pill-w,15rem)-56px)] items-center justify-center gap-1.5 whitespace-nowrap text-[0.875rem]">
+                  <CalendarDays className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
+                  Termin buchen
                 </span>
               </CtaLink>
               <span className="relative z-10 ml-auto shrink-0">
