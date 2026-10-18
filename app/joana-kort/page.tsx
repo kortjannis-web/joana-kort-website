@@ -109,7 +109,7 @@ export default function UeberMichPage() {
         <section aria-labelledby="fakten-title" className="sec">
           <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-[22rem_minmax(0,1fr)] xl:gap-x-20">
             <Reveal>
-              <p className="t-label text-caramel-700">Auf einen Blick</p>
+              <p className="t-label text-bordeaux">Auf einen Blick</p>
               <h2 id="fakten-title" className="t-h2 mt-3 text-espresso-900 xl:mt-4">
                 Fakten
               </h2>
@@ -139,14 +139,14 @@ export default function UeberMichPage() {
               <h2 className="t-h2 max-w-[22ch] text-espresso-900">Lernen wir uns in 15 Minuten kennen</h2>
               <CtaRow className="mt-[clamp(0.75rem,2.5svh,1.5rem)]" />
             </Reveal>
-            <Reveal className="grid gap-2 rounded-xl border border-line bg-stone p-3 md:grid-cols-3 md:gap-4 md:p-[clamp(1.25rem,3svh,2rem)]">
+            <Reveal className="floaty grid gap-2 rounded-xl border border-line bg-stone p-3 md:grid-cols-3 md:gap-4 md:p-[clamp(1.25rem,3svh,2rem)]">
               {[
                 { href: '/stresscoaching/', t: 'Persönliche Begleitung', d: 'Mein Hauptangebot über 3 oder 6 Monate' },
                 { href: '/mein-ansatz/', t: 'Mein Ansatz', d: 'Verstehen, bewältigen, managen' },
                 { href: '/stress-verstehen/', t: 'Stress verstehen', d: 'Wie Stress entsteht, einfach erklärt' },
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="group rounded-lg bg-white px-4 py-3 transition-transform duration-500 hover:-translate-y-1 md:p-5">
-                  <span className="block font-serif text-[1.2rem] text-espresso-900 group-hover:text-caramel-800 md:text-[1.3rem]">{l.t}</span>
+                  <span className="block font-serif text-[1.2rem] text-espresso-900 group-hover:text-bordeaux md:text-[1.3rem]">{l.t}</span>
                   <span className="mt-0.5 block text-[0.875rem] text-muted md:mt-1 md:text-[0.9375rem]">{l.d}</span>
                 </Link>
               ))}

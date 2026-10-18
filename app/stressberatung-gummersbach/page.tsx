@@ -115,7 +115,7 @@ export default function GummersbachPage() {
                 { href: '/zu-zweit-und-in-der-gruppe/', t: 'Zu zweit oder in der Gruppe' },
                 { href: '/stressmanagement-unternehmen/', t: 'Schulungen für Unternehmen im Oberbergischen' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group flex min-h-12 items-center justify-between gap-3 rounded-md bg-white px-4 text-[0.9375rem] font-semibold md:min-h-14 md:px-5 md:text-base text-espresso-900 transition-colors hover:text-caramel-800">
+                <Link key={l.href} href={l.href} className="group flex min-h-12 items-center justify-between gap-3 rounded-md bg-white px-4 text-[0.9375rem] font-semibold md:min-h-14 md:px-5 md:text-base text-espresso-900 transition-colors hover:text-bordeaux">
                   {l.t}
                   <ArrowRight className="h-4 w-4 shrink-0 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                 </Link>

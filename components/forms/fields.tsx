@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils'
  */
 
 export const inputCls =
-  'block h-12 w-full rounded-full border border-white bg-white/90 px-5 text-base text-ink shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] transition-[border-color,box-shadow,background-color] duration-300 ease-[var(--ease-soft)] placeholder:text-muted/70 hover:border-espresso-700/30 focus:border-espresso-700 focus:bg-white focus:outline-none focus:ring-3 focus:ring-espresso-700/15 group-data-[tone=dark]/ob:bg-white'
+  'block h-12 w-full rounded-full border border-white bg-white/90 px-5 text-base text-ink shadow-[0_2px_4px_rgba(30,22,17,0.06),0_12px_26px_-14px_rgba(30,22,17,0.48)] transition-[border-color,box-shadow,background-color] duration-300 ease-[var(--ease-soft)] placeholder:text-muted/70 hover:border-espresso-700/30 focus:border-espresso-700 focus:bg-white focus:outline-none focus:ring-3 focus:ring-espresso-700/15 group-data-[tone=dark]/ob:bg-white'
 
 /** Hinweistext unter Formularen (Datenschutz, Einwilligung): gedämpft, auf Dunkel hell, Links lesbar */
 export const noteCls =

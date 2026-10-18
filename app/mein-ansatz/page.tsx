@@ -85,7 +85,7 @@ export default function AnsatzPage() {
         <section aria-labelledby="haltung" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap">
             <Reveal>
-              <p className="t-label text-caramel-700">Meine Haltung</p>
+              <p className="t-label text-bordeaux">Meine Haltung</p>
               <h2 id="haltung" className="t-h2 mt-3 max-w-[26ch] text-espresso-900">
                 Was ich über Stress denke und warum das für Sie wichtig ist
               </h2>
@@ -145,7 +145,7 @@ export default function AnsatzPage() {
         <section aria-labelledby="arbeitsweise" className="sec-t pb-[var(--sec-gap)]">
           <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-5">
-              <p className="t-label text-caramel-700">Arbeitsweise</p>
+              <p className="t-label text-bordeaux">Arbeitsweise</p>
               <h2 id="arbeitsweise" className="t-h2 mt-3 text-espresso-900">
                 Beratung und Coaching in einem
               </h2>

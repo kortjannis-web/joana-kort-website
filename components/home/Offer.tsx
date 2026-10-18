@@ -4,6 +4,7 @@ import { Carousel } from '@/components/ui/Carousel'
 import { CtaRow } from '@/components/ui/CtaRow'
 import { Reveal } from '@/components/ui/Reveal'
 import { cn } from '@/lib/utils'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 /**
  * Stufe 5: Das Angebot in drei Wegen (3er-Gruppe, leicht zu merken). Der Hauptweg, die persönliche Begleitung, ist dunkel hervorgehoben.
@@ -44,11 +45,12 @@ const WEGE = [
 
 export function Offer() {
   return (
-    <section aria-labelledby="angebot-title" className="sec bg-greige xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
+    <section aria-labelledby="angebot-title" className="sec relative isolate bg-greige xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
+      <ScrollLine variant="b" className="text-caramel-500/40" />
       <div className="wrap">
         <Reveal className="flex items-end justify-between gap-6 md:gap-10">
           <div>
-            <p className="t-label text-caramel-700">Angebote</p>
+            <p className="t-label text-bordeaux">Angebote</p>
             <h2 id="angebot-title" className="t-h2 mt-3 max-w-[22ch] text-espresso-900">
               Drei Wege, Ihren Stress <em className="italic text-caramel-600">anzugehen</em>
             </h2>
@@ -101,7 +103,7 @@ export function Offer() {
                   href={path}
                   className={cn(
                     'mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold underline underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit]',
-                    main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200' : 'text-espresso-800 decoration-caramel-400/70 hover:text-caramel-800'
+                    main ? 'text-white decoration-caramel-300/60 hover:text-caramel-200' : 'text-espresso-800 decoration-bordeaux/45 hover:text-bordeaux'
                   )}
                 >
                   Mehr erfahren

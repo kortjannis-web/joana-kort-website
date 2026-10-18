@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from 'lucide-react'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
 import { buttonClass } from '@/components/ui/Button'
-import { HeroLine } from '@/components/ui/HeroLine'
+import { Swoosh } from '@/components/ui/Swoosh'
 import { StackBack } from '@/components/ui/Stack'
 import { FunnelCta } from './HeroMotion'
 import { CTA_LABEL, site } from '@/lib/site'
@@ -27,8 +27,8 @@ export function Hero() {
         <div className="paper-grain absolute inset-0 overflow-hidden">
           <div className="intro-fade absolute -left-[12%] -top-[22%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(255_255_255/0.85),rgb(255_255_255/0)_70%)] blur-2xl" />
           <div className="absolute -bottom-[30%] -right-[10%] h-[75%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(214_184_146/0.32),transparent)] blur-2xl" />
-          <HeroLine draw className="hidden text-caramel-500/45 md:block" />
-          <HeroLine variant="mobile" draw className="translate-y-[13svh] text-caramel-500/45 short:hidden md:hidden" />
+          <Swoosh draw className="hidden text-caramel-500/60 md:block" />
+          <Swoosh variant="mobile" draw className="text-caramel-500/60 md:hidden" />
         </div>
 
         <div className="wrap-wide relative flex min-h-[max(34rem,100svh)] flex-col justify-end pb-[calc(var(--sheet-overlap)+2.75rem)] pt-28 md:min-h-[max(36rem,100svh)] lowtab:pt-24 md:justify-center md:pb-[calc(var(--sheet-overlap)+5rem)] xl:h-[max(36rem,100svh)] xl:min-h-0 xl:pb-12 xl:pt-[5.25rem]">
@@ -55,7 +55,7 @@ export function Hero() {
               </FunnelCta>
               <Link
                 href="/angebote/"
-                className="group inline-flex min-h-11 items-center justify-center gap-2 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[6px] transition-colors duration-500 hover:text-caramel-800 sm:justify-start"
+                className="group inline-flex min-h-11 items-center justify-center gap-2 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-[6px] transition-colors duration-500 hover:text-bordeaux sm:justify-start"
               >
                 Angebote ansehen
                 <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />

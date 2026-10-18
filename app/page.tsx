@@ -62,7 +62,7 @@ export default function Home() {
         </div>
         <Offer />
         <WissenTeaser />
-        <Process />
+        <Process line />
         <Tools />
         <AboutArea />
         <FaqSection faqs={HOME_FAQS} title="Die wichtigsten Fragen zu Stressberatung und Stresscoaching" moreLabel={`Alle ${FAQS.length} Fragen und Antworten`} />

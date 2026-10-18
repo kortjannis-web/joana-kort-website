@@ -16,7 +16,7 @@ export function WissenTeaser() {
       <div className="wrap">
         <Reveal className="flex items-end justify-between gap-6 md:gap-10">
           <div className="max-w-[40rem]">
-            <p className="t-label text-caramel-700">Stress verstehen</p>
+            <p className="t-label text-bordeaux">Stress verstehen</p>
             <h2 id="wissen-title" className="t-h2 mt-3 text-espresso-900">
               Was bei Stress <em className="italic text-caramel-600">in Ihnen</em> passiert
             </h2>
@@ -39,7 +39,7 @@ export function WissenTeaser() {
                   <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-muted">{t.kurz}</p>
                   <Link
                     href={`/stress-verstehen/#${t.id}`}
-                    className="mt-[clamp(0.5rem,1.5svh,1.25rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-caramel-800"
+                    className="mt-[clamp(0.5rem,1.5svh,1.25rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-bordeaux"
                   >
                     Ausführlich erklärt
                     <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />

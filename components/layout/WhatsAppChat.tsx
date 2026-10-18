@@ -3,17 +3,18 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
-import { CalendarDays, CalendarHeart, Mail, MessageSquareText, Phone, X } from 'lucide-react'
+import { CalendarDays, CalendarHeart, Mail, Phone, X } from 'lucide-react'
 import { WhatsAppIcon } from '@/components/ui/icons'
 import { buttonClass } from '@/components/ui/Button'
 import { GoogleRating } from '@/components/ui/GoogleRating'
 import { GOOGLE_RATING } from '@/lib/content/reviews'
-import { CALL_HREF, CTA_LABEL, ERSTGESPRAECH, PHONE_DISPLAY, site, whatsappHref } from '@/lib/site'
+import { RueckrufDialog, openRueckruf } from '@/components/forms/RueckrufDialog'
+import { CTA_LABEL, ERSTGESPRAECH, site, whatsappHref } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 /**
- * Kontaktleiste: ab Laptop fest am rechten Rand (Termin buchen, Anrufen, E-Mail, Kontaktformular). Handy/Tablet: runder Telefon-Knopf
- * unten rechts (direkter Anruf). WhatsApp (über das Menü) ohne Fremd-Skript: kleines Fenster mit Begrüßung und Datenschutzhinweis,
+ * Kontaktleiste: ab Laptop fest am rechten Rand (Termin buchen, Rückruf, E-Mail). Handy/Tablet: runder Telefon-Knopf unten rechts.
+ * Telefon heißt Rückruf (Entscheidung 18.10.2026): beide öffnen das Rückruf-Fenster (Name + Nummer, Joana ruft zurück). WhatsApp (über das Menü) ohne Fremd-Skript: kleines Fenster mit Begrüßung und Datenschutzhinweis,
  * erst der Klick auf "Chat starten" öffnet WhatsApp (wa.me). Kein Datenfluss vor dem Klick.
  * Solange es Google-Bewertungen gibt, steht im Hero die Bewertung und der Knopf kommt erst nach dem Hero (wie Vorlage),
  * ohne Bewertungen ist der Knopf von Anfang an da. Ohne Nummer (NEXT_PUBLIC_WHATSAPP) führt "Chat starten" zum Erstgespräch.
@@ -36,7 +37,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
   const [showRating, setShowRating] = useState(false)
   // Knopf liegt über einer dunklen Fläche (Petrol-Section, Footer): leichtes Leuchten von unten, damit er sichtbar bleibt
   const [onDark, setOnDark] = useState(false)
-  const btnRef = useRef<HTMLAnchorElement>(null)
+  const btnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     let raf = 0
@@ -95,6 +96,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
       )}
 
       <ContactRail btnRef={btnRef} showFab={showButton} onDark={onDark} hidden={open} />
+      <RueckrufDialog />
 
       <div
         role="dialog"
@@ -166,19 +168,18 @@ function isDarkAt(x: number, y: number, self: HTMLElement) {
   return false
 }
 
-/** Kontaktwege der Leiste am rechten Rand (Reihenfolge = Wichtigkeit) */
-const RAIL_ITEMS: { label: string; href: string; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[] = [
+/** Kontaktwege der Leiste am rechten Rand (Reihenfolge = Wichtigkeit). Ohne href: öffnet das Rückruf-Fenster */
+const RAIL_ITEMS: { label: string; href?: string; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[] = [
   { label: 'Termin buchen', href: ERSTGESPRAECH, Icon: CalendarDays },
-  { label: `Anrufen: ${PHONE_DISPLAY}`, href: CALL_HREF, Icon: Phone },
+  { label: 'Rückruf anfordern', Icon: Phone },
   { label: 'E-Mail schreiben', href: `mailto:${site.email}`, Icon: Mail },
-  { label: 'Kontaktformular', href: '/erstgespraech/#kontaktformular', Icon: MessageSquareText },
 ]
 
 /**
- * Ab 1280 px: Leiste am rechten Rand (Termin buchen, Anrufen, E-Mail, Kontaktformular), Beschriftung gleitet beim Hover heraus.
- * Darunter: runder Telefon-Knopf unten rechts, ein Tippen ruft Joana direkt an (Entscheidung 18.10.2026).
+ * Ab 1280 px: Leiste am rechten Rand (Termin buchen, Rückruf, E-Mail), Beschriftung gleitet beim Hover heraus.
+ * Darunter (Handy/Tablet): runder Telefon-Knopf unten rechts, öffnet das Rückruf-Fenster.
  */
-function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObject<HTMLAnchorElement | null>; showFab: boolean; onDark: boolean; hidden: boolean }) {
+function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObject<HTMLButtonElement | null>; showFab: boolean; onDark: boolean; hidden: boolean }) {
   return (
     <>
       <nav
@@ -204,6 +205,12 @@ function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObj
               <span className="sr-only">{it.label}</span>
             </>
           )
+          if (!it.href)
+            return (
+              <button key={it.label} type="button" onClick={openRueckruf} className={cls}>
+                {inner}
+              </button>
+            )
           return it.href.startsWith('/') ? (
             <Link key={it.label} href={it.href} className={cls}>
               {inner}
@@ -216,10 +223,11 @@ function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObj
         })}
       </nav>
 
-      <a
+      <button
         ref={btnRef}
-        href={CALL_HREF}
-        aria-label={`Joana anrufen: ${PHONE_DISPLAY}`}
+        type="button"
+        onClick={openRueckruf}
+        aria-label="Rückruf anfordern"
         tabIndex={showFab ? undefined : -1}
         className={cn(
           'fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 inline-flex h-14 w-14 items-center justify-center rounded-full bg-espresso-800 text-white shadow-[0_10px_30px_-8px_rgba(30,22,17,0.55)] ring-1 ring-white/15 transition-[opacity,transform,box-shadow] duration-700 ease-[var(--ease-soft)] md:bottom-6 md:right-6 min-[80rem]:hidden',
@@ -229,7 +237,7 @@ function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObj
         )}
       >
         <Phone className="h-6 w-6" strokeWidth={1.7} aria-hidden="true" />
-      </a>
+      </button>
     </>
   )
 }

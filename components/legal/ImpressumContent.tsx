@@ -8,8 +8,8 @@ import { site } from '@/lib/site'
  */
 export function ImpressumAngaben() {
   const { address } = site
-  const label = 't-label text-[0.75rem] text-caramel-700'
-  const link = 'font-semibold text-espresso-800 underline decoration-caramel-500/50 underline-offset-4 transition-colors duration-300 hover:text-caramel-800'
+  const label = 't-label text-[0.75rem] text-bordeaux'
+  const link = 'font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-4 transition-colors duration-300 hover:text-bordeaux'
 
   return (
     <OpenBlock

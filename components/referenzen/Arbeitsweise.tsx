@@ -34,7 +34,7 @@ export function Arbeitsweise() {
     <section aria-labelledby="arbeitsweise" className="sec bg-greige">
       <div className="wrap">
         <Reveal className="max-w-[44rem]">
-          <p className="t-label text-caramel-700">Arbeitsweise und Stärken</p>
+          <p className="t-label text-bordeaux">Arbeitsweise und Stärken</p>
           <h2 id="arbeitsweise" className="t-h2 mt-3 text-espresso-900">
             Was ich in die <span className="text-caramel-600">Zusammenarbeit</span> mitbringe
           </h2>

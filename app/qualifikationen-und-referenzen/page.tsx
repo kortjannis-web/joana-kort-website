@@ -89,7 +89,7 @@ export default function QualifikationenPage() {
         }
         aside={
           <dl className="frame-soft rounded-lg bg-white/90 p-6 shadow-[0_24px_48px_-28px_rgba(30,22,17,0.45)]">
-            <p className="t-label text-caramel-700">Auf einen Blick</p>
+            <p className="t-label text-bordeaux">Auf einen Blick</p>
             {[
               ['Name', site.owner],
               ['Bezeichnung', ROLE.short],
@@ -110,7 +110,7 @@ export default function QualifikationenPage() {
           <section aria-labelledby="qualifikationen" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
             <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
               <Reveal className="lg:col-span-5">
-                <p className="t-label text-caramel-700">Ausbildung</p>
+                <p className="t-label text-bordeaux">Ausbildung</p>
                 <h2 id="qualifikationen" className="t-h2 mt-3 text-espresso-900">
                   Meine <span className="text-caramel-600">Qualifikationen</span>
                 </h2>
@@ -182,7 +182,7 @@ export default function QualifikationenPage() {
           <section aria-labelledby="trainings" className="sec">
             <div className="wrap">
               <Reveal className="max-w-[44rem]">
-                <p className="t-label text-caramel-700">Referenzen</p>
+                <p className="t-label text-bordeaux">Referenzen</p>
                 <h2 id="trainings" className="t-h2 mt-3 text-espresso-900">
                   Schulungen und Trainings
                 </h2>
@@ -282,7 +282,7 @@ export default function QualifikationenPage() {
                 { href: '/mein-ansatz/', title: 'Mein Ansatz', text: 'Stress verstehen, bewältigen, managen.' },
                 { href: '/ablauf/', title: 'So läuft die Zusammenarbeit ab', text: 'Drei Schritte, mit Beispiel.' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
+                <Link key={l.href} href={l.href} className="group floaty flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
                   <span>
                     <span className="block font-semibold text-espresso-900">{l.title}</span>
                     <span className="mt-1 block text-[0.9375rem] leading-snug text-muted">{l.text}</span>

@@ -46,7 +46,7 @@ export function OpenBlock({
           'grain relative shrink-0 rounded-[1.5rem] px-5 pb-4 pt-4 text-white',
           dark
             ? 'bg-espresso-950/70 ring-1 ring-white/10'
-            : 'bg-espresso-800 shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_40px_-22px_rgba(20,14,10,0.55)]'
+            : 'bg-espresso-800 shadow-[0_3px_6px_rgba(20,14,10,0.14),0_24px_46px_-22px_rgba(20,14,10,0.65)]'
         )}
       >
         {(kicker || aside) && (
@@ -77,7 +77,7 @@ export function OpenItem({ children, className }: { children: ReactNode; classNa
   return (
     <div
       className={cn(
-        'rounded-[1.5rem] border border-white bg-white/90 px-5 py-3 shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)]',
+        'rounded-[1.5rem] border border-white bg-white/90 px-5 py-3 shadow-[0_2px_4px_rgba(30,22,17,0.06),0_12px_26px_-14px_rgba(30,22,17,0.48)]',
         className
       )}
     >

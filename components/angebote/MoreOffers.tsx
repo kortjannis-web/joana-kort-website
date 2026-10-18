@@ -26,7 +26,7 @@ export function MoreOffers({ current, title = 'Weitere Angebote' }: { current?: 
                 <h3 className="mt-2 font-serif text-[1.3rem] leading-tight text-espresso-900">{a.title}</h3>
                 <Link
                   href={a.path}
-                  className="mt-auto inline-flex min-h-11 items-center gap-1.5 self-start pt-4 font-semibold text-espresso-800 transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-caramel-800"
+                  className="mt-auto inline-flex min-h-11 items-center gap-1.5 self-start pt-4 font-semibold text-espresso-800 transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-bordeaux"
                 >
                   Ansehen
                   <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={1.75} aria-hidden="true" />

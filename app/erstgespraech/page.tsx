@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
 import { KontaktForm } from '@/components/forms/KontaktForm'
+import { RueckrufButton } from '@/components/forms/RueckrufDialog'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { FAQ_ABLAUF, FAQ_FORMAT } from '@/lib/content/faqs'
 import { faqSchema } from '@/lib/schema'
@@ -32,7 +33,7 @@ const FAQS = [FAQ_ABLAUF[0], FAQ_ABLAUF[3], FAQ_FORMAT[4]]
 
 /** Kontaktwege: Handy/Tablet untereinander neben dem Ablauf, ab Desktop drei Spalten */
 const ITEM = 'flex flex-col gap-1 border-b border-line pb-[clamp(0.5rem,2svh,1.25rem)] xl:border-b-0 xl:pb-0'
-const LABEL = 'flex items-center gap-2.5 text-caramel-700'
+const LABEL = 'flex items-center gap-2.5 text-bordeaux'
 
 /** So läuft es ab (drei Schritte): ab Desktop neben dem Fragebogen, auf Handy/Tablet in der folgenden Section */
 function Ablauf() {
@@ -93,19 +94,15 @@ export default function ErstgespraechPage() {
             <div className="xl:hidden">
               <Ablauf />
             </div>
-            {/* Drei weitere Wege: anrufen, schreiben, wo (3er-Gruppe) */}
+            {/* Drei weitere Wege: Rückruf, schreiben, wo (3er-Gruppe) */}
             <Reveal delay={0.08} className="grid content-center gap-[clamp(0.5rem,2svh,1.25rem)] xl:grid-cols-3 xl:gap-8">
-              {site.phone && (
-                <div className={ITEM}>
-                  <p className={LABEL}>
-                    <Phone className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
-                    <span className="t-label text-[0.75rem]">Lieber anrufen?</span>
-                  </p>
-                  <a href={site.phone.href} className="link whitespace-nowrap text-[1.0625rem] font-semibold">
-                    {site.phone.display}
-                  </a>
-                </div>
-              )}
+              <div className={ITEM}>
+                <p className={LABEL}>
+                  <Phone className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
+                  <span className="t-label text-[0.75rem]">Lieber zurückgerufen werden?</span>
+                </p>
+                <RueckrufButton className="link self-start text-left text-[1.0625rem] font-semibold">Rückruf anfordern</RueckrufButton>
+              </div>
               <div className={ITEM}>
                 <p className={LABEL}>
                   <Mail className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.75} aria-hidden="true" />
@@ -136,7 +133,7 @@ export default function ErstgespraechPage() {
         <section id="kontaktformular" aria-labelledby="kf-title" className="sec scroll-mt-24">
           <div className="wrap grid items-start gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
             <Reveal className="lg:col-span-5">
-              <p className="t-label text-caramel-700">Kontaktformular</p>
+              <p className="t-label text-bordeaux">Kontaktformular</p>
               <h2 id="kf-title" className="t-h2 mt-3 text-espresso-900">
                 Eine Frage vorab?
               </h2>

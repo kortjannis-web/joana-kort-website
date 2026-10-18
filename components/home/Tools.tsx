@@ -40,7 +40,7 @@ export function Tools() {
     <section aria-labelledby="werkzeuge-title" className="sec overflow-hidden xl:flex xl:min-h-svh xl:items-center">
       <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-x-12 xl:gap-x-16">
         <Reveal className="lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:self-end">
-          <p className="t-label text-caramel-700">Prinzipien und Werkzeuge</p>
+          <p className="t-label text-bordeaux">Prinzipien und Werkzeuge</p>
           <h2 id="werkzeuge-title" className="t-h2 mt-3 text-espresso-900">
             Werkzeuge, die in Ihren <em className="italic text-caramel-600">Alltag</em> passen
           </h2>
@@ -61,7 +61,7 @@ export function Tools() {
           <div className="lg:hidden">
             <Carousel label="Prinzipien" arrowLabel="Prinzipien" item="80vw" itemMd="calc((100% - 2.5rem) / 3)" itemClassName="lift-hover">
               {PRINZIPIEN.map((p) => (
-                <div key={p.title} className="flex h-full gap-4 rounded-lg border border-line bg-white p-4">
+                <div key={p.title} className="floaty flex h-full gap-4 rounded-lg border border-line bg-white p-4">
                   <Prinzip {...p} />
                 </div>
               ))}

@@ -26,7 +26,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
     >
       <div className="wrap">
         <Reveal className="max-w-[46rem]">
-          <p className="t-label text-caramel-700">Mein Konzept</p>
+          <p className="t-label text-bordeaux">Mein Konzept</p>
           <h2 id="schwerpunkte-title" className="t-h2 mt-3 text-espresso-900">
             {title ?? (
               <>
@@ -51,7 +51,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
                     style={{ '--k': i } as React.CSSProperties}
                   />
                 )}
-                <article className="lift-hover relative rounded-lg border border-line bg-white p-[var(--pad)]">
+                <article className="lift-hover floaty relative rounded-lg border border-line bg-white p-[var(--pad)]">
                   <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3.5 pr-10 md:pr-14 gap-y-1 md:grid-cols-[auto_minmax(0,15rem)_minmax(0,1fr)] md:gap-x-7 xl:grid-cols-[auto_minmax(0,17rem)_minmax(0,1fr)]">
                     <span className="grid h-[var(--ic)] w-[var(--ic)] shrink-0 place-items-center rounded-md bg-stone text-caramel-700">
                       <StepIcon nr={p.nr} className="h-7 w-7 md:h-10 md:w-10" />

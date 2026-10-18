@@ -242,7 +242,7 @@ export function ErstgespraechFunnel({
               sub={step === 0 ? 'Drei kurze Fragen, dann melde ich mich persönlich.' : undefined}
               {...h}
             >
-              <div className="grid gap-1.5">
+              <div className="grid gap-2">
                 {q.options.map((o, i) => (
                   <Tile key={o.key} o={o} i={i} selected={s[k] === o.key} onClick={() => choose(k, o.key)} />
                 ))}
@@ -330,11 +330,11 @@ export function ErstgespraechFunnel({
 
   return (
     <div ref={cardRef} className={cn('fk-open group/funnel relative flex flex-col text-ink', className)}>
-      <div className="grain relative shrink-0 rounded-[1.5rem] bg-espresso-800 text-white shadow-[0_2px_4px_rgba(20,14,10,0.1),0_20px_40px_-22px_rgba(20,14,10,0.55)]">
+      <div className="grain relative shrink-0 rounded-[1.625rem] bg-espresso-800 text-white shadow-[0_3px_6px_rgba(20,14,10,0.14),0_24px_46px_-22px_rgba(20,14,10,0.65)]">
         {glow}
         <Head labels={labels} current={step} done={done} />
       </div>
-      <div ref={bodyRef} className={cn('min-h-0 px-1 pt-5', bodyClassName)}>
+      <div ref={bodyRef} className={cn('min-h-0 px-2 pt-6', bodyClassName)}>
         {form}
         {result}
       </div>
@@ -363,7 +363,7 @@ function StepCount({ current, done }: { current: number; done: boolean }) {
 /** Dunkler Kopf: Versprechen und große Schrittpunkte */
 function Head({ labels, current, done }: { labels: string[]; current: number; done: boolean }) {
   return (
-    <div className="px-5 pb-4 pt-4">
+    <div className="px-6 pb-[1.125rem] pt-[1.125rem]">
       <div className="flex items-center justify-between gap-4">
         <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">Kostenlos · {site.erstgespraechMin} Minuten</span>
         <StepCount current={current} done={done} />
@@ -467,7 +467,7 @@ function Done({
     <div>
       <div className="flex items-center gap-3">
         <LogoDraw play className="h-7 text-caramel-600" />
-        <p className="t-label text-caramel-700">Anfrage erhalten</p>
+        <p className="t-label text-bordeaux">Anfrage erhalten</p>
       </div>
       <Heading headingRef={headingRef} level={level} srOnly={open}>
         Danke{vorname ? `, ${vorname}` : ''}! Ich melde mich persönlich bei Ihnen.
@@ -556,7 +556,7 @@ function Done({
 
 /** Eingabefelder als freistehende, ganz runde Felder (offener Block) */
 const inputCls =
-  'block h-11 w-full rounded-full border border-white bg-white/90 px-4 text-base text-ink shadow-[0_1px_2px_rgba(30,22,17,0.05),0_8px_20px_-14px_rgba(30,22,17,0.35)] transition-[border-color,box-shadow,background-color] placeholder:text-muted/70 focus:border-espresso-700 focus:bg-white focus:outline-none focus:ring-3 focus:ring-espresso-700/15'
+  'block h-11 w-full rounded-full border border-white bg-white/90 px-4 text-base text-ink shadow-[0_2px_4px_rgba(30,22,17,0.06),0_12px_26px_-14px_rgba(30,22,17,0.48)] transition-[border-color,box-shadow,background-color] placeholder:text-muted/70 focus:border-espresso-700 focus:bg-white focus:outline-none focus:ring-3 focus:ring-espresso-700/15'
 
 type HeadingProps = { headingRef: React.RefObject<HTMLHeadingElement | null>; level: 2 | 3 }
 
@@ -591,17 +591,17 @@ function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selecte
       onClick={onClick}
       style={{ '--d': `${0.05 + i * 0.06}s` } as React.CSSProperties}
       className={cn(
-        'tile-in group flex min-h-[3.375rem] w-full items-center gap-3 rounded-[1.5rem] border px-3.5 py-2 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
+        'tile-in group flex min-h-[3.375rem] w-full items-center gap-3 rounded-[1.5rem] border px-4 py-2 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
         selected
-          ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800)]'
-          : 'border-line/70 bg-white shadow-[0_6px_18px_-14px_rgba(30,22,17,0.4)] hover:translate-x-1 hover:border-espresso-800/30'
+          ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_10px_24px_-14px_rgba(30,22,17,0.5)]'
+          : 'border-line/70 bg-white shadow-[0_2px_4px_rgba(30,22,17,0.05),0_10px_24px_-14px_rgba(30,22,17,0.5)] hover:translate-x-1 hover:border-bordeaux/30'
       )}
     >
       <span
         aria-hidden="true"
         className={cn(
           'grid h-8 w-6 shrink-0 place-items-center font-serif text-[1.375rem] italic transition-colors duration-300',
-          selected ? 'text-espresso-900' : 'text-caramel-600'
+          selected ? 'text-espresso-900' : 'text-bordeaux'
         )}
       >
         {selected ? <Check className="h-4 w-4" strokeWidth={2.5} /> : String.fromCharCode(65 + i)}

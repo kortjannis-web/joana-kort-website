@@ -10,6 +10,7 @@ import { useSpotlight } from '@/components/ui/useSpotlight'
 import { ABLAUF } from '@/lib/content/angebote'
 import { CTA_LABEL, ERSTGESPRAECH } from '@/lib/site'
 import { cn } from '@/lib/utils'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 const NOTE = 'Kostenlos und unverbindlich, 15 Minuten am Telefon oder per Video'
 
@@ -31,7 +32,7 @@ function StepTitle({ i, title, className }: { i: number; title: string; classNam
 
 /**
  * So läuft die Begleitung ab (Nummerierung bewusst nur hier).
- * Desktop: fünf Spalten mit Verbindungslinie, alle 3 s hebt sich der nächste Kreis an (.step-dot), Terrakotta füllt die Linie bis dorthin.
+ * Desktop: fünf Spalten mit Verbindungslinie, alle 3 s hebt sich der nächste Kreis an (.step-dot), Bordeaux füllt die Linie bis dorthin.
  * Handy/Tablet: Schritte als wischbare Karten (Loop).
  */
 export function Process({
@@ -40,12 +41,15 @@ export function Process({
   cta = true,
   steps = ABLAUF,
   tone = 'stone',
+  line = false,
 }: {
   title?: string
   intro?: string
   cta?: boolean
   steps?: { title: string; text: string }[]
   tone?: 'stone' | 'paper'
+  /** Begleit-Linie im Hintergrund (Startseite) */
+  line?: boolean
 }) {
   const { ref, active, bind } = useSpotlight<HTMLOListElement>(steps.length)
   const button = (full = false) =>
@@ -57,11 +61,12 @@ export function Process({
     )
 
   return (
-    <section aria-labelledby="ablauf-title" className={cn(tone === 'stone' ? 'bg-stone' : 'bg-paper', 'sec xl:flex xl:min-h-svh xl:items-center')}>
+    <section aria-labelledby="ablauf-title" className={cn(tone === 'stone' ? 'bg-stone' : 'bg-paper', 'sec relative isolate xl:flex xl:min-h-svh xl:items-center')}>
+      {line && <ScrollLine variant="c" />}
       {/* Handy/Tablet */}
       <div className="wrap flex flex-col gap-[var(--sec-gap)] xl:hidden">
         <div>
-          <p className="t-label text-caramel-700">Der Ablauf</p>
+          <p className="t-label text-bordeaux">Der Ablauf</p>
           <h2 id="ablauf-title" className="t-h2 mt-3 max-w-[18ch] text-espresso-900">
             {title}
           </h2>
@@ -91,7 +96,7 @@ export function Process({
       <div className="wrap hidden xl:block">
         <div className="flex items-end justify-between gap-10">
           <Reveal>
-            <p className="t-label text-caramel-700">Der Ablauf</p>
+            <p className="t-label text-bordeaux">Der Ablauf</p>
             <h2 className="t-h2 mt-4 max-w-[18ch] text-espresso-900">{title}</h2>
             <p className="mt-4 max-w-[38rem] text-[1.0625rem] leading-relaxed text-muted">{intro}</p>
           </Reveal>
@@ -104,7 +109,7 @@ export function Process({
         </div>
 
         <ol ref={ref} className="relative mt-[calc(var(--sec-gap)*1.5)] grid gap-8" style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}>
-          {/* Verbindungslinie von Kreis 1 bis zum letzten Kreis: zeichnet sich einmal, Terrakotta füllt bis zum aktiven Schritt */}
+          {/* Verbindungslinie von Kreis 1 bis zum letzten Kreis: zeichnet sich einmal, Bordeaux füllt bis zum aktiven Schritt */}
           <div
             aria-hidden="true"
             className="absolute left-6 top-6 h-0.5 -translate-y-1/2"
@@ -112,7 +117,7 @@ export function Process({
           >
             <Grow className="h-full rounded-full bg-espresso-800/12">
               <span
-                className="block h-full origin-left rounded-full bg-caramel-500 transition-transform duration-[900ms] ease-[var(--ease-lift)]"
+                className="block h-full origin-left rounded-full bg-bordeaux transition-transform duration-[900ms] ease-[var(--ease-lift)]"
                 style={{ transform: `scaleX(${steps.length > 1 ? active / (steps.length - 1) : 0})` }}
               />
             </Grow>

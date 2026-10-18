@@ -39,7 +39,7 @@ export const ROLE = STUDIUM_ABGESCHLOSSEN
     }
 
 /**
- * Mobilnummer von Joana (auch WhatsApp). Anrufen nur über den runden Telefon-Knopf unten rechts und die Kontaktleiste (Entscheidung 18.10.2026),
+ * Mobilnummer von Joana (auch WhatsApp). Kein direkter Anruf: Telefon-Knopf und Kontaktleiste öffnen das Rückruf-Fenster (Entscheidung 18.10.2026),
  * im Header steht "Termin buchen". Ausgeschrieben (Footer, Impressum, Schema) nur, wenn NEXT_PUBLIC_PHONE gesetzt ist.
  */
 const PHONE = process.env.NEXT_PUBLIC_PHONE || '+49 1578 2327179'
@@ -102,9 +102,6 @@ export const ERSTGESPRAECH = '/erstgespraech/#anfrage'
 /** Einheitliche CTA-Beschriftung */
 export const CTA_LABEL = 'Kostenloses Erstgespräch'
 
-/** Direkter Anruf (Telefon-Knopf unten rechts, Kontaktleiste) */
-export const CALL_HREF = `tel:${intl(PHONE, '+')}`
-export const PHONE_DISPLAY = PHONE
 
 export const whatsappHref = (text: string = site.whatsapp.prefill) =>
   site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(text)}` : ERSTGESPRAECH

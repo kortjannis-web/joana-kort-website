@@ -17,7 +17,7 @@ export default function NotFound() {
     <section aria-labelledby="nf-title" className="pb-[4.5rem] pt-28 md:pb-28 md:pt-36 xl:pb-32 xl:pt-40">
       <div className="wrap">
         <div className="max-w-[47.5rem]">
-          <p className="t-label text-caramel-700">Seite nicht gefunden</p>
+          <p className="t-label text-bordeaux">Seite nicht gefunden</p>
           <h1 id="nf-title" className="t-h1 mt-5 text-espresso-900 md:mt-7">
             Diese Seite gibt es leider nicht. <em className="italic text-caramel-600">Kein Stress.</em>
           </h1>
@@ -36,7 +36,7 @@ export default function NotFound() {
                 <li key={w.href}>
                   <Link
                     href={w.href}
-                    className="group flex min-h-14 items-center justify-between gap-3 border-b border-line text-base font-semibold text-ink transition-colors duration-500 ease-[var(--ease-soft)] hover:text-caramel-800"
+                    className="group flex min-h-14 items-center justify-between gap-3 border-b border-line text-base font-semibold text-ink transition-colors duration-500 ease-[var(--ease-soft)] hover:text-bordeaux"
                   >
                     {w.label}
                     <ChevronRight className="h-[1.125rem] w-[1.125rem] shrink-0 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />

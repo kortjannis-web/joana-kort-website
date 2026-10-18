@@ -79,7 +79,7 @@ export default function StressVerstehenPage() {
             </ButtonLink>
             <a
               href="#was-ist-stress"
-              className="group inline-flex min-h-11 items-center justify-center gap-2 font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[6px] hover:text-caramel-800 sm:justify-start"
+              className="group inline-flex min-h-11 items-center justify-center gap-2 font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-[6px] hover:text-bordeaux sm:justify-start"
             >
               Zu den Erklärungen
               <ArrowDown className="h-4 w-4 transition-transform duration-500 group-hover:translate-y-0.5" strokeWidth={2} aria-hidden="true" />
@@ -93,7 +93,7 @@ export default function StressVerstehenPage() {
         <section id="was-ist-stress" aria-labelledby="definition-title" className="scroll-mt-24 sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:gap-16">
             <Reveal className="xl:col-span-6">
-              <p className="t-label text-caramel-700">Kurz erklärt</p>
+              <p className="t-label text-bordeaux">Kurz erklärt</p>
               <h2 id="definition-title" className="t-h2 mt-3 text-espresso-900">
                 {STRESS_DEFINITION.frage}
               </h2>
@@ -103,7 +103,7 @@ export default function StressVerstehenPage() {
                   <a
                     key={t.id}
                     href={`#${t.id}`}
-                    className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-800 md:px-3.5 md:py-1.5 md:text-[0.875rem] transition-colors hover:border-caramel-500 hover:text-caramel-800"
+                    className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-800 md:px-3.5 md:py-1.5 md:text-[0.875rem] transition-colors hover:border-caramel-500 hover:text-bordeaux"
                   >
                     {t.frage.split('?')[0]}
                   </a>
@@ -115,7 +115,7 @@ export default function StressVerstehenPage() {
                 {STRESS_DEFINITION.fakten.map((f, i) => {
                   const Icon = FAKT_ICONS[i]
                   return (
-                    <div key={f.title} className="glow-hover flex h-full gap-4 rounded-lg border border-line bg-white p-4 md:flex-col md:p-[clamp(1rem,2.5svh,1.25rem)] xl:flex-row xl:items-center">
+                    <div key={f.title} className="glow-hover floaty flex h-full gap-4 rounded-lg border border-line bg-white p-4 md:flex-col md:p-[clamp(1rem,2.5svh,1.25rem)] xl:flex-row xl:items-center">
                       <span className="glow-icon grid h-12 w-12 shrink-0 place-items-center rounded-full bg-stone text-caramel-700">
                         <Icon className="h-[1.375rem] w-[1.375rem]" strokeWidth={1.5} aria-hidden="true" />
                       </span>
@@ -136,7 +136,7 @@ export default function StressVerstehenPage() {
             <section id={g.id} aria-labelledby={`${g.id}-title`} className="sec scroll-mt-24 xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
               <div className="wrap">
                 <Reveal className="max-w-[44rem]">
-                  <p className="t-label text-caramel-700">{g.label}</p>
+                  <p className="t-label text-bordeaux">{g.label}</p>
                   <h2 id={`${g.id}-title`} className="t-h2 mt-3 text-espresso-900">
                     {g.title}
                   </h2>
@@ -193,7 +193,7 @@ export default function StressVerstehenPage() {
           <div className="wrap">
             <Reveal className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="t-label text-caramel-700">Demnächst</p>
+                <p className="t-label text-bordeaux">Demnächst</p>
                 <h2 id="demnaechst-title" className="t-h2 mt-3 text-espresso-900">
                   Weitere Themen in Vorbereitung
                 </h2>

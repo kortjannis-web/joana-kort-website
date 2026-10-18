@@ -47,7 +47,7 @@ export function MethodGroup({
               <span aria-hidden="true" className="grid h-9 w-9 place-items-center rounded-md bg-espresso-800 text-[0.9375rem] font-semibold text-caramel-200">
                 {nr}
               </span>
-              <span className="t-label text-caramel-700">
+              <span className="t-label text-bordeaux">
                 Schritt {nr} · {step}
               </span>
             </p>

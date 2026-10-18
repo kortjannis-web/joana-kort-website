@@ -183,7 +183,7 @@ export default function AblaufPage() {
         <section aria-labelledby="schritte" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap">
             <Reveal className="max-w-[44rem]">
-              <p className="t-label text-caramel-700">In drei Schritten</p>
+              <p className="t-label text-bordeaux">In drei Schritten</p>
               <h2 id="schritte" className="t-h2 mt-3 text-espresso-900">
                 Vom ersten Gespräch bis zur <span className="text-caramel-600">Umsetzung</span>
               </h2>
@@ -222,7 +222,7 @@ export default function AblaufPage() {
         <section id="programme" aria-labelledby="programme-title" className="sec scroll-mt-24 bg-greige xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
           <div className="wrap grid gap-x-10 gap-y-[var(--sec-gap)] lg:grid-cols-12 lg:items-center xl:gap-x-12">
             <Reveal className="lg:col-span-4">
-              <p className="t-label text-caramel-700">Persönliche Begleitung</p>
+              <p className="t-label text-bordeaux">Persönliche Begleitung</p>
               <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
                 Zwei Programme, gleicher Weg
               </h2>
@@ -379,7 +379,7 @@ export default function AblaufPage() {
                 { href: '/mein-ansatz/', title: 'Mein Ansatz', text: 'Stress verstehen, bewältigen, managen: die drei Schwerpunkte.' },
                 { href: '/qualifikationen-und-referenzen/', title: 'Qualifikationen und Referenzen', text: 'Mein fachlicher Hintergrund, transparent erklärt.' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
+                <Link key={l.href} href={l.href} className="group floaty flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
                   <span>
                     <span className="block font-semibold text-espresso-900">{l.title}</span>
                     <span className="mt-1 block text-[0.9375rem] leading-snug text-muted">{l.text}</span>

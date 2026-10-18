@@ -28,7 +28,7 @@ export function FaqSection({
             </h2>
             {intro && <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-muted">{intro}</p>}
             {moreLink && (
-              <Link href="/haeufige-fragen/" className="group mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-2 font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[0.3em] hover:text-caramel-800">
+              <Link href="/haeufige-fragen/" className="group mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-2 font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-[0.3em] hover:text-bordeaux">
                 {moreLabel}
                 <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />
               </Link>

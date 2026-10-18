@@ -42,7 +42,7 @@ export function TocNav({ items }: { items: { id: string; text: string }[] }) {
                 'flex min-h-11 items-center rounded-md border px-3.5 py-2 text-[0.9375rem] font-medium leading-snug transition-colors duration-300 ease-[var(--ease-soft)] xl:px-4',
                 on
                   ? 'border-espresso-800 bg-espresso-800 text-white'
-                  : 'border-line bg-white text-espresso-900 hover:border-caramel-400 hover:text-caramel-800'
+                  : 'border-line bg-white text-espresso-900 hover:border-caramel-400 hover:text-bordeaux'
               )}
             >
               {h.text}

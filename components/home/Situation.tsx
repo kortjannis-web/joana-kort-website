@@ -1,5 +1,6 @@
 import { CtaRow } from '@/components/ui/CtaRow'
 import { Reveal } from '@/components/ui/Reveal'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 import { SorgenList } from './SorgenList'
 import { GapScene } from './GapScene'
 
@@ -10,10 +11,11 @@ import { GapScene } from './GapScene'
  */
 export function Situation() {
   return (
-    <section aria-labelledby="situation-title" className="sec xl:flex xl:min-h-[calc(100svh-5rem)] xl:items-center">
+    <section aria-labelledby="situation-title" className="sec relative isolate xl:flex xl:min-h-[calc(100svh-5rem)] xl:items-center">
+      <ScrollLine variant="a" />
       <div className="wrap grid gap-[var(--sec-gap)] md:grid-cols-2 md:gap-x-10 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] xl:gap-x-16">
         <Reveal className="md:col-span-2">
-          <p className="t-label text-caramel-700">Kennen Sie das?</p>
+          <p className="t-label text-bordeaux">Kennen Sie das?</p>
           <h2 id="situation-title" className="t-h2 mt-3 max-w-[24ch] text-espresso-900 xl:max-w-[30ch]">
             Sie wissen, dass Sie Stress haben. Nur nicht, wie Sie <em className="italic text-caramel-600">etwas verändern</em> können.
           </h2>

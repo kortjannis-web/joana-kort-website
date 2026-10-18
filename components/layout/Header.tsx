@@ -186,7 +186,7 @@ export function Header() {
                 tabIndex={expanded ? 0 : -1}
                 hidden={!expanded}
                 className={cn(
-                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta text-[0.9375rem] font-semibold text-white shadow-[0_6px_14px_-6px_rgba(20,14,10,0.5)] hover:bg-cta-hover md:hidden',
+                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta bg-[linear-gradient(180deg,rgb(255_255_255/0.17),rgb(255_255_255/0)_58%),linear-gradient(135deg,#9a3141,#6b1e2a)] text-[0.9375rem] font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.22),0_6px_14px_-6px_rgba(107,30,42,0.6)] hover:brightness-110 md:hidden',
                   'transition-[width,background-color,visibility] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
                   expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
                 )}
@@ -273,7 +273,7 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
                     href={c.href}
                     className={cn('group flex items-start gap-4 rounded-[0.875rem] px-4 py-3.5 transition-colors duration-300 hover:bg-stone', pathname === c.href && 'bg-stone')}
                   >
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-stone text-caramel-700 transition-colors duration-300 group-hover:bg-white group-hover:text-caramel-800">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-stone text-caramel-700 transition-colors duration-300 group-hover:bg-white group-hover:text-bordeaux">
                       <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                     </span>
                     <span>
@@ -287,11 +287,11 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
           </ul>
           {item.extra && (
             <div className="rounded-lg bg-stone px-5 py-5">
-              <p className="t-label text-[0.75rem] text-caramel-700">{item.extra.title}</p>
+              <p className="t-label text-[0.75rem] text-bordeaux">{item.extra.title}</p>
               <ul className="mt-2">
                 {item.extra.links.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="flex min-h-9 items-center gap-2 text-[0.9375rem] text-ink hover:text-caramel-800">
+                    <Link href={l.href} className="flex min-h-9 items-center gap-2 text-[0.9375rem] text-ink hover:text-bordeaux">
                       <ChevronRight className="h-3.5 w-3.5 text-caramel-500" strokeWidth={2} aria-hidden="true" />
                       {l.label}
                     </Link>

@@ -120,7 +120,7 @@ export default function StresscoachingPage() {
           <div className="wrap grid gap-x-10 lg:grid-cols-12 lg:items-center xl:gap-x-12">
             <div className="lg:col-span-4">
               <Reveal>
-                <p className="t-label text-caramel-700">Zwei Programme</p>
+                <p className="t-label text-bordeaux">Zwei Programme</p>
                 <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
                   Wöchentlich oder alle zwei Wochen
                 </h2>
@@ -177,7 +177,7 @@ export default function StresscoachingPage() {
             <Reveal delay={0.08} className="mt-[var(--sec-gap)]">
               <Carousel label="Bestandteile" arrowLabel="Bestandteile" item="82vw" gridFrom="md" gridClass="md:grid-cols-3 md:gap-5 xl:gap-6">
                 {BESTANDTEILE.map((g, gi) => (
-                  <div key={g.title} className="glow-hover h-full rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
+                  <div key={g.title} className="glow-hover floaty h-full rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <p className="flex items-baseline gap-2.5">
                       <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
                         {gi + 1}

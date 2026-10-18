@@ -46,11 +46,11 @@
   --color-caramel-100: #f1e6d6;
   --color-caramel-50: #f8f1e7;
 
-  /* CTA-Buttons: neutrales dunkles Braun ohne Rot- oder Orangeanteil (Briefing Ä6), Hover etwas heller */
-  --color-cta: #2a211b;
-  --color-cta-hover: #3f332a;
-  /* Bordeaux statt Orange (Entscheidung 18.10.2026): AUSSCHLIESSLICH erreichte Schritte im Erstgespräch-Funnel.
-     bright = auf dunklen Flächen (Kopf des Funnels), weiße Schrift darauf */
+  /* CTA-Buttons: Bordeaux mit leichtem Glanz (Entscheidung 18.10.2026, löst das dunkle Braun aus Ä6 ab), Hover etwas heller */
+  --color-cta: #7c2430;
+  --color-cta-hover: #8e2b39;
+  /* Bordeaux statt Orange (Entscheidung 18.10.2026): zweiter Akzent neben Karamell, kehrt immer wieder (CTAs, Kicker-Zeilen,
+     Link-Linien, Häkchen, Funnel-Schritte, Begleit-Linien). bright = auf dunklen Flächen, weiße Schrift darauf */
   --color-bordeaux: #7c2430;
   --color-bordeaux-bright: #a1343f;
 
@@ -316,67 +316,99 @@
 /* Weicher Schatten nach unten: Karten und Papiere "schweben" leicht über der Fläche */
 @utility floaty {
   box-shadow:
-    0 1px 2px rgb(30 22 17 / 0.04),
-    0 16px 30px -18px rgb(30 22 17 / 0.28),
-    0 36px 60px -40px rgb(30 22 17 / 0.26);
+    0 1px 3px rgb(30 22 17 / 0.07),
+    0 18px 34px -18px rgb(30 22 17 / 0.38),
+    0 40px 66px -40px rgb(30 22 17 / 0.34);
 }
 @utility floaty-lg {
   box-shadow:
-    0 2px 4px rgb(30 22 17 / 0.06),
-    0 24px 44px -20px rgb(30 22 17 / 0.4),
-    0 50px 80px -44px rgb(30 22 17 / 0.34);
+    0 2px 5px rgb(30 22 17 / 0.09),
+    0 26px 48px -20px rgb(30 22 17 / 0.5),
+    0 54px 86px -44px rgb(30 22 17 / 0.42);
 }
 
-/* Haupt-CTA (dunkles Espresso): flach. Hover: etwas heller, hebt sich an, warmer Schatten. Klick: sinkt zurück */
+/* Haupt-CTA (Bordeaux): Verlauf mit hellem Oberlicht, damit er nicht zu dunkel wirkt, und ein schmaler Glanzstreifen, der alle
+   8 s über den Knopf gleitet. Hover: etwas heller, hebt sich an, warmer Bordeaux-Schatten. Klick: sinkt zurück */
 @utility btn-cta {
-  background-color: var(--cta-bg, var(--color-cta));
-  color: var(--cta-fg, #fff);
-  box-shadow: 0 0 0 0 rgb(20 14 10 / 0);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-cta);
+  background-image:
+    linear-gradient(180deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0) 58%),
+    linear-gradient(135deg, var(--cta-from, #9a3141), var(--cta-to, #6b1e2a));
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 8px 18px -10px rgb(107 30 42 / 0.6);
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.3) 50%, transparent 65%);
+    transform: translateX(-120%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      animation: cta-shine 8s var(--ease-soft) 2.5s infinite;
+    }
+  }
   @media (hover: hover) {
     &:hover {
       transform: translateY(-3px);
-      background-color: var(--cta-hover, var(--color-cta-hover));
+      filter: brightness(1.08);
       box-shadow:
-        0 3px 6px -3px rgb(20 14 10 / 0.3),
-        0 14px 22px -12px rgb(20 14 10 / 0.5);
+        inset 0 1px 0 rgb(255 255 255 / 0.26),
+        0 4px 8px -4px rgb(70 18 26 / 0.4),
+        0 16px 26px -12px rgb(124 36 48 / 0.65);
     }
   }
   &:active {
     transform: translateY(0);
-    background-color: var(--cta-bg, var(--color-cta));
-    box-shadow: 0 2px 4px -2px rgb(20 14 10 / 0.3);
+    filter: none;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 2px 4px -2px rgb(70 18 26 / 0.4);
+  }
+}
+@keyframes cta-shine {
+  0%,
+  72% {
+    transform: translateX(-120%);
+  }
+  88%,
+  100% {
+    transform: translateX(120%);
   }
 }
 
-/* Auf dunklen Flächen wird der CTA hell (Greige mit Espresso-Schrift), auf hellen Flächen darin wieder dunkel */
+/* Auf dunklen Flächen leuchtet der CTA etwas heller (bright), damit er sich vom Espresso abhebt */
 .bg-espresso-700,
 .bg-espresso-800,
 .bg-espresso-900,
 .bg-espresso-950 {
-  --cta-bg: var(--color-greige);
-  --cta-fg: var(--color-espresso-900);
-  --cta-hover: #f5efe7;
+  --cta-from: #b5404f;
+  --cta-to: #86293a;
 }
 .bg-white,
 .bg-paper,
 .bg-stone,
 .bg-greige {
-  --cta-bg: var(--color-cta);
-  --cta-fg: #fff;
-  --cta-hover: var(--color-cta-hover);
+  --cta-from: #9a3141;
+  --cta-to: #6b1e2a;
 }
 
 /* Fließtext-Links */
 @utility link {
   color: var(--color-espresso-800);
   text-decoration-line: underline;
-  text-decoration-color: color-mix(in srgb, var(--color-caramel-500) 60%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--color-bordeaux) 45%, transparent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.22em;
   transition: text-decoration-color 0.2s var(--ease-soft), color 0.2s var(--ease-soft);
   &:hover {
-    color: var(--color-caramel-800);
-    text-decoration-color: var(--color-caramel-600);
+    color: var(--color-bordeaux);
+    text-decoration-color: var(--color-bordeaux);
   }
 }
 
@@ -414,12 +446,12 @@
   & a {
     color: var(--color-espresso-800);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--color-caramel-500) 60%, transparent);
+    text-decoration-color: color-mix(in srgb, var(--color-bordeaux) 45%, transparent);
     text-underline-offset: 0.22em;
     overflow-wrap: anywhere;
   }
   & a:hover {
-    color: var(--color-caramel-800);
+    color: var(--color-bordeaux);
   }
   & ul,
   & ol {
@@ -435,7 +467,7 @@
     margin-top: 0.45em;
   }
   & li::marker {
-    color: var(--color-caramel-500);
+    color: var(--color-bordeaux);
   }
   & strong {
     font-weight: 650;
@@ -485,6 +517,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
+    border-radius: inherit;
     pointer-events: none;
     opacity: 0.35;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -585,8 +618,8 @@
 [data-active='true'] .lift-tile {
   transform: translateY(-5px);
   box-shadow:
-    0 2px 3px -1px rgb(30 22 17 / 0.12),
-    0 12px 16px -8px rgb(30 22 17 / 0.35);
+    0 2px 4px -1px rgb(30 22 17 / 0.16),
+    0 14px 20px -8px rgb(30 22 17 / 0.45);
   background-color: #fff;
   color: var(--color-caramel-700);
 }
@@ -594,8 +627,8 @@
   .lift-hover:hover .lift-tile {
     transform: translateY(-5px);
     box-shadow:
-      0 2px 3px -1px rgb(30 22 17 / 0.12),
-      0 12px 16px -8px rgb(30 22 17 / 0.35);
+      0 2px 4px -1px rgb(30 22 17 / 0.16),
+      0 14px 20px -8px rgb(30 22 17 / 0.45);
     background-color: #fff;
     color: var(--color-caramel-700);
   }
@@ -735,9 +768,82 @@
 }
 
 /* Hero-Linie: großer Schwung durch den Hero, zeichnet sich beim ersten Laden (reines CSS, auch ohne JS) */
-.hero-line path {
+
+/* Schwunglinie im Hero (Swoosh): zeichnet sich beim Laden, danach wandert ein leuchtender Bordeaux-Punkt die Hauptlinie entlang
+   und das Band atmet langsam. Ohne JS und bei reduzierter Bewegung: fertig gezeichnet, ohne Punkt */
+.swoosh .sw-line {
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
+}
+.swoosh .sw-spark {
+  stroke-dasharray: 0.035 0.965;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .swoosh.intro-draw .sw-line {
+    animation: line-draw 2.8s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--intro-base) * 0.35) backwards;
+  }
+  .swoosh.intro-draw .sw-late {
+    animation-delay: calc(var(--intro-base) * 0.35 + 0.45s);
+  }
+  .swoosh.intro-draw .sw-band {
+    animation: sw-band-in 2.4s var(--ease-soft) calc(var(--intro-base) * 0.35 + 0.6s) backwards;
+  }
+  .swoosh .sw-spark {
+    animation: sw-spark 11s linear calc(var(--intro-base) + 2.6s) infinite;
+  }
+  .swoosh .sw-drift {
+    animation: sw-drift 18s ease-in-out infinite alternate;
+  }
+}
+@keyframes sw-spark {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  6%,
+  58% {
+    opacity: 1;
+  }
+  66%,
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes sw-band-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sw-drift {
+  from {
+    transform: translateY(-6px);
+  }
+  to {
+    transform: translateY(12px);
+  }
+}
+
+/* Begleit-Linie (ScrollLine): zeichnet sich mit dem Scrollen (--p, per JS), wandert leicht mit nach unten, Bordeaux-Punkt auf der
+   Spitze, feine Bordeaux-Linie folgt etwas später. Ohne JS (--p fehlt): fertig gezeichnet, ohne Punkt und Bewegung */
+.scroll-line .sl-main,
+.scroll-line .sl-accent {
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p, 1));
+}
+.scroll-line .sl-accent {
+  stroke-dashoffset: calc(1 - var(--p, 1) * 0.92);
+}
+.scroll-line[data-live] .sl-drift {
+  transform: translateY(calc((var(--p, 0.5) - 0.5) * 90px));
+}
+.sl-dot {
+  box-shadow:
+    0 0 0 4px rgb(161 52 63 / 0.16),
+    0 0 16px 3px rgb(161 52 63 / 0.45);
+  transition: opacity 0.4s var(--ease-soft);
 }
 
 /* Linie zwischen den drei Schwerpunkten (InView: data-view) zeichnet sich beim Hinscrollen */
@@ -761,7 +867,7 @@
 }
 
 /* Intro der Startseite (reines CSS, läuft ohne JS):
-   1. Logo-Linie zeichnet sich, Name wischt herein, 2. Hero-Linie zieht durch das Bild, 3. Text, Karte, Header, Sheet-Kante.
+   1. Logo-Linie zeichnet sich, Name wischt herein, 2. Schwunglinie (Swoosh) zieht durch das Bild, 3. Text, Karte, Header, Sheet-Kante.
    fill-mode backwards: nach dem Ende bleibt kein transform stehen. Verzögerung je Element über --d (relativ zu --intro-base) */
 /* Unterseiten-Hero: kurzer Vorlauf (kein Logo-Intro davor), nach interner Navigation sofort */
 .page-hero {
@@ -782,9 +888,6 @@ html[data-navigated] .page-hero {
   }
   .intro-sheet {
     animation: intro-sheet 0.9s var(--ease-lift) calc(var(--intro-base) + var(--d, 0s)) backwards;
-  }
-  .hero-line.intro-draw path {
-    animation: line-draw 3.4s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--intro-base) * 0.45) backwards;
   }
   /* Textlogo: Name wischt herein, die feine Linie zieht sich, dann "Stressberatung" */
   .logo-intro-name {

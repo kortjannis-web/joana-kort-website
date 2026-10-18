@@ -147,7 +147,7 @@ export default function MethodenPage() {
         <section aria-labelledby="individuell" className="sec-b pt-[clamp(1.5rem,3svh,2.5rem)]">
           <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:items-center lg:gap-x-12 xl:gap-x-16">
             <Reveal className="lg:col-span-5">
-              <p className="t-label text-caramel-700">Individuell statt Einheitslösung</p>
+              <p className="t-label text-bordeaux">Individuell statt Einheitslösung</p>
               <h2 id="individuell" className="t-h2 mt-3 text-espresso-900">
                 Nicht jede Person bekommt <span className="text-caramel-600">dieselben</span> Methoden
               </h2>
@@ -282,7 +282,7 @@ export default function MethodenPage() {
                 { href: '/stresscoaching/', title: 'Persönliche Begleitung', text: 'Über drei oder sechs Monate, online oder vor Ort.' },
                 { href: '/qualifikationen-und-referenzen/', title: 'Qualifikationen und Referenzen', text: 'Mein fachlicher Hintergrund, transparent erklärt.' },
               ].map((l) => (
-                <Link key={l.href} href={l.href} className="group flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
+                <Link key={l.href} href={l.href} className="group floaty flex h-full items-start justify-between gap-4 rounded-lg border border-line bg-white p-5 transition-colors duration-500 hover:border-caramel-500">
                   <span>
                     <span className="block font-semibold text-espresso-900">{l.title}</span>
                     <span className="mt-1 block text-[0.9375rem] leading-snug text-muted">{l.text}</span>

@@ -39,7 +39,7 @@ export function ThemaRow({ t, index, flip = false }: { t: Thema; index: number; 
           ))}
           {artikel && (
             <p>
-              <Link href={`/ratgeber/${artikel.slug}/`} className="group inline-flex items-center gap-1.5 font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[0.3em] hover:text-caramel-800">
+              <Link href={`/ratgeber/${artikel.slug}/`} className="group inline-flex items-center gap-1.5 font-semibold text-espresso-800 underline decoration-bordeaux/45 underline-offset-[0.3em] hover:text-bordeaux">
                 Im Ratgeber weiterlesen: {artikel.title}
                 <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />
               </Link>

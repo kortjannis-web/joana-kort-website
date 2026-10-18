@@ -14,7 +14,7 @@ const variants: Record<Variant, string> = {
   outline: 'border border-espresso-800/30 text-espresso-800 hover:border-espresso-800 hover:bg-espresso-800/[0.04]',
   light: 'bg-white text-espresso-900 hover:bg-caramel-50',
   'outline-light': 'border border-white/40 text-white hover:border-white hover:bg-white/[0.06]',
-  text: 'rounded-none px-0 text-espresso-800 underline decoration-caramel-500/60 underline-offset-[0.28em] hover:text-caramel-800 hover:decoration-caramel-600',
+  text: 'rounded-none px-0 text-espresso-800 underline decoration-bordeaux/45 underline-offset-[0.28em] hover:text-bordeaux hover:decoration-bordeaux',
 }
 
 const sizes: Record<Size, string> = {

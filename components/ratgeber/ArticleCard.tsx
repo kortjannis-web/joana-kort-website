@@ -67,7 +67,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
         <Meta a={a} />
         <H
           className={cn(
-            'font-serif font-medium text-espresso-900 transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-caramel-800',
+            'font-serif font-medium text-espresso-900 transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-bordeaux',
             featured
               ? 'text-[1.3125rem] leading-[1.22] md:text-[clamp(1.5rem,1rem+2svh,1.875rem)] xl:text-[clamp(1.75rem,1rem+2.6svh,2.25rem)] xl:leading-[1.15] xl:tracking-[-0.015em]'
               : 'text-[1.25rem] leading-[1.22] xl:text-[clamp(1.375rem,1rem+1.4svh,1.6875rem)] xl:leading-[1.2]'
@@ -92,7 +92,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
           <>
             <span
               aria-hidden="true"
-              className="mt-auto self-start pt-1 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-300 decoration-[1.5px] underline-offset-[5px] transition-colors duration-500 group-hover:text-caramel-800"
+              className="mt-auto self-start pt-1 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-300 decoration-[1.5px] underline-offset-[5px] transition-colors duration-500 group-hover:text-bordeaux"
             >
               Artikel lesen
             </span>
