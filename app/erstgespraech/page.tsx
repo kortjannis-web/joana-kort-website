@@ -5,6 +5,7 @@ import { Sheet } from '@/components/ui/Sheet'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
+import { KontaktForm } from '@/components/forms/KontaktForm'
 import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { FAQ_ABLAUF, FAQ_FORMAT } from '@/lib/content/faqs'
 import { faqSchema } from '@/lib/schema'
@@ -22,8 +23,8 @@ export const metadata = pageMeta({
 
 /** Drei Schritte bis zum Gespräch (3er-Gruppe) */
 const ABLAUF = [
-  { t: 'Fragebogen ausfüllen', d: 'Vier kurze Schritte, etwa zwei Minuten. Angaben zu Ihrer Gesundheit brauche ich nicht.' },
-  { t: 'Termin vereinbaren', d: 'Ich melde mich persönlich und schlage Ihnen einen Termin vor, der zu Ihren Zeiten passt.' },
+  { t: 'Drei Fragen beantworten', d: 'Drei Klicks und Ihr Name mit Telefon oder E-Mail, etwa eine Minute. Angaben zu Ihrer Gesundheit brauche ich nicht.' },
+  { t: 'Ich melde mich', d: 'Persönlich, per Rückruf oder E-Mail, in der Regel am nächsten Werktag. Wir finden einen Termin, der Ihnen passt.' },
   { t: '15 Minuten sprechen', d: 'Am Telefon oder per Video. Danach entscheiden Sie in Ruhe und ohne Druck, ob wir zusammenarbeiten.' },
 ]
 
@@ -41,7 +42,7 @@ function Ablauf() {
       <ol className="mt-[clamp(0.75rem,2.5svh,1.5rem)] border-t border-line">
         {ABLAUF.map((a, i) => (
           <li key={a.t} className="flex gap-4 border-b border-line py-[clamp(0.625rem,1.8svh,1rem)]">
-            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-caramel-50 font-serif text-[1.2rem] italic text-caramel-700">
+            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-caramel-50 font-serif text-[1.2rem] text-caramel-700">
               {i + 1}
             </span>
             <span>
@@ -69,7 +70,7 @@ export default function ErstgespraechPage() {
         intro={
           <p>
             Wir lernen uns kennen, Sie stellen Ihre Fragen, und wir klären gemeinsam, welches Angebot zu Ihrer Situation passt. Kostenlos und
-            unverbindlich, am Telefon oder per Video.
+            unverbindlich. Ich rufe Sie zurück oder schreibe Ihnen, ganz wie Sie möchten.
           </p>
         }
       />
@@ -128,6 +129,23 @@ export default function ErstgespraechPage() {
                   </Link>
                 </p>
               </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section id="kontaktformular" aria-labelledby="kf-title" className="sec scroll-mt-24">
+          <div className="wrap grid items-start gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
+            <Reveal className="lg:col-span-5">
+              <p className="t-label text-caramel-700">Kontaktformular</p>
+              <h2 id="kf-title" className="t-h2 mt-3 text-espresso-900">
+                Eine Frage vorab?
+              </h2>
+              <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-md:hidden">
+                Schreiben Sie mir gern, auch wenn Sie noch nicht wissen, ob ein Erstgespräch das Richtige ist. Ich antworte persönlich.
+              </p>
+            </Reveal>
+            <Reveal delay={0.08} className="lg:col-span-7">
+              <KontaktForm />
             </Reveal>
           </div>
         </section>

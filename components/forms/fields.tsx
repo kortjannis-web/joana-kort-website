@@ -88,7 +88,7 @@ export function ChoiceTile({
       {icon && (
         <span
           aria-hidden="true"
-          className="grid h-7 w-7 shrink-0 place-items-center rounded-[0.5rem] bg-espresso-50 text-espresso-800 [&>svg]:h-4 [&>svg]:w-4"
+          className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-espresso-50 text-espresso-800 [&>svg]:h-4 [&>svg]:w-4"
         >
           {icon}
         </span>

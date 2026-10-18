@@ -293,7 +293,7 @@ function Arrow({ dir, hidden, far, label, onClick }: { dir: 1 | -1; hidden: bool
       aria-hidden={hidden}
       aria-label={dir === 1 ? `Nächste ${label}` : `Vorherige ${label}`}
       className={cn(
-        'absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-full border border-line bg-white text-espresso-800 shadow-[0_8px_20px_-8px_rgba(30,22,17,0.45)] transition-[opacity,transform,border-color] duration-300 ease-[var(--ease-soft)] hover:border-caramel-500 active:scale-95 md:grid',
+        'absolute top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 place-items-center rounded-md border border-line bg-white text-espresso-800 shadow-[0_8px_20px_-8px_rgba(30,22,17,0.45)] transition-[opacity,transform,border-color] duration-300 ease-[var(--ease-soft)] hover:border-caramel-500 active:scale-95 md:grid',
         dir === 1
           ? far
             ? 'right-0 md:-right-7 xl:-right-[clamp(2.75rem,calc(50vw-37.75rem),4.75rem)]'

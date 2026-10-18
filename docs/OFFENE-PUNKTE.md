@@ -1,6 +1,14 @@
-# Offene Punkte für Joana (Stand 16.10.2026)
+# Offene Punkte für Joana (Stand 18.10.2026)
 
 Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte brauchen Angaben oder eine Entscheidung von Joana, bevor die Seite live geht.
+
+## Neu mit der Überarbeitung vom 18.10.2026 (Joanas Briefing + Funnel)
+- [ ] **Programme**: Joana schrieb für das längere Programm "6 Termine à 90 Minuten im Abstand von etwa zwei Wochen". Umgesetzt ist nach Entscheidung vom 18.10.: links **wöchentlich über 3 Monate** (je 45 bis 60 Minuten, etwa 12 Sitzungen), rechts **alle zwei Wochen über 6 Monate** (je 90 Minuten, etwa 12 Sitzungen). Je Karte ein Schalter **"Laufzeit verdoppeln"** (6 bzw. 12 Monate, **15 % Rabatt auf jede Sitzung**). Bitte mit Joana bestätigen: Sitzungsdauer, Rabatt, ob die rechte Variante wirklich 90 Minuten hat (`lib/content/angebote.ts`, `PROGRAMME`, `RABATT_LANG`).
+- [ ] **Rückruf-Versprechen**: Im Funnel steht "Ich melde mich persönlich, in der Regel am nächsten Werktag". Passt das für Joana?
+- [ ] **Qualifikationen und Referenzen** (`lib/content/referenzen.ts`): Hochschule und Studienbeginn ergänzen. Fortbildungen, durchgeführte Trainings (Ort/Einrichtung), Trainingsfotos (nur mit Einwilligung) eintragen, dann erscheinen die Sections automatisch. Leere Listen bleiben unsichtbar.
+- [ ] **Ablauf** (`/ablauf/`): Fallbeispiel (berufstätige Mutter im Studium, klar als Beispiel gekennzeichnet) und Beispiel einer Firmenschulung fachlich prüfen.
+- [ ] **Methoden** (`/methoden/`): Auswahl der Methoden prüfen und ggf. ergänzen.
+- [ ] **Berufsbezeichnung**: jetzt "Angehende Gesundheitspsychologin mit Schwerpunkt Stress" (Joanas Vorschlag). Nach dem Abschluss `STUDIUM_ABGESCHLOSSEN = true` in `lib/site.ts`.
 
 ## Pflicht vor dem Go-live
 - [ ] **Anschrift fürs Impressum** (ladungsfähig, kein Postfach). Eintragen in Coolify: `NEXT_PUBLIC_STREET`, `NEXT_PUBLIC_ZIP`. Bis dahin steht im Impressum ein rot markierter Platzhalter.
@@ -21,7 +29,7 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 
 ## Wird automatisch besser, sobald vorhanden
 - [ ] **Vorstellungsvideo** (direkt unter dem Hero auf der Startseite): MP4 (H.264, 1 bis 2 Minuten, 1080p), Vorschaubild und am besten Untertitel (VTT) nach `public/video/` legen und in `lib/images.ts` bei `VIDEO` eintragen. Selbst gehostet, also ohne YouTube und ohne Einwilligungsabfrage. Bis dahin steht ein ruhiger Platzhalter ("Video folgt in Kürze").
-- [x] **Telefonnummer** +49 1578 2327179 eingetragen (`lib/site.ts`): "Anrufen" im Header, Menü, Footer, Erstgespräch-Seite, Impressum, Schema.
+- [x] **Keine Anruf-Funktion** (Joanas Wunsch, 18.10.2026): Telefonnummer nirgends sichtbar, Header-Button "Kostenloses Erstgespräch". Telefonkontakt nur per Rückruf aus dem Funnel. Die Mobilnummer bleibt für WhatsApp hinterlegt. Soll sie doch angezeigt werden: `NEXT_PUBLIC_PHONE` setzen.
 - [ ] **WhatsApp**: Der Knopf unten rechts nutzt dieselbe Mobilnummer. Bitte bestätigen, dass WhatsApp (am besten WhatsApp Business) auf dieser Nummer eingerichtet ist, sonst abweichende Nummer in `NEXT_PUBLIC_WHATSAPP`. Kein Fremd-Skript: der Knopf öffnet nur wa.me. Datenschutzerklärung hat einen WhatsApp-Abschnitt.
 - [ ] **Stress verstehen** (`/stress-verstehen/`, Inhalte in `lib/content/wissen.ts`): sechs Themen mit Erklär-Animationen sind angelegt und fachlich zu prüfen. Weitere Themen (Platzhalter "Demnächst": Stress und Schlaf, Mental Load in der Familie, Stress im Beruf) sobald Joana Inhalte liefert. Neue Themen am besten in Dreiergruppen, Animation aus den sechs vorhandenen wählen.
 - [ ] **Fotos von Joana** (Porträt + Arbeitssituation): in `lib/images.ts` bei `PORTRAIT` eintragen, dann erscheinen sie im Bogen auf Startseite und "Über mich". Bis dahin steht dort ein Monogramm (bewusst kein Stockfoto).
@@ -36,7 +44,9 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 - Ansprache **Sie**, Joana schreibt in Ich-Form.
 - Marke **Joana Kort Stressberatung**, Hauptangebot heißt **Stresscoaching** (Beratung + Umsetzung), so sind beide Suchbegriffe abgedeckt.
 - Slogan bleibt **"Stress verstehen. Stress bewältigen. Stress managen."**. Die Sorge, "managen" klinge nach To-do-Liste, wird auf der Seite direkt aufgegriffen ("Stress managen heißt nicht, noch mehr zu leisten").
-- Formular statt Geburtsdatum mit freiwilliger **Altersgruppe** (Datensparsamkeit), keine Fragen zur Gesundheit.
+- Formular statt Geburtsdatum mit freiwilliger **Altersgruppe** (Datensparsamkeit), keine Fragen zur Gesundheit. Beruf/Branche und Altersgruppe kommen erst nach dem Absenden als freiwillige Ergänzung, damit der Einstieg kurz bleibt.
+- **Funnel (18.10.2026)**: vier Schritte mit je höchstens drei Antworten (Für wen → Situation bzw. Teamgröße → Rhythmus bzw. Ort → Name + Telefon oder E-Mail per Schalter). Überschrift "In 1 Minute zu Ihrem kostenlosen Erstgespräch" statt "Angebot in 5 Minuten" (kein Angebot ohne Gespräch, wirkt sonst verkäuferisch). Schrittlinie: inaktiv Dunkelbraun, aktiv Amber.
+- **Design (18.10.2026)**: Schrift Manrope (Überschriften) + DM Sans (Text), keine Kursivschrift. Kantige Formen. Buttons dunkles Braun statt Terrakotta, Amber nur für die Funnel-Schritte. Navigation mit fünf Punkten (Konzept, Angebote, Ablauf, Über mich, Kontakt), Kontaktleiste am rechten Rand.
 - Eigene **FAQ-Seite** trotzdem angelegt: wichtig für Google und KI-Suchen (ChatGPT, Perplexity), Fragen lassen sich jederzeit anpassen. Startseite zeigt die 8 wichtigsten, die FAQ-Seite alle 15 (drei Gruppen à fünf).
 - **Ein Ziel für alle Buttons**: das kostenlose 15-Minuten-Erstgespräch mit kurzem Fragebogen. Orange ist ausschließlich diesen Buttons vorbehalten, alle übrigen Akzente sind Karamell.
 - **Dreiergruppen** wo möglich (Vertrauenspunkte, Schwerpunkte, Angebote, Ablauf, Stärken, Bestandteile), damit man sich die Inhalte leicht merkt.

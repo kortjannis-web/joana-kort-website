@@ -46,7 +46,7 @@ export function Reviews({ title = 'Wie andere die Zusammenarbeit erlebt haben', 
                 </div>
                 <ReviewText text={r.text} id={`${idBase}-${i}`} />
                 <figcaption className="mt-4 flex items-center gap-3 border-t border-line pt-4">
-                  <span aria-hidden="true" className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-[0.875rem] font-semibold ${AVATAR[i % AVATAR.length]}`}>
+                  <span aria-hidden="true" className={`grid h-10 w-10 shrink-0 place-items-center rounded-md text-[0.875rem] font-semibold ${AVATAR[i % AVATAR.length]}`}>
                     {r.initials}
                   </span>
                   <span className="min-w-0 leading-tight">

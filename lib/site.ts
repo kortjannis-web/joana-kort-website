@@ -32,14 +32,18 @@ export const ROLE = STUDIUM_ABGESCHLOSSEN
       jobTitle: 'Gesundheitspsychologin',
     }
   : {
-      short: 'Stressberaterin mit gesundheitspsychologischem Hintergrund',
-      long: 'Stressberaterin und angehende Gesundheitspsychologin',
+      short: 'Angehende Gesundheitspsychologin mit Schwerpunkt Stress',
+      long: 'Stressberaterin und angehende Gesundheitspsychologin mit Schwerpunkt Stress',
       background: `Studium der Gesundheitspsychologie (Abschluss voraussichtlich ${ABSCHLUSS_TERMIN}), beruflicher Schwerpunkt: Stress`,
       jobTitle: 'Stressberaterin',
     }
 
-/** Telefonnummer von Joana (Mobil, auch für WhatsApp). Anzeige im deutschen Format, Links international */
+/**
+ * Mobilnummer von Joana: nur für WhatsApp. Briefing Ä6: KEINE Möglichkeit, Joana direkt anzurufen (kein tel-Link, keine Anzeige).
+ * Telefonkontakt läuft über den Rückruf aus dem Erstgespräch-Funnel. Soll die Nummer doch angezeigt werden: NEXT_PUBLIC_PHONE setzen.
+ */
 const PHONE = process.env.NEXT_PUBLIC_PHONE || '+49 1578 2327179'
+const SHOW_PHONE = !!process.env.NEXT_PUBLIC_PHONE
 
 /** "+49 1578 …" oder "01578 …" → "4915782327179" (mit prefix "+" → "+4915782327179") */
 const intl = (n: string, prefix = '') => {
@@ -65,11 +69,8 @@ export const site = {
   radiusKm: 20,
   /** PRÜFEN: E-Mail-Adresse */
   email: process.env.NEXT_PUBLIC_EMAIL || 'kontakt@joana-kort.de',
-  /** Telefon (Header "Anrufen", Menü, Footer, Impressum, Schema). Überschreibbar per NEXT_PUBLIC_PHONE */
-  phone: {
-    display: PHONE,
-    href: `tel:${intl(PHONE, '+')}`,
-  } as { display: string; href: string } | null,
+  /** Telefon zum Anrufen: standardmäßig aus (Briefing Ä6). Nur mit NEXT_PUBLIC_PHONE in Footer, Impressum, Schema */
+  phone: (SHOW_PHONE ? { display: PHONE, href: `tel:${intl(PHONE, '+')}` } : null) as { display: string; href: string } | null,
   /**
    * WhatsApp (Knopf unten rechts, ohne Fremd-Skript: Hinweisfenster, erst der Klick öffnet wa.me).
    * Standard: dieselbe Mobilnummer wie das Telefon. PRÜFEN: Ist WhatsApp auf dieser Nummer eingerichtet? Abweichend: NEXT_PUBLIC_WHATSAPP.
@@ -101,9 +102,6 @@ export const ERSTGESPRAECH = '/erstgespraech/#anfrage'
 /** Einheitliche CTA-Beschriftung */
 export const CTA_LABEL = 'Kostenloses Erstgespräch'
 
-/** "Anrufen": Telefon, solange keine Nummer eingetragen ist das Formular */
-export const CALL_HREF = () => site.phone?.href ?? ERSTGESPRAECH
-
 export const whatsappHref = (text: string = site.whatsapp.prefill) =>
   site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(text)}` : ERSTGESPRAECH
 
@@ -127,4 +125,4 @@ export const ORTE = [
 export const OBERBERG_WIKI = W + 'Oberbergischer_Kreis'
 
 /** Letzte inhaltliche Überarbeitung (für sitemap lastmod und "Zuletzt aktualisiert"). */
-export const CONTENT_UPDATED = '2026-10-16'
+export const CONTENT_UPDATED = '2026-10-18'

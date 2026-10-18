@@ -19,7 +19,7 @@ export function AboutArea() {
             <Reveal className="md:col-start-2 md:row-start-1">
               <p className="t-label text-caramel-700">Über mich</p>
               <h2 id="ueber-title" className="t-h2 mt-3 text-espresso-900">
-                Ich bin Joana Kort und kenne Stress nicht nur aus dem <em className="italic text-caramel-600">Lehrbuch</em>
+                Ich bin Joana Kort und kenne Stress nicht nur aus dem <em className="text-caramel-600">Lehrbuch</em>
               </h2>
             </Reveal>
             <PortraitFrame
@@ -48,7 +48,7 @@ export function AboutArea() {
       <section aria-labelledby="region-title" className="sec xl:flex xl:min-h-svh xl:items-center">
         <div className="wrap w-full">
           <Reveal className="floaty grid gap-2 rounded-xl border border-line bg-white p-2 md:grid-cols-2 xl:mx-auto xl:max-w-[72rem] xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            <div className="relative h-[24svh] min-h-[10rem] overflow-hidden rounded-lg bg-espresso-800 md:h-auto md:min-h-[min(24rem,calc(100svh-2*var(--sec-y)-1rem))]">
+            <div className="relative h-[21svh] min-h-[9rem] overflow-hidden rounded-lg bg-espresso-800 md:h-auto md:min-h-[min(24rem,calc(100svh-2*var(--sec-y)-1rem))]">
               <AreaMap />
             </div>
             <div className="flex flex-col justify-center p-4 pb-2 md:p-[clamp(1.5rem,4svh,3rem)] xl:px-12">

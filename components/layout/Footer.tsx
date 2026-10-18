@@ -7,9 +7,12 @@ import { ANGEBOTE } from '@/lib/content/angebote'
 import { ERSTGESPRAECH, ROLE, site } from '@/lib/site'
 
 const wissen = [
-  { label: 'Stress verstehen', href: '/stress-verstehen/' },
   { label: 'Mein Ansatz', href: '/mein-ansatz/' },
+  { label: 'Methoden und Werkzeuge', href: '/methoden/' },
+  { label: 'Ablauf', href: '/ablauf/' },
+  { label: 'Stress verstehen', href: '/stress-verstehen/' },
   { label: 'Über mich', href: '/joana-kort/' },
+  { label: 'Qualifikationen und Referenzen', href: '/qualifikationen-und-referenzen/' },
   { label: 'Ratgeber', href: '/ratgeber/' },
   { label: 'Häufige Fragen', href: '/haeufige-fragen/' },
   { label: 'Stressberatung Gummersbach', href: '/stressberatung-gummersbach/' },
@@ -39,7 +42,7 @@ export function Footer() {
           <Link href="/" aria-label="Joana Kort Stressberatung, zur Startseite" className="-ml-1 inline-block rounded-md p-1">
             <Logo tone="light" />
           </Link>
-          <p className="mt-[clamp(0.75rem,2.5svh,1.5rem)] font-serif text-[1.0625rem] italic leading-snug text-caramel-300 md:text-[1.125rem]">{site.slogan}</p>
+          <p className="mt-[clamp(0.75rem,2.5svh,1.5rem)] font-serif text-[1.0625rem] leading-snug text-caramel-300 md:text-[1.125rem]">{site.slogan}</p>
           <p className="mt-3 text-[0.875rem] leading-relaxed md:mt-4 md:text-[0.9375rem]">
             Individuelle Stressberatung und Stresscoaching in Gummersbach und online. {ROLE.short}.
           </p>
@@ -52,7 +55,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`${site.owner} bei ${label}`}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-espresso-200 transition-colors hover:border-caramel-300 hover:text-caramel-300"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-espresso-200 transition-colors hover:border-caramel-300 hover:text-caramel-300"
                   >
                     <Icon className="h-4.5 w-4.5" />
                   </a>

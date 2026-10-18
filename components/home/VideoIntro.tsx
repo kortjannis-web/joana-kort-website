@@ -44,10 +44,10 @@ export function VideoIntro() {
             ) : (
               <div className="grain relative grid aspect-video w-full place-items-center overflow-hidden" role="img" aria-label="Platzhalter für das Vorstellungsvideo von Joana Kort">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgb(214_184_146/0.22),transparent_55%)]" />
-                <span className="absolute left-5 top-5 font-serif text-[3.5rem] italic leading-none text-caramel-300/25 md:left-8 md:top-7 md:text-[5.5rem]">JK</span>
+                <span className="absolute left-5 top-5 font-serif text-[3.5rem] leading-none text-caramel-300/25 md:left-8 md:top-7 md:text-[5.5rem]">JK</span>
                 <span className="relative grid h-20 w-20 place-items-center md:h-24 md:w-24">
                   <span aria-hidden="true" className="play-ring absolute inset-0 rounded-full border-2 border-caramel-300/70" />
-                  <span className="relative grid h-full w-full place-items-center rounded-full bg-paper text-espresso-800 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)]">
+                  <span className="relative grid h-full w-full place-items-center rounded-md bg-paper text-espresso-800 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)]">
                     <Play className="ml-1 h-8 w-8 fill-current md:h-9 md:w-9" strokeWidth={1.5} aria-hidden="true" />
                   </span>
                 </span>
@@ -65,12 +65,12 @@ export function VideoIntro() {
         <Reveal delay={0.1} className="lg:col-span-5">
           <p className="t-label text-caramel-700">Persönlich vorgestellt</p>
           <h2 id="video-title" className="t-h2 mt-3 text-espresso-900">
-            Lernen Sie mich <em className="italic text-caramel-600">kennen</em>
+            Lernen Sie mich <em className="text-caramel-600">kennen</em>
           </h2>
           <ul className="mt-[clamp(1rem,2.5svh,1.5rem)] border-t border-line">
             {PUNKTE.map(({ title, text, Icon }) => (
               <li key={title} className="flex gap-4 border-b border-line py-[clamp(0.625rem,1.8svh,1rem)]">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[0.625rem] bg-stone text-caramel-700">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-stone text-caramel-700">
                   <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
                 </span>
                 <span>

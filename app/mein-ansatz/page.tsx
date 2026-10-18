@@ -109,7 +109,7 @@ export default function AnsatzPage() {
           <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:items-center xl:gap-16">
             <Reveal className="xl:col-span-5">
               <h2 id="managen" className="t-h2 text-white">
-                Stress managen heißt <em className="italic text-caramel-300">nicht</em>, noch mehr zu leisten
+                Stress managen heißt <em className="text-caramel-300">nicht</em>, noch mehr zu leisten
               </h2>
               <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-espresso-100/90 max-md:text-[0.9375rem] max-md:leading-relaxed">
                 Bei "Stressmanagement" denken viele sofort an eine weitere To-do-Liste. Mir geht es um das Gegenteil: vorhandene Kräfte sinnvoll

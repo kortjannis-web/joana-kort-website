@@ -49,9 +49,9 @@ function OfferCard({ a, main = false }: { a: Angebot; main?: boolean }) {
           <span className={cn('grid h-11 w-11 place-items-center rounded-md', main ? 'bg-white/10 text-caramel-300' : 'bg-stone text-caramel-700')}>
             <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
           </span>
-          {main && <span className="rounded-full bg-caramel-300/15 px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-caramel-200">Hauptangebot</span>}
+          {main && <span className="rounded-md bg-caramel-300/15 px-3 py-1 text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-caramel-200">Hauptangebot</span>}
           {a.status !== 'buchbar' && (
-            <span className="rounded-full bg-caramel-50 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-caramel-700">
+            <span className="rounded-md bg-caramel-50 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-caramel-700">
               {a.status === 'termine-folgen' ? 'Termine folgen' : 'In Vorbereitung'}
             </span>
           )}
@@ -69,7 +69,7 @@ function OfferCard({ a, main = false }: { a: Angebot; main?: boolean }) {
       </div>
       {main && (
         <ul className="mt-[clamp(1rem,3svh,1.5rem)] space-y-2 text-[0.9375rem] text-espresso-100/90 compact:hidden lg:mt-0 lg:w-[20rem]">
-          {['Stressanalyse und Stresslandkarte', 'Persönlicher Begleitungsplan', 'Methoden, Übungen, Materialien', 'Pläne für Ihren Alltag'].map((t) => (
+          {['Stressanalyse und Stresslandkarte', 'Persönlicher Unterstützungsplan', 'Methoden, Übungen, Materialien', 'Pläne für Ihren Alltag'].map((t) => (
             <li key={t} className="flex gap-2.5">
               <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-caramel-300" strokeWidth={2.5} aria-hidden="true" />
               {t}
@@ -138,7 +138,7 @@ export default function AngebotePage() {
             <Reveal>
               <p className="t-label text-caramel-700">Weitere Formate</p>
               <h2 id="formate" className="t-h2 mt-3 text-espresso-900">
-                Zu zweit, in der Gruppe, <em className="italic text-caramel-600">online</em> oder im Team
+                Zu zweit, in der Gruppe, <em className="text-caramel-600">online</em> oder im Team
               </h2>
             </Reveal>
             <Reveal delay={0.08} className="mt-[var(--sec-gap)]">

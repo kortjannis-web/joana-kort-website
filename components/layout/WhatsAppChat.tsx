@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
-import { CalendarHeart, X } from 'lucide-react'
+import { CalendarHeart, Mail, MessageCircle, MessageSquareText, X } from 'lucide-react'
 import { WhatsAppIcon } from '@/components/ui/icons'
 import { buttonClass } from '@/components/ui/Button'
 import { GoogleRating } from '@/components/ui/GoogleRating'
@@ -12,7 +12,9 @@ import { CTA_LABEL, ERSTGESPRAECH, site, whatsappHref } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 /**
- * WhatsApp-Knopf unten rechts (immer sichtbar, wie Vorlage) ohne Fremd-Skript: kleines Fenster mit Begrüßung und Datenschutzhinweis,
+ * Kontaktleiste (Briefing Ä6): ab Laptop fest am rechten Rand (Erstgespräch, E-Mail, Kontaktformular, WhatsApp), Beschriftung gleitet beim
+ * Hover heraus. Handy/Tablet: ein Knopf unten rechts öffnet dieselben vier Wege (verdeckt keinen Inhalt). Kein Anruf-Knopf.
+ * WhatsApp ohne Fremd-Skript: kleines Fenster mit Begrüßung und Datenschutzhinweis,
  * erst der Klick auf "Chat starten" öffnet WhatsApp (wa.me). Kein Datenfluss vor dem Klick.
  * Solange es Google-Bewertungen gibt, steht im Hero die Bewertung und der Knopf kommt erst nach dem Hero (wie Vorlage),
  * ohne Bewertungen ist der Knopf von Anfang an da. Ohne Nummer (NEXT_PUBLIC_WHATSAPP) führt "Chat starten" zum Erstgespräch.
@@ -93,23 +95,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
       />
       )}
 
-      {/* Schwebender Knopf unten rechts (alle Breakpoints): erst nach dem Hero, gleitet weich herein */}
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label="WhatsApp-Chat öffnen"
-        aria-expanded={open}
-        tabIndex={showButton ? undefined : -1}
-        className={cn(
-          'fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-[0_10px_30px_-8px_rgba(30,22,17,0.5)] transition-[opacity,transform,box-shadow] duration-700 ease-[var(--ease-soft)] md:bottom-6 md:right-6',
-          showButton ? 'translate-y-0 scale-100 opacity-100 hover:-translate-y-0.5' : 'pointer-events-none translate-y-4 scale-90 opacity-0',
-          onDark && 'wa-glow',
-          open && 'hidden'
-        )}
-      >
-        <WhatsAppIcon className="h-6 w-6" />
-      </button>
+      <ContactRail btnRef={btnRef} showFab={showButton} onDark={onDark} hidden={open} openWhatsApp={() => setOpen(true)} />
 
       <div
         role="dialog"
@@ -121,7 +107,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
         )}
       >
         <div className="flex items-center gap-3 rounded-t-lg bg-espresso-800 px-5 py-4 text-white">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 font-serif text-lg italic text-caramel-200">JK</span>
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white/10 font-serif text-lg text-caramel-200">JK</span>
           <div className="min-w-0 flex-1">
             <p id="wa-title" className="font-semibold leading-tight">
               {site.owner}
@@ -132,7 +118,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Chat-Fenster schließen"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/10"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-white/10"
           >
             <X className="h-5 w-5" strokeWidth={1.75} />
           </button>
@@ -179,4 +165,138 @@ function isDarkAt(x: number, y: number, self: HTMLElement) {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b < 110
   }
   return false
+}
+
+/** Kontaktwege der Leiste (Reihenfolge = Wichtigkeit) */
+function useContactItems(openWhatsApp: () => void) {
+  return [
+    { label: 'Kostenloses Erstgespräch', href: ERSTGESPRAECH, Icon: CalendarHeart },
+    { label: 'E-Mail schreiben', href: `mailto:${site.email}`, Icon: Mail },
+    { label: 'Kontaktformular', href: '/erstgespraech/#kontaktformular', Icon: MessageSquareText },
+    { label: 'WhatsApp', onClick: openWhatsApp, Icon: WhatsAppIcon },
+  ] as { label: string; href?: string; onClick?: () => void; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[]
+}
+
+function ContactRail({
+  btnRef,
+  showFab,
+  onDark,
+  hidden,
+  openWhatsApp,
+}: {
+  btnRef: React.RefObject<HTMLButtonElement | null>
+  showFab: boolean
+  onDark: boolean
+  hidden: boolean
+  openWhatsApp: () => void
+}) {
+  const items = useContactItems(openWhatsApp)
+  const [menu, setMenu] = useState(false)
+  const pathname = usePathname()
+  const boxRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => setMenu(false), [pathname])
+  useEffect(() => {
+    if (!menu) return
+    const onDoc = (e: MouseEvent) => boxRef.current && !boxRef.current.contains(e.target as Node) && setMenu(false)
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMenu(false)
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [menu])
+
+  const itemCls = 'flex items-center gap-3'
+  const render = (it: (typeof items)[number], cls: string, inner: ReactNode, close?: () => void) =>
+    it.href ? (
+      it.href.startsWith('mailto:') ? (
+        <a key={it.label} href={it.href} className={cls} onClick={close}>
+          {inner}
+        </a>
+      ) : (
+        <Link key={it.label} href={it.href} className={cls} onClick={close}>
+          {inner}
+        </Link>
+      )
+    ) : (
+      <button
+        key={it.label}
+        type="button"
+        className={cls}
+        onClick={() => {
+          close?.()
+          it.onClick?.()
+        }}
+      >
+        {inner}
+      </button>
+    )
+
+  return (
+    <>
+      {/* Laptop/Desktop: Leiste am rechten Rand, mittig. Beschriftung gleitet beim Hover/Fokus nach links heraus */}
+      <nav
+        aria-label="Kontakt"
+        className={cn(
+          'fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 flex-col overflow-visible rounded-l-md bg-espresso-800 shadow-[0_12px_30px_-10px_rgba(20,14,10,0.55)] ring-1 ring-white/10 transition-opacity duration-300 min-[80rem]:flex',
+          hidden && 'pointer-events-none opacity-0'
+        )}
+      >
+        {items.map((it, i) =>
+          render(
+            it,
+            cn('group relative grid h-12 w-12 place-items-center text-espresso-100 transition-colors duration-300 hover:bg-espresso-700 hover:text-white focus-visible:bg-espresso-700', i === 0 && 'rounded-tl-md text-caramel-200', i === items.length - 1 && 'rounded-bl-md', i > 0 && 'border-t border-white/10'),
+            <>
+              <it.Icon className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.6} />
+              <span className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-sm bg-espresso-800 px-3 py-2 text-[0.8125rem] font-semibold text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(20,14,10,0.5)] transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
+                {it.label}
+              </span>
+              <span className="sr-only">{it.label}</span>
+            </>
+          )
+        )}
+      </nav>
+
+      {/* Handy/Tablet: Knopf unten rechts, öffnet die vier Wege darüber */}
+      <div ref={boxRef} className={cn('fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 md:bottom-6 md:right-6 min-[80rem]:hidden', hidden && 'hidden')}>
+        <ul
+          className={cn(
+            'absolute bottom-full right-0 mb-2 w-60 origin-bottom-right overflow-hidden rounded-md border border-line bg-white py-1 shadow-[0_24px_50px_-18px_rgba(30,22,17,0.5)] transition-[opacity,transform,visibility] duration-300 ease-[var(--ease-soft)]',
+            menu ? 'visible scale-100 opacity-100' : 'invisible scale-95 opacity-0'
+          )}
+        >
+          {items.map((it) => (
+            <li key={it.label}>
+              {render(
+                it,
+                cn(itemCls, 'min-h-12 w-full px-4 text-left text-[0.9375rem] font-semibold text-espresso-900 hover:bg-stone'),
+                <>
+                  <it.Icon className="h-[1.125rem] w-[1.125rem] shrink-0 text-caramel-700" strokeWidth={1.6} />
+                  {it.label}
+                </>,
+                () => setMenu(false)
+              )}
+            </li>
+          ))}
+        </ul>
+        <button
+          ref={btnRef}
+          type="button"
+          onClick={() => setMenu((v) => !v)}
+          aria-label={menu ? 'Kontaktwege schließen' : 'Kontakt aufnehmen'}
+          aria-expanded={menu}
+          tabIndex={showFab ? undefined : -1}
+          className={cn(
+            'inline-flex h-14 w-14 items-center justify-center rounded-md bg-espresso-800 text-white shadow-[0_10px_30px_-8px_rgba(30,22,17,0.55)] ring-1 ring-white/15 transition-[opacity,transform,box-shadow] duration-700 ease-[var(--ease-soft)]',
+            showFab ? 'translate-y-0 scale-100 opacity-100 hover:-translate-y-0.5' : 'pointer-events-none translate-y-4 scale-90 opacity-0',
+            onDark && 'wa-glow'
+          )}
+        >
+          {menu ? <X className="h-6 w-6" strokeWidth={1.75} /> : <MessageCircle className="h-6 w-6" strokeWidth={1.6} />}
+        </button>
+      </div>
+    </>
+  )
 }

@@ -13,6 +13,7 @@ import { FaqAccordion } from '@/components/faq/FaqAccordion'
 import { Pillars } from '@/components/home/Pillars'
 import { Process } from '@/components/home/Process'
 import { MoreOffers } from '@/components/angebote/MoreOffers'
+import { ProgrammCard } from '@/components/angebote/ProgrammCard'
 import { BESTANDTEILE, PROGRAMME } from '@/lib/content/angebote'
 import { COACHING_FAQS } from '@/lib/content/faqs'
 import { faqSchema, serviceSchema } from '@/lib/schema'
@@ -24,7 +25,7 @@ const PATH = '/stresscoaching/'
 export const metadata = pageMeta({
   title: 'Stresscoaching: Begleitung über 3 oder 6 Monate | Joana Kort',
   description:
-    'Persönliches Stresscoaching in Gummersbach und online: Stressanalyse, Begleitungsplan, Methoden und Pläne für Ihren Alltag. 3 oder 6 Monate. Erstgespräch kostenlos.',
+    'Persönliches Stresscoaching in Gummersbach und online: Stressanalyse, Unterstützungsplan, Methoden und Pläne für Ihren Alltag. 3 oder 6 Monate. Erstgespräch kostenlos.',
   path: PATH,
 })
 
@@ -51,7 +52,7 @@ export default function StresscoachingPage() {
           serviceSchema({
             name: 'Stresscoaching: persönliche Begleitung über 3 oder 6 Monate',
             description:
-              'Individuelle Eins-zu-eins-Begleitung: Stressanalyse, Stresslandkarte, Begleitungsplan, Methoden zur Stressbewältigung und Pläne für einen stressärmeren Alltag. Online und vor Ort im Raum Gummersbach.',
+              'Individuelle Eins-zu-eins-Begleitung: Stressanalyse, Stresslandkarte, Unterstützungsplan, Methoden zur Stressbewältigung und Pläne für einen stressärmeren Alltag. Online und vor Ort im Raum Gummersbach.',
             path: PATH,
           }),
           faqSchema(COACHING_FAQS),
@@ -61,7 +62,7 @@ export default function StresscoachingPage() {
         eyebrow="Stresscoaching"
         title={
           <>
-            Ihre persönliche Begleitung über <em>drei oder sechs Monate</em>
+            Ihre persönliche Begleitung, <em>wöchentlich oder alle zwei Wochen</em>
           </>
         }
         intro={
@@ -98,7 +99,7 @@ export default function StresscoachingPage() {
               <ul className="mt-[clamp(0.75rem,2svh,1.25rem)] space-y-[clamp(0.5rem,1.5svh,0.875rem)] max-md:text-[0.9375rem]">
                 {ERGEBNIS.map((e, i) => (
                   <li key={e} className="flex gap-4">
-                    <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
+                    <span aria-hidden="true" className="font-serif text-[1.375rem] leading-none text-caramel-600">
                       {i + 1}
                     </span>
                     <span className="leading-snug text-ink/85">{e}</span>
@@ -120,10 +121,10 @@ export default function StresscoachingPage() {
               <Reveal>
                 <p className="t-label text-caramel-700">Zwei Programme</p>
                 <h2 id="programme-title" className="t-h2 mt-3 text-espresso-900">
-                  Drei oder sechs Monate: gleicher Weg, anderes Tempo
+                  Wöchentlich oder alle zwei Wochen
                 </h2>
                 <p className="t-lead mt-[clamp(0.5rem,1.5svh,1rem)] text-muted max-lg:hidden">
-                  Beide Programme folgen den drei Schwerpunkten. Der Unterschied liegt im Rhythmus und darin, wie viel Zeit jedes Thema bekommt.
+                  Beide Programme folgen den drei Schwerpunkten. Der Unterschied liegt im Rhythmus. Wer länger begleitet werden möchte, verdoppelt die Laufzeit und erhält 15 % Rabatt auf jede Sitzung.
                 </p>
               </Reveal>
               <Reveal className="mt-[clamp(0.75rem,2.5svh,1.5rem)] max-lg:hidden">
@@ -144,41 +145,7 @@ export default function StresscoachingPage() {
             <Reveal delay={0.08} className="mt-[var(--sec-gap)] lg:col-span-8 lg:mt-0">
               <Carousel label="Programme" arrowLabel="Programme" item="86vw" gridFrom="md" gridClass="md:grid-cols-2 md:gap-5 xl:gap-8">
                 {PROGRAMME.map((p, idx) => (
-                  <article
-                    key={p.key}
-                    className={idx === 0 ? 'floaty-lg flex h-full flex-col rounded-xl bg-white p-4 md:p-[clamp(1.25rem,3.5svh,2rem)]' : 'grain floaty-lg flex h-full flex-col overflow-hidden rounded-xl bg-espresso-800 p-4 text-white md:p-[clamp(1.25rem,3.5svh,2rem)]'}
-                  >
-                    <p className={idx === 0 ? 't-label text-caramel-700' : 't-label text-caramel-300'}>{p.untertitel}</p>
-                    <h3 className="mt-2 font-serif text-[clamp(2rem,1.2rem+3svh,3.2rem)] leading-none">
-                      <em className={idx === 0 ? 'italic text-caramel-700' : 'italic text-caramel-300'}>{p.monate}</em> Monate
-                    </h3>
-                    <ul className={idx === 0 ? 'mt-[clamp(0.75rem,2.5svh,1.5rem)] divide-y divide-line border-y border-line' : 'mt-[clamp(0.75rem,2.5svh,1.5rem)] divide-y divide-white/12 border-y border-white/12'}>
-                      {[
-                        ['Rhythmus', p.rhythmus],
-                        ['Dauer', p.dauer],
-                        ['Umfang', p.sitzungen],
-                      ].map(([k, v]) => (
-                        <li key={k} className="flex justify-between gap-4 py-[clamp(0.4rem,1.2svh,0.75rem)] text-[0.9375rem]">
-                          <span className={idx === 0 ? 'text-muted' : 'text-espresso-200'}>{k}</span>
-                          <span className="text-right font-semibold">{v}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <ol className="mt-[clamp(0.75rem,2.5svh,1.5rem)] grid grid-cols-3 gap-2 max-md:hidden" aria-label="Aufbau">
-                      {p.phasen.map((ph, i) => (
-                        <li key={ph.title}>
-                          <span className="block h-1.5 rounded-full" style={{ background: ['#e6d3b8', '#c09a70', '#8f6a44'][i] }} />
-                          <span className={idx === 0 ? 'mt-2 block text-[0.75rem] text-muted' : 'mt-2 block text-[0.75rem] text-espresso-200'}>{ph.zeit}</span>
-                          <span className="block text-[0.8125rem] font-semibold leading-tight md:text-[0.875rem]">{ph.title}</span>
-                        </li>
-                      ))}
-                    </ol>
-                    <p className={idx === 0 ? 'mt-[clamp(0.75rem,2.5svh,1.5rem)] flex-1 text-[0.9375rem] compact:hidden leading-relaxed text-ink/85 md:text-base' : 'mt-[clamp(0.75rem,2.5svh,1.5rem)] flex-1 text-[0.9375rem] leading-relaxed text-espresso-100/90 compact:hidden md:text-base'}>{p.fuer}</p>
-                    <ButtonLink href={HREF} variant="primary" className="group mt-[clamp(0.75rem,2.5svh,1.75rem)] w-full">
-                      {CTA_LABEL}
-                      <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
-                    </ButtonLink>
-                  </article>
+                  <ProgrammCard key={p.key} p={p} dark={idx === 1} href={HREF} />
                 ))}
               </Carousel>
             </Reveal>
@@ -211,7 +178,7 @@ export default function StresscoachingPage() {
                 {BESTANDTEILE.map((g, gi) => (
                   <div key={g.title} className="glow-hover h-full rounded-xl border border-line bg-white p-5 md:p-[clamp(1.25rem,3svh,1.5rem)]">
                     <p className="flex items-baseline gap-2.5">
-                      <span aria-hidden="true" className="font-serif text-[1.375rem] italic leading-none text-caramel-600">
+                      <span aria-hidden="true" className="font-serif text-[1.375rem] leading-none text-caramel-600">
                         {gi + 1}
                       </span>
                       <span className="font-serif text-[1.25rem] leading-tight text-espresso-900">{g.title}</span>
@@ -239,7 +206,7 @@ export default function StresscoachingPage() {
             <Reveal className="lg:col-span-6">
               <p className="t-label text-caramel-300">Ein Beispiel aus der Praxis</p>
               <h2 id="materialien-title" className="t-h2 mt-3 text-white">
-                So sehen die <em className="italic text-caramel-300">Materialien</em> aus
+                So sehen die <em className="text-caramel-300">Materialien</em> aus
               </h2>
               <p className="t-lead mt-[clamp(0.5rem,2svh,1.25rem)] text-espresso-100/90 max-md:hidden">
                 Alles, was Sie von mir bekommen, ist schlicht, schön und sofort nutzbar, zum Ausdrucken oder am Bildschirm. Ein paar Beispiele:
@@ -251,7 +218,7 @@ export default function StresscoachingPage() {
                   ['Wochenfokus', 'Ein Wochenziel statt zehn Baustellen, dazu ein einfacher Gewohnheits-Tracker.'],
                 ].map(([t, d]) => (
                   <div key={t} className="grid gap-0.5 py-[clamp(0.5rem,1.6svh,1rem)] sm:grid-cols-[10rem_1fr] sm:gap-6">
-                    <dt className="font-serif text-[1.125rem] italic text-caramel-200">{t}</dt>
+                    <dt className="font-serif text-[1.125rem] text-caramel-200">{t}</dt>
                     <dd className="text-[0.875rem] leading-snug text-espresso-100/85 compact:hidden md:text-[0.9375rem] md:leading-relaxed">{d}</dd>
                   </div>
                 ))}

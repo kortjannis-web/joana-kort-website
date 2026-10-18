@@ -71,7 +71,7 @@ export function Process({
           {steps.map((s, i) => (
             <div key={s.title} className="group floaty relative flex h-full flex-col rounded-lg border border-line bg-white p-5">
               <div className="flex items-center gap-3">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#ddd3c6] bg-white font-serif text-[1.3rem] italic text-caramel-700 transition-colors duration-500 group-data-[active=true]:border-caramel-600 group-data-[active=true]:bg-caramel-600 group-data-[active=true]:text-white">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md border border-[#ddd3c6] bg-white font-serif text-[1.3rem] text-caramel-700 transition-colors duration-500 group-data-[active=true]:border-caramel-600 group-data-[active=true]:bg-caramel-600 group-data-[active=true]:text-white">
                   {i + 1}
                 </span>
                 <span className="text-[0.8125rem] text-muted">
@@ -121,7 +121,7 @@ export function Process({
             <Reveal as="li" key={s.title} delay={i * 0.07} className="relative">
               <div {...bind(i)} className={i === 0 ? 'group relative' : 'group cursor-default'}>
                 <span
-                  className={`step-dot relative z-10 grid h-12 w-12 place-items-center rounded-full border border-[#ddd3c6] bg-white font-serif text-[1.45rem] italic leading-none text-caramel-700${i === 0 ? ' pointer-events-none' : ''}`}
+                  className={`step-dot relative z-10 grid h-12 w-12 place-items-center rounded-md border border-[#ddd3c6] bg-white font-serif text-[1.45rem] leading-none text-caramel-700${i === 0 ? ' pointer-events-none' : ''}`}
                 >
                   {i + 1}
                 </span>

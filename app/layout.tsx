@@ -12,15 +12,12 @@ import { INDEXABLE, SITE_URL, site } from '@/lib/site'
 import { OG_DEFAULT } from '@/lib/seo'
 import './globals.css'
 
-// Playfair Display (SIL OFL), variabel, Latin-Subset, wie in Joanas Materialien: Überschriften, Zitate, Kursiv-Akzente
-const playfair = localFont({
-  src: [
-    { path: './fonts/playfair-latin-normal.woff2', weight: '400 900', style: 'normal' },
-    { path: './fonts/playfair-latin-italic.woff2', weight: '400 900', style: 'italic' },
-  ],
-  variable: '--font-playfair',
+// Manrope (SIL OFL), variabel, Latin-Subset: Überschriften, Logo, Zahlen. Klar und modern, ohne Kursiv-Schnörkel
+const manrope = localFont({
+  src: [{ path: './fonts/manrope-latin-normal.woff2', weight: '200 800', style: 'normal' }],
+  variable: '--font-manrope',
   display: 'swap',
-  adjustFontFallback: 'Times New Roman',
+  adjustFontFallback: 'Arial',
 })
 
 // DM Sans (SIL OFL), variabel: Fließtext, Labels, Formulare
@@ -61,12 +58,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${playfair.variable} ${dmsans.variable}`}>
+    <html lang="de" className={`${manrope.variable} ${dmsans.variable}`}>
       <body>
         <JsonLd data={organizationSchema()} />
         <a
           href="#inhalt"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-espresso-800 focus:px-5 focus:py-3 focus:text-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-md focus:bg-espresso-800 focus:px-5 focus:py-3 focus:text-white"
         >
           Zum Inhalt springen
         </a>

@@ -44,7 +44,7 @@ export function ReviewText({ text, id }: { text: string; id: string }) {
           aria-controls={id}
           aria-label={open ? 'Bewertung einklappen' : 'Ganze Bewertung lesen'}
           onClick={() => setOpen((v) => !v)}
-          className="group mx-auto -mb-1 -mt-1.5 grid h-11 w-11 place-items-center rounded-full text-espresso-800 transition-colors duration-300 hover:bg-espresso-800/[0.06]"
+          className="group mx-auto -mb-1 -mt-1.5 grid h-11 w-11 place-items-center rounded-md text-espresso-800 transition-colors duration-300 hover:bg-espresso-800/[0.06]"
         >
           <ChevronDown
             className={cn('h-5 w-5 transition-transform duration-500 ease-[var(--ease-soft)]', open && 'rotate-180')}

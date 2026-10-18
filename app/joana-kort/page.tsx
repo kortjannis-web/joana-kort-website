@@ -61,7 +61,7 @@ export default function UeberMichPage() {
               <Reveal delay={0.1}>
                 <p className="font-serif text-[clamp(1.25rem,0.9rem+1.6svh,1.4375rem)] leading-[1.35] text-espresso-900 md:text-[clamp(1.5rem,1rem+1.8svh,1.75rem)] xl:text-[clamp(1.75rem,1rem+2.6svh,2.05rem)] xl:leading-[1.3]">
                   Ich bin Joana Kort. Ich begleite Menschen dabei, ihren Stress zu verstehen, passende Wege der Bewältigung zu finden und ihren
-                  Alltag so zu gestalten, dass sie wieder <em className="italic text-caramel-600">durchatmen</em> können.
+                  Alltag so zu gestalten, dass sie wieder <em className="text-caramel-600">durchatmen</em> können.
                 </p>
               </Reveal>
             </div>

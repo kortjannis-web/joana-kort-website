@@ -90,7 +90,7 @@ export function PageHero({
               <h1
                 id={id}
                 className={cn(
-                  'intro-rise t-hero-sub mt-4 [--d:0.12s] short:mt-2.5 [&_em]:italic',
+                  'intro-rise t-hero-sub mt-4 [--d:0.12s] short:mt-2.5',
                   image ? 'text-white [&_em]:text-caramel-300' : 'text-espresso-900 [&_em]:font-normal [&_em]:text-caramel-600'
                 )}
               >

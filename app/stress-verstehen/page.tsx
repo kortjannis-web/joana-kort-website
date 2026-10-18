@@ -102,7 +102,7 @@ export default function StressVerstehenPage() {
                   <a
                     key={t.id}
                     href={`#${t.id}`}
-                    className="rounded-full border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-800 md:px-3.5 md:py-1.5 md:text-[0.875rem] transition-colors hover:border-caramel-500 hover:text-caramel-800"
+                    className="rounded-md border border-line bg-white px-3 py-1 text-[0.8125rem] font-medium text-espresso-800 md:px-3.5 md:py-1.5 md:text-[0.875rem] transition-colors hover:border-caramel-500 hover:text-caramel-800"
                   >
                     {t.frage.split('?')[0]}
                   </a>
@@ -115,7 +115,7 @@ export default function StressVerstehenPage() {
                   const Icon = FAKT_ICONS[i]
                   return (
                     <div key={f.title} className="glow-hover flex h-full gap-4 rounded-lg border border-line bg-white p-4 md:flex-col md:p-[clamp(1rem,2.5svh,1.25rem)] xl:flex-row xl:items-center">
-                      <span className="glow-icon grid h-12 w-12 shrink-0 place-items-center rounded-full bg-stone text-caramel-700">
+                      <span className="glow-icon grid h-12 w-12 shrink-0 place-items-center rounded-md bg-stone text-caramel-700">
                         <Icon className="h-[1.375rem] w-[1.375rem]" strokeWidth={1.5} aria-hidden="true" />
                       </span>
                       <span>
@@ -168,7 +168,7 @@ export default function StressVerstehenPage() {
                 <div className="wrap grid gap-[var(--sec-gap)] xl:grid-cols-12 xl:items-center xl:gap-16">
                   <Reveal className="xl:col-span-7">
                     <h2 id="bruecke-title" className="t-h2 text-white">
-                      Wissen allein <em className="italic text-caramel-300">entlastet nicht</em>
+                      Wissen allein <em className="text-caramel-300">entlastet nicht</em>
                     </h2>
                     <p className="t-lead mt-[clamp(0.75rem,2svh,1.25rem)] text-espresso-100/90">
                       Die meisten wissen längst, was ihnen guttun würde. Entscheidend ist, es im eigenen Alltag umzusetzen. Genau dabei begleite
@@ -205,7 +205,7 @@ export default function StressVerstehenPage() {
               <ul className="grid gap-3 md:grid-cols-3 md:gap-5">
                 {WISSEN_DEMNAECHST.map((d) => (
                   <li key={d.title} className="rounded-lg border border-dashed border-caramel-400/70 bg-paper/60 p-4 md:p-[clamp(1.25rem,3svh,1.5rem)]">
-                    <span className="inline-flex h-6 items-center rounded-full bg-white px-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-caramel-700">
+                    <span className="inline-flex h-6 items-center rounded-md bg-white px-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-caramel-700">
                       Bald hier
                     </span>
                     <p className="mt-2 font-serif text-[1.25rem] leading-tight text-espresso-900 md:mt-3 md:text-[1.3rem]">{d.title}</p>

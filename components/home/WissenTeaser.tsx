@@ -18,7 +18,7 @@ export function WissenTeaser() {
           <div className="max-w-[40rem]">
             <p className="t-label text-caramel-700">Stress verstehen</p>
             <h2 id="wissen-title" className="t-h2 mt-3 text-espresso-900">
-              Was bei Stress <em className="italic text-caramel-600">in Ihnen</em> passiert
+              Was bei Stress <em className="text-caramel-600">in Ihnen</em> passiert
             </h2>
           </div>
           <Link href="/stress-verstehen/" aria-label="Alle Erklärungen" className="link inline-flex min-h-11 shrink-0 items-center text-[0.9375rem] font-semibold">

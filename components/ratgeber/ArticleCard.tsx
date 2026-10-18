@@ -11,7 +11,7 @@ export function KategorieChip({ children, className }: { children: string; class
   return (
     <span
       className={cn(
-        'inline-flex h-7 items-center rounded-full bg-caramel-50 px-3 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-caramel-700 md:text-[0.75rem]',
+        'inline-flex h-7 items-center rounded-md bg-caramel-50 px-3 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-caramel-700 md:text-[0.75rem]',
         className
       )}
     >
@@ -49,7 +49,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
     >
       <div
         className={cn(
-          'relative min-w-0 shrink-0 overflow-hidden rounded-[0.875rem]',
+          'relative min-w-0 shrink-0 overflow-hidden rounded-md',
           featured
             ? 'h-[clamp(8.5rem,22svh,13rem)] md:h-[clamp(11rem,30svh,22rem)] xl:h-[clamp(14rem,calc(100svh-2*var(--sec-y)-3rem),27.5rem)] xl:rounded-lg'
             : 'h-[clamp(7.5rem,19svh,13rem)] md:h-[clamp(7rem,16svh,17rem)]'
@@ -84,7 +84,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
         {featured ? (
           <span
             aria-hidden="true"
-            className="mt-1 inline-flex min-h-11 items-center justify-center gap-2.5 rounded-full border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 xl:mt-2 xl:self-start xl:border-0 xl:bg-espresso-900 xl:text-white xl:group-hover:bg-espresso-800"
+            className="mt-1 inline-flex min-h-11 items-center justify-center gap-2.5 rounded-md border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 xl:mt-2 xl:self-start xl:border-0 xl:bg-espresso-900 xl:text-white xl:group-hover:bg-espresso-800"
           >
             Artikel lesen <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} />
           </span>

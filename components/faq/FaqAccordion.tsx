@@ -27,7 +27,7 @@ export function FaqAccordion({
               <H className="text-[0.9375rem] font-semibold leading-snug text-ink transition-colors duration-500 ease-[var(--ease-soft)] group-hover:text-espresso-800 md:text-[clamp(1rem,0.8rem+0.7svh,1.125rem)]">
                 {f.q}
               </H>
-              <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#ddd3c6] text-espresso-800 transition-[transform,border-color,color] duration-300 ease-[var(--ease-soft)] group-hover:border-caramel-500/60 group-hover:text-caramel-700">
+              <span className="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-md border border-[#ddd3c6] text-espresso-800 transition-[transform,border-color,color] duration-300 ease-[var(--ease-soft)] group-hover:border-caramel-500/60 group-hover:text-caramel-700">
                 <Plus className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
               </span>
             </summary>

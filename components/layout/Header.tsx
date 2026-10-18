@@ -3,11 +3,11 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { Building2, ChevronDown, ChevronRight, Mail, MonitorPlay, Phone, User } from 'lucide-react'
+import { ArrowRight, BookOpen, Building2, ChevronDown, ChevronRight, GraduationCap, Layers, Mail, MonitorPlay, User, Wrench } from 'lucide-react'
 import { Logo } from './Logo'
 import { MAIN_NAV, type NavGroup } from './nav'
 import { MobileMenu } from './MobileMenu'
-import { CALL_HREF, site } from '@/lib/site'
+import { CTA_LABEL, ERSTGESPRAECH, site } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 /** Symbole im Dropdown (Kachel links neben dem Eintrag) */
@@ -15,29 +15,42 @@ const ICONS: Record<string, typeof User> = {
   '/stresscoaching/': User,
   '/webinar/': MonitorPlay,
   '/stressmanagement-unternehmen/': Building2,
+  '/mein-ansatz/': Layers,
+  '/methoden/': Wrench,
+  '/stress-verstehen/': BookOpen,
+  '/joana-kort/': User,
+  '/qualifikationen-und-referenzen/': GraduationCap,
 }
 
-/** "Anrufen": tel-Link (Nummer als Tooltip für Desktop), ohne Nummer das Formular (dort Rückruf wählbar) */
-function CallLink({ className, children, tabIndex, hidden }: { className: string; children: React.ReactNode; tabIndex?: number; hidden?: boolean }) {
-  const href = CALL_HREF()
-  const label = site.phone ? `Anrufen: ${site.phone.display}` : 'Anrufen: Rückruf vereinbaren'
-  if (href.startsWith('tel:'))
-    return (
-      <a href={href} aria-label={label} title={site.phone?.display} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
-        {children}
-      </a>
-    )
+/**
+ * Header-CTA "Kostenloses Erstgespräch" (Briefing Ä6: keine Anruf-Funktion). Steht auf der Seite ein Funnel (Startseite), scrollt der Klick
+ * dorthin und lässt ihn aufleuchten, sonst führt er zur Erstgespräch-Seite.
+ */
+function CtaLink({ className, children, tabIndex, hidden }: { className: string; children: React.ReactNode; tabIndex?: number; hidden?: boolean }) {
   return (
-    <Link href={href} aria-label={label} className={className} tabIndex={tabIndex} aria-hidden={hidden}>
+    <Link
+      href={ERSTGESPRAECH}
+      aria-label={hidden ? undefined : CTA_LABEL}
+      className={className}
+      tabIndex={tabIndex}
+      aria-hidden={hidden}
+      onClick={(e) => {
+        const target = Array.from(document.querySelectorAll<HTMLElement>('[data-funnel-anchor]')).find((el) => el.offsetParent !== null)
+        if (!target) return
+        e.preventDefault()
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        window.dispatchEvent(new CustomEvent('jk:funnel-call'))
+      }}
+    >
       {children}
     </Link>
   )
 }
 
 /**
- * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Pille in der Mitte (E-Mail am Ende), "Anrufen" rechts in Orange.
+ * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Leiste in der Mitte (E-Mail am Ende), "Kostenloses Erstgespräch" rechts.
  * Über dem hellen Hero transparent, sobald sich das Sheet darunter schiebt, Papier mit feiner Linie und Schatten.
- * Handy: Pille mit E-Mail + Menü. Beim Runterscrollen fährt "Anrufen" aus dem Menü-Kreis heraus, die Pille wächst bis kurz hinter das Logo,
+ * Handy: Leiste mit E-Mail + Menü. Beim Runterscrollen fährt "Erstgespräch" aus dem Menü-Knopf heraus, die Pille wächst bis kurz hinter das Logo,
  * beim Hochscrollen fährt sie wieder ein (Toleranz 12 px ab dem Wendepunkt).
  */
 export function Header() {
@@ -115,7 +128,7 @@ export function Header() {
           aria-label="Hauptnavigation"
           className={cn(
             intro && 'intro-down [--d:0.5s]',
-            'relative hidden items-center gap-0.5 rounded-full border p-[5px] transition-[background-color,border-color,box-shadow] duration-500 xl:flex',
+            'relative hidden items-center gap-0.5 rounded-md border p-[5px] transition-[background-color,border-color,box-shadow] duration-500 xl:flex',
             solid
               ? 'border-line bg-white/85 shadow-[0_2px_4px_rgba(30,22,17,0.06),0_9px_18px_-8px_rgba(30,22,17,0.3)]'
               : 'border-espresso-800/10 bg-white/55 shadow-[0_8px_24px_-14px_rgba(30,22,17,0.25)] backdrop-blur-[14px]'
@@ -130,7 +143,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={pathname === item.href ? 'page' : undefined}
-                    className={cn('inline-flex h-10 items-center rounded-full px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(pathname === item.href))}
+                    className={cn('inline-flex h-10 items-center rounded-md px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(pathname === item.href))}
                   >
                     {item.label}
                   </Link>
@@ -141,47 +154,48 @@ export function Header() {
           <a
             href={`mailto:${site.email}`}
             aria-label={`E-Mail schreiben: ${site.email}`}
-            className="group ml-2 grid h-10 w-10 place-items-center rounded-full bg-espresso-800/[0.06] text-espresso-800 transition-colors duration-300 hover:bg-espresso-800/[0.12]"
+            className="group ml-2 grid h-10 w-10 place-items-center rounded-md bg-espresso-800/[0.06] text-espresso-800 transition-colors duration-300 hover:bg-espresso-800/[0.12]"
           >
             <Mail className="h-[1.125rem] w-[1.125rem] transition-transform duration-300 group-hover:-rotate-6" strokeWidth={1.8} />
           </a>
         </nav>
 
         <div className={cn(intro && 'intro-down [--d:0.6s]', 'flex items-center gap-2 justify-self-end md:gap-3')}>
-          {/* Tablet und Desktop: "Anrufen" immer sichtbar (Orange = Handlung) */}
-          <CallLink className="btn-cta hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 text-[0.9375rem] font-semibold shadow-[0_8px_18px_-10px_rgba(142,71,34,0.6)] transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
-            <Phone className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
-            Anrufen
-          </CallLink>
+          {/* Tablet und Desktop: Erstgespräch immer sichtbar */}
+          <CtaLink className="btn-cta group hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-md px-6 text-[0.9375rem] font-semibold shadow-[0_8px_18px_-10px_rgba(20,14,10,0.55)] transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
+            <span className="xl:hidden">Erstgespräch</span>
+            <span className="hidden xl:inline">{CTA_LABEL}</span>
+            <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
+          </CtaLink>
           {/* Handy/Tablet: Pille mit E-Mail + Menü. Handy: fester Platz, die Pille wächst nach links bis kurz hinter das Logo */}
           <div ref={slotRef} className="relative h-[3.375rem] w-[6.5rem] shrink-0 md:h-auto md:w-auto xl:hidden">
             <div
               style={pillW ? ({ '--pill-w': `${pillW}px` } as React.CSSProperties) : undefined}
               className={cn(
-                'relative flex items-center rounded-full border p-1 max-md:absolute max-md:right-0 max-md:top-0 max-md:z-10 max-md:h-[3.375rem] max-md:shadow-[0_8px_22px_-10px_rgba(30,22,17,0.4)] md:gap-1.5',
+                'relative flex items-center rounded-md border p-1 max-md:absolute max-md:right-0 max-md:top-0 max-md:z-10 max-md:h-[3.375rem] max-md:shadow-[0_8px_22px_-10px_rgba(30,22,17,0.4)] md:gap-1.5',
                 'max-md:transition-[width,background-color,border-color,box-shadow] max-md:duration-[650ms] max-md:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:max-md:duration-150',
                 expanded ? 'border-line bg-white max-md:w-[var(--pill-w,15rem)]' : cn('max-md:w-[6.5rem]', solid ? 'border-line bg-white/85' : 'border-espresso-800/10 bg-white/60 backdrop-blur-[14px]')
               )}
             >
-              <a href={`mailto:${site.email}`} aria-label={`E-Mail schreiben: ${site.email}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-espresso-800">
+              <a href={`mailto:${site.email}`} aria-label={`E-Mail schreiben: ${site.email}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-md text-espresso-800">
                 <Mail className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} />
               </a>
-              {/* Handy: "Anrufen" liegt unter dem Menü-Kreis und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
+              {/* Handy: "Erstgespräch" liegt unter dem Menü-Knopf und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
                   deckt dabei den E-Mail-Knopf ab, Inhalt steht fest, die runde linke Kante gibt ihn frei bzw. nimmt ihn beim Einfahren mit in den Kreis) */}
-              <CallLink
+              <CtaLink
                 tabIndex={expanded ? 0 : -1}
                 hidden={!expanded}
                 className={cn(
-                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta text-[0.9375rem] font-semibold text-white shadow-[0_6px_14px_-6px_rgba(20,14,10,0.5)] hover:bg-cta-hover md:hidden',
+                  'absolute right-1 top-1 h-11 overflow-hidden rounded-md bg-cta text-[0.9375rem] font-semibold text-white shadow-[0_6px_14px_-6px_rgba(20,14,10,0.5)] hover:bg-cta-hover md:hidden',
                   'transition-[width,background-color,visibility] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
                   expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
                 )}
               >
                 <span className="absolute inset-y-0 right-11 flex w-[calc(var(--pill-w,15rem)-52px)] items-center justify-center gap-2 whitespace-nowrap">
-                  <Phone className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
-                  Anrufen
+                  Erstgespräch
+                  <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden="true" />
                 </span>
-              </CallLink>
+              </CtaLink>
               <span className="relative z-10 ml-auto shrink-0">
                 <MobileMenu />
               </span>
@@ -236,7 +250,7 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
           const pt = (e.nativeEvent as PointerEvent).pointerType
           setOpen((v) => (pt === 'mouse' ? true : !v))
         }}
-        className={cn('inline-flex h-10 items-center gap-1 rounded-full px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(!!active))}
+        className={cn('inline-flex h-10 items-center gap-1 rounded-md px-4 text-[0.9375rem] font-medium transition-colors duration-300', pillLink(!!active))}
       >
         {item.label}
         <ChevronDown className={cn('h-4 w-4 transition-transform duration-200', open && 'rotate-180')} strokeWidth={1.75} />
@@ -249,7 +263,7 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
         )}
       >
         <span aria-hidden="true" className="absolute left-1/2 top-[0.6rem] h-3.5 w-3.5 -translate-x-1/2 rotate-45 rounded-[2px] bg-white" />
-        <div className={cn('floaty-lg relative grid gap-2 rounded-[1.5rem] bg-white p-4', item.extra ? 'w-[40rem] grid-cols-[1.25fr_1fr]' : 'w-[22rem] grid-cols-1')}>
+        <div className={cn('floaty-lg relative grid gap-2 rounded-lg bg-white p-4', item.extra ? 'w-[40rem] grid-cols-[1.25fr_1fr]' : 'w-[22rem] grid-cols-1')}>
           <ul className="flex flex-col gap-1">
             {item.children!.map((c) => {
               const Icon = ICONS[c.href] ?? User
@@ -257,7 +271,7 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
                 <li key={c.href + c.label}>
                   <Link
                     href={c.href}
-                    className={cn('group flex items-start gap-4 rounded-[0.875rem] px-4 py-3.5 transition-colors duration-300 hover:bg-stone', pathname === c.href && 'bg-stone')}
+                    className={cn('group flex items-start gap-4 rounded-md px-4 py-3.5 transition-colors duration-300 hover:bg-stone', pathname === c.href && 'bg-stone')}
                   >
                     <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-stone text-caramel-700 transition-colors duration-300 group-hover:bg-white group-hover:text-caramel-800">
                       <Icon className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />

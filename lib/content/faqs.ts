@@ -37,7 +37,7 @@ export const FAQ_ABLAUF: Faq[] = [
   },
   {
     q: 'Wie lange dauert die Begleitung?',
-    a: 'Sie wählen zwischen **drei Monaten** (eine Sitzung pro Woche, je 60 Minuten) und **sechs Monaten** (eine Sitzung alle zwei Wochen, je 90 Minuten). Beide Programme folgen denselben drei Schwerpunkten: Stress verstehen, bewältigen und managen.',
+    a: 'Sie wählen zwischen **wöchentlich über drei Monate** (je 45 bis 60 Minuten) und **alle zwei Wochen über sechs Monate** (je 90 Minuten). Beide Programme lassen sich auf die doppelte Laufzeit verlängern (sechs bzw. zwölf Monate), dann erhalten Sie 15 % Rabatt auf jede Sitzung. Alle Varianten folgen denselben drei Schwerpunkten: Stress verstehen, bewältigen und managen.',
   },
   {
     q: 'Warum drei oder sechs Monate und keine Einzelstunden?',

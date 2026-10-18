@@ -20,7 +20,7 @@ export function ThemaRow({ t, index, flip = false }: { t: Thema; index: number; 
     <article id={t.id} aria-labelledby={`${t.id}-title`} className="scroll-mt-28 grid items-center gap-[clamp(1rem,3svh,2rem)] md:grid-cols-12 md:gap-x-8 xl:gap-x-16">
       <Reveal className={cn('md:col-span-6', flip && 'md:order-2')}>
         <InView className="explain frame-soft floaty relative overflow-hidden rounded-xl bg-stone px-4 pb-2 pt-6 md:px-8 md:pb-4 md:pt-9 [&_svg]:max-h-[clamp(8rem,24svh,17rem)]" threshold={0.45}>
-          <span aria-hidden="true" className="absolute left-5 top-4 font-serif text-[0.9375rem] italic text-caramel-600 md:left-6 md:top-5">
+          <span aria-hidden="true" className="absolute left-5 top-4 font-serif text-[0.9375rem] text-caramel-600 md:left-6 md:top-5">
             {String(index).padStart(2, '0')}
           </span>
           <ExplainScene scene={t.scene} labels={t.stichworte} title={t.frage} className="mx-auto max-w-[30rem]" />

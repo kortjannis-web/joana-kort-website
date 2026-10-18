@@ -16,7 +16,7 @@ const WEGE = [
     label: 'Hauptangebot',
     title: 'Persönliche Begleitung',
     hint: '3 oder 6 Monate, eins zu eins',
-    punkte: ['Wöchentlich 60 oder alle zwei Wochen 90 Minuten', 'Ihr persönlicher Begleitungsplan', 'Auch zu zweit oder als Paar möglich'],
+    punkte: ['Wöchentlich oder alle zwei Wochen', 'Ihr persönlicher Unterstützungsplan', 'Auch zu zweit oder als Paar möglich'],
     path: '/stresscoaching/',
     main: true,
   },
@@ -50,7 +50,7 @@ export function Offer() {
           <div>
             <p className="t-label text-caramel-700">Angebote</p>
             <h2 id="angebot-title" className="t-h2 mt-3 max-w-[22ch] text-espresso-900">
-              Drei Wege, Ihren Stress <em className="italic text-caramel-600">anzugehen</em>
+              Drei Wege, Ihren Stress <em className="text-caramel-600">anzugehen</em>
             </h2>
           </div>
           <Link href="/angebote/" aria-label="Alle Angebote im Überblick" className="link inline-flex min-h-11 shrink-0 items-center text-[0.9375rem] font-semibold">
@@ -72,7 +72,7 @@ export function Offer() {
                 <div className="flex items-center justify-between gap-3">
                   <span
                     className={cn(
-                      'glow-icon grid h-12 w-12 place-items-center rounded-full transition-colors duration-500',
+                      'glow-icon grid h-12 w-12 place-items-center rounded-md transition-colors duration-500',
                       main ? 'bg-white/[0.08] text-caramel-200' : 'bg-stone text-caramel-700 group-hover:bg-caramel-50'
                     )}
                   >
@@ -80,7 +80,7 @@ export function Offer() {
                   </span>
                   <span
                     className={cn(
-                      'rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.1em]',
+                      'rounded-md px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-[0.1em]',
                       main ? 'bg-caramel-300/15 text-caramel-200' : 'bg-stone text-caramel-700'
                     )}
                   >

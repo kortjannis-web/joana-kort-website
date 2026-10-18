@@ -122,13 +122,19 @@ export default function DatenschutzContent() {
       <h3>Anfrage für ein Erstgespräch</h3>
       <p>Für die Vereinbarung des kostenlosen Erstgesprächs verarbeite ich:</p>
       <ul>
-        <li>Pflichtangaben: Vor- und Nachname, E-Mail-Adresse, gewünschte Gesprächsform (Telefon oder Video), bei Telefon Ihre Telefonnummer,</li>
-        <li>freiwillige Angaben: Interesse an einem Angebot, bevorzugtes Format, Beruf oder Branche, Altersgruppe, passende Tageszeiten, Ihre Nachricht.</li>
+        <li>Pflichtangaben: Ihren Namen und, je nach Ihrer Wahl, Ihre Telefonnummer (für den Rückruf) oder Ihre E-Mail-Adresse,</li>
+        <li>Ihre Antworten im Fragebogen: für wen Sie Unterstützung suchen, welche Situation am ehesten zutrifft bzw. die Teamgröße, gewünschter Rhythmus oder Ort,</li>
+        <li>freiwillige Angaben nach dem Absenden: Beruf oder Branche, Altersgruppe, online oder vor Ort, Ihre Nachricht.</li>
       </ul>
       <p>
-        Die Angaben dienen ausschließlich der Vorbereitung und Vereinbarung des Erstgesprächs. Rechtsgrundlagen sind die Durchführung
-        vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO) und Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Bewusst frage ich keine
-        Gesundheitsdaten und kein Geburtsdatum ab. Bitte teilen Sie mir im Nachrichtenfeld keine Angaben zu Ihrer Gesundheit mit.
+        Die Angaben dienen ausschließlich der Vorbereitung und Vereinbarung des Erstgesprächs. Rechtsgrundlage ist die Durchführung
+        vorvertraglicher Maßnahmen auf Ihre Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Bewusst frage ich keine Gesundheitsdaten und kein
+        Geburtsdatum ab. Bitte teilen Sie mir im Nachrichtenfeld keine Angaben zu Ihrer Gesundheit mit.
+      </p>
+      <h3>Kontaktformular und E-Mail</h3>
+      <p>
+        Wenn Sie mir über das Kontaktformular oder per E-Mail schreiben, verarbeite ich Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht,
+        um Ihre Anfrage zu beantworten (Art. 6 Abs. 1 lit. b DSGVO, bei allgemeinen Fragen Art. 6 Abs. 1 lit. f DSGVO).
       </p>
       <h3>Warteliste (Webinar, Online-Kurs, Gruppen)</h3>
       <p>
@@ -139,7 +145,7 @@ export default function DatenschutzContent() {
       <h3>Verarbeitung und Speicherung</h3>
       <p>
         Formulareingaben werden per verschlüsselter Verbindung an diesen Server übertragen, dort gespeichert und mir per E-Mail zugestellt.
-        Sie erhalten eine Bestätigung an die angegebene E-Mail-Adresse. Zum Schutz vor Missbrauch wird die Anzahl der Anfragen je IP-Adresse
+        Haben Sie eine E-Mail-Adresse angegeben, erhalten Sie dorthin eine Bestätigung. Zum Schutz vor Missbrauch wird die Anzahl der Anfragen je IP-Adresse
         kurzzeitig begrenzt, die IP-Adresse wird dafür nur im Arbeitsspeicher gehalten und nicht dauerhaft gespeichert. Anfragen, aus denen
         keine Zusammenarbeit entsteht, lösche ich spätestens nach zwölf Monaten.
       </p>
@@ -154,7 +160,7 @@ export default function DatenschutzContent() {
 
       <h2>7. Schriftarten</h2>
       <p>
-        Die Schriften dieser Website (Playfair Display und DM Sans) werden lokal von diesem Server geladen. Es besteht keine Verbindung zu
+        Die Schriften dieser Website (Manrope und DM Sans) werden lokal von diesem Server geladen. Es besteht keine Verbindung zu
         Servern von Google oder anderen Anbietern.
       </p>
 

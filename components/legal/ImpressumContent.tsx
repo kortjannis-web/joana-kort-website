@@ -95,7 +95,7 @@ export default function ImpressumContent() {
 
       <h2>Schriften</h2>
       <p>
-        Playfair Display und DM Sans, beide unter der SIL Open Font License, lokal von diesem Server ausgeliefert (keine Verbindung zu
+        Manrope und DM Sans, beide unter der SIL Open Font License, lokal von diesem Server ausgeliefert (keine Verbindung zu
         Google).
       </p>
     </>

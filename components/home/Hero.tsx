@@ -5,11 +5,12 @@ import { buttonClass } from '@/components/ui/Button'
 import { HeroLine } from '@/components/ui/HeroLine'
 import { StackBack } from '@/components/ui/Stack'
 import { FunnelCta } from './HeroMotion'
-import { CTA_LABEL, site } from '@/lib/site'
+import { CTA_LABEL, ROLE, site } from '@/lib/site'
+import { PORTRAIT } from '@/lib/images'
 
 /** Drei Vertrauenspunkte direkt unter dem CTA (3er-Gruppe) */
 const PUNKTE = [
-  { text: 'Gesundheitspsychologie', Icon: GraduationCap },
+  { text: 'Wissenschaftlich fundiert', Icon: GraduationCap },
   { text: 'Persönlich und vertraulich', Icon: ShieldCheck },
   { text: `${site.address.city} und online`, Icon: MapPin },
 ]
@@ -31,17 +32,35 @@ export function Hero() {
           <HeroLine variant="mobile" draw className="translate-y-[13svh] text-caramel-500/45 short:hidden md:hidden" />
         </div>
 
-        <div className="wrap-wide relative flex min-h-[max(34rem,100svh)] flex-col justify-end pb-[calc(var(--sheet-overlap)+2.75rem)] pt-28 md:min-h-[max(36rem,100svh)] md:justify-center md:pb-[calc(var(--sheet-overlap)+5rem)] xl:h-[max(36rem,100svh)] xl:min-h-0 xl:pb-12 xl:pt-[5.25rem]">
+        <div className="wrap-wide relative flex min-h-[max(34rem,100svh)] flex-col justify-end pb-[calc(var(--sheet-overlap)+2.75rem)] pt-28 md:min-h-[max(36rem,100svh)] lowtab:pt-24 md:justify-center md:pb-[calc(var(--sheet-overlap)+5rem)] xl:h-[max(36rem,100svh)] xl:min-h-0 xl:pb-12 xl:pt-[5.25rem]">
           <div className="max-w-[40rem] xl:max-w-[min(50%,46rem)]">
             <h1 id="hero-title">
-              <span className="intro-rise t-label block text-caramel-700 [--d:0s] max-md:text-[0.75rem] max-md:tracking-[0.12em]">
-                Stressberatung und Stresscoaching
-                <span className="max-md:block"> in {site.address.city} und online</span>
+              {/* Marke gut sichtbar (Briefing Ä6): Name groß, darunter Ort. Mit Foto (PORTRAIT) steht es links daneben */}
+              <span className="intro-rise flex items-center gap-3.5 [--d:0s]">
+                {PORTRAIT && (
+                  <img
+                    src={PORTRAIT.src}
+                    alt=""
+                    width={PORTRAIT.w}
+                    height={PORTRAIT.h}
+                    className="h-14 w-14 shrink-0 rounded-md object-cover shadow-[0_6px_16px_-8px_rgba(30,22,17,0.5)] md:h-16 md:w-16"
+                  />
+                )}
+                <span className="block">
+                  <span className="block font-serif text-[clamp(1.375rem,1rem+1.6vw,2rem)] font-bold leading-none tracking-[-0.025em] text-espresso-900">
+                    Joana Kort <span className="font-medium text-caramel-700">Stressberatung</span>
+                  </span>
+                  <span className="t-label mt-2 block text-[0.6875rem] text-espresso-600 md:text-[0.75rem] lowtab:mt-1.5">
+                    <span className="max-md:hidden">{ROLE.short} · </span>
+                    {site.address.city} und online
+                  </span>
+                </span>
               </span>
-              <span className="t-hero mt-5 block whitespace-nowrap text-espresso-900 max-md:text-[min(2.6rem,9.6vw)] short:mt-3 md:mt-6">
+              <span className="sr-only">: </span>
+              <span className="t-hero mt-6 block whitespace-nowrap text-espresso-900 max-md:text-[min(2.6rem,9.6vw)] short:mt-3 md:mt-7 lowtab:mt-4">
                 <span className="intro-rise block [--d:0.12s]">Stress verstehen.</span>
                 <span className="intro-rise block [--d:0.26s]">Stress bewältigen.</span>
-                <em className="intro-rise block font-normal italic text-caramel-600 [--d:0.4s]">Stress managen.</em>
+                <span className="intro-rise block font-normal text-caramel-600 [--d:0.4s]">Stress managen.</span>
               </span>
             </h1>
             <p className="intro-rise t-lead mt-6 max-w-[34rem] text-ink/75 [--d:0.56s] short:mt-3 short:text-base short:leading-normal xl:mt-7">
@@ -54,10 +73,10 @@ export function Hero() {
                 <ArrowRight className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 ease-[var(--ease-lift)] group-hover:translate-x-1.5" strokeWidth={2} aria-hidden="true" />
               </FunnelCta>
               <Link
-                href="/mein-ansatz/"
+                href="/angebote/"
                 className="group inline-flex min-h-11 items-center justify-center gap-2 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-400/70 underline-offset-[6px] transition-colors duration-500 hover:text-caramel-800 sm:justify-start"
               >
-                So arbeite ich
+                Angebote ansehen
                 <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
               </Link>
             </div>
@@ -68,7 +87,7 @@ export function Hero() {
                   className="intro-pop flex items-center gap-2 whitespace-nowrap text-[0.875rem] font-medium text-espresso-700 xl:text-[0.8125rem] 2xl:text-[0.875rem]"
                   style={{ '--d': `${0.86 + i * 0.1}s` } as React.CSSProperties}
                 >
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-white/70 text-caramel-700 shadow-[0_4px_10px_-6px_rgba(30,22,17,0.35)]">
+                  <span className="grid h-8 w-8 place-items-center rounded-md bg-white/70 text-caramel-700 shadow-[0_4px_10px_-6px_rgba(30,22,17,0.35)]">
                     <Icon className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
                   </span>
                   {text}
