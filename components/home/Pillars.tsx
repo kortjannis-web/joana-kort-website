@@ -47,7 +47,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
                 {i < SCHWERPUNKTE.length - 1 && (
                   <span
                     aria-hidden="true"
-                    className="step-link absolute left-[calc(var(--pad)+var(--ic)/2)] top-[calc(var(--pad)+var(--ic))] h-[calc(100%-var(--pad)-var(--ic)+var(--gap))] border-l border-caramel-400/70 md:h-[calc(100%-var(--ic)/2+var(--gap))] md:w-[calc(12%*100/(100-12*var(--k))-var(--pad)-var(--ic)/2)] md:border-b"
+                    className="step-link absolute left-[calc(var(--pad)+var(--ic)/2)] top-[calc(var(--pad)+var(--ic))] h-[calc(100%-var(--pad)-var(--ic)+var(--gap))] rounded-bl-xl border-l border-caramel-400/70 md:h-[calc(100%-var(--ic)/2+var(--gap))] md:w-[calc(12%*100/(100-12*var(--k))-var(--pad)-var(--ic)/2)] md:border-b"
                     style={{ '--k': i } as React.CSSProperties}
                   />
                 )}
@@ -70,7 +70,7 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
                     <ul className="mt-3 grid gap-x-6 gap-y-1.5 border-t border-line pt-3 text-[0.9375rem] text-muted sm:grid-cols-2">
                       {p.fragen.map((f) => (
                         <li key={f} className="flex gap-2.5 leading-snug">
-                          <span aria-hidden="true" className="mt-[0.5em] h-1.5 w-1.5 shrink-0 bg-caramel-500" />
+                          <span aria-hidden="true" className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-caramel-500" />
                           {f}
                         </li>
                       ))}

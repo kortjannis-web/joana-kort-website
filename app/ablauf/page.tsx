@@ -95,7 +95,7 @@ const SCHULUNG = [
   { title: 'Nachklang', text: 'Materialien für alle Teilnehmenden und auf Wunsch ein Folgetermin nach einigen Wochen, damit das Gelernte im Alltag ankommt.' },
 ]
 
-/** Kantige Ziffernkachel (statt Kreis) */
+/** Ziffernkachel, leicht abgerundet */
 function Nr({ n, dark = false }: { n: number; dark?: boolean }) {
   return (
     <span

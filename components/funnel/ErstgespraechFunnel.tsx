@@ -368,7 +368,7 @@ function StepLine({ labels, current }: { labels: string[]; current: number }) {
         return (
           <li key={i} className={cn('flex min-w-0 items-start', i < labels.length - 1 && 'flex-1')} aria-current={state === 'active' ? 'step' : undefined}>
             <span className="flex w-[3.25rem] shrink-0 flex-col items-center sm:w-[3.75rem]">
-              <span data-state={state} className="fstep relative grid h-7 w-7 place-items-center rounded-sm border text-[0.75rem] font-bold tabular-nums">
+              <span data-state={state} className="fstep relative grid h-7 w-7 place-items-center rounded-full border text-[0.75rem] font-bold tabular-nums">
                 <span className="sr-only">{`Schritt ${i + 1}: ${l}${state === 'done' ? ', erledigt' : state === 'active' ? ', aktuell' : ''}`}</span>
                 {state === 'done' ? <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
               </span>
@@ -558,7 +558,7 @@ function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selecte
       <span
         aria-hidden="true"
         className={cn(
-          'grid h-8 w-8 shrink-0 place-items-center rounded-sm border text-[0.8125rem] font-bold transition-colors duration-300',
+          'grid h-8 w-8 shrink-0 place-items-center rounded-full border text-[0.8125rem] font-bold transition-colors duration-300',
           selected ? 'border-espresso-800 bg-espresso-800 text-white' : 'border-line bg-stone text-espresso-700 group-hover:border-espresso-800/30'
         )}
       >
@@ -580,11 +580,11 @@ function KanalSwitch({ value, onChange, name }: { value: Kanal; onChange: (v: Ka
     { v: 'E-Mail', label: 'Mail', Icon: Mail },
   ]
   return (
-    <div role="radiogroup" aria-label="Wie darf ich Sie erreichen?" className="relative grid shrink-0 grid-cols-2 rounded-sm bg-espresso-800/[0.07] p-[3px]">
+    <div role="radiogroup" aria-label="Wie darf ich Sie erreichen?" className="relative grid shrink-0 grid-cols-2 rounded-full bg-espresso-800/[0.07] p-[3px]">
       <span
         aria-hidden="true"
         className={cn(
-          'absolute inset-y-[3px] left-[3px] w-[calc(50%-3px)] rounded-[2px] bg-espresso-800 shadow-[0_2px_6px_-2px_rgba(20,14,10,0.45)] transition-transform duration-300 ease-[var(--ease-lift)]',
+          'absolute inset-y-[3px] left-[3px] w-[calc(50%-3px)] rounded-full bg-espresso-800 shadow-[0_2px_6px_-2px_rgba(20,14,10,0.45)] transition-transform duration-300 ease-[var(--ease-lift)]',
           value === 'E-Mail' && 'translate-x-full'
         )}
       />
@@ -592,7 +592,7 @@ function KanalSwitch({ value, onChange, name }: { value: Kanal; onChange: (v: Ka
         <label
           key={v}
           className={cn(
-            'relative z-10 flex h-8 min-w-[4.25rem] cursor-pointer items-center justify-center gap-1.5 px-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-caramel-600',
+            'relative z-10 flex h-8 min-w-[4.25rem] cursor-pointer rounded-full items-center justify-center gap-1.5 px-2.5 text-[0.8125rem] font-semibold transition-colors duration-300 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-caramel-600',
             value === v ? 'text-white' : 'text-espresso-700 hover:text-espresso-900'
           )}
         >

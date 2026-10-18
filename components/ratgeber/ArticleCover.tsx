@@ -37,7 +37,7 @@ export function ArticleCover({ a, featured = false }: { a: Artikel; featured?: b
           loading="lazy"
           decoding="async"
           className={cn(
-            'paper h-auto max-h-full w-auto max-w-[86%] rounded-[3px] object-contain transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:-rotate-1 group-hover:scale-[1.03]',
+            'paper h-auto max-h-full w-auto max-w-[86%] rounded-md object-contain transition-transform duration-1000 ease-[var(--ease-soft)] group-hover:-rotate-1 group-hover:scale-[1.03]',
             bild.h > bild.w ? 'max-h-[92%] -rotate-3' : 'rotate-[-2deg]'
           )}
         />

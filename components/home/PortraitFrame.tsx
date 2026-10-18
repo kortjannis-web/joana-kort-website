@@ -3,7 +3,7 @@ import { PORTRAIT } from '@/lib/images'
 import { cn } from '@/lib/utils'
 
 /**
- * Rahmen für Joanas Foto (kantig, Briefing Ä6): dünne Linie mit kleinem Abstand, schwebender Schatten.
+ * Rahmen für Joanas Foto (leicht abgerundet): dünne Linie mit kleinem Abstand, schwebender Schatten.
  * Solange es kein Foto gibt (PORTRAIT = null in lib/images.ts): Espresso-Fläche mit Monogramm und Markenlinie, bewusst kein Stockfoto.
  * `fill`: füllt die Höhe des Elternelements, sonst 4:5.
  */

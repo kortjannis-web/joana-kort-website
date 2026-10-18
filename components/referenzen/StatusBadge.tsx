@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 
 /**
  * Status einer Qualifikation. Laufendes MUSS sichtbar als "Laufend" gekennzeichnet sein (Transparenz, keine Titel vor dem Abschluss).
- * Kantiges Badge, der Punkt davor darf rund bleiben.
+ * Leicht abgerundetes Badge mit rundem Punkt davor.
  */
 export function StatusBadge({ status, className }: { status: 'abgeschlossen' | 'laufend'; className?: string }) {
   const laufend = status === 'laufend'

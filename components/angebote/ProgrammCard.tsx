@@ -78,14 +78,14 @@ export function ProgrammCard({ p, dark = false, href }: { p: Programm; dark?: bo
           <span
             aria-hidden="true"
             className={cn(
-              'block h-6 w-11 rounded-sm transition-colors duration-300 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-caramel-600',
+              'block h-6 w-11 rounded-full transition-colors duration-300 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-caramel-600',
               lang ? (dark ? 'bg-caramel-300' : 'bg-espresso-800') : dark ? 'bg-white/20' : 'bg-espresso-200'
             )}
           />
           <span
             aria-hidden="true"
             className={cn(
-              'absolute left-0.5 top-0.5 h-5 w-5 rounded-[2px] bg-white shadow-[0_1px_3px_rgba(20,14,10,0.35)] transition-transform duration-300 ease-[var(--ease-lift)]',
+              'absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow-[0_1px_3px_rgba(20,14,10,0.35)] transition-transform duration-300 ease-[var(--ease-lift)]',
               lang && 'translate-x-5'
             )}
           />

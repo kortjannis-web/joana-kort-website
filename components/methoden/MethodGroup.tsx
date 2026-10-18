@@ -15,7 +15,7 @@ export type Methode = {
 
 /**
  * Eine Dreiergruppe von Methoden zu einem der drei Schritte (verstehen, bewältigen, managen).
- * Kopf mit Schrittnummer (kantige Kachel), darunter drei Karten: Handy wischbar (Carousel), ab Tablet drei Spalten.
+ * Kopf mit Schrittnummer (abgerundete Kachel), darunter drei Karten: Handy wischbar (Carousel), ab Tablet drei Spalten.
  * Langtexte hinter dem Pfeil (More), damit jede Section in einen Bildschirm passt.
  */
 export function MethodGroup({

@@ -240,14 +240,14 @@ function ContactRail({
       <nav
         aria-label="Kontakt"
         className={cn(
-          'fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 flex-col overflow-visible rounded-l-md bg-espresso-800 shadow-[0_12px_30px_-10px_rgba(20,14,10,0.55)] ring-1 ring-white/10 transition-opacity duration-300 min-[80rem]:flex',
+          'fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 flex-col overflow-visible rounded-l-xl bg-espresso-800 shadow-[0_12px_30px_-10px_rgba(20,14,10,0.55)] ring-1 ring-white/10 transition-opacity duration-300 min-[80rem]:flex',
           hidden && 'pointer-events-none opacity-0'
         )}
       >
         {items.map((it, i) =>
           render(
             it,
-            cn('group relative grid h-12 w-12 place-items-center text-espresso-100 transition-colors duration-300 hover:bg-espresso-700 hover:text-white focus-visible:bg-espresso-700', i === 0 && 'rounded-tl-md text-caramel-200', i === items.length - 1 && 'rounded-bl-md', i > 0 && 'border-t border-white/10'),
+            cn('group relative grid h-12 w-12 place-items-center text-espresso-100 transition-colors duration-300 hover:bg-espresso-700 hover:text-white focus-visible:bg-espresso-700', i === 0 && 'rounded-tl-xl text-caramel-200', i === items.length - 1 && 'rounded-bl-xl', i > 0 && 'border-t border-white/10'),
             <>
               <it.Icon className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.6} />
               <span className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-sm bg-espresso-800 px-3 py-2 text-[0.8125rem] font-semibold text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(20,14,10,0.5)] transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">

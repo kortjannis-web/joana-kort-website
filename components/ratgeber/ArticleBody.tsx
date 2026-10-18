@@ -78,7 +78,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
             return (
               <figure key={i} className="!mt-8">
                 <div className="paper-grain rounded-lg bg-stone p-4 md:p-6">
-                  <img src={b.src} alt={b.alt} width={b.w} height={b.h} loading="lazy" decoding="async" className="paper w-full rounded-[3px]" />
+                  <img src={b.src} alt={b.alt} width={b.w} height={b.h} loading="lazy" decoding="async" className="paper w-full rounded-md" />
                 </div>
                 {b.caption && <figcaption className="pt-3 text-[0.875rem] text-muted">{b.caption}</figcaption>}
               </figure>
