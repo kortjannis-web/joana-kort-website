@@ -14,8 +14,8 @@ import { cn } from '@/lib/utils'
    1 Für wen → 2 Situation / Wer / Team → 3 Begleitung / Ort → 4 Name + Telefon ODER E-Mail (Schalter) → Bestätigung.
    Nach dem Absenden freiwillig: Beruf oder Branche, Altersgruppe, Ort, Nachricht (eigene Anfrage "ergaenzung" mit Bezug auf die id).
    Datensparsam: keine Gesundheitsfragen, kein Geburtsdatum. Rechtsgrundlage Art. 6 Abs. 1 lit. b DSGVO (Hinweis statt Häkchen).
-   Offener Block (Regel für Fragebögen und Infoblöcke): nur der Kopf ist ein dunkler, abgerundeter Block mit Versprechen und
-   Schrittpunkten (offen Braun, erreicht Amber). Frage, Text und Antworten stehen frei darunter, jede Antwort als eigenes rundes Feld.
+   Gestaltung (Redesign 22.10.2026): kein Kopfblock. Nur die Frage, darunter die Antworten als große runde Knöpfe (ohne Pfeile),
+   darunter vier einzelne Punkte 1 bis 4 (erreichte gefüllt), nicht miteinander verbunden.
    ===================================================================== */
 
 type Kanal = 'Telefon' | 'E-Mail'
@@ -236,22 +236,13 @@ export function ErstgespraechFunnel({
           const k = KEYS[step]
           const q = question(k, s.wer)
           return (
-            <Step
-              key={k + (s.wer ?? '')}
-              title={q.title}
-              sub={step === 0 ? 'Drei kurze Fragen, dann melde ich mich persönlich.' : undefined}
-              {...h}
-            >
-              <div className="grid gap-2">
+            <Step key={k + (s.wer ?? '')} title={q.title} {...h}>
+              <div className="grid gap-3">
                 {q.options.map((o, i) => (
                   <Tile key={o.key} o={o} i={i} selected={s[k] === o.key} onClick={() => choose(k, o.key)} />
                 ))}
               </div>
-              {step > first ? (
-                <Back onClick={() => go(step - 1)} />
-              ) : (
-                <p className="mt-2.5 text-center text-[0.8125rem] text-muted">Unverbindlich · ohne Vorbereitung</p>
-              )}
+              {step > first && <Back onClick={() => go(step - 1)} />}
             </Step>
           )
         })()}
@@ -329,87 +320,44 @@ export function ErstgespraechFunnel({
 
   return (
     <div ref={cardRef} className={cn('fk-open group/funnel relative flex flex-col text-ink', className)}>
-      <div className="grain relative shrink-0 rounded-[1.625rem] bg-espresso-800 text-white shadow-[0_3px_6px_rgba(20,14,10,0.14),0_24px_46px_-22px_rgba(20,14,10,0.65)]">
+      <span aria-hidden="true" className="pointer-events-none absolute -inset-4 rounded-[2.25rem]">
         {glow}
-        <Head labels={labels} current={step} done={done} />
-      </div>
-      <div ref={bodyRef} className={cn('min-h-0 px-2 pt-6 lowlg:pt-4', bodyClassName)}>
+      </span>
+      <div ref={bodyRef} className={cn('min-h-0', bodyClassName)}>
         {form}
         {result}
       </div>
+      <Dots labels={labels} current={step} done={done} />
     </div>
   )
 }
 
-/* ---------- Kopf ---------- */
-
-/** "2 von 4" bzw. "Geschafft", für Screenreader als Schritt angesagt */
-function StepCount({ current, done }: { current: number; done: boolean }) {
-  return (
-    <span aria-live="polite" className="whitespace-nowrap text-[0.8125rem] tabular-nums text-white/60">
-      {done ? (
-        'Geschafft'
-      ) : (
-        <>
-          <span className="sr-only">Schritt </span>
-          {current + 1} von {TOTAL}
-        </>
-      )}
-    </span>
-  )
-}
-
-/** Dunkler Kopf: Versprechen und große Schrittpunkte */
-function Head({ labels, current, done }: { labels: string[]; current: number; done: boolean }) {
-  return (
-    <div className="px-6 pb-[1.125rem] pt-[1.125rem] lowlg:pb-3.5 lowlg:pt-3.5">
-      <div className="flex items-center justify-between gap-4">
-        <span className="t-label whitespace-nowrap text-[0.6875rem] text-caramel-300">Kostenlos · {site.erstgespraechMin} Minuten</span>
-        <StepCount current={current} done={done} />
-      </div>
-      <p className="mt-1 font-serif text-[1.1875rem] leading-snug text-white">
-        In 1 Minute zu Ihrem <em className="italic text-caramel-300">kostenlosen Erstgespräch</em>
-      </p>
-      <Dots labels={labels} current={current} />
-    </div>
-  )
-}
+/* ---------- Fortschritt ---------- */
 
 /**
- * Schrittpunkte mit Linie: offen Braun, erreicht Amber. Beim Weitergehen füllt sich die Linie, dann "tippt" der nächste Punkt
- * (hüpft kurz und leuchtet auf, .fk-dot in globals.css).
+ * Vier einzelne Punkte 1 bis 4 unter den Antworten, nicht verbunden: erreichte gefüllt (Knopf-Braun), offene nur umrandet.
+ * Der aktuelle Punkt "tippt" beim Erreichen kurz (.fk-dot in globals.css). Für Screenreader: "Schritt 2 von 4".
  */
-function Dots({ labels, current }: { labels: string[]; current: number }) {
+function Dots({ labels, current, done }: { labels: string[]; current: number; done: boolean }) {
   return (
-    <ol className="fk-dark mt-3.5 flex items-start lowlg:mt-2.5" aria-label="Fortschritt">
-      {labels.map((l, i) => {
-        const state = i < current ? 'done' : i === current ? 'active' : 'todo'
-        return (
-          <li key={i} className={cn('flex min-w-0 items-start', i < labels.length - 1 && 'flex-1')} aria-current={state === 'active' ? 'step' : undefined}>
-            <span className="flex w-[3.25rem] shrink-0 flex-col items-center">
-              <span
-                data-state={state}
-                className="fk-dot relative grid h-8 w-8 place-items-center rounded-full border text-[0.8125rem] font-bold tabular-nums"
-              >
+    <div className="mt-6 flex flex-col items-center lowlg:mt-4">
+      <p aria-live="polite" className="sr-only">
+        {done ? 'Geschafft' : `Schritt ${current + 1} von ${TOTAL}`}
+      </p>
+      <ol className="flex items-center gap-3" aria-label="Fortschritt">
+        {labels.map((l, i) => {
+          const state = done || i < current ? 'done' : i === current ? 'active' : 'todo'
+          return (
+            <li key={i} aria-current={state === 'active' ? 'step' : undefined}>
+              <span data-state={state} className="fk-dot relative grid h-7 w-7 place-items-center rounded-full border text-[0.75rem] font-semibold tabular-nums">
                 <span className="sr-only">{`Schritt ${i + 1}: ${l}${state === 'done' ? ', erledigt' : state === 'active' ? ', aktuell' : ''}`}</span>
-                {state === 'done' ? <Check className="h-4 w-4" strokeWidth={3} aria-hidden="true" /> : <span aria-hidden="true">{i + 1}</span>}
+                <span aria-hidden="true">{i + 1}</span>
               </span>
-              <span
-                aria-hidden="true"
-                className={cn('mt-1.5 truncate text-[0.6875rem] font-medium leading-none transition-colors duration-500', state === 'todo' ? 'text-espresso-300/70' : 'text-white/90')}
-              >
-                {l}
-              </span>
-            </span>
-            {i < labels.length - 1 && (
-              <span aria-hidden="true" className="relative -mx-3 mt-[0.9375rem] h-0.5 flex-1 overflow-hidden rounded-full bg-espresso-600">
-                <span className={cn('fk-fill absolute inset-0 origin-left bg-amber', i < current ? 'scale-x-100' : 'scale-x-0')} />
-              </span>
-            )}
-          </li>
-        )
-      })}
-    </ol>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
   )
 }
 
@@ -566,7 +514,7 @@ function Step({ title, sub, children, headingRef, level }: { title: string; sub?
         {title}
       </Heading>
       {sub && <p className="mt-1 text-[0.875rem] leading-snug text-muted lowlg:hidden">{sub}</p>}
-      <div className="mt-3">{children}</div>
+      <div className="mt-5 lowlg:mt-3">{children}</div>
     </div>
   )
 }
@@ -575,40 +523,30 @@ function Step({ title, sub, children, headingRef, level }: { title: string; sub?
 function Heading({ children, headingRef, level, srOnly }: { children: ReactNode; srOnly?: boolean } & HeadingProps) {
   const Tag = level === 2 ? 'h2' : 'h3'
   return (
-    <Tag ref={headingRef} tabIndex={-1} className={cn('font-serif text-[1.25rem] leading-snug text-espresso-900 outline-none', srOnly && 'sr-only')}>
+    <Tag ref={headingRef} tabIndex={-1} className={cn('font-serif text-[1.5rem] leading-tight text-espresso-900 outline-none md:text-[1.75rem]', srOnly && 'sr-only')}>
       {children}
     </Tag>
   )
 }
 
-/** Antwort als freistehendes weißes Feld: großer kursiver Buchstabe links, Titel, optional eine Zeile. Gewählt: Espresso-Rahmen, Haken */
+/** Antwort als großer, runder weißer Knopf, nur der Titel. Gewählt: Espresso-Rahmen und Haken rechts */
 function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selected: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
       aria-pressed={selected}
       onClick={onClick}
+      title={o.text}
       style={{ '--d': `${0.05 + i * 0.06}s` } as React.CSSProperties}
       className={cn(
-        'tile-in group flex min-h-[3.375rem] w-full items-center gap-3 rounded-[1.5rem] border px-4 py-2 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150',
+        'tile-in flex min-h-[4.25rem] w-full items-center justify-between gap-3 rounded-full border px-7 py-3 text-left transition-[border-color,background-color,box-shadow,transform] duration-300 ease-[var(--ease-soft)] active:scale-[0.99] active:duration-150 lowlg:min-h-[3.75rem] xl:min-h-[4.75rem]',
         selected
-          ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_10px_24px_-14px_rgba(30,22,17,0.5)]'
-          : 'border-line/70 bg-white shadow-[0_2px_4px_rgba(30,22,17,0.05),0_10px_24px_-14px_rgba(30,22,17,0.5)] hover:translate-x-1 hover:border-espresso-800/30'
+          ? 'border-espresso-800 bg-white shadow-[inset_0_0_0_1px_var(--color-espresso-800),0_12px_26px_-14px_rgba(30,22,17,0.5)]'
+          : 'border-line/70 bg-white shadow-[0_2px_4px_rgba(30,22,17,0.05),0_12px_26px_-14px_rgba(30,22,17,0.45)] hover:-translate-y-0.5 hover:border-espresso-800/30'
       )}
     >
-      <span
-        aria-hidden="true"
-        className={cn(
-          'grid h-8 w-6 shrink-0 place-items-center font-serif text-[1.375rem] italic transition-colors duration-300',
-          selected ? 'text-espresso-900' : 'text-caramel-600'
-        )}
-      >
-        {selected ? <Check className="h-4 w-4" strokeWidth={2.5} /> : String.fromCharCode(65 + i)}
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="block text-[0.90625rem] font-semibold leading-snug text-espresso-900">{o.title}</span>
-        {o.text && <span className="mt-0.5 block text-[0.78125rem] leading-snug text-muted">{o.text}</span>}
-      </span>
+      <span className="text-[1.0625rem] font-semibold leading-snug text-espresso-900 md:text-[1.1875rem]">{o.title}</span>
+      {selected && <Check className="h-5 w-5 shrink-0 text-espresso-900" strokeWidth={2.5} aria-hidden="true" />}
     </button>
   )
 }

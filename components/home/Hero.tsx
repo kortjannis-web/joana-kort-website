@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { GraduationCap, MapPin, ShieldCheck } from 'lucide-react'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
 import { HeroLine } from '@/components/ui/HeroLine'
@@ -15,7 +14,7 @@ const PUNKTE = [
 /**
  * Startseite Stufe 1 (Aufbau wie Vorlage, hell): Vollbild-Hero bleibt stehen, das Sheet schiebt sich darüber.
  * Beige Papierfläche mit Körnung, weichem Licht und der Markenlinie, die sich beim Laden zeichnet.
- * Intro (CSS, globals.css): Logo, dann nacheinander Zeile, Titelzeile 1, 2, 3, Text, Link, Vertrauenspunkte, Karte, Header.
+ * Intro (CSS, globals.css): Logo, dann nacheinander Zeile, Titelzeile 1, 2, 3, Text, Vertrauenspunkte, Fragebogen, Header.
  * Kein CTA-Knopf im Hero (Entscheidung 18.10.2026): ab 1024 px steht rechts der Fragebogen, auf Handy/Tablet folgt er im Sheet nach dem Video.
  */
 export function Hero() {
@@ -30,7 +29,7 @@ export function Hero() {
         </div>
 
         <div className="wrap-wide relative flex min-h-[max(34rem,100svh)] flex-col justify-end pb-[calc(var(--sheet-overlap)+2.75rem)] pt-28 md:min-h-[max(36rem,100svh)] lowtab:pt-24 md:justify-center md:pb-[calc(var(--sheet-overlap)+5rem)] xl:h-[max(36rem,100svh)] xl:min-h-0 xl:pb-12 xl:pt-[5.25rem]">
-          <div className="max-w-[40rem] lg:max-w-[calc(100%-min(27rem,36vw)-3rem)] xl:max-w-[min(50%,46rem)]">
+          <div className="max-w-[40rem] lg:max-w-[calc(100%-min(31rem,38vw)-3rem)] xl:max-w-[min(50%,46rem)]">
             <h1 id="hero-title">
               {/* Marke und Ort nur für Suchmaschinen und Screenreader: Joana stellt sich direkt darunter im Video vor */}
               <span className="sr-only">
@@ -46,14 +45,6 @@ export function Hero() {
               Sie müssen Ihrem Stress nicht ausgeliefert sein. Ich begleite Sie persönlich dabei, ihn zu verstehen, passende Wege zu finden und
               Ihren Alltag spürbar zu entlasten.
             </p>
-            <div className="intro-rise mt-7 flex [--d:0.7s] short:mt-4">
-              <Link
-                href="/angebote/"
-                className="group inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-500/60 underline-offset-[6px] transition-colors duration-500 hover:text-caramel-800"
-              >
-                Angebote ansehen
-              </Link>
-            </div>
             <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5 max-md:hidden xl:mt-10 xl:flex-nowrap xl:gap-x-4" aria-label="Auf einen Blick">
               {PUNKTE.map(({ text, Icon }, i) => (
                 <li
@@ -75,7 +66,7 @@ export function Hero() {
         <div
           id="erstgespraech-desktop"
           data-funnel-anchor
-          className="intro-rise absolute right-8 top-[var(--hero-top)] z-20 hidden w-[min(27rem,36vw)] lowlg:top-[5.5rem] [--d:0.5s] lg:block xl:right-[var(--wrap-wide-x)] xl:w-[min(27rem,33vw)]"
+          className="intro-rise absolute right-8 top-[var(--hero-top)] z-20 hidden w-[min(31rem,38vw)] lowlg:top-[5.5rem] [--d:0.5s] lg:block xl:right-[var(--wrap-wide-x)] xl:w-[min(31rem,35vw)]"
         >
           {/* Kompakt genug, dass jeder Schritt ohne inneres Scrollen in den Hero passt */}
           <ErstgespraechFunnel variant="hero" idPrefix="jkh" />
