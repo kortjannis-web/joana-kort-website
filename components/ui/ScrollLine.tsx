@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 /**
- * Begleit-Linie (Thema der Startseite, viermal verteilt): das Motiv der Hero-Schwunglinie kehrt im Hintergrund einer Section wieder.
+ * Begleit-Linie (Thema der Website, in vielen Sections verteilt, Motive a bis h): das Motiv der Hero-Schwunglinie kehrt im Hintergrund einer Section wieder.
  * Beim Runterscrollen zeichnet sich die Linie mit (Fortschritt --p), wandert leicht mit nach unten (begleitet den Blick) und ein
  * kleiner oranger Punkt (Amber) reitet auf ihrer Spitze. Eine feine Amber-Linie folgt etwas versetzt.
  * Ohne JS und bei reduzierter Bewegung: fertig gezeichnete, ruhige Linie ohne Punkt. Liegt hinter dem Inhalt (Section braucht relative + isolate).
@@ -25,6 +25,26 @@ const LINES = {
   c: {
     desk: 'M-60 520 C 200 420 420 700 700 600 S 1080 360 1260 470 S 1420 640 1500 600',
     mob: 'M-30 842 C 60 784 140 884 230 846 S 360 766 440 806',
+  },
+  /* Riesen-Looping am rechten Rand: kommt von oben, dreht eine große Schleife und läuft unten wieder hinaus */
+  e: {
+    desk: 'M1500 40 C 1360 120 1250 300 1290 470 C 1330 640 1460 640 1440 520 C 1420 400 1250 400 1220 560 C 1190 720 1300 860 1500 880',
+    mob: 'M440 40 C 380 140 330 300 352 420 C 372 530 420 520 410 460 C 400 400 330 420 330 520 C 330 640 380 800 440 880',
+  },
+  /* starke Welle am linken Rand hinunter */
+  f: {
+    desk: 'M90 -40 C 230 80 230 200 90 300 S -50 520 90 620 S 230 820 90 940',
+    mob: 'M24 -40 C 70 80 70 200 24 300 S -22 520 24 620 S 70 820 24 940',
+  },
+  /* Schwung von rechts: holt weit nach innen aus und kehrt unten zum Rand zurück */
+  g: {
+    desk: 'M1500 120 C 1150 180 1040 420 1180 560 C 1300 680 1420 640 1500 760',
+    mob: 'M440 120 C 330 180 300 420 350 560 C 380 660 420 650 440 760',
+  },
+  /* Schleife von links unten, läuft weit nach rechts aus */
+  h: {
+    desk: 'M-60 160 C 120 200 220 380 170 520 C 120 660 -20 640 20 540 C 60 440 230 470 300 640 C 360 790 520 880 820 900',
+    mob: 'M-30 160 C 40 220 70 380 50 520 C 30 640 -10 620 6 560 C 22 480 80 520 110 640 C 140 770 220 880 420 900',
   },
   /* von unten links aufsteigend nach rechts oben (zum Schluss-CTA hin) */
   d: {

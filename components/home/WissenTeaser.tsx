@@ -5,6 +5,7 @@ import { InView } from '@/components/ui/InView'
 import { Reveal } from '@/components/ui/Reveal'
 import { ExplainScene } from '@/components/wissen/ExplainScene'
 import { WISSEN_TEASER } from '@/lib/content/wissen'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 /**
  * Startseite: drei Erklärungen aus "Stress verstehen" (3er-Gruppe), jede mit eigener kleinen Animation.
@@ -12,7 +13,8 @@ import { WISSEN_TEASER } from '@/lib/content/wissen'
  */
 export function WissenTeaser() {
   return (
-    <section aria-labelledby="wissen-title" className="sec xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
+    <section aria-labelledby="wissen-title" className="sec relative isolate xl:flex xl:min-h-svh xl:flex-col xl:justify-center">
+      <ScrollLine variant="h" />
       <div className="wrap">
         <Reveal className="flex items-end justify-between gap-6 md:gap-10">
           <div className="max-w-[40rem]">

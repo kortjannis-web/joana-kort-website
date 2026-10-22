@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { StackBack } from './Stack'
-import { HeroLine } from './HeroLine'
+import { HeroLine, type HeroLineVariant } from './HeroLine'
 import { cn } from '@/lib/utils'
 
 export type HeroImage = {
@@ -30,6 +30,7 @@ export function PageHero({
   id = 'hero-title',
   size = 'md',
   tone = 'light',
+  line = 'knot',
   className,
 }: {
   image?: HeroImage
@@ -42,6 +43,8 @@ export function PageHero({
   size?: 'md' | 'lg'
   /** Grundfarbe ohne Foto: light (Beige, Standard) · greige (etwas kühler, für Abwechslung zwischen Seiten) */
   tone?: 'light' | 'greige'
+  /** Linien-Motiv im Hintergrund (jede Seite ein eigenes, siehe HeroLine) */
+  line?: HeroLineVariant
   className?: string
 }) {
   return (
@@ -72,7 +75,7 @@ export function PageHero({
               {/* Weiches Licht links oben, warmer Schimmer rechts unten (wie Startseite) */}
               <div className="absolute -left-[12%] -top-[22%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(255_255_255/0.8),rgb(255_255_255/0)_70%)] blur-2xl" />
               <div className="absolute -bottom-[30%] -right-[10%] h-[75%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgb(214_184_146/0.3),transparent)] blur-2xl" />
-              <HeroLine variant="page" draw className="text-caramel-500/35" />
+              <HeroLine variant={line} draw className="text-caramel-500/35" />
             </>
           )}
         </div>

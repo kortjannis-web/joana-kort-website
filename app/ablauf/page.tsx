@@ -140,6 +140,7 @@ export default function AblaufPage() {
         })}
       />
       <PageHero
+        line="ribbon"
         tone="greige"
         eyebrow="Ablauf"
         title={

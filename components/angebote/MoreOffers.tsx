@@ -3,12 +3,14 @@ import Link from 'next/link'
 import { Carousel } from '@/components/ui/Carousel'
 import { Reveal } from '@/components/ui/Reveal'
 import { ANGEBOTE, type AngebotKey } from '@/lib/content/angebote'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 /** Querverlinkung: die übrigen Angebote als kompakte Karten (Ende jeder Angebotsseite, Ratgeber). Handy wischbar, ab Tablet Raster */
 export function MoreOffers({ current, title = 'Weitere Angebote' }: { current?: AngebotKey; title?: string }) {
   const list = ANGEBOTE.filter((a) => a.key !== current)
   return (
-    <section aria-labelledby="mehr-angebote" className="bg-stone sec-t pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+    <section aria-labelledby="mehr-angebote" className="bg-stone sec-t relative isolate pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+      <ScrollLine variant="h" />
       <div className="wrap">
         <Reveal className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between md:gap-3">
           <h2 id="mehr-angebote" className="t-h2 text-espresso-900">

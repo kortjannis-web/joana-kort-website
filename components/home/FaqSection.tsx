@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { FaqList } from '@/components/ui/FaqList'
 import type { Faq } from '@/lib/types'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 export function FaqSection({
   faqs,
@@ -19,7 +20,8 @@ export function FaqSection({
   id?: string
 }) {
   return (
-    <section aria-labelledby={`${id}-title`} className="sec pb-[calc(var(--sec-y)+var(--sheet-overlap))] xl:flex xl:min-h-svh xl:items-center">
+    <section aria-labelledby={`${id}-title`} className="sec relative isolate pb-[calc(var(--sec-y)+var(--sheet-overlap))] xl:flex xl:min-h-svh xl:items-center">
+      <ScrollLine variant="f" />
       <div className="wrap grid w-full gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
         <div className="lg:col-span-5">
           <div>

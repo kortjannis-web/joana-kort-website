@@ -46,6 +46,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
     <>
       <JsonLd data={[articleSchema(a), ...(a.faqs.length ? [faqSchema(a.faqs)] : [])]} />
       <PageHero
+        line="breath"
         eyebrow={`Ratgeber · ${a.category}`}
         title={a.title}
         intro={<p>{a.excerpt}</p>}

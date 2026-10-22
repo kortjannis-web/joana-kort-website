@@ -35,6 +35,7 @@ export default function UeberMichPage() {
     <>
       <JsonLd data={{ '@context': 'https://schema.org', '@type': 'ProfilePage', url: `${SITE_URL}${PATH}`, mainEntity: { '@id': PERSON_ID } }} />
       <PageHero
+        line="loop"
         tone="greige"
         eyebrow="Über mich"
         title={

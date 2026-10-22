@@ -65,6 +65,7 @@ export default function QualifikationenPage() {
         }}
       />
       <PageHero
+        line="ribbon"
         eyebrow="Qualifikationen und Referenzen"
         title={
           <>

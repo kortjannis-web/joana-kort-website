@@ -40,6 +40,7 @@ export default function OnlinePage() {
         ]}
       />
       <PageHero
+        line="wave"
         tone="greige"
         eyebrow="Online per Video"
         title={

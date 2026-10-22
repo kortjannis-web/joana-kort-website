@@ -27,6 +27,7 @@ export default function FaqPage() {
     <>
       <JsonLd data={faqSchema(FAQS)} />
       <PageHero
+        line="arcs"
         tone="greige"
         eyebrow="Häufige Fragen"
         title={

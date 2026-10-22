@@ -6,6 +6,7 @@ import { Carousel } from '@/components/ui/Carousel'
 import { PaperStack } from '@/components/ui/PaperStack'
 import { Reveal } from '@/components/ui/Reveal'
 import { useSpotlight } from '@/components/ui/useSpotlight'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 const PRINZIPIEN = [
   { title: 'Klein anfangen', text: 'Eine Veränderung, die bleibt, entlastet mehr als zehn gute Vorsätze.', Icon: Sprout },
@@ -37,7 +38,8 @@ function Prinzip({ title, text, Icon }: (typeof PRINZIPIEN)[number]) {
 export function Tools() {
   const { ref, bind } = useSpotlight<HTMLUListElement>(PRINZIPIEN.length, 3200)
   return (
-    <section aria-labelledby="werkzeuge-title" className="sec overflow-hidden xl:flex xl:min-h-svh xl:items-center">
+    <section aria-labelledby="werkzeuge-title" className="sec relative isolate overflow-hidden xl:flex xl:min-h-svh xl:items-center">
+      <ScrollLine variant="g" />
       <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:grid-rows-[auto_auto] lg:gap-x-12 xl:gap-x-16">
         <Reveal className="lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:self-end">
           <p className="t-label text-caramel-700">Prinzipien und Werkzeuge</p>

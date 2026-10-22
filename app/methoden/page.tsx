@@ -116,6 +116,7 @@ export default function MethodenPage() {
         })}
       />
       <PageHero
+        line="infinity"
         eyebrow="Methoden und Werkzeuge"
         title={
           <>

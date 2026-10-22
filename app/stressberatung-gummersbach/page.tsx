@@ -44,6 +44,7 @@ export default function GummersbachPage() {
         ]}
       />
       <PageHero
+        line="loop"
         eyebrow="Vor Ort im Oberbergischen"
         title={
           <>

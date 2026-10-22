@@ -102,6 +102,7 @@ export default function AngebotePage() {
         }}
       />
       <PageHero
+        line="wave"
         tone="greige"
         eyebrow="Angebote"
         title={

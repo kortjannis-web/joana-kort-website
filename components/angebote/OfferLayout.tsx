@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { ListChecks } from 'lucide-react'
+import type { HeroLineVariant } from '@/components/ui/HeroLine'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -18,6 +19,15 @@ import { angebot, type AngebotKey, type InteresseKey } from '@/lib/content/angeb
 import { faqSchema, serviceSchema } from '@/lib/schema'
 import type { Faq } from '@/lib/types'
 import { CTA_LABEL } from '@/lib/site'
+import { ScrollLine } from '@/components/ui/ScrollLine'
+
+/** Linien-Motiv im Hero je Angebotsseite (Abwechslung) */
+const OFFER_LINES: Record<string, HeroLineVariant> = {
+  '/zu-zweit-und-in-der-gruppe/': 'infinity',
+  '/webinar/': 'arcs',
+  '/online-kurs/': 'spiral',
+  '/stressmanagement-unternehmen/': 'ribbon',
+}
 
 /**
  * Gemeinsamer Aufbau der weiteren Angebotsseiten (Zu zweit, Webinar, Online-Kurs, Unternehmen), damit alle gleich klar sind:
@@ -63,6 +73,7 @@ export function OfferLayout({
     <>
       <JsonLd data={[serviceSchema({ name: a.title, description: a.text, path: a.path }), faqSchema(faqs)]} />
       <PageHero
+        line={OFFER_LINES[a.path] ?? 'loop'}
         tone={hero.tone}
         eyebrow={hero.eyebrow}
         title={hero.title}
@@ -132,7 +143,8 @@ export function OfferLayout({
           </div>
         </section>
 
-        <section aria-labelledby="ablauf" className="sec">
+        <section aria-labelledby="ablauf" className="sec relative isolate">
+          <ScrollLine variant="e" />
           <div className="wrap">
             <Reveal>
               <h2 id="ablauf" className="t-h2 max-w-[22ch] text-espresso-900">
@@ -170,7 +182,8 @@ export function OfferLayout({
           )}
         </section>
 
-        <section aria-labelledby="fragen" className="sec">
+        <section aria-labelledby="fragen" className="sec relative isolate">
+          <ScrollLine variant="f" />
           <div className="wrap grid gap-[var(--sec-gap)] lg:grid-cols-12 lg:gap-x-10 xl:gap-x-16">
             <Reveal className="lg:col-span-5 xl:col-span-4">
               <h2 id="fragen" className="t-h2 text-espresso-900">

@@ -60,6 +60,7 @@ export default function StressVerstehenPage() {
         ]}
       />
       <PageHero
+        line="breath"
         eyebrow="Stress verstehen"
         title={
           <>

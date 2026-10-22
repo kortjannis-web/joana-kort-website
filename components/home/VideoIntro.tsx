@@ -5,6 +5,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { VIDEO } from '@/lib/images'
 import { PORTRAIT } from '@/lib/portrait'
 import { CTA_LABEL, ERSTGESPRAECH, SITE_URL, site } from '@/lib/site'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 const PUNKTE = [
   { title: 'Wer ich bin', text: 'Gesundheitspsychologie, eigene Erfahrung mit Stress, Mutter und Studentin.', Icon: HeartHandshake },
@@ -20,7 +21,8 @@ const PUNKTE = [
  */
 export function VideoIntro() {
   return (
-    <section aria-labelledby="video-title" className="sec">
+    <section aria-labelledby="video-title" className="sec relative isolate">
+      <ScrollLine variant="e" />
       {VIDEO && (
         <JsonLd
           data={{

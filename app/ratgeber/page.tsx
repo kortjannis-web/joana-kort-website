@@ -33,6 +33,7 @@ export default function RatgeberPage() {
         }}
       />
       <PageHero
+        line="arcs"
         eyebrow="Ratgeber"
         title={
           <>

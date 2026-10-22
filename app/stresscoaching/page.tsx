@@ -60,6 +60,7 @@ export default function StresscoachingPage() {
         ]}
       />
       <PageHero
+        line="infinity"
         eyebrow="Stresscoaching"
         title={
           <>

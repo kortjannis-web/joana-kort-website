@@ -62,6 +62,7 @@ export default function AnsatzPage() {
         })}
       />
       <PageHero
+        line="knot"
         eyebrow="Mein Ansatz"
         title={
           <>

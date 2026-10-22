@@ -1,6 +1,7 @@
 import { LogoMark } from '@/components/layout/Logo'
 import { Reveal } from '@/components/ui/Reveal'
 import { ValueCards, ValueCarousel } from './ValueCards'
+import { ScrollLine } from '@/components/ui/ScrollLine'
 
 function Quote({ size }: { size: 'lg' | 'sm' }) {
   return (
@@ -29,7 +30,8 @@ function Quote({ size }: { size: 'lg' | 'sm' }) {
  */
 export function Solution() {
   return (
-    <section aria-labelledby="loesung-title" className="grain sec-t overflow-hidden bg-espresso-800 pb-[calc(var(--sec-y)+var(--sheet-overlap)+1rem)] text-white xl:flex xl:min-h-svh xl:items-center xl:pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+    <section aria-labelledby="loesung-title" className="grain sec-t relative isolate overflow-hidden bg-espresso-800 pb-[calc(var(--sec-y)+var(--sheet-overlap)+1rem)] text-white xl:flex xl:min-h-svh xl:items-center xl:pb-[calc(var(--sec-y)+var(--sheet-overlap))]">
+      <ScrollLine variant="g" className="text-caramel-300/30" />
       <div className="wrap grid gap-[var(--sec-gap)] md:grid-cols-12 md:items-center md:gap-x-10 xl:gap-x-20">
         <Reveal className="md:col-span-6 xl:col-span-5">
           <p className="t-label text-caramel-300">Die Antwort</p>

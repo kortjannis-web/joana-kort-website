@@ -62,6 +62,7 @@ export default function ErstgespraechPage() {
     <>
       <JsonLd data={faqSchema(FAQS)} />
       <PageHero
+        line="spiral"
         eyebrow="Kostenloses Erstgespräch"
         title={
           <>

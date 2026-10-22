@@ -786,7 +786,7 @@ html[data-navigated] .page-hero {
     animation: intro-sheet 0.9s var(--ease-lift) calc(var(--intro-base) + var(--d, 0s)) backwards;
   }
   .hero-line.intro-draw path {
-    animation: line-draw 3.4s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--intro-base) * 0.45) backwards;
+    animation: line-draw 3.4s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--intro-base) * 0.45 + var(--i, 0) * 0.18s) backwards;
   }
   /* Textlogo: Name wischt herein, die feine Linie zieht sich, dann "Stressberatung" */
   .logo-intro-name {
