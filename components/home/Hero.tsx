@@ -66,10 +66,13 @@ export function Hero() {
         <div
           id="erstgespraech-desktop"
           data-funnel-anchor
-          className="intro-rise absolute right-8 top-[var(--hero-top)] z-20 hidden w-[min(31rem,38vw)] lowlg:top-[5.5rem] [--d:0.5s] lg:block xl:right-[var(--wrap-wide-x)] xl:w-[min(31rem,35vw)]"
+          className="intro-rise absolute inset-y-0 right-8 z-20 hidden w-[min(31rem,38vw)] flex-col justify-center pb-20 pt-28 [--d:0.5s] lg:flex lowlg:pt-[5.5rem] xl:right-[var(--wrap-wide-x)] xl:w-[min(31rem,35vw)] xl:pb-12 xl:pt-[5.25rem]"
         >
-          {/* Kompakt genug, dass jeder Schritt ohne inneres Scrollen in den Hero passt */}
-          <ErstgespraechFunnel variant="hero" idPrefix="jkh" />
+          {/* Mittig rechts, auf Höhe des Textes (gleiche Abstände oben und unten wie der Text). Feste Mindesthöhe: der Block bleibt beim
+              Weiterklicken stehen, längere Schritte wachsen nach unten statt den Anfang zu verschieben. Jeder Schritt passt ohne inneres Scrollen */}
+          <div className="min-h-[var(--funnel-h)] [--funnel-h:25.25rem]">
+            <ErstgespraechFunnel variant="hero" idPrefix="jkh" />
+          </div>
         </div>
       </section>
     </StackBack>
