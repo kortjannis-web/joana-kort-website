@@ -15,7 +15,7 @@ const PUNKTE = [
  * Startseite Stufe 1 (Aufbau wie Vorlage, hell): Vollbild-Hero bleibt stehen, das Sheet schiebt sich darüber.
  * Beige Papierfläche mit Körnung, weichem Licht und der Markenlinie, die sich beim Laden zeichnet.
  * Intro (CSS, globals.css): Logo, dann nacheinander Zeile, Titelzeile 1, 2, 3, Text, Vertrauenspunkte, Fragebogen, Header.
- * Kein CTA-Knopf im Hero (Entscheidung 18.10.2026): ab 1024 px steht rechts der Fragebogen, auf Handy/Tablet folgt er im Sheet nach dem Video.
+ * Kein CTA-Knopf im Hero (Entscheidung 18.10.2026): ab 1024 px steht rechts der Fragebogen, auf Handy/Tablet folgt er direkt unter dem Hero.
  */
 export function Hero() {
   return (
@@ -79,10 +79,10 @@ export function Hero() {
   )
 }
 
-/** Fragebogen der Startseite auf Handy/Tablet: im Sheet nach dem Video (ab 1024 px steht er im Hero) */
+/** Fragebogen der Startseite auf Handy/Tablet: direkt unter dem Hero, erster Block im Sheet (ab 1024 px steht er im Hero) */
 export function HeroFunnel() {
   return (
-    <div className="wrap-wide relative z-20 pb-4 lg:hidden">
+    <div className="wrap-wide relative z-20 pt-[var(--sec-y)] lg:hidden">
       <div id="erstgespraech" data-funnel-anchor className="mx-auto max-w-[34rem] scroll-mt-24">
         <ErstgespraechFunnel variant="hero" />
       </div>

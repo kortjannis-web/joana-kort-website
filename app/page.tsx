@@ -26,7 +26,7 @@ export const metadata = pageMeta({
 })
 
 /**
- * Startseite (Funnel): Hero mit Erstgespräch → Video (Vertrauen) → Fragebogen (Handy) → Vertrauensleiste → Bewertungen (sobald vorhanden)
+ * Startseite (Funnel): Hero mit Erstgespräch → Fragebogen (Handy/Tablet, direkt unter dem Hero) → Video (Vertrauen) → Vertrauensleiste → Bewertungen (sobald vorhanden)
  * → der Schmerz → die Antwort und die drei Schwerpunkte → drei Wege (Angebot) → Stress verstehen (Wissen) → Ablauf in drei Schritten
  * → Prinzipien und Werkzeuge → Über mich und Region → 8 Fragen (mehr auf /haeufige-fragen/). Etwa alle drei Elemente ein CTA zum Erstgespräch.
  * Der Hero steht, das Sheet schiebt sich darüber. Schluss-CTA steckt im Footer.
@@ -47,8 +47,8 @@ export default function Home() {
       />
       <Hero />
       <Sheet className="intro-sheet overflow-visible! [--d:0.765s] xl:[--d:1.215s]">
-        <VideoIntro />
         <HeroFunnel />
+        <VideoIntro />
         <TrustBar />
         <Reviews />
         <Situation />
