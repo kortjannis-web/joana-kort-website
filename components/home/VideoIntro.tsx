@@ -3,6 +3,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
 import { VIDEO } from '@/lib/images'
+import { PORTRAIT } from '@/lib/portrait'
 import { CTA_LABEL, ERSTGESPRAECH, SITE_URL, site } from '@/lib/site'
 
 const PUNKTE = [
@@ -13,7 +14,8 @@ const PUNKTE = [
 
 /**
  * Vertrauen zuerst: Joana stellt sich im Video vor (direkt unter dem Hero, erster Block im Sheet).
- * Video selbst gehostet (lib/images.ts → VIDEO). Solange es fehlt: ruhiger Platzhalter mit Play-Knopf (nicht klickbar).
+ * Video selbst gehostet (lib/images.ts → VIDEO). Solange es fehlt: Joanas Foto (PORTRAIT) mit leuchtendem Play-Knopf (nicht klickbar),
+ * ohne Foto ein ruhiger Platzhalter.
  * Rechts drei Punkte (3er-Gruppe) und der CTA zum Erstgespräch.
  */
 export function VideoIntro() {
@@ -42,19 +44,29 @@ export function VideoIntro() {
                 {VIDEO.captions && <track kind="captions" src={VIDEO.captions} srcLang="de" label="Deutsch" default />}
               </video>
             ) : (
-              <div className="grain relative grid aspect-video w-full place-items-center overflow-hidden" role="img" aria-label="Platzhalter für das Vorstellungsvideo von Joana Kort">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgb(214_184_146/0.22),transparent_55%)]" />
-                <span className="absolute left-5 top-5 font-serif text-[3.5rem] italic leading-none text-caramel-300/25 md:left-8 md:top-7 md:text-[5.5rem]">JK</span>
+              <div className="grain relative grid aspect-video w-full place-items-center overflow-hidden" role="img" aria-label={PORTRAIT ? PORTRAIT.alt : 'Platzhalter für das Vorstellungsvideo von Joana Kort'}>
+                {PORTRAIT ? (
+                  <>
+                    <img src={PORTRAIT.src} alt="" width={PORTRAIT.w} height={PORTRAIT.h} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[50%_25%]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(23_17_13/0.05)_40%,rgb(23_17_13/0.62))]" />
+                  </>
+                ) : (
+                  <>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgb(214_184_146/0.22),transparent_55%)]" />
+                    <span className="absolute left-5 top-5 font-serif text-[3.5rem] italic leading-none text-caramel-300/25 md:left-8 md:top-7 md:text-[5.5rem]">JK</span>
+                  </>
+                )}
                 <span className="relative grid h-20 w-20 place-items-center md:h-24 md:w-24">
-                  <span aria-hidden="true" className="play-ring absolute inset-0 rounded-full border-2 border-caramel-300/70" />
-                  <span className="relative grid h-full w-full place-items-center rounded-full bg-paper text-espresso-800 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6)]">
+                  <span aria-hidden="true" className="play-glow absolute -inset-6 rounded-full" />
+                  <span aria-hidden="true" className="play-ring absolute inset-0 rounded-full border-2 border-caramel-200/80" />
+                  <span aria-hidden="true" className="play-ring absolute inset-0 rounded-full border-2 border-caramel-200/60 [animation-delay:1.2s]" />
+                  <span className="relative grid h-full w-full place-items-center rounded-full bg-paper text-espresso-800 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.6),0_0_34px_6px_rgb(232_196_150/0.55)]">
                     <Play className="ml-1 h-8 w-8 fill-current md:h-9 md:w-9" strokeWidth={1.5} aria-hidden="true" />
                   </span>
                 </span>
                 <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 md:inset-x-8 md:bottom-7">
                   <span className="text-left text-white">
                     <span className="block font-serif text-[1.25rem] leading-tight md:text-[1.6rem]">{site.owner} stellt sich vor</span>
-                    <span className="mt-1 block text-[0.8125rem] text-espresso-200">Video folgt in Kürze</span>
                   </span>
                 </div>
               </div>

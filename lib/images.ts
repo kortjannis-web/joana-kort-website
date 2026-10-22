@@ -38,8 +38,7 @@ export const MATERIAL = {
   wochenfokus: m('wochenfokus', 900, 560, 900, 1058, 'Wochenfokus von Joana Kort mit Wochenziel und Tageszeilen von Montag bis Sonntag'),
 } as const
 
-/** Foto von Joana (Porträt). null = Platzhalter mit Materialien statt Foto. PRÜFEN: Fotos nachliefern */
-export const PORTRAIT: Img | null = null
+/** Foto von Joana (Porträt): siehe lib/portrait.ts (prüft beim Rendern, ob die Datei da ist, nur in Server-Komponenten) */
 
 /**
  * Vorstellungsvideo von Joana (Startseite direkt unter dem Hero). null = gestalteter Platzhalter.

@@ -1118,6 +1118,21 @@ html:not([data-hydrated]) [data-reveal] {
 .play-ring {
   animation: play-ring 2.4s var(--ease-soft) infinite;
 }
+/* Warmer Schein hinter dem Play-Knopf, atmet ruhig (nur opacity und transform) */
+.play-glow {
+  background: radial-gradient(closest-side, rgb(240 206 160 / 0.75), rgb(240 206 160 / 0));
+  animation: play-glow 2.4s var(--ease-soft) infinite alternate;
+}
+@keyframes play-glow {
+  from {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
 
 /* Erklär-Animationen (Wissen): laufen nur, wenn sichtbar (InView data-view=on), ohne JS/Bewegung reduziert: Endbild */
 .explain[data-view='ready'] :is(.ex-draw) {
