@@ -49,7 +49,7 @@ function CtaLink({ className, children, tabIndex, hidden }: { className: string;
 
 /**
  * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Leiste in der Mitte (E-Mail am Ende), "Kostenloses Erstgespräch" rechts.
- * Über dem hellen Hero transparent, sobald sich das Sheet darunter schiebt, Papier mit feiner Linie und Schatten.
+ * Ganz oben über dem hellen Hero transparent, sobald gescrollt wird Papier mit feiner Linie und Schatten.
  * Handy: feste Pille mit E-Mail + Menü, nichts fährt aus (Entscheidung 22.10.2026). Termin buchen steht unten rechts bei den Kontakt-Knöpfen.
  */
 export function Header() {
@@ -59,10 +59,8 @@ export function Header() {
   const [intro] = useState(pathname === '/')
 
   useEffect(() => {
-    const onScroll = () => {
-      const sheet = document.querySelector('[data-sheet]')
-      setSolid(sheet ? sheet.getBoundingClientRect().top <= 56 : window.scrollY > 8)
-    }
+    // Hell hinterlegt, sobald gescrollt wird: der Hero läuft ohne Überlappung normal unter dem Header durch
+    const onScroll = () => setSolid(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
