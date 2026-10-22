@@ -17,7 +17,7 @@ export function LogoMark({ className, title, strokeWidth = 2.2 }: { className?: 
 }
 
 /**
- * Textlogo: "Joana Kort" in Playfair, darunter eine feine Karamell-Linie und "STRESSBERATUNG" gesperrt (wie die Labels in Joanas Materialien).
+ * Textlogo (Ä7: 15 % größer): "Joana Kort" in Playfair, darunter eine feine Karamell-Linie und "STRESSBERATUNG" gesperrt (wie die Labels in Joanas Materialien).
  * `draw`: Intro der Startseite (globals.css): Name wischt herein, die Linie zieht sich, dann "Stressberatung".
  * `data-logo` markiert das Ende des Logos (Header misst daran, wie weit die Handy-Pille ausfahren darf).
  */
@@ -26,18 +26,18 @@ export function Logo({ tone = 'dark', draw = false, className }: { tone?: 'dark'
     <span data-logo className={cn('inline-flex flex-col leading-none', className)}>
       <span
         className={cn(
-          'whitespace-nowrap font-serif text-[1.42rem] font-[450] tracking-[-0.01em] min-[400px]:text-[1.5rem] md:text-[1.65rem]',
+          'whitespace-nowrap font-serif text-[1.63rem] font-[450] tracking-[-0.01em] min-[400px]:text-[1.725rem] md:text-[1.9rem]',
           tone === 'dark' ? 'text-espresso-800' : 'text-white',
           draw && 'logo-intro-name'
         )}
       >
         Joana Kort
       </span>
-      <span className="mt-[0.4rem] flex items-center gap-2">
-        <span aria-hidden="true" className={cn('logo-rule h-px w-5 origin-left md:w-6', tone === 'dark' ? 'bg-caramel-500' : 'bg-caramel-300', draw && 'logo-intro-rule')} />
+      <span className="mt-[0.46rem] flex items-center gap-2.5">
+        <span aria-hidden="true" className={cn('logo-rule h-px w-[1.45rem] origin-left md:w-[1.725rem]', tone === 'dark' ? 'bg-caramel-500' : 'bg-caramel-300', draw && 'logo-intro-rule')} />
         <span
           className={cn(
-            'whitespace-nowrap text-[0.6rem] font-semibold uppercase tracking-[0.34em] md:text-[0.64rem]',
+            'whitespace-nowrap text-[0.69rem] font-semibold uppercase tracking-[0.34em] md:text-[0.735rem]',
             tone === 'dark' ? 'text-caramel-700' : 'text-caramel-300',
             draw && 'logo-intro-sub'
           )}
