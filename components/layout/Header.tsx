@@ -50,47 +50,19 @@ function CtaLink({ className, children, tabIndex, hidden }: { className: string;
 /**
  * Header (Aufbau wie Vorlage, hell): Textlogo links, Navigation als Glas-Leiste in der Mitte (E-Mail am Ende), "Kostenloses Erstgespräch" rechts.
  * Über dem hellen Hero transparent, sobald sich das Sheet darunter schiebt, Papier mit feiner Linie und Schatten.
- * Handy: Leiste mit E-Mail + Menü. Beim Runterscrollen fährt "Termin buchen" (ohne Symbol, passt so in die Pille) aus dem Menü-Knopf heraus, die Pille wächst bis kurz hinter das Logo,
- * beim Hochscrollen fährt sie wieder ein (Toleranz 12 px ab dem Wendepunkt).
+ * Handy: feste Pille mit E-Mail + Menü, nichts fährt aus (Entscheidung 22.10.2026). Termin buchen steht unten rechts bei den Kontakt-Knöpfen.
  */
 export function Header() {
   const pathname = usePathname()
   const [solid, setSolid] = useState(false)
-  const [expanded, setExpanded] = useState(false)
-  const slotRef = useRef<HTMLDivElement>(null)
-  const [pillW, setPillW] = useState<number | null>(null)
   // Intro nur beim ersten Laden direkt auf der Startseite (globals.css)
   const [intro] = useState(pathname === '/')
 
   useEffect(() => {
-    const TOL = 12
-    let turn = window.scrollY
-    let down = false
     const onScroll = () => {
-      const y = window.scrollY
-      if (y <= 80) {
-        down = false
-        turn = y
-        setExpanded(false)
-      } else if (down) {
-        if (y > turn) turn = y
-        else if (turn - y > TOL) {
-          down = false
-          turn = y
-          setExpanded(false)
-        }
-      } else {
-        if (y < turn) turn = y
-        else if (y - turn > TOL) {
-          down = true
-          turn = y
-          setExpanded(true)
-        }
-      }
       const sheet = document.querySelector('[data-sheet]')
-      setSolid(sheet ? sheet.getBoundingClientRect().top <= 56 : y > 8)
+      setSolid(sheet ? sheet.getBoundingClientRect().top <= 56 : window.scrollY > 8)
     }
-    setExpanded(false)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
@@ -98,18 +70,6 @@ export function Header() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [pathname])
-
-  useEffect(() => {
-    const measure = () => {
-      const logo = document.querySelector('header [data-logo]')
-      const slot = slotRef.current
-      if (!logo || !slot) return
-      setPillW(Math.round(slot.getBoundingClientRect().right - logo.getBoundingClientRect().right - 12))
-    }
-    measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
   }, [pathname])
 
   return (
@@ -167,37 +127,18 @@ export function Header() {
             <span className="xl:hidden">Termin buchen</span>
             <span className="hidden xl:inline">{CTA_LABEL}</span>
           </CtaLink>
-          {/* Handy/Tablet: Pille mit E-Mail + Menü. Handy: fester Platz, die Pille wächst nach links bis kurz hinter das Logo */}
-          <div ref={slotRef} className="relative h-[3.375rem] w-[6.5rem] shrink-0 md:h-auto md:w-auto xl:hidden">
+          {/* Handy/Tablet: Pille mit E-Mail + Menü */}
+          <div className="shrink-0 xl:hidden">
             <div
-              style={pillW ? ({ '--pill-w': `${pillW}px` } as React.CSSProperties) : undefined}
               className={cn(
-                'relative flex items-center rounded-full border p-1 max-md:absolute max-md:right-0 max-md:top-0 max-md:z-10 max-md:h-[3.375rem] max-md:shadow-[0_8px_22px_-10px_rgba(30,22,17,0.4)] md:gap-1.5',
-                'max-md:transition-[width,background-color,border-color,box-shadow] max-md:duration-[650ms] max-md:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:max-md:duration-150',
-                expanded ? 'border-line bg-white max-md:w-[var(--pill-w,15rem)]' : cn('max-md:w-[6.5rem]', solid ? 'border-line bg-white/85' : 'border-espresso-800/10 bg-white/60 backdrop-blur-[14px]')
+                'flex items-center gap-1 rounded-full border p-1 shadow-[0_8px_22px_-10px_rgba(30,22,17,0.4)] transition-[background-color,border-color] duration-500 md:gap-1.5 md:shadow-none',
+                solid ? 'border-line bg-white/85' : 'border-espresso-800/10 bg-white/60 backdrop-blur-[14px]'
               )}
             >
               <a href={`mailto:${site.email}`} aria-label={`E-Mail schreiben: ${site.email}`} className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-espresso-800">
                 <Mail className="h-[1.125rem] w-[1.125rem] shrink-0" strokeWidth={1.8} />
               </a>
-              {/* Handy: "Termin buchen" liegt unter dem Menü-Knopf und fährt aus ihm heraus (rechts verankert, Breite wächst mit der Pille und
-                  deckt dabei den E-Mail-Knopf ab, Inhalt steht fest, die runde linke Kante gibt ihn frei bzw. nimmt ihn beim Einfahren mit in den Kreis) */}
-              <CtaLink
-                tabIndex={expanded ? 0 : -1}
-                hidden={!expanded}
-                className={cn(
-                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta text-[0.9375rem] font-semibold text-espresso-900 shadow-[0_6px_14px_-8px_rgba(90,58,28,0.5)] md:hidden',
-                  'transition-[width,background-color,visibility] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
-                  expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
-                )}
-              >
-                <span className="absolute inset-y-0 right-12 flex w-[calc(var(--pill-w,15rem)-56px)] items-center justify-center whitespace-nowrap text-[0.875rem]">
-                  Termin buchen
-                </span>
-              </CtaLink>
-              <span className="relative z-10 ml-auto shrink-0">
-                <MobileMenu />
-              </span>
+              <MobileMenu />
             </div>
           </div>
         </div>
