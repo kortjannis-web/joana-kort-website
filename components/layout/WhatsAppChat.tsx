@@ -95,7 +95,7 @@ export function WhatsAppProvider({ children }: { children: ReactNode }) {
       />
       )}
 
-      <ContactRail btnRef={btnRef} showFab={showButton} onDark={onDark} hidden={open} />
+      <ContactRail btnRef={btnRef} showFab={showButton} inHero={!pastHero} onDark={onDark} hidden={open} />
       <RueckrufDialog />
 
       <div
@@ -205,15 +205,29 @@ const RAIL_ITEMS: { label: string; href?: string; Icon: (p: IconProps) => React.
 
 /**
  * Drei runde Kontakt-Knöpfe, senkrecht übereinander unten rechts (alle Breiten): Termin buchen (Knopf-Braun), Rückruf (Espresso), E-Mail (weiß).
- * Ab Laptop gleitet beim Hover links die Beschriftung heraus. Über dunklen Flächen leuchten sie leicht (wa-glow).
+ * Handy/Tablet erst nach dem Hero. Ab Laptop gleitet beim Hover links die Beschriftung heraus. Über dunklen Flächen leuchten sie leicht (wa-glow).
  */
-function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObject<HTMLButtonElement | null>; showFab: boolean; onDark: boolean; hidden: boolean }) {
+function ContactRail({
+  btnRef,
+  showFab,
+  inHero,
+  onDark,
+  hidden,
+}: {
+  btnRef: React.RefObject<HTMLButtonElement | null>
+  showFab: boolean
+  /** Handy/Tablet: im Hero ausgeblendet, damit die Knöpfe nicht über dem Text liegen */
+  inHero: boolean
+  onDark: boolean
+  hidden: boolean
+}) {
   return (
     <nav
       aria-label="Kontakt"
       className={cn(
         'fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 flex flex-col items-center gap-2.5 transition-[opacity,transform] duration-700 ease-[var(--ease-soft)] md:bottom-6 md:right-6 md:gap-3',
-        showFab && !hidden ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+        showFab && !hidden ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0',
+        inHero && 'max-xl:pointer-events-none max-xl:translate-y-4 max-xl:opacity-0'
       )}
     >
       {RAIL_ITEMS.map((it, i) => {
