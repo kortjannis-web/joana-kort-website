@@ -1,10 +1,10 @@
 import { LogoMark } from '@/components/layout/Logo'
-import { PORTRAIT } from '@/lib/portrait'
+import { PORTRAIT } from '@/lib/images'
 import { cn } from '@/lib/utils'
 
 /**
  * Bogenrahmen für Joanas Foto: dünne Linie mit kleinem Abstand, schwebender Schatten.
- * Foto: public/images/joana-kort.webp (lib/portrait.ts). Solange es fehlt: Espresso-Fläche mit Monogramm und Markenlinie, bewusst kein Stockfoto.
+ * Foto: PORTRAIT in lib/images.ts. Ohne Foto (null): Espresso-Fläche mit Monogramm und Markenlinie, bewusst kein Stockfoto.
  * Bogen über Container-Einheiten (50cqw = halbe Breite). `fill`: füllt die Höhe des Elternelements, sonst 4:5.
  */
 export function PortraitFrame({ className, fill = false, priority = false }: { className?: string; fill?: boolean; priority?: boolean }) {
@@ -22,7 +22,7 @@ export function PortraitFrame({ className, fill = false, priority = false }: { c
               height={PORTRAIT.h}
               loading={priority ? 'eager' : 'lazy'}
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-[50%_38%]"
             />
           ) : (
             <div className="grain absolute inset-0 flex flex-col items-center justify-center gap-5 text-center">

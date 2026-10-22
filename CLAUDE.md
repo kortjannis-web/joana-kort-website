@@ -21,7 +21,7 @@ Briefing-Entscheidungen und offene Punkte: `docs/OFFENE-PUNKTE.md`
 - Name, Kontakt, Region, Berufsbezeichnung (`ROLE`, Schalter `STUDIUM_ABGESCHLOSSEN`), Env-Schalter: `lib/site.ts`
 - Angebote, Programme, drei Schwerpunkte, Ablauf, Formular-Interessen: `lib/content/angebote.ts` (eine Quelle für Nav, Karten, Schema, Formular)
 - FAQ je Thema: `lib/content/faqs.ts` (15 = 3 Gruppen à 5, Startseite `HOME_FAQS` 8) · Wissen "Stress verstehen": `lib/content/wissen.ts` (Themen in Dreiergruppen, Kurzantwort + Langtext + Animation `scene`) · Ratgeber: `lib/content/ratgeber.ts` (6 Artikel, Kurzantwort für GEO, Quellen) · Bewertungen: `lib/content/reviews.ts` (leer = Section + Hero-Badge ausgeblendet, nur echte Stimmen)
-- Bilder: `lib/images.ts` (Materialien aus Joanas PDFs in `public/images/material`, Foto von Joana: einfach `public/images/joana-kort.webp` ablegen, `lib/portrait.ts` erkennt es (sonst Platzhalter), erscheint im Video-Feld und bei "Ich bin Joana Kort", `VIDEO` = null bis das Vorstellungsvideo da ist)
+- Bilder: `lib/images.ts` (Materialien aus Joanas PDFs in `public/images/material`, Fotos von Joana in `public/images/joana`: `INTRO_PHOTO` (Querformat, Video-Feld) und `PORTRAIT` (mit Kind, Bogenrahmen "Ich bin Joana Kort"), `VIDEO` = null bis das Vorstellungsvideo da ist)
 - Rich-Text: `**fett**` und `[Text](/pfad/)` (`components/ui/Rich.tsx`) · Langtexte hinter dem Pfeil: `More` (`components/ui/More.tsx`, `<details>`, im HTML für SEO/GEO, ohne Vorschau) · CTA-Zeile: `CtaRow` · Rechtstexte: `components/legal/*Content.tsx` (PRÜFEN-Kommentare)
 
 ## Design

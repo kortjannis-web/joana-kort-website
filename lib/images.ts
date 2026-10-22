@@ -1,8 +1,7 @@
 /**
  * Bilder der Website.
  * Materialien: Seiten aus Joanas eigenen Vorlagen (Stresstagebuch, Tagesplaner, Wochenfokus), aus den PDFs gerendert.
- * Fotos von Joana: noch nicht vorhanden. Sobald es professionelle Fotos gibt, hier eintragen (PORTRAIT, ARBEIT),
- * die Website zeigt sie dann automatisch (Über-mich-Teaser auf der Startseite, Über-mich-Seite, Ratgeber-Autorin).
+ * Fotos von Joana: public/images/joana (WebP, Qualität 82). PORTRAIT erscheint im Bogenrahmen (Über mich), INTRO_PHOTO im Video-Feld.
  */
 
 export type Img = { src: string; srcSet?: string; alt: string; w: number; h: number }
@@ -38,7 +37,19 @@ export const MATERIAL = {
   wochenfokus: m('wochenfokus', 900, 560, 900, 1058, 'Wochenfokus von Joana Kort mit Wochenziel und Tageszeilen von Montag bis Sonntag'),
 } as const
 
-/** Foto von Joana (Porträt): siehe lib/portrait.ts (prüft beim Rendern, ob die Datei da ist, nur in Server-Komponenten) */
+const j = (name: string, big: number, small: number, w: number, h: number, alt: string): Img => ({
+  src: `/images/joana/${name}-${big}.webp`,
+  srcSet: `/images/joana/${name}-${small}.webp ${small}w, /images/joana/${name}-${big}.webp ${big}w`,
+  alt,
+  w,
+  h,
+})
+
+/** Foto von Joana im Bogenrahmen (Über mich, "Ich bin Joana Kort"): mit ihrem Kind im Sommerlicht */
+export const PORTRAIT: Img | null = j('joana-kort-mit-kind', 1022, 640, 1022, 1298, 'Joana Kort mit ihrem Kind auf dem Arm im Sommerlicht')
+
+/** Querformat (16:9) für das Video-Feld "Lernen Sie mich kennen", solange es das Video noch nicht gibt */
+export const INTRO_PHOTO: Img = j('joana-kort-vorstellung', 1500, 960, 1500, 844, 'Joana Kort, Stressberaterin aus Gummersbach, lächelt vor einer grünen Hecke')
 
 /**
  * Vorstellungsvideo von Joana (Startseite direkt unter dem Hero). null = gestalteter Platzhalter.
