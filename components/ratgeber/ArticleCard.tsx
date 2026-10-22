@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { ArticleCover } from './ArticleCover'
 import type { Artikel } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -86,7 +86,7 @@ export function ArticleCard({ a, featured = false, headingLevel = 2 }: { a: Arti
             aria-hidden="true"
             className="mt-1 inline-flex min-h-11 items-center justify-center gap-2.5 rounded-full border border-[#ddd3c6] bg-white px-6 text-[0.9375rem] font-semibold text-espresso-800 transition-colors duration-500 group-hover:border-espresso-800 xl:mt-2 xl:self-start xl:border-0 xl:bg-espresso-900 xl:text-white xl:group-hover:bg-espresso-800"
           >
-            Artikel lesen <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} />
+            Artikel lesen
           </span>
         ) : (
           <>

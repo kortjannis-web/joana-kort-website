@@ -1,4 +1,4 @@
-import { ArrowRight, Compass, HeartHandshake, MessagesSquare, Play } from 'lucide-react'
+import { Compass, HeartHandshake, MessagesSquare, Play } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { JsonLd } from '@/components/ui/JsonLd'
 import { Reveal } from '@/components/ui/Reveal'
@@ -82,7 +82,6 @@ export function VideoIntro() {
           </ul>
           <ButtonLink href={ERSTGESPRAECH} className="group mt-[clamp(1rem,3svh,1.75rem)] w-full sm:w-auto max-xl:hidden">
             {CTA_LABEL}
-            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
           </ButtonLink>
         </Reveal>
       </div>

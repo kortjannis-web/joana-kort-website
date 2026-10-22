@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { CalendarHeart, ChevronDown, ChevronRight, Mail, Menu, X } from 'lucide-react'
+import { CalendarHeart, ChevronDown, Mail, Menu, X } from 'lucide-react'
 import { MAIN_NAV } from './nav'
 import { Logo } from './Logo'
 import { buttonClass } from '@/components/ui/Button'
@@ -65,7 +65,6 @@ export function MobileMenu() {
                           <li key={c.href + c.label}>
                             <Link href={c.href} className="flex min-h-11 items-center justify-between text-[1rem] text-espresso-200 hover:text-white">
                               {c.label}
-                              <ChevronRight className="h-4 w-4 text-caramel-400" strokeWidth={1.8} aria-hidden="true" />
                             </Link>
                           </li>
                         ))}
@@ -86,7 +85,6 @@ export function MobileMenu() {
                                       className="flex min-h-11 items-center justify-between text-[0.9375rem] text-espresso-200 hover:text-white aria-[current=page]:text-white"
                                     >
                                       {l.label}
-                                      <ChevronRight className="h-4 w-4 text-caramel-400" strokeWidth={1.8} aria-hidden="true" />
                                     </Link>
                                   </li>
                                 ))}

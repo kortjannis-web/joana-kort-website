@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { ArrowRight, Check, Mail, Phone } from 'lucide-react'
+import { Check, Mail, Phone } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { LogoDraw } from '@/components/ui/LogoDraw'
 import { openRueckruf } from '@/components/forms/RueckrufDialog'
@@ -60,7 +60,6 @@ export function FooterCta() {
         <div className="flex flex-col items-start gap-[clamp(0.5rem,2svh,1.25rem)] xl:col-span-4 xl:justify-self-end">
           <ButtonLink href={cta.href} variant="primary" size="lg" className="group w-full sm:w-auto">
             {cta.label}
-            <ArrowRight className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 ease-[var(--ease-lift)] group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
           </ButtonLink>
           <button type="button" onClick={openRueckruf} className="glow-hover group inline-flex items-center gap-3 text-left text-[0.9375rem] text-espresso-200">
             <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 bg-white/[0.06] text-caramel-300 transition-[border-color,background-color] duration-500 group-hover:border-caramel-300/60 group-hover:bg-white/[0.1]">

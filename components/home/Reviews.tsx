@@ -1,4 +1,3 @@
-import { ArrowUpRight } from 'lucide-react'
 import { REVIEWS, fmtReviewDate } from '@/lib/content/reviews'
 import { site } from '@/lib/site'
 import { buttonClass } from '@/components/ui/Button'
@@ -28,7 +27,6 @@ export function Reviews({ title = 'Wie andere die Zusammenarbeit erlebt haben', 
           {allUrl && (
             <a href={allUrl} target="_blank" rel="noopener noreferrer" className={buttonClass('outline', 'md', 'hidden shrink-0 bg-white md:inline-flex')}>
               <GoogleIcon className="h-4.5 w-4.5" /> Alle Bewertungen bei Google
-              <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
             </a>
           )}
         </Reveal>

@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react'
 import { ButtonLink } from './Button'
 import { CTA_LABEL, ERSTGESPRAECH } from '@/lib/site'
 import { cn } from '@/lib/utils'
@@ -26,7 +25,6 @@ export function CtaRow({
     <div className={cn('flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5', align === 'center' && 'sm:justify-center', className)}>
       <ButtonLink href={href} variant="primary" size="lg" className="group w-full whitespace-nowrap sm:w-auto">
         {label}
-        <ArrowRight className="h-[1.125rem] w-[1.125rem] transition-transform duration-500 ease-[var(--ease-lift)] group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
       </ButtonLink>
       {note && <p className={cn('text-center text-[0.875rem] sm:text-left', tone === 'dark' ? 'text-espresso-200' : 'text-muted')}>{note}</p>}
     </div>

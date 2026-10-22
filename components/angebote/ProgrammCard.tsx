@@ -1,7 +1,6 @@
 'use client'
 
 import { useId, useState } from 'react'
-import { ArrowRight } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { RABATT_LANG, SCHWERPUNKTE, type Programm } from '@/lib/content/angebote'
 import { CTA_LABEL } from '@/lib/site'
@@ -104,7 +103,6 @@ export function ProgrammCard({ p, dark = false, href }: { p: Programm; dark?: bo
       <p className={cn('mt-[clamp(0.625rem,2svh,1.5rem)] flex-1 text-[0.9375rem] leading-relaxed max-md:hidden lowtab:hidden lowdesk:hidden md:text-base', dark ? 'text-espresso-100/90' : 'text-ink/85')}>{p.fuer}</p>
       <ButtonLink href={href} variant="primary" className="group mt-[clamp(0.75rem,2.5svh,1.75rem)] w-full">
         {CTA_LABEL}
-        <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
       </ButtonLink>
     </article>
   )

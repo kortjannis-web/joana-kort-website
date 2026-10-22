@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Car, Handshake, Shuffle } from 'lucide-react'
+import { Car, Handshake, Shuffle } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -117,7 +117,6 @@ export default function GummersbachPage() {
               ].map((l) => (
                 <Link key={l.href} href={l.href} className="group flex min-h-12 items-center justify-between gap-3 rounded-md bg-white px-4 text-[0.9375rem] font-semibold md:min-h-14 md:px-5 md:text-base text-espresso-900 transition-colors hover:text-caramel-800">
                   {l.t}
-                  <ArrowRight className="h-4 w-4 shrink-0 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                 </Link>
               ))}
             </Reveal>

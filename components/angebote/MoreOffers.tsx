@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { Carousel } from '@/components/ui/Carousel'
 import { Reveal } from '@/components/ui/Reveal'
 import { ANGEBOTE, type AngebotKey } from '@/lib/content/angebote'
@@ -29,7 +29,6 @@ export function MoreOffers({ current, title = 'Weitere Angebote' }: { current?: 
                   className="mt-auto inline-flex min-h-11 items-center gap-1.5 self-start pt-4 font-semibold text-espresso-800 transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-caramel-800"
                 >
                   Ansehen
-                  <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={1.75} aria-hidden="true" />
                 </Link>
               </div>
             ))}

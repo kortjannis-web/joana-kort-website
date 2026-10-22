@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ChevronRight, MonitorSmartphone } from 'lucide-react'
+import { MonitorSmartphone } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { Reveal } from '@/components/ui/Reveal'
 import { ScrollLine } from '@/components/ui/ScrollLine'
@@ -71,12 +71,10 @@ export function AboutArea() {
               <div className="mt-[clamp(0.5rem,2svh,1.5rem)] flex flex-wrap gap-x-6">
                 <Link href="/stressberatung-gummersbach/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
                   Vor Ort in {site.address.city}
-                  <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
                 </Link>
                 <Link href="/stressberatung-online/" className="group inline-flex min-h-11 items-center gap-1.5 font-semibold text-espresso-800 hover:text-caramel-800">
                   <MonitorSmartphone className="h-4 w-4 text-caramel-600" strokeWidth={1.75} aria-hidden="true" />
                   Online per Video
-                  <ChevronRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
                 </Link>
               </div>
             </div>

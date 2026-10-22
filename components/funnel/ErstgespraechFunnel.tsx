@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
-import { ArrowLeft, ArrowRight, CalendarHeart, Check, Mail, Phone } from 'lucide-react'
+import { ArrowLeft, CalendarHeart, Check, Mail, Phone } from 'lucide-react'
 import { buttonClass } from '@/components/ui/Button'
 import { LogoDraw } from '@/components/ui/LogoDraw'
 import { FUNNEL, INTERESSEN, type FunnelOption, type FunnelWer, type InteresseKey } from '@/lib/content/angebote'
@@ -311,7 +311,6 @@ export function ErstgespraechFunnel({
           <ErrorMsg msg={error} />
           <button type="submit" disabled={sending} className={buttonClass('primary', 'md', 'group mt-3 w-full')}>
             {sending ? 'Wird gesendet …' : 'Kostenloses Erstgespräch anfragen'}
-            {!sending && <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />}
           </button>
           <p className="mt-2 text-[0.75rem] leading-snug text-muted">
             Ihre Angaben nutze ich nur, um das Erstgespräch mit Ihnen zu vereinbaren. Mehr in der{' '}
@@ -610,7 +609,6 @@ function Tile({ o, i, selected, onClick }: { o: FunnelOption; i: number; selecte
         <span className="block text-[0.90625rem] font-semibold leading-snug text-espresso-900">{o.title}</span>
         {o.text && <span className="mt-0.5 block text-[0.78125rem] leading-snug text-muted">{o.text}</span>}
       </span>
-      <ArrowRight className="h-4 w-4 shrink-0 text-espresso-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:text-espresso-800" strokeWidth={1.75} aria-hidden="true" />
     </button>
   )
 }

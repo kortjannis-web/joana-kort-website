@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { ButtonLink } from '@/components/ui/Button'
 import { InView } from '@/components/ui/InView'
 import { More } from '@/components/ui/More'
@@ -86,7 +86,6 @@ export function Pillars({ sheet = false, title, intro, cta = true }: { sheet?: b
           <Reveal className="mt-[var(--sec-gap)] flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-7">
             <ButtonLink href={ERSTGESPRAECH} variant="primary" size="lg" className="group w-full sm:w-auto">
               {CTA_LABEL}
-              <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
             </ButtonLink>
             <Link href="/mein-ansatz/" className="link inline-flex min-h-11 items-center justify-center font-semibold max-sm:hidden sm:justify-start">
               Mehr über das Konzept erfahren

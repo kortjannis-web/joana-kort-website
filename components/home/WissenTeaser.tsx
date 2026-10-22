@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { Carousel } from '@/components/ui/Carousel'
 import { InView } from '@/components/ui/InView'
 import { Reveal } from '@/components/ui/Reveal'
@@ -42,7 +42,6 @@ export function WissenTeaser() {
                     className="mt-[clamp(0.5rem,1.5svh,1.25rem)] inline-flex min-h-11 items-center gap-1.5 self-start font-semibold text-espresso-800 underline decoration-caramel-500/60 underline-offset-[0.3em] transition-colors duration-500 after:absolute after:inset-0 after:rounded-[inherit] hover:text-caramel-800"
                   >
                     Ausführlich erklärt
-                    <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />
                   </Link>
                 </div>
               </article>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Check, Info } from 'lucide-react'
+import { Check, Info } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'

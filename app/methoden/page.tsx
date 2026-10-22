@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import {
   Activity,
-  ArrowRight,
   CalendarDays,
   Coffee,
   ListOrdered,
@@ -287,7 +286,6 @@ export default function MethodenPage() {
                     <span className="block font-semibold text-espresso-900">{l.title}</span>
                     <span className="mt-1 block text-[0.9375rem] leading-snug text-muted">{l.text}</span>
                   </span>
-                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-caramel-700 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.5} aria-hidden="true" />
                 </Link>
               ))}
             </Reveal>

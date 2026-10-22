@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { BookOpen, CalendarDays, Building2, ChevronDown, ChevronRight, GraduationCap, Layers, Mail, MonitorPlay, User, Wrench } from 'lucide-react'
+import { BookOpen, CalendarDays, Building2, ChevronDown, GraduationCap, Layers, Mail, MonitorPlay, User, Wrench } from 'lucide-react'
 import { Logo } from './Logo'
 import { MAIN_NAV, type NavGroup } from './nav'
 import { MobileMenu } from './MobileMenu'
@@ -162,7 +162,7 @@ export function Header() {
 
         <div className={cn(intro && 'intro-down [--d:0.6s]', 'flex items-center gap-2 justify-self-end md:gap-3')}>
           {/* Tablet und Desktop: Erstgespräch immer sichtbar */}
-          <CtaLink className="btn-cta group hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 text-[0.9375rem] font-semibold shadow-[0_8px_18px_-10px_rgba(20,14,10,0.55)] transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
+          <CtaLink className="btn-cta group hidden h-[3.25rem] items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-6 text-[0.9375rem] font-semibold transition-[background-color,transform,box-shadow] duration-300 md:inline-flex">
             <CalendarDays className="h-[1.0625rem] w-[1.0625rem] shrink-0" strokeWidth={1.9} aria-hidden="true" />
             <span className="xl:hidden">Termin buchen</span>
             <span className="hidden xl:inline">{CTA_LABEL}</span>
@@ -186,7 +186,7 @@ export function Header() {
                 tabIndex={expanded ? 0 : -1}
                 hidden={!expanded}
                 className={cn(
-                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta bg-[linear-gradient(180deg,rgb(255_255_255/0.17),rgb(255_255_255/0)_58%),linear-gradient(135deg,#bd6534,#9a4a22)] text-[0.9375rem] font-semibold text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.22),0_6px_14px_-6px_rgba(142,71,34,0.55)] hover:brightness-110 md:hidden',
+                  'absolute right-1 top-1 h-11 overflow-hidden rounded-full bg-cta text-[0.9375rem] font-semibold text-espresso-900 shadow-[0_6px_14px_-8px_rgba(90,58,28,0.5)] md:hidden',
                   'transition-[width,background-color,visibility] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-150',
                   expanded ? 'visible w-[calc(var(--pill-w,15rem)-8px)]' : 'pointer-events-none invisible w-11'
                 )}
@@ -291,7 +291,6 @@ function NavDropdown({ item, pathname }: { item: NavGroup; pathname: string }) {
                 {item.extra.links.map((l) => (
                   <li key={l.href}>
                     <Link href={l.href} className="flex min-h-9 items-center gap-2 text-[0.9375rem] text-ink hover:text-caramel-800">
-                      <ChevronRight className="h-3.5 w-3.5 text-caramel-500" strokeWidth={2} aria-hidden="true" />
                       {l.label}
                     </Link>
                   </li>

@@ -9,8 +9,8 @@ const base =
   'inline-flex items-center justify-center gap-2.5 rounded-full font-semibold tracking-[0.005em] transition-[background-color,border-color,color,transform,box-shadow] duration-300 ease-[var(--ease-soft)] active:scale-[0.985] active:duration-150 disabled:pointer-events-none disabled:opacity-50 select-none'
 
 const variants: Record<Variant, string> = {
-  primary: 'btn-cta active:scale-100',
-  dark: 'bg-espresso-800 text-white hover:bg-espresso-900',
+  primary: 'btn-cta',
+  dark: 'btn-cta',
   outline: 'border border-espresso-800/30 text-espresso-800 hover:border-espresso-800 hover:bg-espresso-800/[0.04]',
   light: 'bg-white text-espresso-900 hover:bg-caramel-50',
   'outline-light': 'border border-white/40 text-white hover:border-white hover:bg-white/[0.06]',

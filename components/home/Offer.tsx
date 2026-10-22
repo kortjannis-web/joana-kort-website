@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Building2, Check, MonitorPlay, UserRound } from 'lucide-react'
+import { Building2, Check, MonitorPlay, UserRound } from 'lucide-react'
 import { Carousel } from '@/components/ui/Carousel'
 import { CtaRow } from '@/components/ui/CtaRow'
 import { Reveal } from '@/components/ui/Reveal'
@@ -107,7 +107,6 @@ export function Offer() {
                   )}
                 >
                   Mehr erfahren
-                  <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />
                 </Link>
               </article>
             ))}

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 import { ButtonLink } from '@/components/ui/Button'
 import { Carousel } from '@/components/ui/Carousel'
 import { Grow } from '@/components/ui/CountUp'
@@ -24,7 +23,6 @@ function StepTitle({ i, title, className }: { i: number; title: string; classNam
         className="group/s1 inline-flex items-center gap-1.5 outline-none after:absolute after:inset-0 after:rounded-lg focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-caramel-600"
       >
         {title}
-        <ArrowRight className="h-4 w-4 text-caramel-700 transition-transform duration-500 group-hover/s1:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
       </Link>
     </h3>
   )
@@ -56,7 +54,6 @@ export function Process({
     cta && (
       <ButtonLink href={ERSTGESPRAECH} variant="primary" className={full ? 'group w-full' : 'group shrink-0'}>
         {CTA_LABEL}
-        <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={2} aria-hidden="true" />
       </ButtonLink>
     )
 

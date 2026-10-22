@@ -48,9 +48,9 @@
   --color-caramel-100: #f1e6d6;
   --color-caramel-50: #f8f1e7;
 
-  /* Terrakotta-Orange: CTAs (weiße Schrift), mit leichtem Glanz. Alle übrigen Akzente in Karamell (Entscheidung 18.10.2026: kein Bordeaux) */
-  --color-cta: #a9572b;
-  --color-cta-hover: #b8652f;
+  /* Kräftiges helles Braun: alle Knöpfe, flach mit Espresso-Schrift (Entscheidung 22.10.2026). Übrige Akzente in Karamell */
+  --color-cta: #c4904f;
+  --color-cta-hover: #cf9d5f;
   /* Amber: aktive und erledigte Schritte im Erstgespräch-Funnel und die Begleit-Linien */
   --color-amber: #c8893a;
 
@@ -327,75 +327,28 @@
     0 54px 86px -44px rgb(30 22 17 / 0.42);
 }
 
-/* Haupt-CTA (Terrakotta-Orange): Verlauf mit hellem Oberlicht und ein schmaler Glanzstreifen, der alle 8 s über den Knopf gleitet.
-   Hover: etwas heller, hebt sich an, warmer Schatten. Klick: sinkt zurück */
+/* Knöpfe (CTA): kräftiges helles Braun, flach (kein Verlauf, kein Glanz), Espresso-Schrift (6,2:1), leichter Schatten.
+   Hover: etwas heller, hebt sich an. Klick: sinkt zurück */
 @utility btn-cta {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
   background-color: var(--color-cta);
-  background-image:
-    linear-gradient(180deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0) 58%),
-    linear-gradient(135deg, var(--cta-from, #bd6534), var(--cta-to, #9a4a22));
-  color: #fff;
+  color: var(--color-espresso-900);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.22),
-    0 8px 18px -10px rgb(142 71 34 / 0.55);
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.3) 50%, transparent 65%);
-    transform: translateX(-120%);
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    &::after {
-      animation: cta-shine 8s var(--ease-soft) 2.5s infinite;
-    }
-  }
+    0 1px 2px rgb(60 38 18 / 0.12),
+    0 8px 18px -10px rgb(90 58 28 / 0.45);
   @media (hover: hover) {
     &:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.08);
+      transform: translateY(-2px);
+      background-color: var(--color-cta-hover);
       box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.26),
-        0 4px 8px -4px rgb(20 14 10 / 0.3),
-        0 16px 26px -12px rgb(142 71 34 / 0.6);
+        0 2px 4px rgb(60 38 18 / 0.12),
+        0 14px 26px -12px rgb(90 58 28 / 0.5);
     }
   }
   &:active {
     transform: translateY(0);
-    filter: none;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 0 2px 4px -2px rgb(20 14 10 / 0.3);
+    box-shadow: 0 1px 2px rgb(60 38 18 / 0.18);
   }
-}
-@keyframes cta-shine {
-  0%,
-  72% {
-    transform: translateX(-120%);
-  }
-  88%,
-  100% {
-    transform: translateX(120%);
-  }
-}
-
-/* Auf dunklen Flächen leuchtet der CTA etwas heller, damit er sich vom Espresso abhebt */
-.bg-espresso-700,
-.bg-espresso-800,
-.bg-espresso-900,
-.bg-espresso-950 {
-  --cta-from: #cc7440;
-  --cta-to: #a9572b;
-}
-.bg-white,
-.bg-paper,
-.bg-stone,
-.bg-greige {
-  --cta-from: #bd6534;
-  --cta-to: #9a4a22;
 }
 
 /* Fließtext-Links */

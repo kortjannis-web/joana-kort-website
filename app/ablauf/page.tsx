@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Check, Info } from 'lucide-react'
+import { Check, Info } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -335,7 +335,6 @@ export default function AblaufPage() {
                 className="mt-[clamp(0.5rem,2svh,1.25rem)] inline-flex min-h-11 items-center gap-2 font-semibold text-white underline decoration-caramel-300/60 underline-offset-[6px] hover:text-caramel-200 max-md:hidden"
               >
                 Mehr zu Schulungen für Unternehmen
-                <ArrowRight className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
               </Link>
             </Reveal>
             <Reveal delay={0.08} className="lg:col-span-7">
@@ -384,7 +383,6 @@ export default function AblaufPage() {
                     <span className="block font-semibold text-espresso-900">{l.title}</span>
                     <span className="mt-1 block text-[0.9375rem] leading-snug text-muted">{l.text}</span>
                   </span>
-                  <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-caramel-700 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.5} aria-hidden="true" />
                 </Link>
               ))}
             </Reveal>

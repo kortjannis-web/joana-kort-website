@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, GraduationCap, MapPin, ShieldCheck } from 'lucide-react'
+import { GraduationCap, MapPin, ShieldCheck } from 'lucide-react'
 import { ErstgespraechFunnel } from '@/components/funnel/ErstgespraechFunnel'
 import { HeroLine } from '@/components/ui/HeroLine'
 import { StackBack } from '@/components/ui/Stack'
@@ -52,7 +52,6 @@ export function Hero() {
                 className="group inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold text-espresso-800 underline decoration-caramel-500/60 underline-offset-[6px] transition-colors duration-500 hover:text-caramel-800"
               >
                 Angebote ansehen
-                <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
               </Link>
             </div>
             <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2.5 max-md:hidden xl:mt-10 xl:flex-nowrap xl:gap-x-4" aria-label="Auf einen Blick">

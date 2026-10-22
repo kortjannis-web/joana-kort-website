@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Building2, Check, MonitorPlay, User, Users } from 'lucide-react'
+import { BookOpen, Building2, Check, MonitorPlay, User, Users } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -85,7 +85,6 @@ function OfferCard({ a, main = false }: { a: Angebot; main?: boolean }) {
         )}
       >
         Mehr erfahren
-        <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5" strokeWidth={1.75} aria-hidden="true" />
       </Link>
     </article>
   )
@@ -170,7 +169,6 @@ export default function AngebotePage() {
                       <span className="text-[0.9375rem] leading-snug text-ink/85 md:text-base">{w.frage}</span>
                       <span className="flex shrink-0 items-center gap-2 font-semibold text-espresso-900 transition-colors duration-500 group-hover:text-caramel-800">
                         {w.ziel}
-                        <ArrowRight className="h-4 w-4 text-caramel-600 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
                       </span>
                     </Link>
                   </li>

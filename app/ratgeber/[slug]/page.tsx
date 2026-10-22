@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { ArrowRight, UserRound } from 'lucide-react'
+import { UserRound } from 'lucide-react'
 import { PageHero } from '@/components/ui/PageHero'
 import { Sheet } from '@/components/ui/Sheet'
 import { ButtonLink } from '@/components/ui/Button'
@@ -114,7 +114,7 @@ export default async function ArtikelPage({ params }: { params: Promise<{ slug: 
                   <p className="font-serif text-[1.5rem] leading-[1.2] text-white md:text-[1.75rem]">{a.cta.title}</p>
                   <p className="mt-3 leading-relaxed text-espresso-200">{a.cta.text}</p>
                   <ButtonLink href={a.cta.href} className="mt-6 w-full sm:w-auto">
-                    {a.cta.label} <ArrowRight className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+                    {a.cta.label}
                   </ButtonLink>
                 </aside>
               </Reveal>

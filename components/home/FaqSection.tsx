@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+
 import { FaqList } from '@/components/ui/FaqList'
 import type { Faq } from '@/lib/types'
 
@@ -30,7 +30,6 @@ export function FaqSection({
             {moreLink && (
               <Link href="/haeufige-fragen/" className="group mt-[clamp(0.5rem,2svh,1.5rem)] inline-flex min-h-11 items-center gap-2 font-semibold text-espresso-800 underline decoration-caramel-500/60 underline-offset-[0.3em] hover:text-caramel-800">
                 {moreLabel}
-                <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.75} aria-hidden="true" />
               </Link>
             )}
           </div>
