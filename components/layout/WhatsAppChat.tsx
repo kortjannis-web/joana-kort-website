@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
-import { CalendarDays, CalendarHeart, Mail, Phone, X } from 'lucide-react'
+import { CalendarHeart, X } from 'lucide-react'
 import { WhatsAppIcon } from '@/components/ui/icons'
 import { buttonClass } from '@/components/ui/Button'
 import { GoogleRating } from '@/components/ui/GoogleRating'
@@ -13,7 +13,7 @@ import { CTA_LABEL, ERSTGESPRAECH, site, whatsappHref } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 /**
- * Kontaktleiste: ab Laptop fest am rechten Rand (Termin buchen, Rückruf, E-Mail). Handy/Tablet: runder Telefon-Knopf unten rechts.
+ * Kontakt: drei runde Knöpfe senkrecht unten rechts (Termin buchen, Rückruf, E-Mail), auf allen Breiten.
  * Telefon heißt Rückruf (Entscheidung 18.10.2026): beide öffnen das Rückruf-Fenster (Name + Nummer, Joana ruft zurück). WhatsApp (über das Menü) ohne Fremd-Skript: kleines Fenster mit Begrüßung und Datenschutzhinweis,
  * erst der Klick auf "Chat starten" öffnet WhatsApp (wa.me). Kein Datenfluss vor dem Klick.
  * Solange es Google-Bewertungen gibt, steht im Hero die Bewertung und der Knopf kommt erst nach dem Hero (wie Vorlage),
@@ -168,76 +168,85 @@ function isDarkAt(x: number, y: number, self: HTMLElement) {
   return false
 }
 
-/** Kontaktwege der Leiste am rechten Rand (Reihenfolge = Wichtigkeit). Ohne href: öffnet das Rückruf-Fenster */
-const RAIL_ITEMS: { label: string; href?: string; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[] = [
-  { label: 'Termin buchen', href: ERSTGESPRAECH, Icon: CalendarDays },
-  { label: 'Rückruf anfordern', Icon: Phone },
-  { label: 'E-Mail schreiben', href: `mailto:${site.email}`, Icon: Mail },
+/* Eigene runde Symbole (SVG, 24er Raster, Linie 1,7) */
+type IconProps = { className?: string }
+function IconTermin({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="3.5" />
+      <path d="M8 3v4M16 3v4M3.5 10h17" />
+      <path d="M12 13.4c-.9-1-2.6-.6-2.6.8 0 1.3 2.6 2.8 2.6 2.8s2.6-1.5 2.6-2.8c0-1.4-1.7-1.8-2.6-.8Z" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+function IconRueckruf({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5.2 4h3l1.5 4-2 1.3a10.5 10.5 0 0 0 5 5l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 3.2 6.2 2 2 0 0 1 5.2 4Z" />
+      <path d="M15 3.5a5.5 5.5 0 0 1 5.5 5.5M15 7a2 2 0 0 1 2 2" />
+    </svg>
+  )
+}
+function IconMail({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5.5" width="18" height="13" rx="3" />
+      <path d="m4 7.5 8 5.5 8-5.5" />
+    </svg>
+  )
+}
+
+/** Kontaktwege unten rechts (Reihenfolge von oben: Termin, Rückruf, E-Mail). Ohne href: öffnet das Rückruf-Fenster */
+const RAIL_ITEMS: { label: string; href?: string; Icon: (p: IconProps) => React.ReactElement; tone: string }[] = [
+  { label: 'Termin buchen', href: ERSTGESPRAECH, Icon: IconTermin, tone: 'btn-cta' },
+  { label: 'Rückruf anfordern', Icon: IconRueckruf, tone: 'bg-espresso-800 text-white ring-1 ring-white/15 hover:bg-espresso-700' },
+  { label: 'E-Mail schreiben', href: `mailto:${site.email}`, Icon: IconMail, tone: 'bg-white text-espresso-800 ring-1 ring-espresso-800/10 hover:bg-caramel-50' },
 ]
 
 /**
- * Ab 1280 px: Leiste am rechten Rand (Termin buchen, Rückruf, E-Mail), Beschriftung gleitet beim Hover heraus.
- * Darunter (Handy/Tablet): runder Telefon-Knopf unten rechts, öffnet das Rückruf-Fenster.
+ * Drei runde Kontakt-Knöpfe, senkrecht übereinander unten rechts (alle Breiten): Termin buchen (Knopf-Braun), Rückruf (Espresso), E-Mail (weiß).
+ * Ab Laptop gleitet beim Hover links die Beschriftung heraus. Über dunklen Flächen leuchten sie leicht (wa-glow).
  */
 function ContactRail({ btnRef, showFab, onDark, hidden }: { btnRef: React.RefObject<HTMLButtonElement | null>; showFab: boolean; onDark: boolean; hidden: boolean }) {
   return (
-    <>
-      <nav
-        aria-label="Kontakt"
-        className={cn(
-          'fixed right-0 top-1/2 z-30 hidden -translate-y-1/2 flex-col overflow-visible rounded-l-xl bg-espresso-800 shadow-[0_12px_30px_-10px_rgba(20,14,10,0.55)] ring-1 ring-white/10 transition-opacity duration-300 min-[80rem]:flex',
-          hidden && 'pointer-events-none opacity-0'
-        )}
-      >
-        {RAIL_ITEMS.map((it, i) => {
-          const cls = cn(
-            'group relative grid h-12 w-12 place-items-center text-espresso-100 transition-colors duration-300 hover:bg-espresso-700 hover:text-white focus-visible:bg-espresso-700',
-            i === 0 && 'rounded-tl-xl text-caramel-200',
-            i === RAIL_ITEMS.length - 1 && 'rounded-bl-xl',
-            i > 0 && 'border-t border-white/10'
-          )
-          const inner = (
-            <>
-              <it.Icon className="h-[1.125rem] w-[1.125rem]" strokeWidth={1.6} />
-              <span className="pointer-events-none absolute right-full top-1/2 mr-2 -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-md bg-espresso-800 px-3 py-2 text-[0.8125rem] font-semibold text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(20,14,10,0.5)] transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
-                {it.label}
-              </span>
-              <span className="sr-only">{it.label}</span>
-            </>
-          )
-          if (!it.href)
-            return (
-              <button key={it.label} type="button" onClick={openRueckruf} className={cls}>
-                {inner}
-              </button>
-            )
-          return it.href.startsWith('/') ? (
-            <Link key={it.label} href={it.href} className={cls}>
+    <nav
+      aria-label="Kontakt"
+      className={cn(
+        'fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 flex flex-col items-center gap-2.5 transition-[opacity,transform] duration-700 ease-[var(--ease-soft)] md:bottom-6 md:right-6 md:gap-3',
+        showFab && !hidden ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+      )}
+    >
+      {RAIL_ITEMS.map((it, i) => {
+        const cls = cn(
+          'group relative grid h-12 w-12 place-items-center rounded-full shadow-[0_10px_26px_-10px_rgba(30,22,17,0.55)] transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 md:h-[3.25rem] md:w-[3.25rem]',
+          it.tone,
+          onDark && 'wa-glow'
+        )
+        const inner = (
+          <>
+            <it.Icon className="h-[1.375rem] w-[1.375rem]" />
+            <span className="pointer-events-none absolute right-full top-1/2 mr-3 hidden -translate-y-1/2 translate-x-1 whitespace-nowrap rounded-full bg-espresso-800 px-3.5 py-2 text-[0.8125rem] font-semibold text-white opacity-0 shadow-[0_8px_20px_-8px_rgba(20,14,10,0.5)] transition-[opacity,transform] duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 xl:block">
+              {it.label}
+            </span>
+            <span className="sr-only">{it.label}</span>
+          </>
+        )
+        if (!it.href)
+          return (
+            <button key={it.label} ref={i === 1 ? btnRef : undefined} type="button" onClick={openRueckruf} tabIndex={showFab ? undefined : -1} className={cls}>
               {inner}
-            </Link>
-          ) : (
-            <a key={it.label} href={it.href} className={cls}>
-              {inner}
-            </a>
+            </button>
           )
-        })}
-      </nav>
-
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={openRueckruf}
-        aria-label="Rückruf anfordern"
-        tabIndex={showFab ? undefined : -1}
-        className={cn(
-          'fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-30 inline-flex h-14 w-14 items-center justify-center rounded-full bg-espresso-800 text-white shadow-[0_10px_30px_-8px_rgba(30,22,17,0.55)] ring-1 ring-white/15 transition-[opacity,transform,box-shadow] duration-700 ease-[var(--ease-soft)] md:bottom-6 md:right-6 min-[80rem]:hidden',
-          showFab ? 'translate-y-0 scale-100 opacity-100 hover:-translate-y-0.5' : 'pointer-events-none translate-y-4 scale-90 opacity-0',
-          onDark && 'wa-glow',
-          hidden && 'hidden'
-        )}
-      >
-        <Phone className="h-6 w-6" strokeWidth={1.7} aria-hidden="true" />
-      </button>
-    </>
+        return it.href.startsWith('/') ? (
+          <Link key={it.label} href={it.href} tabIndex={showFab ? undefined : -1} className={cls}>
+            {inner}
+          </Link>
+        ) : (
+          <a key={it.label} href={it.href} tabIndex={showFab ? undefined : -1} className={cls}>
+            {inner}
+          </a>
+        )
+      })}
+    </nav>
   )
 }
