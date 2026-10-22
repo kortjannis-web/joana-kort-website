@@ -72,7 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <WhatsAppProvider>
           <Header />
-          {/* Seite steht am Ende, der Footer (Sheet) schiebt sich darüber */}
           <StackBack as="main" id="inhalt" className="bg-paper">
             {children}
           </StackBack>

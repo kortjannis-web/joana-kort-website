@@ -30,7 +30,7 @@ const socials = [
 ].filter((s) => s.href)
 
 /**
- * Footer als dunkles Sheet (runde obere Ecken): schiebt sich beim Scrollen über das Seitenende (<main> steht, StackBack).
+ * Footer als dunkle Fläche mit weichem Schatten nach oben (keine Überlappung mehr).
  * Oben der Schluss-CTA (je Seite über FooterCta), darunter Marke, Kontakt, Angebote, Wissen.
  */
 export function Footer() {

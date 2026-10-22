@@ -52,8 +52,7 @@ export default function Home() {
         <TrustBar />
         <Reviews />
         <Situation />
-        {/* "Die Antwort" bleibt stehen, die drei Schwerpunkte schieben sich mit runden Ecken darüber.
-            Eigener Rahmen, damit das Kleben (sticky) danach endet */}
+        {/* "Die Antwort", danach die drei Schwerpunkte als eigene Fläche mit Schatten nach oben */}
         <div className="relative">
           <StackBack>
             <Solution />
