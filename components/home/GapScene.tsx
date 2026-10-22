@@ -2,7 +2,8 @@ import { InView } from '@/components/ui/InView'
 
 /**
  * Der zentrale Schmerzpunkt als Bild: zwischen "Ich weiß, was ich ändern sollte" und "Es klappt im Alltag" klafft eine Lücke
- * (gestrichelt, unterbrochen). Beim Hinscrollen zieht sich eine Linie darüber (Karamell), dann erscheint "Hier setze ich an".
+ * (gestrichelt, unterbrochen). Beim Hinscrollen zieht sich eine Linie darüber (Karamell), dann erscheint unter dem linken Zitat
+ * "Hier setze ich an" und ein geschwungener Pfeil zeigt von dort genau in die Mitte der Lücke.
  * CSS: .gap-scene in globals.css. Ohne JS: fertiges Bild.
  */
 export function GapScene() {
@@ -13,6 +14,9 @@ export function GapScene() {
           <div className="max-w-[11rem] md:max-w-[14rem]">
             <p className="t-label text-[0.6875rem] text-caramel-700 md:text-[0.75rem]">Wissen</p>
             <p className="mt-2 font-serif text-[1.0625rem] leading-snug text-espresso-900 md:text-[clamp(1.125rem,0.8rem+1.1svh,1.375rem)]">„Ich weiß, dass ich etwas ändern müsste.“</p>
+            <span className="gap-chip mt-3 inline-flex whitespace-nowrap rounded-full bg-espresso-800 px-4 py-2 text-[0.8125rem] font-semibold text-white shadow-[0_10px_20px_-10px_rgba(30,22,17,0.6)] md:mt-4 md:text-[0.875rem]">
+              Hier setze ich an
+            </span>
           </div>
           <div className="gap-end-right max-w-[11rem] text-right md:max-w-[14rem]">
             <p className="t-label text-[0.6875rem] text-caramel-700 md:text-[0.75rem]">Umsetzung</p>
@@ -32,10 +36,16 @@ export function GapScene() {
             {/* Brücke: zieht sich in einem ruhigen Bogen über die Lücke */}
             <path className="gap-bridge" pathLength={1} d="M24 110 C 150 110 190 28 300 28 C 410 28 450 110 576 110" stroke="#8f6a44" strokeWidth="3" strokeLinecap="round" />
           </svg>
-          <p className="absolute left-1/2 top-[54%] -translate-x-1/2 text-center text-[0.8125rem] italic text-muted md:text-[0.9375rem]">die Lücke</p>
-          <span className="gap-chip absolute left-1/2 top-0 -translate-x-1/2 -translate-y-[85%] whitespace-nowrap rounded-full bg-espresso-800 px-4 py-2 text-[0.8125rem] font-semibold text-white shadow-[0_10px_20px_-10px_rgba(30,22,17,0.6)] md:text-[0.875rem]">
-            Hier setze ich an
-          </span>
+          {/* Pfeil: beginnt unter "Hier setze ich an" (links), schwingt nach rechts und endet senkrecht über der Mitte der Lücke (y 100 von 150) */}
+          <div className="gap-arrow pointer-events-none absolute bottom-[33%] left-[2.75rem] right-1/2 top-[-0.5rem]" aria-hidden="true">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible" fill="none">
+              <path d="M0 0 C 0 70, 100 25, 100 92" stroke="#2a211b" strokeWidth="1.75" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+            </svg>
+            <svg viewBox="0 0 16 12" className="absolute bottom-0 right-0 h-3 w-4 translate-x-1/2 translate-y-[35%]" fill="none">
+              <path d="M2 2 L8 10 L14 2" stroke="#2a211b" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <p className="absolute left-1/2 top-[80%] -translate-x-1/2 text-center text-[0.8125rem] italic text-muted md:text-[0.9375rem]">die Lücke</p>
         </div>
       </div>
     </InView>
