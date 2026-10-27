@@ -12,7 +12,7 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 
 ## Pflicht vor dem Go-live
 - [ ] **Anschrift fürs Impressum** (ladungsfähig, kein Postfach). Eintragen in Coolify: `NEXT_PUBLIC_STREET`, `NEXT_PUBLIC_ZIP`. Bis dahin steht im Impressum ein rot markierter Platzhalter.
-- [ ] **E-Mail-Adresse** bestätigen (Platzhalter: kontakt@joana-kort.de) → `NEXT_PUBLIC_EMAIL`.
+- [x] **E-Mail-Adresse**: kontakt@joana-stressberatung.de (Entscheidung 27.10.2026, Standard in `lib/site.ts`). In Coolify `NEXT_PUBLIC_EMAIL` leer lassen oder auf diese Adresse setzen.
 - [ ] **Domain** festlegen → `NEXT_PUBLIC_SITE_URL`, danach `NEXT_PUBLIC_INDEXABLE=true`.
 - [ ] **E-Mail-Versand (SMTP)** einrichten, sonst kommen Formular-Anfragen nur in `/app/data/anfragen.jsonl` an (siehe `.env.example`).
 - [ ] **Datenschutz**: Hoster und E-Mail-Anbieter bestätigen (PRÜFEN-Kommentare in `components/legal/DatenschutzContent.tsx`), Auftragsverarbeitungsverträge ablegen.

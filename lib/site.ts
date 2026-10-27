@@ -68,7 +68,7 @@ export const site = {
   geo: { lat: 51.0266, lng: 7.5652 },
   radiusKm: 20,
   /** PRÜFEN: E-Mail-Adresse */
-  email: process.env.NEXT_PUBLIC_EMAIL || 'kontakt@joana-kort.de',
+  email: process.env.NEXT_PUBLIC_EMAIL || 'kontakt@joana-stressberatung.de',
   /** Telefon zum Anrufen: standardmäßig aus (Briefing Ä6). Nur mit NEXT_PUBLIC_PHONE in Footer, Impressum, Schema */
   phone: (SHOW_PHONE ? { display: PHONE, href: `tel:${intl(PHONE, '+')}` } : null) as { display: string; href: string } | null,
   /**
