@@ -149,7 +149,27 @@ export default function DatenschutzContent() {
         kurzzeitig begrenzt, die IP-Adresse wird dafür nur im Arbeitsspeicher gehalten und nicht dauerhaft gespeichert. Anfragen, aus denen
         keine Zusammenarbeit entsteht, lösche ich spätestens nach zwölf Monaten.
       </p>
-      {/* PRÜFEN: Sobald eine Online-Terminbuchung (NEXT_PUBLIC_BOOKING_URL, z. B. Calendly) eingebunden wird, Anbieter, Datenübermittlung und Rechtsgrundlage hier ergänzen. */}
+      {site.bookingUrl && (
+        <>
+          {/* Erscheint nur mit NEXT_PUBLIC_BOOKING_URL. Eigene Burocalendar-Instanz (docs/TERMINKALENDER.md). PRÜFEN: Hoster wie in Abschnitt 3, STUN-Anbieter (Standard in Burocalendar: Google und Cloudflare, besser eigener TURN/STUN), Aufnahmen in Burocalendar ausgeschaltet. */}
+          <h3>Online-Terminbuchung und Terminverwaltung</h3>
+          <p>
+            Termine können Sie auch direkt online wählen. Dafür nutze ich ein eigenes Terminbuchungssystem, das auf einem von mir betriebenen
+            Server läuft (<a href={site.bookingUrl} {...ext}>{new URL(site.bookingUrl).host}</a>), ohne Calendly oder vergleichbare
+            Anbieter. Bei einer Buchung verarbeite ich Ihren Namen, Ihre E-Mail-Adresse, optional Ihre Telefonnummer, den gewählten Termin
+            und Ihre Angaben im Buchungsformular. Sie erhalten eine Bestätigung mit Kalendereinladung, eine Erinnerung vor dem Termin und
+            Links, mit denen Sie den Termin selbst verschieben oder absagen können. Anfragen aus den Formularen dieser Website verwalte ich
+            im selben System. Rechtsgrundlage ist die Durchführung vorvertraglicher Maßnahmen bzw. des Vertrags (Art. 6 Abs. 1 lit. b DSGVO).
+            Die Daten lösche ich, sobald sie für den Termin und gesetzliche Aufbewahrungspflichten nicht mehr benötigt werden.
+          </p>
+          <p>
+            Findet ein Gespräch per Video statt, läuft der Videoraum ebenfalls über dieses System direkt im Browser, ohne Installation und
+            ohne Konto. Bild und Ton werden verschlüsselt und möglichst direkt zwischen den Teilnehmenden übertragen. Für den
+            Verbindungsaufbau kann dabei Ihre IP-Adresse an einen Vermittlungsserver (STUN) übermittelt werden. Gespräche werden nicht
+            aufgezeichnet.
+          </p>
+        </>
+      )}
 
       <h2>6. E-Mail-Versand</h2>
       {/* PRÜFEN: Anbieter des Postfachs und des SMTP-Versands eintragen (Name, Anschrift, Serverstandort) und AV-Vertrag abschließen. */}

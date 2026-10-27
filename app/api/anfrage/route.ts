@@ -1,6 +1,7 @@
 import { clientIp, isEmail, json, rateLimited, readJson, s, text } from '@/lib/server/guard'
 import { RECIPIENT, REPLY_TO, confirmationEnabled, notifyAll, sendMail, signature, webhook } from '@/lib/server/mail'
 import { store } from '@/lib/server/store'
+import { kontaktAnlegen } from '@/lib/server/terminkalender'
 import { site } from '@/lib/site'
 
 /**
@@ -115,6 +116,11 @@ export async function POST(req: Request) {
   const mailText = `${subject}\n\n${name}\nE-Mail: ${person.email || '-'}\nTelefon: ${person.telefon || '-'}\n\n${lines.join('\n')}\n\nSeite: ${record.seite || '-'}\nEingang: ${record.eingang}`
 
   const jobs: Promise<unknown>[] = [webhook(record), sendMail({ to: RECIPIENT(), replyTo: person.email || undefined, subject, text: mailText })]
+  // Kontakt in Joanas Terminkalender (Burocalendar), nicht für die Ergänzung (sonst doppelter Kontakt)
+  if (typ !== 'ergaenzung') {
+    const art = typ === 'erstgespraech' ? (details.interesse === 'Rückruf' ? 'Rückruf' : 'Erstgespräch') : typ === 'kontakt' ? 'Kontakt' : `Warteliste ${details.angebot}`
+    jobs.push(kontaktAnlegen({ name, email: person.email, telefon: person.telefon, tags: ['Website', art], notiz: mailText }))
+  }
   // Bestätigung nur, wenn eine E-Mail-Adresse vorliegt (Erstgespräch mit Telefon: Joana ruft an), nie für die Ergänzung
   if (confirmationEnabled() && person.email && confirm.subject) jobs.push(sendMail({ to: person.email, replyTo: REPLY_TO(), ...confirm }))
 
