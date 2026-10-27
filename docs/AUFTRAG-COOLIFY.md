@@ -1,5 +1,25 @@
 # Auftrag für den nächsten Chat (lokal, mit Zugriff auf Coolify)
 
+## Stand 27.10.2026 (abends, lokaler Chat)
+
+Erledigt:
+- Echte Domain ist **stressberatung-kort.de** (netcup), nicht joana-stressberatung.de. Code und Doku umgestellt.
+  DNS: `@`, `www` und Wildcard `*` zeigen auf 76.13.130.227, also auch `termine.`. MX/SPF bei netcup, DMARC fehlt.
+- Website (Coolify-Projekt Joana-Kort-Website, App `eluaeacas5mhh1a3m7vuehke`): `SMTP_HOST=mxf962.netcup.net`,
+  `SMTP_PORT=465`, `SMTP_USER`/`SMTP_FROM=info@stressberatung-kort.de` gesetzt. **`SMTP_PASS` fehlt.**
+- Joanas Burocalendar: App `burocalendar-joana` (UUID `pd8ccvjdpmqoqkser3airjgg`) im Projekt Joana-Kort-Website,
+  Branch `main`, Domain `https://termine.stressberatung-kort.de`, `PUBLIC_URL`, `DATA_DIR=/data`, `TURN_URLS` gesetzt,
+  Volume `/data`, Auto Deploy aus, Source Commit zur Laufzeit. Läuft, `/api/health` ok mit Commit `d44c8f8`.
+  `APP_SECRET` nicht gesetzt: Burocalendar erzeugt ihn selbst in `/data/secret.key` (bleibt im Volume).
+  Coolify-Healthcheck bewusst aus (Image ohne curl/wget), das Dockerfile hat einen eigenen.
+
+Offen (Zugangsdaten, Konto, Google, GitHub-Secrets, das darf Claude nicht eintragen):
+- Inhaber-Konto auf `https://termine.stressberatung-kort.de/setup` anlegen (Benutzername/Link `joana`), danach Schritt 6.
+- `SMTP_PASS` bei der Website, `TURN_SECRET` bei burocalendar-joana (Wert wie bei "willi"), danach Redeploy.
+- Schritt 7 (Google), Schritt 8 (`NEXT_PUBLIC_BOOKING_URL`, `BUROCALENDAR_API_KEY`), Schritt 9 (Rollout-Secrets,
+  Deploy-Webhooks `http://76.13.130.227:8000/api/v1/deploy?uuid=3req92dvowrqsc9vnbryyy9t&force=false` für willi,
+  `...uuid=pd8ccvjdpmqoqkser3airjgg&force=false` für joana; willi erst dann auf Auto Deploy aus).
+
 Stand 27.10.2026. Geschrieben für Claude Code auf Jannis' Rechner. **Diesen Auftrag Schritt für Schritt ausführen**, jeden
 Schritt prüfen und am Ende berichten. Der Code ist fertig und auf `main` (Website `kortjannis-web/joana-kort-website`,
 Kalender `kortjannis-web/Burocalendar`). Zu tun ist nur noch **Einrichtung**: Coolify, Burocalendar-Oberfläche, Google,
