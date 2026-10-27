@@ -1,13 +1,21 @@
 import 'server-only'
+import { site } from '@/lib/site'
 
 /**
  * Anbindung an Joanas Terminkalender (Burocalendar, eigene Instanz z. B. termine.joana-stressberatung.de).
  * Jede Anfrage aus den Formularen wird dort als Kontakt angelegt (Name, E-Mail, Telefon, Antworten als Notiz, Schlagwörter),
  * damit Joana daraus mit einem Klick einen Termin eintragen oder einen persönlichen Buchungslink schicken kann.
- * Env (nur Server, in Coolify): BUROCALENDAR_URL (ohne Schrägstrich am Ende), BUROCALENDAR_API_KEY (Einstellungen → API).
- * Leer = keine Übertragung. Die Ergänzung nach dem Absenden geht nur per Mail (sie würde sonst einen zweiten Kontakt anlegen).
+ * Env (nur Server, in Coolify): BUROCALENDAR_API_KEY (Einstellungen → API & Webhooks). Adresse = Herkunft von NEXT_PUBLIC_BOOKING_URL,
+ * abweichend BUROCALENDAR_URL. Ohne Schlüssel keine Übertragung. Die Ergänzung nach dem Absenden geht nur per Mail (sie würde sonst einen zweiten Kontakt anlegen).
  */
-const BASE = () => (process.env.BUROCALENDAR_URL || '').replace(/\/+$/, '')
+const origin = (u: string) => {
+  try {
+    return new URL(u).origin
+  } catch {
+    return ''
+  }
+}
+const BASE = () => (process.env.BUROCALENDAR_URL || origin(site.bookingUrl)).replace(/\/+$/, '')
 const KEY = () => process.env.BUROCALENDAR_API_KEY || ''
 
 export const terminkalenderEnabled = () => !!(BASE() && KEY())

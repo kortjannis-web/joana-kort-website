@@ -12,9 +12,9 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 
 ## Pflicht vor dem Go-live
 - [ ] **Anschrift fürs Impressum** (ladungsfähig, kein Postfach). Eintragen in Coolify: `NEXT_PUBLIC_STREET`, `NEXT_PUBLIC_ZIP`. Bis dahin steht im Impressum ein rot markierter Platzhalter.
-- [x] **E-Mail-Adresse**: kontakt@joana-stressberatung.de (Entscheidung 27.10.2026, Standard in `lib/site.ts`). In Coolify `NEXT_PUBLIC_EMAIL` leer lassen oder auf diese Adresse setzen.
-- [ ] **Domain** festlegen → `NEXT_PUBLIC_SITE_URL`, danach `NEXT_PUBLIC_INDEXABLE=true`.
-- [ ] **E-Mail-Versand (SMTP)** einrichten, sonst kommen Formular-Anfragen nur in `/app/data/anfragen.jsonl` an. Stand 27.10.2026: in Coolify noch kein `SMTP_HOST`, live gehen also keine Mails raus. Anleitung: `docs/TERMINKALENDER.md` Schritte 1 und 2.
+- [x] **E-Mail-Adresse**: info@joana-stressberatung.de (Entscheidung 27.10.2026, Postfach besteht, Standard in `lib/site.ts`). In Coolify `NEXT_PUBLIC_EMAIL` leer lassen.
+- [ ] **Domain**: joana-stressberatung.de (Standard in `lib/site.ts`). In Coolify `NEXT_PUBLIC_SITE_URL=https://www.joana-stressberatung.de`, Domain der Website umstellen, danach `NEXT_PUBLIC_INDEXABLE=true` (`docs/TERMINKALENDER.md` Schritt 2).
+- [ ] **E-Mail-Versand (SMTP)** einrichten, sonst kommen Formular-Anfragen nur in `/app/data/anfragen.jsonl` an. Stand 27.10.2026: in Coolify noch kein `SMTP_HOST`, live gehen also keine Mails raus. Anleitung: `docs/MAIL.md`.
 - [ ] **Datenschutz**: Hoster und E-Mail-Anbieter bestätigen (PRÜFEN-Kommentare in `components/legal/DatenschutzContent.tsx`), Auftragsverarbeitungsverträge ablegen.
 - [ ] **Umsatzsteuer**: Kleinunternehmerin (§ 19 UStG)? Sonst USt-IdNr. ins Impressum.
 
@@ -35,7 +35,7 @@ Die Website ist fertig gebaut und läuft als Vorschau (noindex). Diese Punkte br
 - [ ] **Fotos von Joana** (Porträt + Arbeitssituation): in `lib/images.ts` bei `PORTRAIT` eintragen, dann erscheinen sie im Bogen auf Startseite und "Über mich". Bis dahin steht dort ein Monogramm (bewusst kein Stockfoto).
 - [ ] **Google-Unternehmensprofil** anlegen (Kategorie z. B. "Lebensberater" oder "Gesundheitsberater", Servicegebiet statt Adresse möglich). Links in Coolify eintragen.
 - [ ] **Google-Bewertungen / Kundenstimmen**: nur echte, freigegebene Stimmen in `lib/content/reviews.ts`. Dann erscheinen automatisch die Bewertungs-Section und das Sterne-Badge im Hero.
-- [ ] **Online-Terminbuchung**: eigene Burocalendar-Instanz für Joana (`termine.joana-stressberatung.de`, Absender kontakt@joana-stressberatung.de), kein Calendly. Website ist vorbereitet (`NEXT_PUBLIC_BOOKING_URL`, `BUROCALENDAR_URL`, `BUROCALENDAR_API_KEY`). Einrichtung Schritt für Schritt: `docs/TERMINKALENDER.md`.
+- [ ] **Online-Terminbuchung**: eigene Burocalendar-Instanz für Joana (`termine.joana-stressberatung.de`, Absender info@joana-stressberatung.de), kein Calendly. Website ist vorbereitet (`NEXT_PUBLIC_BOOKING_URL`, `BUROCALENDAR_API_KEY`). Einrichtung Schritt für Schritt: `docs/TERMINKALENDER.md`.
 - [ ] **Preise**: bewusst nicht auf der Website (Entscheidung 16.10.2026). Können später in `lib/content/angebote.ts` ergänzt werden.
 - [ ] **Webinar-Termine, Online-Kurs**: sobald fest, Status in `lib/content/angebote.ts` auf `buchbar` setzen und Texte ergänzen. Bis dahin führen beide Seiten zum Erstgespräch (Interesse vorausgewählt), die Warteliste liegt als Zusatz hinter dem Pfeil.
 - [ ] **Instagram / LinkedIn**: `NEXT_PUBLIC_INSTAGRAM`, `NEXT_PUBLIC_LINKEDIN`.
