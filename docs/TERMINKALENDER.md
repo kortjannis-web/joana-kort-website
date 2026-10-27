@@ -24,6 +24,8 @@ Burocalendar-Repo (main) → Tests grün → Rollout: erst Ihr Kalender, dann Jo
 - Burocalendar wird **nicht** in das Website-Repo eingebaut. Es ist eine eigene Anwendung in Coolify auf demselben VPS.
   Updates kommen aus dem Burocalendar-Repo automatisch, sobald die Tests grün sind (Schritt 8).
 
+**Diese Einrichtung kann Claude lokal mit Coolify-Zugriff selbst erledigen:** Arbeitsliste `docs/AUFTRAG-COOLIFY.md`.
+
 **Was ich schon fertig gebaut und getestet habe:**
 - Website: E-Mail-Adresse überall info@, Domain-Standard joana-stressberatung.de, Knopf "Gleich einen Termin wählen",
   Termin-Knopf im Handy-Menü, Datenschutz-Abschnitt zur Terminbuchung, Übertragung jeder Anfrage als Kontakt in den Kalender.
@@ -121,12 +123,27 @@ Nur nötig, wenn die Website noch unter einer Test-Adresse (z. B. sslip.io) läu
    - Jede Mail mit **Vorschau** und **Test-Versand** prüfen.
 10. **Test:** Übersicht → **Sofort-Meeting** → Link auf dem Handy öffnen → Bild, Ton, Bildschirm teilen.
 
-## Schritt 5: Kalender aufs Handy (optional, 5 Min.)
+## Schritt 5: Google Kalender synchronisieren (ca. 20 Min.)
 
-- Einstellungen → Profil → **Kalender-Abo-Link** kopieren → iPhone: Einstellungen → Kalender → Accounts → Account
-  hinzufügen → Andere → **Kalenderabo hinzufügen**. Android: in Google Kalender am PC → Weitere Kalender → Per URL.
-- Private Termine blocken: Integrationen → **Kalender verbinden** → geheimen iCal-Link aus Joanas Google Kalender eintragen
-  (Google Kalender → Einstellungen → ihr Kalender → "Privatadresse im iCal-Format").
+Geht in **beide Richtungen**, eingebaut in Burocalendar:
+- **Google → Buchungsseite:** Was in Joanas Google Kalender steht, ist auf der Buchungsseite nicht buchbar (live abgefragt,
+  höchstens 1 Minute alt). Die Termine erscheinen außerdem alle 10 Minuten in ihrer Kalender-Ansicht.
+- **Buchung → Google:** Jede Buchung steht sofort in Google. Verschieben und Absagen ändern bzw. löschen den Eintrag dort mit.
+
+Einmalig:
+1. https://console.cloud.google.com (Ihr Google-Konto, ein Projekt reicht für alle Kunden) → Projekt "Terminkalender" →
+   **Google Calendar API** aktivieren.
+2. **OAuth-Zustimmungsbildschirm:** Extern, App-Name "Terminkalender" → Status **In Produktion** (bei "Test" endet die
+   Verbindung nach 7 Tagen).
+3. **Anmeldedaten → OAuth-Client-ID → Webanwendung**, Weiterleitungs-URI
+   `https://termine.joana-stressberatung.de/api/oauth/google/callback` → Client-ID und Clientschlüssel kopieren.
+4. Joanas Burocalendar → **Integrationen → Kalender verbinden → Google Kalender** → beide Werte → Speichern →
+   **Mit Google verbinden** → mit **Joanas** Google-Konto anmelden → "App nicht überprüft": Erweitert → Weiter → Zulassen.
+5. Bei Joanas Hauptkalender **Konflikte prüfen** und **Termine eintragen** anhaken.
+6. Test: Termin in Google anlegen → auf der Buchungsseite gesperrt. Termin buchen → erscheint in Google.
+
+Kalender aufs Handy: Hat Joana Google Kalender auf dem Handy, ist nach Schritt 5 alles schon da. Ohne Google:
+Einstellungen → Profil → **Kalender-Abo-Link** im Handy-Kalender abonnieren.
 
 ## Schritt 6: Website mit dem Kalender verbinden (ca. 10 Min.)
 

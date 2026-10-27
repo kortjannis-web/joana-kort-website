@@ -16,6 +16,7 @@ Ziel jeder Seite: kostenloses Erstgespräch (15 Min., Telefon oder Video) → `E
 Ton: Sie-Ansprache, Ich-Form von Joana, warm, klar, praktisch. Keine Heilversprechen, klare Abgrenzung zur Psychotherapie
 Slogan/Konzept: "Stress verstehen. Stress bewältigen. Stress managen." Kernproblem: Lücke zwischen Wissen und Umsetzung
 Briefing-Entscheidungen und offene Punkte: `docs/OFFENE-PUNKTE.md`
+**Offener Auftrag (lokal mit Coolify-Zugriff): `docs/AUFTRAG-COOLIFY.md` zuerst lesen und abarbeiten**
 
 ## Stammdaten / Inhalte
 - Name, Kontakt, Region, Berufsbezeichnung (`ROLE`, Schalter `STUDIUM_ABGESCHLOSSEN`), Env-Schalter: `lib/site.ts`
