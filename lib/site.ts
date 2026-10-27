@@ -4,8 +4,8 @@
  * PRÜFEN-Werte stehen auch in docs/OFFENE-PUNKTE.md.
  */
 
-/** Domain ohne Schrägstrich am Ende (Coolify: NEXT_PUBLIC_SITE_URL). Domain von Joana: joana-stressberatung.de (Mail info@, Kalender termine.) */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.joana-stressberatung.de').replace(/\/$/, '')
+/** Domain ohne Schrägstrich am Ende (Coolify: NEXT_PUBLIC_SITE_URL). Domain von Joana: stressberatung-kort.de (Mail info@, Kalender termine.) */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.stressberatung-kort.de').replace(/\/$/, '')
 
 /** Vorschau-Deploys nicht indexieren: NEXT_PUBLIC_INDEXABLE=true nur auf der echten Domain setzen. */
 export const INDEXABLE = process.env.NEXT_PUBLIC_INDEXABLE === 'true'
@@ -68,7 +68,7 @@ export const site = {
   geo: { lat: 51.0266, lng: 7.5652 },
   radiusKm: 20,
   /** Joanas Postfach (Entscheidung 27.10.2026: info@, besteht bereits). Auch Absender und Empfänger der Formulare */
-  email: process.env.NEXT_PUBLIC_EMAIL || 'info@joana-stressberatung.de',
+  email: process.env.NEXT_PUBLIC_EMAIL || 'info@stressberatung-kort.de',
   /** Telefon zum Anrufen: standardmäßig aus (Briefing Ä6). Nur mit NEXT_PUBLIC_PHONE in Footer, Impressum, Schema */
   phone: (SHOW_PHONE ? { display: PHONE, href: `tel:${intl(PHONE, '+')}` } : null) as { display: string; href: string } | null,
   /**

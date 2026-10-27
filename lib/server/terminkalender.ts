@@ -2,7 +2,7 @@ import 'server-only'
 import { site } from '@/lib/site'
 
 /**
- * Anbindung an Joanas Terminkalender (Burocalendar, eigene Instanz z. B. termine.joana-stressberatung.de).
+ * Anbindung an Joanas Terminkalender (Burocalendar, eigene Instanz z. B. termine.stressberatung-kort.de).
  * Jede Anfrage aus den Formularen wird dort als Kontakt angelegt (Name, E-Mail, Telefon, Antworten als Notiz, Schlagwörter),
  * damit Joana daraus mit einem Klick einen Termin eintragen oder einen persönlichen Buchungslink schicken kann.
  * Env (nur Server, in Coolify): BUROCALENDAR_API_KEY (Einstellungen → API & Webhooks). Adresse = Herkunft von NEXT_PUBLIC_BOOKING_URL,

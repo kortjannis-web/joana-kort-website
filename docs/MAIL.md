@@ -1,6 +1,6 @@
-# Anleitung 1: E-Mail (info@joana-stressberatung.de)
+# Anleitung 1: E-Mail (info@stressberatung-kort.de)
 
-Stand 27.10.2026. Alles, was mit dem Postfach zu tun hat. Das Postfach `info@joana-stressberatung.de` gibt es schon. Es wird
+Stand 27.10.2026. Alles, was mit dem Postfach zu tun hat. Das Postfach `info@stressberatung-kort.de` gibt es schon. Es wird
 überall verwendet:
 
 | Wer schickt | Was | Von / an |
@@ -21,7 +21,7 @@ Dauer: etwa 20 Minuten.
 
 Beim Anbieter, bei dem das Postfach liegt:
 
-- **Hostinger:** hPanel → **E-Mails** → `joana-stressberatung.de` → **E-Mail-Konten** → bei `info@` auf **⋮** →
+- **Hostinger:** hPanel → **E-Mails** → `stressberatung-kort.de` → **E-Mail-Konten** → bei `info@` auf **⋮** →
   **Konfigurationseinstellungen** (oder "Apps und Geräte verbinden"). Dort steht der SMTP-Server.
 - **IONOS / Strato / andere:** Hilfe-Seite "E-Mail-Programm einrichten" oder "SMTP-Server".
 
@@ -32,14 +32,14 @@ Notieren:
 | SMTP-Server | `smtp.hostinger.com` | `smtp.ionos.de` | `smtp.strato.de` |
 | Port | `465` | `587` | `587` |
 | Verschlüsselung | SSL | STARTTLS | STARTTLS |
-| Benutzer | `info@joana-stressberatung.de` | ebenso | ebenso |
+| Benutzer | `info@stressberatung-kort.de` | ebenso | ebenso |
 | Passwort | Postfach-Passwort | ebenso | ebenso |
 
 Passwort unbekannt? Im Panel ein neues setzen. **Achtung:** Dann muss Joana es auch auf Handy und Laptop neu eintragen.
 
 ## Schritt 2: Prüfen, dass Mails nicht im Spam landen (SPF, DKIM, DMARC)
 
-1. **Hostinger:** hPanel → E-Mails → `joana-stressberatung.de` → **E-Mail-Zustellbarkeit** bzw. **DNS-Einträge**. Bei SPF,
+1. **Hostinger:** hPanel → E-Mails → `stressberatung-kort.de` → **E-Mail-Zustellbarkeit** bzw. **DNS-Einträge**. Bei SPF,
    DKIM und DMARC muss ein grüner Haken stehen. Fehlt einer: **Automatisch einrichten** / **Reparieren** klicken.
    (Liegt die Domain nicht bei Hostinger, die angezeigten Einträge beim Domain-Anbieter im DNS eintragen.)
 2. Gegenprobe: <https://www.mail-tester.com> öffnen → angezeigte Adresse kopieren → von **info@** (Webmail oder Handy) eine
@@ -55,9 +55,9 @@ Passwort unbekannt? Im Panel ein neues setzen. **Achtung:** Dann muss Joana es a
    |---|---|
    | `SMTP_HOST` | `smtp.hostinger.com` |
    | `SMTP_PORT` | `465` |
-   | `SMTP_USER` | `info@joana-stressberatung.de` |
+   | `SMTP_USER` | `info@stressberatung-kort.de` |
    | `SMTP_PASS` | Passwort von info@ |
-   | `SMTP_FROM` | `info@joana-stressberatung.de` |
+   | `SMTP_FROM` | `info@stressberatung-kort.de` |
 
    Bei IONOS/Strato Server und Port `587` aus Schritt 1. **Nicht** setzen: `NEXT_PUBLIC_EMAIL`, `RECIPIENT`, `SMTP_REPLY_TO`
    (die Website nimmt automatisch info@).
@@ -74,7 +74,7 @@ Passwort unbekannt? Im Panel ein neues setzen. **Achtung:** Dann muss Joana es a
 
 Erst, wenn Joanas Kalender läuft (Anleitung 2, Schritt 3).
 
-1. `https://termine.joana-stressberatung.de` → mit Joanas Konto anmelden → **Integrationen** → **E-Mail-Versand**.
+1. `https://termine.stressberatung-kort.de` → mit Joanas Konto anmelden → **Integrationen** → **E-Mail-Versand**.
 2. Eintragen:
 
    | Feld | Wert (Hostinger) |
@@ -82,10 +82,10 @@ Erst, wenn Joanas Kalender läuft (Anleitung 2, Schritt 3).
    | Anbieter | **SMTP (eigenes Postfach / jeder Anbieter)** |
    | Server | `smtp.hostinger.com` |
    | Port / Verschlüsselung | **SSL/TLS (465)** (IONOS/Strato: STARTTLS (587)) |
-   | Benutzer | `info@joana-stressberatung.de` |
+   | Benutzer | `info@stressberatung-kort.de` |
    | Passwort | Passwort von info@ |
    | Absendername | `Joana Kort Stressberatung` |
-   | Absenderadresse | `info@joana-stressberatung.de` |
+   | Absenderadresse | `info@stressberatung-kort.de` |
    | Antwortadresse | leer lassen |
 
 3. **Speichern** → **Test-E-Mail an mich** → muss bei info@ ankommen.

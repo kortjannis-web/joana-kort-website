@@ -9,15 +9,15 @@ GitHub-Secrets. Hintergrund und Begründungen: `docs/TERMINKALENDER.md` (Kalende
 ## Ziel
 
 ```
-www.joana-stressberatung.de        Website (Coolify, gibt es schon)
-termine.joana-stressberatung.de    NEU: Joanas eigener Burocalendar (Coolify, Repo Burocalendar, eigene Datenbank)
-info@joana-stressberatung.de       Postfach, gibt es schon. Absender und Empfänger für Website UND Kalender
+www.stressberatung-kort.de        Website (Coolify, gibt es schon)
+termine.stressberatung-kort.de    NEU: Joanas eigener Burocalendar (Coolify, Repo Burocalendar, eigene Datenbank)
+info@stressberatung-kort.de       Postfach, gibt es schon. Absender und Empfänger für Website UND Kalender
 Google Kalender von Joana          zweiseitig: belegte Zeiten sperren die Buchungsseite, Buchungen erscheinen in Google
 ```
 
 Nach dem Auftrag:
 1. Website verschickt Mails über info@ (Anfrage an Joana, Bestätigung an die Person).
-2. Joanas Burocalendar läuft unter `https://termine.joana-stressberatung.de`, Mails von info@, Marke Joana Kort.
+2. Joanas Burocalendar läuft unter `https://termine.stressberatung-kort.de`, Mails von info@, Marke Joana Kort.
 3. Google Kalender ist verbunden (beide Richtungen).
 4. Website zeigt "Gleich einen Termin wählen" und legt jede Anfrage als Kontakt in Joanas Kalender an.
 5. Änderungen am Burocalendar-Repo gehen nach grünen Tests automatisch erst auf Jannis' Kalender, dann auf Joanas.
@@ -38,8 +38,8 @@ Nach dem Auftrag:
 ## Schritt 0: Vom Nutzer erfragen (gesammelt, am Anfang)
 
 1. Zugang zu Coolify (Adresse + Login, oder API-Token mit Schreibrecht).
-2. **Passwort von info@joana-stressberatung.de** (für SMTP).
-3. Zugang zum DNS von `joana-stressberatung.de` (hPanel), **oder** Jannis legt den A-Record selbst an (Schritt 2).
+2. **Passwort von info@stressberatung-kort.de** (für SMTP).
+3. Zugang zum DNS von `stressberatung-kort.de` (hPanel), **oder** Jannis legt den A-Record selbst an (Schritt 2).
 4. Wer klickt bei Google "Zulassen"? (Joanas Google-Konto, Schritt 7. Joana selbst oder Jannis mit ihren Zugangsdaten.)
 5. Welches Startpasswort Joanas Burocalendar-Konto bekommen soll (oder selbst ein sicheres erzeugen und Jannis einmal
    im Chat nennen, Joana ändert es danach unter Einstellungen → Profil).
@@ -60,14 +60,14 @@ Für das Postfach ist **kein** neuer Eintrag nötig (info@ läuft schon). Für d
 Eintrag nötig.
 
 ```bash
-nslookup termine.joana-stressberatung.de      # muss die Server-IP liefern
-nslookup www.joana-stressberatung.de          # Website
-nslookup -type=mx joana-stressberatung.de     # Mail-Anbieter erkennen (mx*.hostinger.com = Hostinger)
-nslookup -type=txt joana-stressberatung.de    # SPF vorhanden? (v=spf1 ...)
-nslookup -type=txt _dmarc.joana-stressberatung.de
+nslookup termine.stressberatung-kort.de      # muss die Server-IP liefern
+nslookup www.stressberatung-kort.de          # Website
+nslookup -type=mx stressberatung-kort.de     # Mail-Anbieter erkennen (mx*.hostinger.com = Hostinger)
+nslookup -type=txt stressberatung-kort.de    # SPF vorhanden? (v=spf1 ...)
+nslookup -type=txt _dmarc.stressberatung-kort.de
 ```
 
-- Fehlt `termine`: A-Record `termine` → Server-IP anlegen (hPanel → Domains → joana-stressberatung.de → DNS). Ohne Zugang:
+- Fehlt `termine`: A-Record `termine` → Server-IP anlegen (hPanel → Domains → stressberatung-kort.de → DNS). Ohne Zugang:
   Jannis bitten, das zu tun, und warten, bis `nslookup` die IP liefert. **Nicht** mit einer sslip.io-Adresse starten: alle
   verschickten Links (Bestätigungen, Videoraum) würden später ins Leere zeigen.
 - MX-, SPF-, DKIM-, DMARC-Einträge **nicht anfassen**. Fehlt SPF oder DMARC: Jannis darauf hinweisen (`docs/MAIL.md`
@@ -81,9 +81,9 @@ nslookup -type=txt _dmarc.joana-stressberatung.de
    ```
    SMTP_HOST=smtp.hostinger.com
    SMTP_PORT=465
-   SMTP_USER=info@joana-stressberatung.de
+   SMTP_USER=info@stressberatung-kort.de
    SMTP_PASS=<Passwort von info@>
-   SMTP_FROM=info@joana-stressberatung.de
+   SMTP_FROM=info@stressberatung-kort.de
    ```
    **Nicht** setzen: `NEXT_PUBLIC_EMAIL`, `RECIPIENT`, `SMTP_REPLY_TO` (Standard ist info@).
 3. Redeploy.
@@ -97,20 +97,20 @@ nslookup -type=txt _dmarc.joana-stressberatung.de
 
 ## Schritt 4: Website-Domain (nur falls nötig)
 
-Läuft die Website noch nicht unter `www.joana-stressberatung.de`: erst Jannis fragen. Dann Domains
-`https://www.joana-stressberatung.de,https://joana-stressberatung.de`, `NEXT_PUBLIC_SITE_URL=https://www.joana-stressberatung.de`,
+Läuft die Website noch nicht unter `www.stressberatung-kort.de`: erst Jannis fragen. Dann Domains
+`https://www.stressberatung-kort.de,https://stressberatung-kort.de`, `NEXT_PUBLIC_SITE_URL=https://www.stressberatung-kort.de`,
 Redeploy. `NEXT_PUBLIC_INDEXABLE` **nicht** auf `true` setzen (Impressum-Anschrift fehlt noch).
-**Prüfung:** `curl -sI https://www.joana-stressberatung.de` → `200`.
+**Prüfung:** `curl -sI https://www.stressberatung-kort.de` → `200`.
 
 ## Schritt 5: Joanas Burocalendar anlegen (Coolify)
 
 1. Neues `APP_SECRET` erzeugen: `openssl rand -hex 32` (nur für Joana, **nicht** das von "willi").
 2. Neue Anwendung im Projekt der Website (oder eigenes Projekt "Joana Kort"), Environment production:
    **Private Repository (with GitHub App)** → `kortjannis-web/Burocalendar`, Branch `main`, Build Pack **Dockerfile**,
-   Port **3000**, Domain **`https://termine.joana-stressberatung.de`**, Name `burocalendar-joana`.
+   Port **3000**, Domain **`https://termine.stressberatung-kort.de`**, Name `burocalendar-joana`.
 3. Environment Variables:
    ```
-   PUBLIC_URL=https://termine.joana-stressberatung.de
+   PUBLIC_URL=https://termine.stressberatung-kort.de
    DATA_DIR=/data
    APP_SECRET=<neu aus 1.>
    TURN_URLS=<wie bei willi>
@@ -119,21 +119,21 @@ Redeploy. `NEXT_PUBLIC_INDEXABLE` **nicht** auf `true` setzen (Impressum-Anschri
 4. Persistent Storage: **Volume Mount**, Name `burocalendar-joana-data`, Destination `/data`.
 5. Advanced: **Auto Deploy aus**, **Include Source Commit in Build an**. Healthcheck Path `/api/health`, Port 3000.
 6. Deploy.
-7. **Prüfung:** `curl -s https://termine.joana-stressberatung.de/api/health` → `"ok":true` und `"version":"<commit>"`
+7. **Prüfung:** `curl -s https://termine.stressberatung-kort.de/api/health` → `"ok":true` und `"version":"<commit>"`
    (gleicher Commit wie `main` von Burocalendar).
 
 ## Schritt 6: Burocalendar einrichten
 
-Über die Oberfläche `https://termine.joana-stressberatung.de` oder per API (Cookie-Session mit Header
+Über die Oberfläche `https://termine.stressberatung-kort.de` oder per API (Cookie-Session mit Header
 `X-Requested-With: burocalendar`; Endpunkte in `src/server/routes/` des Burocalendar-Repos).
 
-1. **Inhaber-Konto** (erste Seite): Name `Joana Kort`, E-Mail `info@joana-stressberatung.de`, Benutzername **`joana`**,
+1. **Inhaber-Konto** (erste Seite): Name `Joana Kort`, E-Mail `info@stressberatung-kort.de`, Benutzername **`joana`**,
    Firmenname `Joana Kort Stressberatung`, Zeitzone Europe/Berlin, Passwort aus Schritt 0.
 2. **Integrationen → E-Mail-Versand:** SMTP wie Schritt 3 (Hostinger: SSL/TLS 465), Absendername
-   `Joana Kort Stressberatung`, Absender `info@joana-stressberatung.de`, Antwortadresse leer. **Test-E-Mail an mich**
+   `Joana Kort Stressberatung`, Absender `info@stressberatung-kort.de`, Antwortadresse leer. **Test-E-Mail an mich**
    → Jannis/Joana bestätigt Eingang bei info@.
 3. **Einstellungen → Firma & Design:** Markenfarbe `#8F6A44`, Logo (aus `public/icon.png` der Website oder Joanas Logo),
-   Impressum `https://www.joana-stressberatung.de/impressum/`, Datenschutz `https://www.joana-stressberatung.de/datenschutz/`,
+   Impressum `https://www.stressberatung-kort.de/impressum/`, Datenschutz `https://www.stressberatung-kort.de/datenschutz/`,
    Fußzeile `Joana Kort Stressberatung · Gummersbach`, Branding-Hinweis ausblenden: an.
 4. **Einstellungen → Profil:** Begrüßungstext z. B. "Schön, dass Sie hier sind. Wählen Sie einen Termin, der Ihnen passt.
    Ich freue mich auf unser Gespräch." Foto: `public/images/joana/` der Website.
@@ -150,7 +150,7 @@ Redeploy. `NEXT_PUBLIC_INDEXABLE` **nicht** auf `true` setzen (Impressum-Anschri
 8. **Einstellungen → Datenschutz & Spam:** Löschfrist 365 Tage, Zustimmung erforderlich an.
 9. **Automationen:** "Danke & Feedback nach dem Termin" **an** + Bedingung zusätzlich "Von mir eingetragene Termine".
    "Erinnerung 1 Std. vorher (WhatsApp)" **aus**. Texte lesen: Sie-Form, keine Gedankenstriche.
-10. **Prüfung:** Buchungsseite `https://termine.joana-stressberatung.de/joana/erstgespraech` zeigt freie Zeiten, Marke
+10. **Prüfung:** Buchungsseite `https://termine.stressberatung-kort.de/joana/erstgespraech` zeigt freie Zeiten, Marke
     Joana Kort, Links zu Impressum/Datenschutz.
 
 ## Schritt 7: Google Kalender synchronisieren (beide Richtungen)
@@ -169,7 +169,7 @@ Einrichtung:
 2. **OAuth-Zustimmungsbildschirm:** Typ **Extern**, App-Name "Terminkalender", Support-E-Mail, Bereiche nicht nötig →
    **Status auf "In Produktion" setzen** (bei "Test" läuft die Verbindung nach 7 Tagen ab).
 3. **Anmeldedaten → OAuth-Client-ID → Webanwendung**, Name "Burocalendar", **Autorisierte Weiterleitungs-URIs**:
-   `https://termine.joana-stressberatung.de/api/oauth/google/callback` (die URI von "willi" gleich mit eintragen, falls
+   `https://termine.stressberatung-kort.de/api/oauth/google/callback` (die URI von "willi" gleich mit eintragen, falls
    dort Google genutzt wird). Client-ID und Clientschlüssel kopieren.
 4. Joanas Burocalendar → **Integrationen → Kalender verbinden → Google Kalender** → Client-ID + Clientschlüssel →
    **Speichern** → **Mit Google verbinden**.
@@ -190,7 +190,7 @@ erscheinen dort mit mehreren Stunden Verzögerung). Nicht empfohlen.
 1. Joanas Burocalendar → **Einstellungen → API & Webhooks** → API-Schlüssel "Website" erzeugen.
 2. Coolify → Website → Environment Variables:
    ```
-   NEXT_PUBLIC_BOOKING_URL=https://termine.joana-stressberatung.de/joana/erstgespraech
+   NEXT_PUBLIC_BOOKING_URL=https://termine.stressberatung-kort.de/joana/erstgespraech
    BUROCALENDAR_API_KEY=<Schlüssel>
    ```
    (`BUROCALENDAR_URL` nicht nötig.) Redeploy.
@@ -214,7 +214,7 @@ Anleitung: `docs/MEHRERE-KALENDER.md` im Burocalendar-Repo. Kurz:
    Inhalt `instanzen.txt` (willi zuerst):
    ```
    willi https://<willi-domain> <willi-deploy-webhook>
-   joana https://termine.joana-stressberatung.de <joana-deploy-webhook>
+   joana https://termine.stressberatung-kort.de <joana-deploy-webhook>
    ```
 5. **Prüfung:** letzten CI-Lauf auf `main` neu starten (`gh run rerun <id> --repo kortjannis-web/Burocalendar`). Job
    "Rollout auf alle Instanzen" grün, Tabelle mit ✅ willi und ✅ joana. Danach `/api/health` beider Instanzen: gleiche
@@ -223,7 +223,7 @@ Anleitung: `docs/MEHRERE-KALENDER.md` im Burocalendar-Repo. Kurz:
 ## Schritt 10: Abschluss
 
 1. Ende-zu-Ende-Test: Website → Fragebogen (Kontaktweg Mail, Jannis' Adresse) → "Gleich einen Termin wählen" → buchen →
-   Bestätigung mit Kalendereinladung von info@, Videolink `https://termine.joana-stressberatung.de/meet/...`, Eintrag in
+   Bestätigung mit Kalendereinladung von info@, Videolink `https://termine.stressberatung-kort.de/meet/...`, Eintrag in
    Google, unter Nachrichten geplant: Erinnerung 24 Std. vorher und Nachfass-Mail. Testbuchung danach absagen.
 2. In `docs/OFFENE-PUNKTE.md` (Website-Repo) erledigte Punkte abhaken (E-Mail-Versand, Online-Terminbuchung) mit Datum,
    in `CLAUDE.md` die Zeile "Offener Auftrag" entfernen, diese Datei löschen. Commit + Push auf `main`.

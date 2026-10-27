@@ -7,13 +7,13 @@ optional **RecordIt**.
 ## So hängt alles zusammen
 
 ```
-joana-stressberatung.de
- ├─ www.joana-stressberatung.de      Website (Coolify, Repo joana-kort-website)
+stressberatung-kort.de
+ ├─ www.stressberatung-kort.de      Website (Coolify, Repo joana-kort-website)
  │     Fragebogen → Mail an info@ + Kontakt in Joanas Kalender
  │     "Gleich einen Termin wählen" → Buchungsseite
- ├─ termine.joana-stressberatung.de  Joanas Burocalendar (Coolify, Repo Burocalendar, eigene Datenbank)
+ ├─ termine.stressberatung-kort.de  Joanas Burocalendar (Coolify, Repo Burocalendar, eigene Datenbank)
  │     Buchungsseite, Joanas Verwaltung, Videoraum /meet/…, Mails von info@
- └─ info@joana-stressberatung.de     Postfach (Anleitung 1)
+ └─ info@stressberatung-kort.de     Postfach (Anleitung 1)
 
 Burocalendar-Repo (main) → Tests grün → Rollout: erst Ihr Kalender, dann Joanas
 ```
@@ -27,7 +27,7 @@ Burocalendar-Repo (main) → Tests grün → Rollout: erst Ihr Kalender, dann Jo
 **Diese Einrichtung kann Claude lokal mit Coolify-Zugriff selbst erledigen:** Arbeitsliste `docs/AUFTRAG-COOLIFY.md`.
 
 **Was ich schon fertig gebaut und getestet habe:**
-- Website: E-Mail-Adresse überall info@, Domain-Standard joana-stressberatung.de, Knopf "Gleich einen Termin wählen",
+- Website: E-Mail-Adresse überall info@, Domain-Standard stressberatung-kort.de, Knopf "Gleich einen Termin wählen",
   Termin-Knopf im Handy-Menü, Datenschutz-Abschnitt zur Terminbuchung, Übertragung jeder Anfrage als Kontakt in den Kalender.
   Alles schaltet sich ein, sobald die Werte aus Schritt 6 in Coolify stehen.
 - Burocalendar: Buchung, Bestätigung, Erinnerung, Nachfass-Mail, selbst eingetragene Termine, Sofort-Meeting mit Joanas
@@ -40,7 +40,7 @@ Gesamtdauer: etwa 1,5 Stunden, davon 30 Minuten mit Joana.
 
 ## Schritt 1: DNS (ca. 10 Min., dann bis 30 Min. warten)
 
-Beim Domain-Anbieter von `joana-stressberatung.de` (Hostinger: hPanel → **Domains** → joana-stressberatung.de →
+Beim Domain-Anbieter von `stressberatung-kort.de` (Hostinger: hPanel → **Domains** → stressberatung-kort.de →
 **DNS / Nameserver**) diese **A-Records** anlegen bzw. prüfen:
 
 | Typ | Name | Ziel | Wofür |
@@ -50,16 +50,16 @@ Beim Domain-Anbieter von `joana-stressberatung.de` (Hostinger: hPanel → **Doma
 | A | `www` | `1.2.3.4` | Website (falls noch nicht auf den VPS zeigt) |
 
 Die **MX-, SPF-, DKIM- und DMARC-Einträge nicht anfassen** (gehören zum Postfach). Prüfen: <https://dnschecker.org> →
-`termine.joana-stressberatung.de` → überall `1.2.3.4`.
+`termine.stressberatung-kort.de` → überall `1.2.3.4`.
 
 ## Schritt 2: Website auf die Domain (Coolify, ca. 5 Min.)
 
 Nur nötig, wenn die Website noch unter einer Test-Adresse (z. B. sslip.io) läuft.
 
 1. Coolify → Projekt der **Website** → **General → Domains**:
-   `https://www.joana-stressberatung.de,https://joana-stressberatung.de` → Speichern.
-2. **Environment Variables:** `NEXT_PUBLIC_SITE_URL` = `https://www.joana-stressberatung.de`.
-3. **Redeploy.** Danach `https://www.joana-stressberatung.de` öffnen (Schloss-Symbol = Zertifikat da).
+   `https://www.stressberatung-kort.de,https://stressberatung-kort.de` → Speichern.
+2. **Environment Variables:** `NEXT_PUBLIC_SITE_URL` = `https://www.stressberatung-kort.de`.
+3. **Redeploy.** Danach `https://www.stressberatung-kort.de` öffnen (Schloss-Symbol = Zertifikat da).
 4. `NEXT_PUBLIC_INDEXABLE` erst auf `true`, wenn die Website wirklich live gehen soll (Impressum-Anschrift fehlt noch:
    `NEXT_PUBLIC_STREET`). Bis dahin bleibt sie für Google unsichtbar.
 
@@ -77,11 +77,11 @@ Nur nötig, wenn die Website noch unter einer Test-Adresse (z. B. sslip.io) läu
    - **Branch:** `main`
    - **Build Pack:** `Dockerfile`
    - **Ports Exposes:** `3000`
-   - **Domains:** `https://termine.joana-stressberatung.de`
+   - **Domains:** `https://termine.stressberatung-kort.de`
    - **Continue**
 4. **Environment Variables → Developer view** → einfügen (Werte ersetzen) → **Save**:
    ```
-   PUBLIC_URL=https://termine.joana-stressberatung.de
+   PUBLIC_URL=https://termine.stressberatung-kort.de
    DATA_DIR=/data
    APP_SECRET=<neuer Wert aus 1., nie wieder ändern>
    TURN_URLS=turn:1.2.3.4:3478?transport=udp,turn:1.2.3.4:3478?transport=tcp
@@ -91,19 +91,19 @@ Nur nötig, wenn die Website noch unter einer Test-Adresse (z. B. sslip.io) läu
    (Volume, nicht Bind Mount. **Ohne das sind nach jedem Deploy alle Termine weg.**)
 6. **General → Advanced:** **Auto Deploy: aus**, **Include Source Commit in Build: an** → Save.
 7. Oben **Deploy** (2 bis 4 Minuten, Log unter *Deployments*).
-8. Prüfen: `https://termine.joana-stressberatung.de/api/health` zeigt `"ok":true` und eine `"version"`.
+8. Prüfen: `https://termine.stressberatung-kort.de/api/health` zeigt `"ok":true` und eine `"version"`.
 
 ## Schritt 4: Ersteinrichtung mit Joana (ca. 30 Min.)
 
-`https://termine.joana-stressberatung.de` öffnen (am besten Joana selbst, mit Ihnen daneben):
+`https://termine.stressberatung-kort.de` öffnen (am besten Joana selbst, mit Ihnen daneben):
 
-1. **Konto anlegen:** Name `Joana Kort`, E-Mail `info@joana-stressberatung.de`, Benutzername **`joana`** (wichtig, ergibt
+1. **Konto anlegen:** Name `Joana Kort`, E-Mail `info@stressberatung-kort.de`, Benutzername **`joana`** (wichtig, ergibt
    den Link `/joana`), Firmenname `Joana Kort Stressberatung`, eigenes sicheres Passwort. Das ist ihr Inhaber-Konto.
 2. **E-Mail-Versand:** Anleitung 1, Schritt 4.
 3. **Einstellungen → Firma & Design:**
    - Logo hochladen, Markenfarbe `#8F6A44`
-   - Impressum: `https://www.joana-stressberatung.de/impressum/`
-   - Datenschutz: `https://www.joana-stressberatung.de/datenschutz/`
+   - Impressum: `https://www.stressberatung-kort.de/impressum/`
+   - Datenschutz: `https://www.stressberatung-kort.de/datenschutz/`
    - Fußzeile: Joana Kort Stressberatung, Anschrift
    - "Hinweis Terminbuchung mit Burocalendar ausblenden" an
 4. **Einstellungen → Profil:** Foto, kurzer Begrüßungstext (Sie-Form), Handynummer.
@@ -136,7 +136,7 @@ Einmalig:
 2. **OAuth-Zustimmungsbildschirm:** Extern, App-Name "Terminkalender" → Status **In Produktion** (bei "Test" endet die
    Verbindung nach 7 Tagen).
 3. **Anmeldedaten → OAuth-Client-ID → Webanwendung**, Weiterleitungs-URI
-   `https://termine.joana-stressberatung.de/api/oauth/google/callback` → Client-ID und Clientschlüssel kopieren.
+   `https://termine.stressberatung-kort.de/api/oauth/google/callback` → Client-ID und Clientschlüssel kopieren.
 4. Joanas Burocalendar → **Integrationen → Kalender verbinden → Google Kalender** → beide Werte → Speichern →
    **Mit Google verbinden** → mit **Joanas** Google-Konto anmelden → "App nicht überprüft": Erweitert → Weiter → Zulassen.
 5. Bei Joanas Hauptkalender **Konflikte prüfen** und **Termine eintragen** anhaken.
@@ -153,7 +153,7 @@ Einstellungen → Profil → **Kalender-Abo-Link** im Handy-Kalender abonnieren.
 
    | Name | Wert |
    |---|---|
-   | `NEXT_PUBLIC_BOOKING_URL` | `https://termine.joana-stressberatung.de/joana/erstgespraech` |
+   | `NEXT_PUBLIC_BOOKING_URL` | `https://termine.stressberatung-kort.de/joana/erstgespraech` |
    | `BUROCALENDAR_API_KEY` | der Schlüssel aus 1. |
 
    (`BUROCALENDAR_URL` ist nicht nötig, die Website nimmt die Adresse aus dem Buchungslink.)
@@ -184,7 +184,7 @@ Damit jede Änderung an Burocalendar nach grünen Tests bei Ihnen **und** bei Jo
    - Name `BUROCALENDAR_INSTANCES`, Wert (Ihre Instanz zuerst, Leerzeichen zwischen den drei Teilen):
      ```
      willi https://termine.1-2-3-4.sslip.io https://coolify.1-2-3-4.sslip.io/api/v1/deploy?uuid=XXXX&force=false
-     joana https://termine.joana-stressberatung.de https://coolify.1-2-3-4.sslip.io/api/v1/deploy?uuid=YYYY&force=false
+     joana https://termine.stressberatung-kort.de https://coolify.1-2-3-4.sslip.io/api/v1/deploy?uuid=YYYY&force=false
      ```
      (Adresse Ihres Kalenders und die beiden Webhooks aus 3. einsetzen.)
 5. Test: GitHub → **Actions** → letzter Lauf "CI" auf `main` → **Re-run all jobs** → im Job **"Rollout auf alle
@@ -197,7 +197,7 @@ Joana auf dem alten Stand. Weitere Kunden: `docs/MEHRERE-KALENDER.md` im Burocal
 
 1. Website → Fragebogen mit Ihrer E-Mail → Mail bei info@, Bestätigung bei Ihnen, Kontakt in Joanas Kalender.
 2. "Gleich einen Termin wählen" → buchen → Bestätigung mit Kalendereinladung von info@, Videolink beginnt mit
-   `https://termine.joana-stressberatung.de/meet/`.
+   `https://termine.stressberatung-kort.de/meet/`.
 3. Joanas Burocalendar → **Nachrichten** → geplant: Erinnerung 24 Std. vorher, Nachfass-Mail.
 4. Termin über den Link in der Mail absagen → Absage-Mail kommt, Erinnerung verschwindet.
 5. GitHub → Actions → Rollout: ✅ bei beiden Kalendern.
@@ -229,5 +229,5 @@ Zwei getrennte Programme, die zusammenarbeiten. **Joana bekommt RecordIt nicht a
 Empfehlung: getrennt lassen. Für Joana ist SpeakIt (Diktieren) unproblematisch, wenn sie einen Windows-PC hat.
 **Aufnahmen mit KI-Notiz bei Klientengesprächen nicht empfehlen:** Ton und Text gehen an Groq bzw. Anthropic (USA), in der
 Stressberatung fallen schnell Gesundheitsangaben an, und die Datenschutzerklärung sagt "Gespräche werden nicht
-aufgezeichnet". Verbinden ginge über RecordIt → Calls → Einrichtung → `https://termine.joana-stressberatung.de` + Joanas
+aufgezeichnet". Verbinden ginge über RecordIt → Calls → Einrichtung → `https://termine.stressberatung-kort.de` + Joanas
 Login.
